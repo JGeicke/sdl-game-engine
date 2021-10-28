@@ -23,6 +23,8 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\componentmanager.h" />
+    <ClInclude Include="src\components\position.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\entitymanager.h" />
   </ItemGroup>

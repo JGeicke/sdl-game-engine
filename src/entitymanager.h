@@ -54,6 +54,6 @@ private:
 	/**
 	 * @brief Next entity to be created.
 	*/
-	Entity next;
+	Entity next = { 0 };
 };
 #endif // !ENTITYMANAGER_H

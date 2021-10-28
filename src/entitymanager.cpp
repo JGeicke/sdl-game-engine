@@ -3,7 +3,7 @@
 
 /**
  * @brief Creates new entity with the next free uid.
- * @return Created entity.
+ * @return Copy of created entity.
 */
 Entity EntityManager::createEntity() {
 	next.uid++;
@@ -13,7 +13,7 @@ Entity EntityManager::createEntity() {
 		next.uid++;
 	}
 	std::cout << "\n+++++++++++++++Selected uid:+++++++++++++++++++\n";
-	std::cout << next.uid;
+	std::cout << next.uid << "\n";
 	entities.insert(next);
 	return next;
 }
@@ -44,5 +44,5 @@ void EntityManager::debugListEntities() {
 	for (auto itr = entities.begin(); itr != entities.end(); ++itr) {
 		std::cout << "Entity UID " << itr->uid << std::endl;
 	}
-	std::cout << "\n+++++++++++++++++++++++++++++++++++++++++++++++++\n";
+	std::cout << "\n+++++++++++++++++++++++++++++++++++++++++++++++++\n" << std::endl;
 }	
