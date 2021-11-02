@@ -2,6 +2,7 @@
 #define COMPONENTMANAGER_H
 #include "entity.h"
 #include <map>
+#include <array>
 #include <iostream>
 /**
  * @brief Template class for ComponentManagers. Each ComponentManager manages a specific component type.
@@ -67,10 +68,18 @@ public:
 		}
 	}
 
+	/**
+	 * @brief Returns the component with given index.
+	 * @param idx - index of component.
+	*/
 	Component* getComponentWithIndex(unsigned idx) {
 		return &componentData[idx];
 	}
 
+	/**
+	* @brief Returns current component count.
+	* @return Current component count.
+	*/
 	unsigned int getComponentCount() {
 		return currentIndex;
 	}
@@ -79,7 +88,13 @@ private:
 	 * @brief Mapping of entity to the index of the entity component in componentData.
 	*/
 	std::map<Entity, unsigned> entityIndexMap;
-	Component componentData[1024] = {};
+	/**
+	* @brief Array of components.
+	*/
+	std::array<Component, 1024> componentData;
+	/**
+	* @brief Next free index of componentData array.
+	*/
 	unsigned int currentIndex = 0;
 };
 #endif // !COMPONENTMANAGER_H

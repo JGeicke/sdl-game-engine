@@ -3,9 +3,10 @@
 #include <iostream>
 #include "basecomponent.h"
 /**
- * @brief Struct to represent position component that stores the x-/y-position of the entity in the game.
+ * @brief Component to represent the position (x-/y-position) of the entity in the game.
 */
 struct Position: BaseComponent {
+	// TODO: outsource x/y to vector model class.
 	/**
 	 * @brief X-position of entity in the game.
 	*/
