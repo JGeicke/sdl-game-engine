@@ -66,6 +66,14 @@ public:
 			std::cout <<temp.uid << " -> " << itr->second << std::endl;
 		}
 	}
+
+	Component* getComponentWithIndex(unsigned idx) {
+		return &componentData[idx];
+	}
+
+	unsigned int getComponentCount() {
+		return currentIndex;
+	}
 private:
 	/**
 	 * @brief Mapping of entity to the index of the entity component in componentData.

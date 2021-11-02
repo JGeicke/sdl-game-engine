@@ -1,7 +1,8 @@
 #include "SDL.h"
 #include "entitymanager.h"
 #include "componentmanager.h"
-#include "components/position.h"
+#include "components/components.h"
+#include "systems/rendersystem.h"
 
 int main(int argc, char* argv[]) {
 	/*
@@ -22,7 +23,6 @@ int main(int argc, char* argv[]) {
 	entityManager->debugListEntities();
 	entityManager->destroyEntity(e);
 	entityManager->debugListEntities();
-	*/
 	// BASE
 	EntityManager* entityManager = new EntityManager();
 	Entity ent = entityManager->createEntity();
@@ -55,5 +55,34 @@ int main(int argc, char* argv[]) {
 	posManager->removeComponent(ent);
 
 	posManager->DebugListEntityIndexMap();
+	*/
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Window* window = SDL_CreateWindow("Testwindow", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+
+	EntityManager* entityManager = new EntityManager();
+	ComponentManager<Sprite>* spriteManager = new ComponentManager<Sprite>();
+	ComponentManager<Position>* posManager = new ComponentManager<Position>();
+	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer);
+	
+	Entity entity = entityManager->createEntity();
+
+	spriteManager->addComponent(entity);
+	Sprite* spriteComponent = spriteManager->getComponent(entity);
+	spriteComponent->setEntity(entity);
+	spriteComponent->init("../TestTextures/shroom.png", 32, 32, 1);
+
+	posManager->addComponent(entity);
+	Position* positionComponent = posManager->getComponent(entity);
+	positionComponent->setEntity(entity);
+	positionComponent->x = 250;
+	positionComponent->y = 250;
+
+
+	renderSystem->update();
+
+	SDL_Delay(3000);
 	return 0;
 }

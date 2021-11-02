@@ -9,12 +9,12 @@ struct Position: BaseComponent {
 	/**
 	 * @brief X-position of entity in the game.
 	*/
-	int x;
+	int x = 0;
 
 	/**
 	 * @brief Y-position of entity in the game.
 	*/
-	int y;
+	int y = 0;
 
 	/**
 	 * @brief Printing the x & y position of the component.
