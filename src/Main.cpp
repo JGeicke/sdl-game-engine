@@ -3,6 +3,7 @@
 #include "componentmanager.h"
 #include "components/components.h"
 #include "systems/rendersystem.h"
+#include "inputmanager.h"
 
 int main(int argc, char* argv[]) {
 	/*
@@ -63,6 +64,7 @@ int main(int argc, char* argv[]) {
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 
 	EntityManager* entityManager = new EntityManager();
+	InputManager* inputManager = new InputManager();
 	ComponentManager<Sprite>* spriteManager = new ComponentManager<Sprite>();
 	ComponentManager<Position>* posManager = new ComponentManager<Position>();
 	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer);
@@ -82,7 +84,10 @@ int main(int argc, char* argv[]) {
 
 
 	renderSystem->update();
-
-	SDL_Delay(3000);
+	while (!inputManager->interrupted)
+	{
+		inputManager->update();
+	}
+	//SDL_Delay(3000);
 	return 0;
 }

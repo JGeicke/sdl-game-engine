@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\entitymanager.cpp" />
+    <ClCompile Include="src\inputmanager.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\systems\rendersystem.cpp" />
   </ItemGroup>
@@ -31,6 +32,7 @@
     <ClInclude Include="src\components\sprite.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\entitymanager.h" />
+    <ClInclude Include="src\inputmanager.h" />
     <ClInclude Include="src\systems\gamesystem.h" />
     <ClInclude Include="src\systems\rendersystem.h" />
   </ItemGroup>
