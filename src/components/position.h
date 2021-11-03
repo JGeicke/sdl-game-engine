@@ -6,7 +6,6 @@
  * @brief Component to represent the position (x-/y-position) of the entity in the game.
 */
 struct Position: BaseComponent {
-	// TODO: outsource x/y to vector model class.
 	/**
 	 * @brief X-position of entity in the game.
 	*/
@@ -21,7 +20,7 @@ struct Position: BaseComponent {
 	 * @brief Printing the x & y position of the component.
 	*/
 	void print() {
-		std::cout << "X: " << x  << " | Y: " << y << std::endl;
+		std::cout << "Position (Entity: " << entity.uid << ") X: " << x  << " | Y: " << y << std::endl;
 	}
 };
 #endif // !POSITION_H

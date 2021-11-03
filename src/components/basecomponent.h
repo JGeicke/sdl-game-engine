@@ -26,7 +26,7 @@ struct BaseComponent {
 	Entity getEntity() {
 		return entity;
 	}
-private:
+protected:
 	/**
 	 * @brief Entity that owns the component.
 	*/
