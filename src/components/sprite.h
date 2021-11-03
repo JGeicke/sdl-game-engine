@@ -18,14 +18,13 @@ public:
 	 * @param height - Height of the sprite image
 	 * @param scale - Scales how the sprite image should be scaled ingame
 	*/
-	void init(const char* texturePath, int width, int height, int scale) {
-		// TODO: change scale from int to float
+	void init(const char* texturePath, int width, int height, float scale) {
 		sourceRect.x = 0;
 		sourceRect.y = 0;
 		sourceRect.w = width;
 		sourceRect.h = height;
-		destinationRect.w = width * scale;
-		destinationRect.h = height * scale;
+		destinationRect.w = (int) (width * scale);
+		destinationRect.h = (int) (height * scale);
 
 		this->texturePath = texturePath;
 		texture = nullptr;

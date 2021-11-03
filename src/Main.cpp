@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 	spriteManager->addComponent(entity);
 	Sprite* spriteComponent = spriteManager->getComponent(entity);
 	spriteComponent->setEntity(entity);
-	spriteComponent->init("../TestTextures/shroom.png", 32, 32, 1);
+	spriteComponent->init("../TestTextures/shroom.png", 32, 32, 4.5f);
 
 	posManager->addComponent(entity);
 	Position* positionComponent = posManager->getComponent(entity);
