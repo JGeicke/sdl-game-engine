@@ -67,6 +67,7 @@ int main(int argc, char* argv[]) {
 	InputManager* inputManager = new InputManager();
 	ComponentManager<Sprite>* spriteManager = new ComponentManager<Sprite>();
 	ComponentManager<Position>* posManager = new ComponentManager<Position>();
+	ComponentManager<Movement>* movementManager = new ComponentManager<Movement>();
 	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer);
 	
 	Entity entity = entityManager->createEntity();
@@ -81,6 +82,11 @@ int main(int argc, char* argv[]) {
 	positionComponent->setEntity(entity);
 	positionComponent->x = 250;
 	positionComponent->y = 250;
+
+	movementManager->addComponent(entity);
+	Movement* movementComponent = movementManager->getComponent(entity);
+	movementComponent->setEntity(entity);
+	movementComponent->setMovementSpeed(2);
 
 
 	renderSystem->update();
