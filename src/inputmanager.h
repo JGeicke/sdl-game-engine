@@ -13,6 +13,10 @@ struct Vector2 {
 	 * @brief Y-component of the vector.
 	*/
 	int y;
+
+	double getMagnitude() {
+		return std::sqrt((x * x) + (y * y));
+	}
 };
 
 /**
@@ -41,6 +45,24 @@ public:
 	 * @return current y component of direction.
 	*/
 	int getCurrentDirectionY();
+
+	/**
+	 * @brief Returns normalized y component of direction.
+	 * @return normalized y component of direction.
+	*/
+	double getNormalizedDirectionY();
+
+	/**
+	 * @brief Returns normalized x component of direction.
+	 * @return normalized x component of direction.
+	*/
+	double getNormalizedDirectionX();
+
+	/**
+	 * @brief Returns magnitude of direction vector.
+	 * @return Magnitude of direction vector.
+	*/
+	double getDirectionMagnitude();
 private:
 	/**
 	 * @brief Current direction based on keydown events. Base direction is (0,0).

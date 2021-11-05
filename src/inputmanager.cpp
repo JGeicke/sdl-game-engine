@@ -15,6 +15,7 @@ void InputManager::checkForEvent() {
 	switch (inputEvent.type)
 	{
 	case SDL_QUIT:
+		// TODO: window freezes when quit
 		interrupted = true;
 		break;
 	case SDL_KEYDOWN:
@@ -78,17 +79,43 @@ void InputManager::checkForEvent() {
 }
 
 /**
-	 * @brief Returns x component of current direction based on user input.
-	 * @return current x component of direction.
-	*/
+* @brief Returns x component of current direction based on user input.
+* @return current x component of direction.
+*/
 int InputManager::getCurrentDirectionX() {
 	return direction.x;
 }
 
 /**
- * @brief Returns y component of current direction based on user input.
- * @return current y component of direction.
+* @brief Returns y component of current direction based on user input.
+* @return current y component of direction.
 */
 int InputManager::getCurrentDirectionY() {
 	return direction.y;
+}
+
+/**
+* @brief Returns normalized y component of direction.
+* @return normalized y component of direction.
+*/
+double InputManager::getNormalizedDirectionY() {
+	std::cout << "normalized y: " << (direction.y / direction.getMagnitude()) << std::endl;
+	return direction.y / direction.getMagnitude();
+}
+
+/**
+* @brief Returns normalized x component of direction.
+* @return normalized x component of direction.
+*/
+double InputManager::getNormalizedDirectionX() {
+	std::cout << "normalized x: " << (direction.x / direction.getMagnitude()) << std::endl;
+	return direction.x / direction.getMagnitude();
+}
+
+/**
+* @brief Returns magnitude of direction vector.
+* @return Magnitude of direction vector.
+*/
+double InputManager::getDirectionMagnitude() {
+	return direction.getMagnitude();
 }

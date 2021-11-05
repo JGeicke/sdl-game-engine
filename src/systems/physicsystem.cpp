@@ -12,7 +12,9 @@ void PhysicSystem::update() {
 		Movement* movementComponent = movementManager->getComponentWithIndex(i);
 		Position* positionComponent = positionManager->getComponent(movementComponent->getEntity());
 		
-		positionComponent->x += inputManager->getCurrentDirectionX() * movementComponent->getMovementSpeed();
-		positionComponent->y += inputManager->getCurrentDirectionY() * movementComponent->getMovementSpeed();
+		if (inputManager->getDirectionMagnitude() > 0.0) {
+			positionComponent->x += inputManager->getNormalizedDirectionX() * movementComponent->getMovementSpeed();
+			positionComponent->y += inputManager->getNormalizedDirectionY() * movementComponent->getMovementSpeed();
+		}
 	}
 }
