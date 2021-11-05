@@ -29,6 +29,18 @@ public:
 	 * @brief If the game window was closed by the user. Used in the main game loop.
 	*/
 	bool interrupted;
+
+	/**
+	 * @brief Returns x component of current direction based on user input.
+	 * @return current x component of direction.
+	*/
+	int getCurrentDirectionX();
+
+	/**
+	 * @brief Returns y component of current direction based on user input.
+	 * @return current y component of direction.
+	*/
+	int getCurrentDirectionY();
 private:
 	/**
 	 * @brief Current direction based on keydown events. Base direction is (0,0).

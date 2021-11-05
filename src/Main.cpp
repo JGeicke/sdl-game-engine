@@ -3,6 +3,7 @@
 #include "componentmanager.h"
 #include "components/components.h"
 #include "systems/rendersystem.h"
+#include "systems/physicsystem.h"
 #include "inputmanager.h"
 
 int main(int argc, char* argv[]) {
@@ -57,19 +58,25 @@ int main(int argc, char* argv[]) {
 
 	posManager->DebugListEntityIndexMap();
 	*/
+	int framerate = 60;
+	float frameDelay = (float)(1000 / framerate);
+
 	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* window = SDL_CreateWindow("Testwindow", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+	SDL_Window* window = SDL_CreateWindow("Testwindow", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 
+	// TODO: Singleton Desingpattern for all managers and systems
 	EntityManager* entityManager = new EntityManager();
 	InputManager* inputManager = new InputManager();
 	ComponentManager<Sprite>* spriteManager = new ComponentManager<Sprite>();
 	ComponentManager<Position>* posManager = new ComponentManager<Position>();
 	ComponentManager<Movement>* movementManager = new ComponentManager<Movement>();
+
 	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer);
-	
+	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager);
+
 	Entity entity = entityManager->createEntity();
 
 	Sprite* spriteComponent = spriteManager->addComponent(entity);
@@ -83,14 +90,19 @@ int main(int argc, char* argv[]) {
 
 	Movement* movementComponent = movementManager->addComponent(entity);
 	movementComponent->setEntity(entity);
-	movementComponent->setMovementSpeed(2);
+	movementComponent->setMovementSpeed(10);
 
-
-	renderSystem->update();
 	while (!inputManager->interrupted)
 	{
+		Uint32 startTimestamp = SDL_GetTicks();
+
 		inputManager->update();
+		physicSystem->update();
+		renderSystem->update();
+
+		Uint32 endTimestamp = SDL_GetTicks();
+		Uint32 delay = frameDelay - (endTimestamp - startTimestamp);
+		SDL_Delay(delay);
 	}
-	//SDL_Delay(3000);
 	return 0;
 }

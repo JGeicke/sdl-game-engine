@@ -68,3 +68,19 @@ void InputManager::checkForEvent() {
 		break;
 	}
 }
+
+/**
+	 * @brief Returns x component of current direction based on user input.
+	 * @return current x component of direction.
+	*/
+int InputManager::getCurrentDirectionX() {
+	return direction.x;
+}
+
+/**
+ * @brief Returns y component of current direction based on user input.
+ * @return current y component of direction.
+*/
+int InputManager::getCurrentDirectionY() {
+	return direction.y;
+}
