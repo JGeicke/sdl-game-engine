@@ -17,7 +17,7 @@ struct Position: BaseComponent {
 	int y = 0;
 
 	/**
-	 * @brief Printing the x & y position of the component.
+	 * @brief Prints the x & y position of the component.
 	*/
 	void print() {
 		std::cout << "Position (Entity: " << entity.uid << ") X: " << x  << " | Y: " << y << std::endl;

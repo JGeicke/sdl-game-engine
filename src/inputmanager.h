@@ -14,6 +14,10 @@ struct Vector2 {
 	*/
 	int y;
 
+	/**
+	 * @brief Calculates magnitude of vector and returns it. Used by physic system for movement.
+	 * @return Magnitude of vector.
+	*/
 	double getMagnitude() {
 		return std::sqrt((x * x) + (y * y));
 	}

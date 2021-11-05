@@ -36,9 +36,9 @@ void EntityManager::destroyEntity(Entity e) {
 }
 
 /**
-	 * @brief Debug function to list currently existing entities.
-	 * Should not be used in final project.
-	*/
+* @brief Debug function to list currently existing entities.
+* Should not be used in final project.
+*/
 void EntityManager::debugListEntities() {
 	std::cout << "\n++++++++++++++++++ENTITIY LIST+++++++++++++++++++\n";
 	for (auto itr = entities.begin(); itr != entities.end(); ++itr) {

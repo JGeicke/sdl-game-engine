@@ -7,7 +7,7 @@
 struct BaseComponent {
 
 	/**
-	 * @brief Printing the component.
+	 * @brief Prints the component.
 	*/
 	virtual void print() = 0;
 
