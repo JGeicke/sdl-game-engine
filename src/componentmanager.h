@@ -12,13 +12,15 @@ template <typename Component>
 class ComponentManager{
 public:
 	/**
-	 * @brief Adds the component type to the entity.
+	 * @brief Adds the component type to the entity and returns added component.
 	 * @param e - Entity to add the component to.
+	 * @return Added component of entity.
 	*/
-	void addComponent(Entity e) {
+	Component* addComponent(Entity e) {
 		std::cout << "created component for entity with index " << currentIndex << std::endl;
 		entityIndexMap[e] = currentIndex;
 		currentIndex++;
+		return &componentData[currentIndex - 1];
 	}
 	/**
 	 * @brief Gets the component of given entity.

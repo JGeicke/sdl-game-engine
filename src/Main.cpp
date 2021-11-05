@@ -72,19 +72,16 @@ int main(int argc, char* argv[]) {
 	
 	Entity entity = entityManager->createEntity();
 
-	spriteManager->addComponent(entity);
-	Sprite* spriteComponent = spriteManager->getComponent(entity);
+	Sprite* spriteComponent = spriteManager->addComponent(entity);
 	spriteComponent->setEntity(entity);
 	spriteComponent->init("../TestTextures/shroom.png", 32, 32, 4.5f);
 
-	posManager->addComponent(entity);
-	Position* positionComponent = posManager->getComponent(entity);
+	Position* positionComponent = posManager->addComponent(entity);
 	positionComponent->setEntity(entity);
 	positionComponent->x = 250;
 	positionComponent->y = 250;
 
-	movementManager->addComponent(entity);
-	Movement* movementComponent = movementManager->getComponent(entity);
+	Movement* movementComponent = movementManager->addComponent(entity);
 	movementComponent->setEntity(entity);
 	movementComponent->setMovementSpeed(2);
 
