@@ -47,19 +47,27 @@ void InputManager::checkForEvent() {
 		{
 		case SDLK_w:
 			// up
-			direction.y = 0;
+			if (direction.y == -1) {
+				direction.y = 0;
+			}
 			break;
 		case SDLK_s:
 			// down
-			direction.y = 0;
+			if (direction.y == 1) {
+				direction.y = 0;
+			}
 			break;
 		case SDLK_a:
 			// left
-			direction.x = 0;
+			if (direction.x == -1) {
+				direction.x = 0;
+			}
 			break;
 		case SDLK_d:
 			// right
-			direction.x = 0;
+			if (direction.x == 1) {
+				direction.x = 0;
+			}
 			break;
 		default:
 			break;
