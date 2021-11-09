@@ -3,6 +3,8 @@
 #include "SDL_image.h"
 #include "../componentmanager.h"
 #include "../components/components.h"
+#include "../util/fileloader.h"
+#include "../util/tilemap.h"
 /**
  * @brief Render System to render objects and tilemaps in game world.
 */
@@ -19,6 +21,8 @@ public:
 	 * @brief Render system update loop.
 	*/
 	virtual void update();
+
+	void setMap(const char* tilesetPath, const char* tilemapPath, size_t layerCount);
 private:
 	/**
 	 * @brief Reference to the sprite manager.
@@ -33,11 +37,24 @@ private:
 	*/
 	SDL_Renderer* renderer;
 
+	Tilemap* tilemap;
+	
+	Tileset* tileset;
+
 	/**
 	 * @brief Draw the given sprite in the gameworld.
 	 * @param sprite - sprite to draw
 	*/
 	void draw(Sprite* sprite);
+
+	/**
+	 * @brief Renders the tilemap.
+	*/
+	void renderTilemap();
+
+	void setTilesetSrcRectPosition(unsigned int tilemapData, unsigned int tileWidth, unsigned int tileHeight, unsigned int maxWidth);
+
+	void setTilesetDestRectPosition(unsigned int currentX, unsigned int currentY, unsigned int maxWidth, unsigned int tileWidth, unsigned int tileHeight);
 
 	/**
 	 * @brief Render the textures of the renderer.

@@ -75,6 +75,7 @@ int main(int argc, char* argv[]) {
 	ComponentManager<Movement>* movementManager = new ComponentManager<Movement>();
 
 	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer);
+	renderSystem->setMap("../TestTextures/tileset.png", "../TestTextures/test_map.json", 2);
 	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager);
 
 	Entity entity = entityManager->createEntity();
