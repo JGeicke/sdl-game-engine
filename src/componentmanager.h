@@ -17,7 +17,7 @@ public:
 	 * @return Added component of entity.
 	*/
 	Component* addComponent(Entity e) {
-		std::cout << "created component for entity with index " << currentIndex << std::endl;
+		//REMOVE: std::cout << "created component for entity with index " << currentIndex << std::endl;
 		entityIndexMap[e] = currentIndex;
 		currentIndex++;
 		return &componentData[currentIndex - 1];
@@ -30,7 +30,7 @@ public:
 	Component* getComponent(Entity e) {
 		if (entityIndexMap.count(e) > 0) {
 			unsigned int idx = entityIndexMap[e];
-			std::cout << "found index for component:" << idx << std::endl;
+			//REMOVE: std::cout << "found index for component:" << idx << std::endl;
 			return &componentData[idx];
 		}
 		else {

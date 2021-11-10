@@ -1,4 +1,10 @@
 #include "fileloader.h"
+/**
+* @brief Loads, parses and creates the tilemap from tilemap json files created with tiled.
+* @param path - File path to json file.
+* @param layerCount - Layer count of the tilemap.
+* @return Created tilemap.
+*/
 Tilemap* FileLoader::loadTilemap(const char* path, size_t layerCount) {
 	std::ifstream file;
 	std::string s;
@@ -17,11 +23,7 @@ Tilemap* FileLoader::loadTilemap(const char* path, size_t layerCount) {
 			// add layer
 			result->addLayer(i, tilemap_raw["layers"][i]["data"].get<std::vector<unsigned int>>());
 		}
-
-		std::cout << result->getLayerCount() << std::endl;
-
 		file.close();
-
 		return result;
 	}
 	return NULL;

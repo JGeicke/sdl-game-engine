@@ -11,7 +11,7 @@ void InputManager::update() {
 * @brief Checks for user input events. Interrupts the game loop if the user closes the game window. Sets the current direction based on the directional input of the user. If a key is released, reset the current direction component back to 0.
 */
 void InputManager::checkForEvent() {
-	std::cout << "check events" << std::endl;
+	// check for events
 	while (SDL_PollEvent(&inputEvent)) {
 		switch (inputEvent.type)
 		{
@@ -101,7 +101,7 @@ int InputManager::getCurrentDirectionY() {
 * @return normalized y component of direction.
 */
 double InputManager::getNormalizedDirectionY() {
-	std::cout << "normalized y: " << (direction.y / direction.getMagnitude()) << std::endl;
+	//std::cout << "normalized y: " << (direction.y / direction.getMagnitude()) << std::endl;
 	return direction.y / direction.getMagnitude();
 }
 
@@ -110,7 +110,7 @@ double InputManager::getNormalizedDirectionY() {
 * @return normalized x component of direction.
 */
 double InputManager::getNormalizedDirectionX() {
-	std::cout << "normalized x: " << (direction.x / direction.getMagnitude()) << std::endl;
+	//std::cout << "normalized x: " << (direction.x / direction.getMagnitude()) << std::endl;
 	return direction.x / direction.getMagnitude();
 }
 
