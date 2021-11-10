@@ -7,6 +7,7 @@ Tilemap* FileLoader::loadTilemap(const char* path, size_t layerCount) {
 	if (file.is_open()) {
 		// first argument creates iterator at the beginning of the ifstream, second argument is the default constructor which represents the end of the stream.
 		std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
 		json tilemap_raw = json::parse(content);
 
 		Tilemap* result = new Tilemap(tilemap_raw["tilewidth"], tilemap_raw["tileheight"], tilemap_raw["width"], tilemap_raw["height"]);

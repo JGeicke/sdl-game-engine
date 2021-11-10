@@ -98,6 +98,8 @@ int main(int argc, char* argv[]) {
 		Uint32 startTimestamp = SDL_GetTicks();
 
 		inputManager->update();
+		if (inputManager->interrupted) break;
+
 		physicSystem->update();
 		renderSystem->update();
 
@@ -105,5 +107,8 @@ int main(int argc, char* argv[]) {
 		Uint32 delay = frameDelay - (endTimestamp - startTimestamp);
 		SDL_Delay(delay);
 	}
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 	return 0;
 }
