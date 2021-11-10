@@ -20,14 +20,13 @@ void RenderSystem::update() {
 
 	renderTilemap();
 
-	// TODO: adjust render position
 	unsigned int index = spriteManager->getComponentCount();
 	for (size_t i = 0; i < index; i++)
 	{
 		Sprite* sprite = spriteManager->getComponentWithIndex(i);
 		Entity spriteEntity = sprite->getEntity();
 		Position* spritePosition = positionManager->getComponent(spriteEntity);
-		sprite->setDestinationRectPosition(spritePosition->x, spritePosition->y);
+		sprite->setDestinationRectPosition(spritePosition->x - (sprite->getDestinationWidth()/2), spritePosition->y - (sprite->getDestinationHeight() / 2));
 		draw(sprite);
 	}
 	render();

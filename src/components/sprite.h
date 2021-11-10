@@ -78,6 +78,22 @@ public:
 		destinationRect.x = x;
 		destinationRect.y = y;
 	}
+
+	/**
+	 * @brief Gets destination rectangle width;
+	 * @return Destination rectangle width
+	*/
+	unsigned int getDestinationWidth() {
+		return destinationRect.w;
+	}
+
+	/**
+	 * @brief Gets destination rectangle height;
+	 * @return Destination rectangle height
+	*/
+	unsigned int getDestinationHeight() {
+		return destinationRect.h;
+	}
 private:
 	/**
 	 * @brief Created SDL_Texture of the given sprite file path.
