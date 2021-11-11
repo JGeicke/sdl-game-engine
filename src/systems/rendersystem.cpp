@@ -11,7 +11,7 @@ RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentMan
 	this->renderer = renderer;
 	this->cameraFollowManager = cameraFollowManager;
 
-	// initialize camera
+	// TODO: outsource camera initialization
 	camera = {0, 0, 800, 640};
 }
 
@@ -191,13 +191,19 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 		newX = (currentX == 0) ? currentX * tileWidth : (currentX - 1) * tileWidth;
 		newY = (currentY == 0) ? currentY * tileHeight : (currentY - 1) * tileHeight;
 	}
-	// set destination rect position
-	// negative values not rendered
+	// substracts the calculated tile position based on tilewidth & the position on the tilemap from the camera origin position (top-left).
+	// if the result is positiv, render the tile on the substracted position (relative to the camera origin).
+	// if the result is negativ, don't render the tile.
 	newX = newX - camera.x;
 	newY = newY - camera.y;
+
+	//std::cout << "Tile dest pos: (" << newX << ", " << newY << ");" << std::endl;
 	tileset->setDestinationRect(newX, newY);
 }
 
+/**
+ * @brief Moves the camera to the entity with the follow camera component.
+*/
 void RenderSystem::moveCamera() { 
 	if (cameraFollowManager->getComponentCount() == 1) {
 		Entity followTarget = cameraFollowManager->getComponentWithIndex(0)->getEntity();
@@ -207,14 +213,15 @@ void RenderSystem::moveCamera() {
 		camera.y = followPosition->y - (camera.h / 2);
 
 		// check the camera bounds
+		// top-left
 		if (camera.x < 0) {
 			camera.x = 0;
 		}
-
 		if (camera.y < 0) {
 			camera.y = 0;
 		}
 
+		//bottom-right
 		if (camera.x > camera.w) {
 			camera.x = camera.w;
 		}

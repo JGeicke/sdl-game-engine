@@ -60,7 +60,7 @@ private:
 	Tileset* tileset;
 
 	/**
-	 * @brief Camera object.
+	 * @brief View area rectangle of the camera.
 	*/
 	SDL_Rect camera;
 
@@ -103,5 +103,8 @@ private:
 	*/
 	void render();
 
+	/**
+	 * @brief Moves the camera to the entity with the follow camera component.
+	*/
 	void moveCamera();
 };
