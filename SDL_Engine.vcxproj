@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="src\componentmanager.h" />
     <ClInclude Include="src\components\basecomponent.h" />
+    <ClInclude Include="src\components\camerafollow.h" />
     <ClInclude Include="src\components\components.h" />
     <ClInclude Include="src\components\movement.h" />
     <ClInclude Include="src\components\position.h" />

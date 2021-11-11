@@ -3,4 +3,5 @@
 #include "position.h"
 #include "sprite.h"
 #include "movement.h"
+#include "camerafollow.h"
 #endif // !COMPONENT_H

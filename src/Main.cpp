@@ -73,8 +73,9 @@ int main(int argc, char* argv[]) {
 	ComponentManager<Sprite>* spriteManager = new ComponentManager<Sprite>();
 	ComponentManager<Position>* posManager = new ComponentManager<Position>();
 	ComponentManager<Movement>* movementManager = new ComponentManager<Movement>();
+	ComponentManager<CameraFollow>* cameraFollowManager = new ComponentManager<CameraFollow>();
 
-	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer);
+	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager);
 	renderSystem->setMap("../TestTextures/tileset.png", "../TestTextures/test_map.json", 2);
 	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager);
 
@@ -92,6 +93,10 @@ int main(int argc, char* argv[]) {
 	Movement* movementComponent = movementManager->addComponent(entity);
 	movementComponent->setEntity(entity);
 	movementComponent->setMovementSpeed(10);
+
+	// camera follow target = player
+	CameraFollow* cameraFollow = cameraFollowManager->addComponent(entity);
+	cameraFollow->setEntity(entity);
 
 	while (!inputManager->interrupted)
 	{

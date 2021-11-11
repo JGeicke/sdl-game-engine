@@ -5,10 +5,14 @@
 * @param positionManager  - Reference to the position manager for position objects.
 * @param renderer - Reference to the SDL_Renderer for the actual rendering of the sprites in the gameworld.
 */
-RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer) {
+RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager) {
 	this->positionManager = positionManager;
 	this->spriteManager = spriteManager;
 	this->renderer = renderer;
+	this->cameraFollowManager = cameraFollowManager;
+
+	// initialize camera
+	camera = {0, 0, 800, 640};
 }
 
 /**
@@ -18,19 +22,31 @@ void RenderSystem::update() {
 	// clear renderer
 	SDL_RenderClear(renderer);
 
+	moveCamera();
+
 	renderTilemap();
 
+	renderSprites();
+
+	render();
+}
+
+/**
+* @brief Renders all current sprites in the window.
+*/
+void RenderSystem::renderSprites() {
 	unsigned int index = spriteManager->getComponentCount();
 	for (size_t i = 0; i < index; i++)
 	{
 		Sprite* sprite = spriteManager->getComponentWithIndex(i);
 		Entity spriteEntity = sprite->getEntity();
 		Position* spritePosition = positionManager->getComponent(spriteEntity);
-		sprite->setDestinationRectPosition(spritePosition->x - (sprite->getDestinationWidth()/2), spritePosition->y - (sprite->getDestinationHeight() / 2));
+		sprite->setDestinationRectPosition((spritePosition->x - (sprite->getDestinationWidth() / 2))-camera.x, (spritePosition->y - (sprite->getDestinationHeight() / 2))-camera.y);
 		draw(sprite);
 	}
-	render();
 }
+
+
 /**
  * @brief Checks if the sprite has a texture and creates a texture if it has not. Afterwards adds the sprite to the renderer to render.
  * @param sprite 
@@ -116,6 +132,7 @@ void RenderSystem::renderTilemap() {
 
 				// calculate part to render at ingame
 				setTilesetDestRectPosition(currentDestX, currentDestY, maxTilesPerRow, tileWidth, tileHeight);
+
 				SDL_RenderCopy(renderer, tileset->getTexture(), tileset->getSourceRect(), tileset->getDestinationRect());
 			}
 			currentDestX = currentDestX + 1;
@@ -134,8 +151,8 @@ void RenderSystem::renderTilemap() {
 void RenderSystem::setTilesetSrcRectPosition(unsigned int tilemapData, unsigned int tileWidth, unsigned int tileHeight) {
 	unsigned int tilesetWidth = tileset->getTilesetWidth();
 
-	unsigned int newX;
-	unsigned int newY;
+	int newX;
+	int newY;
 	// check if first row tileWidth * maxWidth
 	if ((tilemapData * tileWidth) <= (tilesetWidth)) {
 		newX = (tilemapData == 0) ? tilemapData * tileWidth : (tilemapData - 1) * tileWidth;
@@ -162,8 +179,8 @@ void RenderSystem::setTilesetSrcRectPosition(unsigned int tilemapData, unsigned 
 * @param tileHeight - Height of the tiles.
 */
 void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned int currentY, unsigned int maxTilesPerRow, unsigned int tileWidth, unsigned int tileHeight) {
-	unsigned int newX;
-	unsigned int newY;
+	int newX;
+	int newY;
 
 	if (currentX < maxTilesPerRow) {
 		newX = (currentX == 0) ? currentX * tileWidth : (currentX - 1) * tileWidth;
@@ -175,5 +192,35 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 		newY = (currentY == 0) ? currentY * tileHeight : (currentY - 1) * tileHeight;
 	}
 	// set destination rect position
+	// negative values not rendered
+	newX = newX - camera.x;
+	newY = newY - camera.y;
 	tileset->setDestinationRect(newX, newY);
+}
+
+void RenderSystem::moveCamera() { 
+	if (cameraFollowManager->getComponentCount() == 1) {
+		Entity followTarget = cameraFollowManager->getComponentWithIndex(0)->getEntity();
+		Position* followPosition = positionManager->getComponent(followTarget);
+
+		camera.x = followPosition->x - (camera.w / 2);
+		camera.y = followPosition->y - (camera.h / 2);
+
+		// check the camera bounds
+		if (camera.x < 0) {
+			camera.x = 0;
+		}
+
+		if (camera.y < 0) {
+			camera.y = 0;
+		}
+
+		if (camera.x > camera.w) {
+			camera.x = camera.w;
+		}
+
+		if (camera.y > camera.h) {
+			camera.y = camera.h;
+		}
+	}
 }

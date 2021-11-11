@@ -16,7 +16,7 @@ public:
 	 * @param positionManager  - Position manager for position objects.
 	 * @param renderer - SDL_Renderer for the actual rendering of the sprites in the gameworld.
 	*/
-	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer);
+	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager);
 	/**
 	 * @brief Render system update loop.
 	*/
@@ -38,6 +38,12 @@ private:
 	 * @brief Reference to the position manager.
 	*/
 	ComponentManager<Position>* positionManager;
+
+	/**
+	 * @brief Reference to the camera follow manager.
+	*/
+	ComponentManager<CameraFollow>* cameraFollowManager;
+
 	/**
 	 * @brief Reference to the SDL_Renderer.
 	*/
@@ -52,6 +58,16 @@ private:
 	 * @brief Reference to the current tileset used by the tilemap.
 	*/
 	Tileset* tileset;
+
+	/**
+	 * @brief Camera object.
+	*/
+	SDL_Rect camera;
+
+	/**
+	 * @brief Renders all current sprites in the window.
+	*/
+	void renderSprites();
 
 	/**
 	 * @brief Draw the given sprite in the gameworld.
@@ -86,4 +102,6 @@ private:
 	 * @brief Render the textures of the renderer.
 	*/
 	void render();
+
+	void moveCamera();
 };
