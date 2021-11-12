@@ -77,6 +77,8 @@ int main(int argc, char* argv[]) {
 
 	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager);
 	renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 2);
+	// camera matches viewport
+	renderSystem->initCamera(800, 600);
 	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager);
 
 	Entity entity = entityManager->createEntity();

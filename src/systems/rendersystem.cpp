@@ -10,9 +10,6 @@ RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentMan
 	this->spriteManager = spriteManager;
 	this->renderer = renderer;
 	this->cameraFollowManager = cameraFollowManager;
-
-	// TODO: outsource camera initialization
-	camera = {0, 0, 800, 640};
 }
 
 /**
@@ -200,11 +197,20 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 	//std::cout << "Tile dest pos: (" << newX << ", " << newY << ");" << std::endl;
 	tileset->setDestinationRect(newX, newY);
 }
+/**
+* @brief Initializes the camera with certain viewport.
+* @param viewWidth - Width of viewport.
+* @param viewHeight - Height of viewport.
+*/
+void RenderSystem::initCamera(int viewWidth, int viewHeight) {
+	camera = { 0, 0, viewWidth, viewHeight };
+}
 
 /**
  * @brief Moves the camera to the entity with the follow camera component.
 */
 void RenderSystem::moveCamera() { 
+	// TODO: test with different maps and different view sizes
 	if (cameraFollowManager->getComponentCount() == 1) {
 		Entity followTarget = cameraFollowManager->getComponentWithIndex(0)->getEntity();
 		Position* followPosition = positionManager->getComponent(followTarget);
@@ -227,8 +233,8 @@ void RenderSystem::moveCamera() {
 			camera.x = tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth();
 		}
 
-		if (camera.y > (tilemap->getTotalTilemapHeight()-camera.h)) {
-			camera.y = tilemap->getTotalTilemapHeight() - camera.h;
+		if (camera.y > (tilemap->getTotalTilemapHeight()-camera.h - tilemap->getTileHeight())) {
+			camera.y = tilemap->getTotalTilemapHeight() - camera.h - tilemap->getTileHeight();
 		}
 	}
 }

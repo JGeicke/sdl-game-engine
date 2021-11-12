@@ -29,6 +29,13 @@ public:
 	 * @param layerCount - Count of layers in tilemap.
 	*/
 	void setMap(const char* tilesetPath, const char* tilemapPath, size_t layerCount);
+
+	/**
+	 * @brief Initializes the camera with certain viewport.
+	 * @param viewWidth - Width of viewport.
+	 * @param viewHeight - Height of viewport.
+	*/
+	void initCamera(int viewWidth, int viewHeight);
 private:
 	/**
 	 * @brief Reference to the sprite manager.
