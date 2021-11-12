@@ -76,14 +76,14 @@ int main(int argc, char* argv[]) {
 	ComponentManager<CameraFollow>* cameraFollowManager = new ComponentManager<CameraFollow>();
 
 	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager);
-	renderSystem->setMap("../TestTextures/tileset.png", "../TestTextures/test_map.json", 2);
+	renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 2);
 	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager);
 
 	Entity entity = entityManager->createEntity();
 
 	Sprite* spriteComponent = spriteManager->addComponent(entity);
 	spriteComponent->setEntity(entity);
-	spriteComponent->init("../TestTextures/shroom.png", 32, 32, 4.5f);
+	spriteComponent->init("../TestTextures/shroom.png", 32, 32, 1.5f);
 
 	Position* positionComponent = posManager->addComponent(entity);
 	positionComponent->setEntity(entity);
@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
 
 	Movement* movementComponent = movementManager->addComponent(entity);
 	movementComponent->setEntity(entity);
-	movementComponent->setMovementSpeed(10);
+	movementComponent->setMovementSpeed(5);
 
 	// camera follow target = player
 	CameraFollow* cameraFollow = cameraFollowManager->addComponent(entity);

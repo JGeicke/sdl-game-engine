@@ -11,14 +11,14 @@ public:
 	 * @brief Creates new tilemap.
 	 * @param tileWidth - Width of the tiles.
 	 * @param tileHeight - Height of the tiles.
-	 * @param mapWidth - Width of the tilemap / maximum tiles per row.
-	 * @param mapHeight - Height of the tilemap / maximum tiles per column.
+	 * @param tilesPerRow - Width of the tilemap / maximum tiles per row.
+	 * @param tilesPerCol - Height of the tilemap / maximum tiles per column.
 	*/
-	Tilemap(unsigned int tileWidth, unsigned int tileHeight, unsigned int mapWidth, unsigned int mapHeight) {
+	Tilemap(unsigned int tileWidth, unsigned int tileHeight, unsigned int tilesPerRow, unsigned int tilesPerCol) {
 		this->tileWidth = tileWidth;
 		this->tileHeight = tileHeight;
-		this->mapHeight = mapHeight;
-		this->mapWidth = mapWidth;
+		this->tilesPerCol = tilesPerCol;
+		this->tilesPerRow = tilesPerRow;
 		layerCount = 0;
 	}
 
@@ -80,19 +80,35 @@ public:
 	}
 
 	/**
-	 * @brief Gets map width (or maximum tiles per row) of the tilemap.
+	 * @brief Gets maximum tile count per row of the tilemap.
 	 * @return Map width (or maximum tiles per row) of the tilemap.
 	*/
-	unsigned int getMapWidth() {
-		return mapWidth;
+	unsigned int getTilesPerRow() {
+		return tilesPerRow;
 	}
 
 	/**
-	 * @brief Gets map height (or maximum tiles per column) of the tilemap.
+	 * @brief Gets maximum tile count per column of the tilemap.
 	 * @return Map height (or maximum tiles per column) of the tilemap.
 	*/
-	unsigned int getMapHeight() {
-		return mapHeight;
+	unsigned int getTilesPerCol() {
+		return tilesPerCol;
+	}
+
+	/**
+	 * @brief Gets total width of the tilemap.
+	 * @return Total width of the tilemap.
+	*/
+	unsigned int getTotalTilemapWidth() {
+		return tilesPerRow * tileWidth;
+	}
+
+	/**
+	 * @brief Gets total height of the tilemap.
+	 * @return Total height of the tilemap.
+	*/
+	unsigned int getTotalTilemapHeight() {
+		return tilesPerCol * tileHeight;
 	}
 private:
 	/**
@@ -106,14 +122,14 @@ private:
 	unsigned int tileHeight;
 
 	/**
-	 * @brief Map width (or maximum tiles per row) of tilemap.
+	 * @brief Maximum tiles per row in tilemap.
 	*/
-	unsigned int mapWidth;
+	unsigned int tilesPerRow;
 
 	/**
-	 * @brief Map height (or maximum tiles per column) of tilemap.
+	 * @brief Maximum tiles per column in tilemap.
 	*/
-	unsigned int mapHeight;
+	unsigned int tilesPerCol;
 	
 	/**
 	 * @brief Current count of layers in the tilemap.

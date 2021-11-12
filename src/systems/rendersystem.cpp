@@ -81,7 +81,7 @@ void RenderSystem::render() {
 * @param layerCount - Count of layers in tilemap.
 */
 void RenderSystem::setMap(const char* tilesetPath, const char* tilemapPath, size_t layerCount) {
-	SDL_Point size;
+	SDL_Point size = {0,0};
 	tilemap = FileLoader::loadTilemap(tilemapPath, layerCount);
 
 	// create texture
@@ -110,7 +110,7 @@ void RenderSystem::renderTilemap() {
 	unsigned int tileWidth, tileHeight, currentDestX, currentDestY, maxTilesPerRow;
 	currentDestX = 0;
 	currentDestY = 0;
-	maxTilesPerRow = tilemap->getMapWidth();
+	maxTilesPerRow = tilemap->getTilesPerRow();
 	tileWidth = tilemap->getTileWidth();
 	tileHeight = tilemap->getTileHeight();
 	size_t layers = tilemap->getLayerCount();
@@ -143,7 +143,7 @@ void RenderSystem::renderTilemap() {
 }
 
 /**
-* @brief Sets the source rectangle of the tileset to display the right part of the tileset.
+* @brief Sets the source rectangle of the tileset to display the right part of the tileset. It is important that the size of the tileset is a multiple of the tilesize.
 * @param tilemapData - What tile to display based on the tilemap.
 * @param tileWidth - Width of the tiles.
 * @param tileHeight - Height of the tiles.
@@ -221,13 +221,14 @@ void RenderSystem::moveCamera() {
 			camera.y = 0;
 		}
 
+
 		//bottom-right
-		if (camera.x > camera.w) {
-			camera.x = camera.w;
+		if (camera.x > (tilemap->getTotalTilemapWidth()- camera.w - tilemap->getTileWidth())) {
+			camera.x = tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth();
 		}
 
-		if (camera.y > camera.h) {
-			camera.y = camera.h;
+		if (camera.y > (tilemap->getTotalTilemapHeight()-camera.h)) {
+			camera.y = tilemap->getTotalTilemapHeight() - camera.h;
 		}
 	}
 }
