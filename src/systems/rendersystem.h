@@ -16,7 +16,7 @@ public:
 	 * @param positionManager  - Position manager for position objects.
 	 * @param renderer - SDL_Renderer for the actual rendering of the sprites in the gameworld.
 	*/
-	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager);
+	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager);
 	/**
 	 * @brief Render system update loop.
 	*/
@@ -52,6 +52,11 @@ private:
 	ComponentManager<CameraFollow>* cameraFollowManager;
 
 	/**
+	 * @brief Reference to the animator manager needed for animations.
+	*/
+	ComponentManager<Animator>* animatorManager;
+
+	/**
 	 * @brief Reference to the SDL_Renderer.
 	*/
 	SDL_Renderer* renderer;
@@ -75,6 +80,12 @@ private:
 	 * @brief Renders all current sprites in the window.
 	*/
 	void renderSprites();
+
+	/**
+	 * @brief Animates the sprite.
+	 * @param  Sprite to animate.
+	*/
+	void animateSprite(Sprite* sprite, Animator* animator);
 
 	/**
 	 * @brief Draw the given sprite in the gameworld.

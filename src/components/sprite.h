@@ -47,10 +47,14 @@ public:
 
 	/**
 	 * @brief Set the texture of the sprite component.
-	 * @param tex - New sprite texture
+	 * @param tex - New sprite texture.
+	 * @param textureWidth - Width of the texture.
+	 * @param textureHeight - Height of the texture.
 	*/
-	void setTexture(SDL_Texture* tex) {
+	void setTexture(SDL_Texture* tex, int textureWidth, int textureHeight) {
 		texture = tex;
+		this->textureWidth = textureWidth;
+		this->textureHeight = textureHeight;
 	}
 
 	/**
@@ -94,6 +98,56 @@ public:
 	unsigned int getDestinationHeight() {
 		return destinationRect.h;
 	}
+
+	/**
+	 * @brief Gets source rectangle width;
+	 * @return Source rectangle width
+	*/
+	unsigned int getSourceWidth() {
+		return sourceRect.w;
+	}
+
+	/**
+	 * @brief Gets source rectangle height;
+	 * @return Source rectangle height
+	*/
+	unsigned int getSourceHeight() {
+		return sourceRect.h;
+	}
+
+	/**
+	 * @brief Sets the position of the source rectangle. Directily influences what part of the sprite will be displayed.
+	 * @param x - X position of the sprite.
+	 * @param y - Y position of the sprite
+	*/
+	void setSourceRectPosition(int x, int y) {
+		sourceRect.x = x;
+		sourceRect.y = y;
+	}
+
+	/**
+	 * @brief Gets the source rectangle of the sprite component. The source rectangle is the area of the sprite which will be displayed.
+	 * @return The source rectangle of the sprite component.
+	*/
+	SDL_Rect* getSourceRect() {
+		return &sourceRect;
+	}
+
+	/**
+	 * @brief Gets width of texture.
+	 * @return Width of texture.
+	*/
+	int getTextureWidth() {
+		return textureWidth;
+	}
+
+	/**
+	 * @brief Gets height of texture.
+	 * @return Height of texture.
+	*/
+	int getTextureHeight() {
+		return textureHeight;
+	}
 private:
 	/**
 	 * @brief Created SDL_Texture of the given sprite file path.
@@ -107,5 +161,15 @@ private:
 	 * @brief Area and size where the texture should be drawn on ingame.
 	*/
 	SDL_Rect destinationRect;
+
+	/**
+	 * @brief Width of texture.
+	*/
+	int textureWidth;
+
+	/**
+	 * @brief Height of texture.
+	*/
+	int textureHeight;
 };
 #endif // !SPRITE_H

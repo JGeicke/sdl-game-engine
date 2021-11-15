@@ -5,11 +5,12 @@
 * @param positionManager  - Reference to the position manager for position objects.
 * @param renderer - Reference to the SDL_Renderer for the actual rendering of the sprites in the gameworld.
 */
-RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager) {
+RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager) {
 	this->positionManager = positionManager;
 	this->spriteManager = spriteManager;
 	this->renderer = renderer;
 	this->cameraFollowManager = cameraFollowManager;
+	this->animatorManager = animatorManager;
 }
 
 /**
@@ -43,7 +44,6 @@ void RenderSystem::renderSprites() {
 	}
 }
 
-
 /**
  * @brief Checks if the sprite has a texture and creates a texture if it has not. Afterwards adds the sprite to the renderer to render.
  * @param sprite 
@@ -51,18 +51,67 @@ void RenderSystem::renderSprites() {
 void RenderSystem::draw(Sprite* sprite) {
 	// if sprite has no texture
 	if (!sprite->hasTexture()) {
+		SDL_Point size;
 		// create texture
 		SDL_Surface* tempSurface = IMG_Load(sprite->texturePath);
 		SDL_Texture* spriteTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-
 		// cleanup surface
 		SDL_FreeSurface(tempSurface);
 
-		// set texture of sprite
-		sprite->setTexture(spriteTexture);
+		// texture width/height
+		SDL_QueryTexture(spriteTexture, NULL, NULL, &size.x, &size.y);
+
+
+		// set texture of sprite aswell as width and height of texture
+		sprite->setTexture(spriteTexture, size.x, size.y);
 	}
-	SDL_RenderCopy(renderer, sprite->getTexture(), NULL, sprite->getDestinationRect());
+
+	Animator* animator = animatorManager->getComponent(sprite->getEntity());
+
+	if (animator) {
+		animateSprite(sprite, animator);
+	}
+	SDL_RenderCopy(renderer, sprite->getTexture(), sprite->getSourceRect(), sprite->getDestinationRect());
 }
+
+/**
+* @brief Animates the sprite.
+* @param sprite - Sprite to animate.
+* @param animator - Animator with animation data.
+*/
+void RenderSystem::animateSprite(Sprite* sprite, Animator* animator) {
+	int newX, newY;
+
+	Animation* currentAnimation = animator->getCurrentAnimation();
+
+	int currentFrame = static_cast<int>((SDL_GetTicks() / currentAnimation->frameDelayMS) % currentAnimation->frames);
+	int lastTileInRow = sprite->getTextureWidth() - sprite->getSourceWidth();
+	int currentTile = currentFrame * sprite->getSourceWidth();
+
+	// Reset y offset when returning first frame of animation
+	if (currentFrame == 0) {
+		currentAnimation->resetYOffset();
+	}
+
+	// increase y offset if next row
+	if (currentTile - lastTileInRow == sprite->getSourceWidth()) {
+		currentAnimation->incrementYOffset(currentFrame);
+	}
+
+	// calc new x position on new row
+	if ((currentTile) > (lastTileInRow)) {
+		newX = (currentTile - lastTileInRow)-sprite->getSourceWidth();
+	}
+	else {
+		newX = sprite->getSourceWidth() * currentFrame;
+	}
+	// calc new y position depending on offset
+	newY = currentAnimation->getYOffset() * sprite->getSourceHeight();
+
+	// set new area of sprite to display
+	sprite->setSourceRectPosition(newX, newY);
+}
+
 
 /**
  * @brief Render the current textures of the renderer.

@@ -80,5 +80,8 @@
     <ClInclude Include="src\components\camerafollow.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\components\animator.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
