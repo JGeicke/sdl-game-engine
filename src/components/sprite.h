@@ -31,7 +31,7 @@ public:
 	}
 
 	/**
-	 * @brief Prints the the sprite component.
+	 * @brief Prints the sprite component.
 	*/
 	void print() {
 		std::cout << "Sprite (Entity: " << entity.uid << ") Path: " << texturePath << std::endl;
