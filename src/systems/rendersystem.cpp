@@ -176,7 +176,7 @@ void RenderSystem::renderTilemap() {
 				// calculate part to render at ingame
 				setTilesetDestRectPosition(currentDestX, currentDestY, maxTilesPerRow, tileWidth, tileHeight);
 
-				SDL_RenderCopy(renderer, tileset->getTexture(), tileset->getSourceRect(), tileset->getDestinationRect());
+				SDL_RenderCopy(renderer, tileset->getTexture().texture, tileset->getSourceRect(), tileset->getDestinationRect());
 			}
 			currentDestX = currentDestX + 1;
 		}

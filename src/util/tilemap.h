@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include "SDL.h"
+#include "../util/texture.h"
 /**
  * @brief Struct to store all data for the tilemap.
 */
@@ -155,9 +156,9 @@ public:
 	 * @param tilesetHeight - Height of the tileset image.
 	*/
 	Tileset(SDL_Texture* tilesetTexture, unsigned int tilesetWidth, unsigned int tilesetHeight) {
-		this->tilesetTexture = tilesetTexture;
-		this->tilesetWidth = tilesetWidth;
-		this->tilesetHeight = tilesetHeight;
+		this->tilesetTexture.textureWidth = tilesetWidth;
+		this->tilesetTexture.textureHeight = tilesetHeight;
+		this->tilesetTexture.texture = tilesetTexture;
 	}
 
 	/**
@@ -204,7 +205,7 @@ public:
 	 * @brief Gets the texture of the tileset.
 	 * @return Texture of the tileset.
 	*/
-	SDL_Texture* getTexture() {
+	Texture getTexture() {
 		return tilesetTexture;
 	}
 
@@ -229,13 +230,13 @@ public:
 	 * @return Width of the tileset image.
 	*/
 	unsigned int getTilesetWidth() {
-		return tilesetWidth;
+		return tilesetTexture.textureWidth;
 	}
 private:
 	/**
-	 * @brief Reference to the tileset texture.
+	 * @brief Tileset texture.
 	*/
-	SDL_Texture* tilesetTexture;
+	Texture tilesetTexture;
 
 	/**
 	 * @brief The source rectangle of the tileset texture. Determins which part of the tileset will be displayed.
@@ -246,14 +247,4 @@ private:
 	 * @brief The destination rectangle of the tileset texture. Determins where the part of the tileset will be displayed in the game window.
 	*/
 	SDL_Rect tilesetDestinationRect;
-
-	/**
-	 * @brief Width of the tileset image (e.g. 512px).
-	*/
-	unsigned int tilesetWidth;
-
-	/**
-	 * @brief Height of the tileset image (e.g. 512px).
-	*/
-	unsigned int tilesetHeight;
 };
