@@ -26,7 +26,7 @@ public:
 	/**
 	 * @brief Adds a layer to the tilemap.
 	 * @param layer - Index of layer to add.
-	 * @param vector - Layer data stored in vector.
+	 * @param vector - Layer data stored in an vector.
 	*/
 	void addLayer(size_t layer, std::vector<unsigned int> vector) {
 		layers.insert(std::pair<size_t, std::vector<unsigned int>>(layer, vector));
@@ -152,13 +152,9 @@ public:
 	/**
 	 * @brief Creates new tileset.
 	 * @param tilesetTexture - Reference to the tileset texture.
-	 * @param tilesetWidth - Width of the tileset image.
-	 * @param tilesetHeight - Height of the tileset image.
 	*/
-	Tileset(SDL_Texture* tilesetTexture, unsigned int tilesetWidth, unsigned int tilesetHeight) {
-		this->tilesetTexture.textureWidth = tilesetWidth;
-		this->tilesetTexture.textureHeight = tilesetHeight;
-		this->tilesetTexture.texture = tilesetTexture;
+	Tileset(Texture tilesetTexture) {
+		this->tilesetTexture = tilesetTexture;
 	}
 
 	/**
@@ -223,14 +219,6 @@ public:
 	*/
 	SDL_Rect* getDestinationRect() {
 		return &tilesetDestinationRect;
-	}
-
-	/**
-	 * @brief Gets the width of the tileset image.
-	 * @return Width of the tileset image.
-	*/
-	unsigned int getTilesetWidth() {
-		return tilesetTexture.textureWidth;
 	}
 private:
 	/**

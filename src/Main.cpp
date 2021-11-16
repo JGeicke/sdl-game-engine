@@ -57,8 +57,8 @@ int main(int argc, char* argv[]) {
 	animator->addAnimation("idle", 5, 100);
 	animator->addAnimation("attack", 3, 500, FileLoader::loadTexture("../TestTextures/char_atk_side.png", renderer));
 	//animator->addAnimation("idle", 6, 100);
-	//animator->play("idle");
-	animator->play("attack");
+	animator->play("idle");
+	//animator->play("attack");
 	while (!inputManager->interrupted)
 	{
 		Uint32 startTimestamp = SDL_GetTicks();

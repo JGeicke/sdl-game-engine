@@ -49,13 +49,9 @@ public:
 	/**
 	 * @brief Set the texture of the sprite component.
 	 * @param tex - New sprite texture.
-	 * @param textureWidth - Width of the texture.
-	 * @param textureHeight - Height of the texture.
 	*/
-	void setTexture(SDL_Texture* tex, int textureWidth, int textureHeight) {
-		texture.texture = tex;
-		texture.textureWidth = textureWidth;
-		texture.textureHeight = textureHeight;
+	void setTexture(Texture t) {
+		texture = t;
 	}
 
 	/**

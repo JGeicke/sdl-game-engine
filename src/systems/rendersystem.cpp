@@ -50,17 +50,12 @@ void RenderSystem::renderSprites() {
 void RenderSystem::draw(Sprite* sprite) {
 	// if sprite has no texture
 	if (!sprite->hasTexture()) {
-		SDL_Point size;
 
 		// load texture
-		SDL_Texture* spriteTexture = FileLoader::loadTexture(sprite->texturePath, renderer);
-
-		// texture width/height
-		SDL_QueryTexture(spriteTexture, NULL, NULL, &size.x, &size.y);
-
+		Texture spriteTexture = FileLoader::loadTexture(sprite->texturePath, renderer);
 
 		// set texture of sprite aswell as width and height of texture
-		sprite->setTexture(spriteTexture, size.x, size.y);
+		sprite->setTexture(spriteTexture);
 	}
 
 	Animator* animator = animatorManager->getComponent(sprite->getEntity());
@@ -83,7 +78,7 @@ void RenderSystem::animateSprite(Sprite* sprite, Animator* animator) {
 
 	if (currentAnimation->hasAnimationTexture()) {
 		Texture newTexture = currentAnimation->getAnimationTexture();
-		sprite->setTexture(newTexture.texture, newTexture.textureWidth, newTexture.textureHeight);
+		sprite->setTexture(newTexture);
 	}
 
 	int currentFrame = static_cast<int>((SDL_GetTicks() / currentAnimation->frameDelayMS) % currentAnimation->frames);
@@ -132,12 +127,9 @@ void RenderSystem::setMap(const char* tilesetPath, const char* tilemapPath, size
 	SDL_Point size = {0,0};
 	tilemap = FileLoader::loadTilemap(tilemapPath, layerCount);
 
-	SDL_Texture* tempTexture = FileLoader::loadTexture(tilesetPath, renderer);
+	Texture tilesetTexture = FileLoader::loadTexture(tilesetPath, renderer);
 
-	// get tileset width/height
-	SDL_QueryTexture(tempTexture, NULL, NULL, &size.x, &size.y);
-
-	tileset = new Tileset(tempTexture, size.x, size.y);
+	tileset = new Tileset(tilesetTexture);
 
 	// set srcRect
 	tileset->initSourceRect(tilemap->getTileWidth(), tilemap->getTileHeight());
@@ -192,7 +184,7 @@ void RenderSystem::renderTilemap() {
 * @param tileHeight - Height of the tiles.
 */
 void RenderSystem::setTilesetSrcRectPosition(unsigned int tilemapData, unsigned int tileWidth, unsigned int tileHeight) {
-	unsigned int tilesetWidth = tileset->getTilesetWidth();
+	unsigned int tilesetWidth = tileset->getTexture().textureWidth;
 
 	int newX;
 	int newY;

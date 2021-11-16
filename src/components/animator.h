@@ -19,28 +19,17 @@ struct Animation {
 	int frameDelayMS;
 
 	/**
-	 * @brief Creates new animation that uses the sprite texture for animation.
-	 * @param frames - Number of frames in the animation.
-	 * @param frameDelayMS - Delay between frames in animation in milliseconds.
-	*/
-	Animation(int frames, int frameDelayMS): Animation(frames, frameDelayMS, nullptr) {}
-
-	/**
-	 * @brief Creates new animation that has an own texture for the animation.
+	 * @brief Creates new animation.
 	 * @param frames - Number of frames in the animation.
 	 * @param frameDelayMS - Delay between frames in animation in milliseconds.
 	 * @param texture - Pointer to texture object.
 	*/
-	Animation(int frames, int frameDelayMS, SDL_Texture* texture) {
+	Animation(int frames, int frameDelayMS, Texture texture) {
 		this->frameDelayMS = frameDelayMS;
 		this->frames = frames;
 		this->incrementFrame = -1;
 
-		animationTexture.texture = (texture) ? texture : nullptr;
-
-		if (texture) {
-			SDL_QueryTexture(texture, NULL, NULL, &animationTexture.textureWidth, &animationTexture.textureHeight);
-		}
+		animationTexture = texture;
 	}
 
 	/**
@@ -114,13 +103,15 @@ public:
 	}
 
 	/**
-	 * @brief Adds an animation the the animator component.
+	 * @brief Adds an animation the the animator component that uses sprite texture for animation.
 	 * @param animationName - Name of the animation.
 	 * @param frames - Number of frames of the animation.
 	 * @param frameDelayMS - Delay between animation frames.
 	*/
 	void addAnimation(const char* animationName, int frames, int frameDelayMS) {
-		addAnimation(animationName, frames, frameDelayMS, nullptr);
+		Texture t;
+		t.emptyInit();
+		addAnimation(animationName, frames, frameDelayMS, t);
 	}
 
 	/**
@@ -128,16 +119,11 @@ public:
 	 * @param animationName - Name of the animation.
 	 * @param frames - Number of frames of the animation.
 	 * @param frameDelayMS - Delay between animation frames.
-	 * @param texture - Pointer to the texture of the animation.
+	 * @param texture - Texture of the animation.
 	*/
-	void addAnimation(const char* animationName, int frames, int frameDelayMS, SDL_Texture* texture) {
+	void addAnimation(const char* animationName, int frames, int frameDelayMS, Texture texture) {
 		Animation* animation;
-		if (texture) {
-			animation = new Animation(frames, frameDelayMS, texture);
-		}
-		else {
-			animation = new Animation(frames, frameDelayMS);
-		}
+		animation = new Animation(frames, frameDelayMS, texture);
 		animations[animationName] = animation;
 	}
 

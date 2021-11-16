@@ -4,6 +4,7 @@
 #include <string>
 #include "tilemap.h"
 #include "SDL_image.h"
+#include "texture.h"
 
 //TODO: research how to handle includes in c++ git repos
 #include "../include/nlohmann/json.hpp"
@@ -28,5 +29,5 @@ public:
 	 * @param renderer - Reference to window renderer.
 	 * @return Pointer to created texture.
 	*/
-	static SDL_Texture* loadTexture(const char* path, SDL_Renderer* renderer);
+	static Texture loadTexture(const char* path, SDL_Renderer* renderer);
 };
