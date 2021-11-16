@@ -23,7 +23,6 @@ void RenderSystem::update() {
 	moveCamera();
 
 	renderTilemap();
-
 	renderSprites();
 
 	render();
@@ -81,6 +80,10 @@ void RenderSystem::animateSprite(Sprite* sprite, Animator* animator) {
 	int newX, newY;
 
 	Animation* currentAnimation = animator->getCurrentAnimation();
+
+	if (currentAnimation->hasAnimationTexture()) {
+		sprite->setTexture(currentAnimation->getAnimationTexture(), currentAnimation->getTextureWidth(), currentAnimation->getTextureHeight());
+	}
 
 	int currentFrame = static_cast<int>((SDL_GetTicks() / currentAnimation->frameDelayMS) % currentAnimation->frames);
 	int lastTileInRow = sprite->getTextureWidth() - sprite->getSourceWidth();
