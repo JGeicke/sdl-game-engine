@@ -29,3 +29,19 @@ Tilemap* FileLoader::loadTilemap(const char* path, size_t layerCount) {
 	return NULL;
 }
 
+/**
+* @brief Loads texture from given path.
+* @param path - File path to texture file.
+* @param renderer - Reference to window renderer.
+* @return Pointer to created texture.
+*/
+SDL_Texture* FileLoader::loadTexture(const char* path, SDL_Renderer* renderer) {
+	// create texture
+	SDL_Surface* tempSurface = IMG_Load(path);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+
+	// cleanup surface
+	SDL_FreeSurface(tempSurface);
+	return texture;
+}
+

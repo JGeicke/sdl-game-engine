@@ -52,11 +52,9 @@ void RenderSystem::draw(Sprite* sprite) {
 	// if sprite has no texture
 	if (!sprite->hasTexture()) {
 		SDL_Point size;
-		// create texture
-		SDL_Surface* tempSurface = IMG_Load(sprite->texturePath);
-		SDL_Texture* spriteTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-		// cleanup surface
-		SDL_FreeSurface(tempSurface);
+
+		// load texture
+		SDL_Texture* spriteTexture = FileLoader::loadTexture(sprite->texturePath, renderer);
 
 		// texture width/height
 		SDL_QueryTexture(spriteTexture, NULL, NULL, &size.x, &size.y);
@@ -130,9 +128,7 @@ void RenderSystem::setMap(const char* tilesetPath, const char* tilemapPath, size
 	SDL_Point size = {0,0};
 	tilemap = FileLoader::loadTilemap(tilemapPath, layerCount);
 
-	// create texture
-	SDL_Surface* tempSurface = IMG_Load(tilesetPath);
-	SDL_Texture* tempTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+	SDL_Texture* tempTexture = FileLoader::loadTexture(tilesetPath, renderer);
 
 	// get tileset width/height
 	SDL_QueryTexture(tempTexture, NULL, NULL, &size.x, &size.y);
@@ -144,9 +140,6 @@ void RenderSystem::setMap(const char* tilesetPath, const char* tilemapPath, size
 
 	// set destRect
 	tileset->initDestinationRect(tilemap->getTileWidth(), tilemap->getTileHeight());
-
-	// cleanup surface
-	SDL_FreeSurface(tempSurface);
 }
 
 /**

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "tilemap.h"
+#include "SDL_image.h"
 
 //TODO: research how to handle includes in c++ git repos
 #include "../include/nlohmann/json.hpp"
@@ -17,7 +18,15 @@ public:
 	 * @brief Loads, parses and creates the tilemap from tilemap json files created with tiled.
 	 * @param path - File path to json file.
 	 * @param layerCount - Layer count of the tilemap.
-	 * @return Created tilemap.
+	 * @return Pointer to created tilemap.
 	*/
 	static Tilemap* loadTilemap(const char* path, size_t layerCount);
+
+	/**
+	 * @brief Loads texture from given path.
+	 * @param path - File path to texture file.
+	 * @param renderer - Reference to window renderer.
+	 * @return Pointer to created texture.
+	*/
+	static SDL_Texture* loadTexture(const char* path, SDL_Renderer* renderer);
 };
