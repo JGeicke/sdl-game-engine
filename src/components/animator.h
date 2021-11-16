@@ -3,6 +3,7 @@
 #include <map>
 #include "SDL.h"
 #include "../util/fileloader.h"
+#include "../util/texture.h"
 /**
  * @brief Struct to represent the animation data.
 */
@@ -35,10 +36,10 @@ struct Animation {
 		this->frames = frames;
 		this->incrementFrame = -1;
 
-		animationTexture = (texture) ? texture : nullptr;
+		animationTexture.texture = (texture) ? texture : nullptr;
 
 		if (texture) {
-			SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
+			SDL_QueryTexture(texture, NULL, NULL, &animationTexture.textureWidth, &animationTexture.textureHeight);
 		}
 	}
 
@@ -73,48 +74,21 @@ struct Animation {
 	 * @return If the animation has own texture.
 	*/
 	bool hasAnimationTexture() {
-		return animationTexture;
+		return animationTexture.texture;
 	}
 
 	/**
 	 * @brief Gets pointer to the texture of the animation.
 	 * @return Pointer to the texture of the animation.
 	*/
-	SDL_Texture* getAnimationTexture() {
+	Texture getAnimationTexture() {
 		return animationTexture;
-	}
-
-	/**
-	 * @brief Gets width ot the animation texture.
-	 * @return Width of animation texture.
-	*/
-	int getTextureWidth() {
-		return textureWidth;
-	}
-
-
-	/**
-	 * @brief Gets height ot the animation texture.
-	 * @return Height of animation texture.
-	*/
-	int getTextureHeight() {
-		return textureHeight;
 	}
 private:
 	/**
 	 * @brief Texture of the animation.
 	*/
-	SDL_Texture* animationTexture;
-
-	/**
-	 * @brief Width of animation texture.
-	*/
-	int textureWidth;
-
-	/**
-	 * @brief Height of animation texture.
-	*/
-	int textureHeight;
+	Texture animationTexture;
 
 	/**
 	 * @brief Current y offset of animation.

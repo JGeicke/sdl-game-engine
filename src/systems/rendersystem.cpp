@@ -68,7 +68,7 @@ void RenderSystem::draw(Sprite* sprite) {
 	if (animator) {
 		animateSprite(sprite, animator);
 	}
-	SDL_RenderCopy(renderer, sprite->getTexture(), sprite->getSourceRect(), sprite->getDestinationRect());
+	SDL_RenderCopy(renderer, sprite->getTexture().texture, sprite->getSourceRect(), sprite->getDestinationRect());
 }
 
 /**
@@ -82,11 +82,12 @@ void RenderSystem::animateSprite(Sprite* sprite, Animator* animator) {
 	Animation* currentAnimation = animator->getCurrentAnimation();
 
 	if (currentAnimation->hasAnimationTexture()) {
-		sprite->setTexture(currentAnimation->getAnimationTexture(), currentAnimation->getTextureWidth(), currentAnimation->getTextureHeight());
+		Texture newTexture = currentAnimation->getAnimationTexture();
+		sprite->setTexture(newTexture.texture, newTexture.textureWidth, newTexture.textureHeight);
 	}
 
 	int currentFrame = static_cast<int>((SDL_GetTicks() / currentAnimation->frameDelayMS) % currentAnimation->frames);
-	int lastTileInRow = sprite->getTextureWidth() - sprite->getSourceWidth();
+	int lastTileInRow = sprite->getTexture().textureWidth - sprite->getSourceWidth();
 	int currentTile = currentFrame * sprite->getSourceWidth();
 
 	// Reset y offset when returning first frame of animation

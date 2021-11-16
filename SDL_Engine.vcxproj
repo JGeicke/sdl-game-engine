@@ -42,6 +42,7 @@
     <ClInclude Include="src\systems\physicsystem.h" />
     <ClInclude Include="src\systems\rendersystem.h" />
     <ClInclude Include="src\util\fileloader.h" />
+    <ClInclude Include="src\util\texture.h" />
     <ClInclude Include="src\util\tilemap.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
