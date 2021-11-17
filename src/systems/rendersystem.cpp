@@ -22,6 +22,8 @@ void RenderSystem::update() {
 
 	moveCamera();
 
+	controlAnimations();
+
 	renderTilemap();
 	renderSprites();
 
@@ -63,7 +65,53 @@ void RenderSystem::draw(Sprite* sprite) {
 	if (animator) {
 		animateSprite(sprite, animator);
 	}
-	SDL_RenderCopy(renderer, sprite->getTexture().texture, sprite->getSourceRect(), sprite->getDestinationRect());
+	SDL_RenderCopyEx(renderer, sprite->getTexture().texture, sprite->getSourceRect(), sprite->getDestinationRect(), NULL, NULL, sprite->getTextureFlip());
+}
+
+void RenderSystem::controlAnimations() {
+	unsigned int index = animatorManager->getComponentCount();
+	for (size_t i = 0; i < index; i++) {
+		Animator* currentAnimator = animatorManager->getComponentWithIndex(i);
+		size_t state = currentAnimator->getState();
+
+		switch (state) {
+		case STATES::IDLE:
+			//IDLE
+			switch (currentAnimator->getDirection()) {
+			case DIRECTION::SIDE:
+				currentAnimator->play("idle_side");
+				break;
+			case DIRECTION::DOWN:
+				currentAnimator->play("idle_down");
+				break;
+			case DIRECTION::UP:
+				currentAnimator->play("idle_up");
+				break;
+			default:
+				break;
+			}
+			break;
+		case STATES::WALK:
+			//WALK
+			switch (currentAnimator->getDirection()) {
+			case DIRECTION::SIDE:
+				currentAnimator->play("walk_side");
+				break;
+			case DIRECTION::DOWN:
+				currentAnimator->play("walk_down");
+				break;
+			case DIRECTION::UP:
+				currentAnimator->play("walk_up");
+				break;
+			default:
+				break;
+			}
+			break;
+		default:
+			currentAnimator->play("idle");
+			break;
+		}
+	}
 }
 
 /**

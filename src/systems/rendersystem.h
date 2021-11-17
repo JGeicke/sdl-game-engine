@@ -125,4 +125,9 @@ private:
 	 * @brief Moves the camera to the entity with the follow camera component.
 	*/
 	void moveCamera();
+
+	/**
+	 * @brief Control the animations depending on their states.
+	*/
+	void controlAnimations();
 };

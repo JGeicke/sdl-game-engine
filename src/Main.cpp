@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 	renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 2);
 	// camera matches viewport
 	renderSystem->initCamera(800, 600);
-	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager);
+	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager, spriteManager, animatorManager);
 
 	Entity entity = entityManager->createEntity();
 
@@ -54,10 +54,14 @@ int main(int argc, char* argv[]) {
 	cameraFollow->setEntity(entity);
 
 	Animator* animator = animatorManager->addComponent(entity);
-	animator->addAnimation("idle", 5, 100);
-	animator->addAnimation("attack", 3, 500, FileLoader::loadTexture("../TestTextures/char_atk_side.png", renderer));
+	animator->addAnimation("idle_side", 5, 100, FileLoader::loadTexture("../TestTextures/char_idle_side.png", renderer));
+	animator->addAnimation("walk_side", 6, 100, FileLoader::loadTexture("../TestTextures/char_walk_side.png", renderer));
+	animator->addAnimation("idle_up", 5, 100, FileLoader::loadTexture("../TestTextures/char_idle_up.png", renderer));
+	animator->addAnimation("walk_up", 6, 100, FileLoader::loadTexture("../TestTextures/char_walk_up.png", renderer));
+	animator->addAnimation("idle_down", 5, 100, FileLoader::loadTexture("../TestTextures/char_idle_down.png", renderer));
+	animator->addAnimation("walk_down", 6, 100, FileLoader::loadTexture("../TestTextures/char_walk_down.png", renderer));
 	//animator->addAnimation("idle", 6, 100);
-	animator->play("idle");
+	//animator->play("idle");
 	//animator->play("attack");
 	while (!inputManager->interrupted)
 	{

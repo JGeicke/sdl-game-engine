@@ -1,9 +1,21 @@
 #pragma once
 #include "basecomponent.h"
 #include <map>
+#include <vector>
 #include "SDL.h"
 #include "../util/fileloader.h"
 #include "../util/texture.h"
+enum STATES {
+	IDLE,
+	WALK,
+};
+
+enum DIRECTION {
+	SIDE,
+	UP,
+	DOWN
+};
+
 /**
  * @brief Struct to represent the animation data.
 */
@@ -28,7 +40,7 @@ struct Animation {
 		this->frameDelayMS = frameDelayMS;
 		this->frames = frames;
 		this->incrementFrame = -1;
-
+		this->currentYOffset = 0;
 		animationTexture = texture;
 	}
 
@@ -132,6 +144,9 @@ public:
 	 * @param animationName - Name of animation to play.
 	*/
 	void play(const char* animationName) {
+		if (currentAnimation != nullptr) {
+			animations[currentAnimation]->resetYOffset();
+		}
 		currentAnimation = animationName;
 	}
 
@@ -143,11 +158,46 @@ public:
 		return animations[currentAnimation];
 	}
 
+	/**
+	 * @brief Gets the current state of the animator.
+	 * @return Current state.
+	*/
+	size_t getState() {
+		return currentState;
+	}
+
+	void setState(size_t newState) {
+		states[currentState] = false;
+		states[newState] = true;
+		currentState = newState;
+	}
+
+	int getDirection() {
+		return direction;
+	}
+
+	void setDirection(int newDirection) {
+		direction = newDirection;
+	}
 private:
 	/**
 	* @brief Map that maps the name of an animation to the animation struct.
 	*/
 	std::map<const char*, Animation*> animations;
+
+	/**
+	* @brief Vector of animation states.
+	*/
+	std::vector<bool> states = { true, false };
+
+	/**
+	* @brief Direction to distinguish the different animations for each direction.
+	*/
+	int direction = 0;
+	/**
+	* @brief Current state of animator.
+	*/
+	size_t currentState = 0;
 	/**
 	* @brief Name of the currently played animation.
 	*/

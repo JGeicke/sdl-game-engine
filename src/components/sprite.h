@@ -29,6 +29,8 @@ public:
 
 		this->texturePath = texturePath;
 		texture.texture = nullptr;
+
+		currentTextureFlip = SDL_FLIP_NONE;
 	}
 
 	/**
@@ -129,6 +131,22 @@ public:
 	SDL_Rect* getSourceRect() {
 		return &sourceRect;
 	}
+
+	/**
+	 * @brief Gets the current texture flip.
+	 * @return The current texture flip.
+	*/
+	SDL_RendererFlip getTextureFlip() {
+		return currentTextureFlip;
+	}
+
+	/**
+	 * @brief Sets the current texture flip.
+	 * @param textureFlip - New texture flip.
+	*/
+	void setTextureFlip(SDL_RendererFlip textureFlip) {
+		currentTextureFlip = textureFlip;
+	}
 private:
 	/**
 	 * @brief Texture with SDL_Texture and the texture size.
@@ -142,5 +160,10 @@ private:
 	 * @brief Area and size where the texture should be drawn on ingame.
 	*/
 	SDL_Rect destinationRect;
+
+	/**
+	 * @brief Determines how the texture is currently flipped.
+	*/
+	SDL_RendererFlip currentTextureFlip;
 };
 #endif // !SPRITE_H

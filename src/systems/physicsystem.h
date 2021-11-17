@@ -15,7 +15,8 @@ public:
 	 * @param movementManager - Movement Manager to gain access to movement components.
 	 * @param positionManager - Position manager to gain access to position components.
 	*/
-	PhysicSystem(InputManager* inputManager, ComponentManager<Movement>* movementManager, ComponentManager<Position>* positionManager);
+	PhysicSystem(InputManager* inputManager, ComponentManager<Movement>* movementManager,
+		ComponentManager<Position>* positionManager, ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager);
 
 	/**
 	 * @brief Physic system update loop.
@@ -35,4 +36,14 @@ private:
 	 * @brief Reference to the position manager to gain acess to position components.
 	*/
 	ComponentManager<Position>* positionManager;
+
+	/**
+	 * @brief Reference to the sprite manager to be able to flip the sprites.
+	*/
+	ComponentManager<Sprite>* spriteManager;
+
+	/**
+	 * @brief Reference to the animator manager to be able to adjust animation based physics.
+	*/
+	ComponentManager<Animator>* animatorManager;
 };
