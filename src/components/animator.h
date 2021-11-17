@@ -13,7 +13,8 @@ enum STATES {
 enum DIRECTION {
 	SIDE,
 	UP,
-	DOWN
+	DOWN,
+	NO_DIRECTION
 };
 
 /**
@@ -114,6 +115,13 @@ public:
 		//TODO: implement print for animator
 	}
 
+	Animator() {
+		animations = {};
+		direction = DIRECTION::NO_DIRECTION;
+		currentState = STATES::IDLE;
+
+	}
+
 	/**
 	 * @brief Adds an animation the the animator component that uses sprite texture for animation.
 	 * @param animationName - Name of the animation.
@@ -137,6 +145,11 @@ public:
 		Animation* animation;
 		animation = new Animation(frames, frameDelayMS, texture);
 		animations[animationName] = animation;
+
+		// check if current animation is currently not set
+		if (!currentAnimation) {
+			currentAnimation = animationName;
+		}
 	}
 
 	/**
@@ -148,6 +161,10 @@ public:
 			animations[currentAnimation]->resetYOffset();
 		}
 		currentAnimation = animationName;
+	}
+
+	bool hasAnimation() {
+		return animations.size() > 0;
 	}
 
 	/**
@@ -167,8 +184,6 @@ public:
 	}
 
 	void setState(size_t newState) {
-		states[currentState] = false;
-		states[newState] = true;
 		currentState = newState;
 	}
 
@@ -179,6 +194,10 @@ public:
 	void setDirection(int newDirection) {
 		direction = newDirection;
 	}
+
+	const char* getCurrentAnimationName() {
+		return currentAnimation;
+	}
 private:
 	/**
 	* @brief Map that maps the name of an animation to the animation struct.
@@ -186,18 +205,13 @@ private:
 	std::map<const char*, Animation*> animations;
 
 	/**
-	* @brief Vector of animation states.
-	*/
-	std::vector<bool> states = { true, false };
-
-	/**
 	* @brief Direction to distinguish the different animations for each direction.
 	*/
-	int direction = 0;
+	int direction;
 	/**
 	* @brief Current state of animator.
 	*/
-	size_t currentState = 0;
+	size_t currentState;
 	/**
 	* @brief Name of the currently played animation.
 	*/

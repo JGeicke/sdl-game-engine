@@ -34,6 +34,7 @@ void RenderSystem::update() {
 * @brief Renders all current sprites in the window.
 */
 void RenderSystem::renderSprites() {
+	// TODO: render sprites lower y first to simulate depth
 	unsigned int index = spriteManager->getComponentCount();
 	for (size_t i = 0; i < index; i++)
 	{
@@ -62,7 +63,7 @@ void RenderSystem::draw(Sprite* sprite) {
 
 	Animator* animator = animatorManager->getComponent(sprite->getEntity());
 
-	if (animator) {
+	if (animator && animator->hasAnimation()) {
 		animateSprite(sprite, animator);
 	}
 	SDL_RenderCopyEx(renderer, sprite->getTexture().texture, sprite->getSourceRect(), sprite->getDestinationRect(), NULL, NULL, sprite->getTextureFlip());
@@ -87,6 +88,10 @@ void RenderSystem::controlAnimations() {
 			case DIRECTION::UP:
 				currentAnimator->play("idle_up");
 				break;
+			case DIRECTION::NO_DIRECTION:
+				// play current animation
+				currentAnimator->play(currentAnimator->getCurrentAnimationName());
+				break;
 			default:
 				break;
 			}
@@ -108,7 +113,7 @@ void RenderSystem::controlAnimations() {
 			}
 			break;
 		default:
-			currentAnimator->play("idle");
+			std::cout << "Animation not found" << std::endl;
 			break;
 		}
 	}
