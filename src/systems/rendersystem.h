@@ -15,6 +15,8 @@ public:
 	 * @param spriteManager - Sprite manager for sprite objects.
 	 * @param positionManager  - Position manager for position objects.
 	 * @param renderer - SDL_Renderer for the actual rendering of the sprites in the gameworld.
+	 * @param cameraFollowManager - Camera follow component manager for rendering of 2d camera. 
+	 * @param animatorManager - Animator manager to animate the sprites with an animator component. 
 	*/
 	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager);
 	/**
@@ -127,7 +129,7 @@ private:
 	void moveCamera();
 
 	/**
-	 * @brief Control the animations depending on their states.
+	* @brief Control the animations depending on the animation state and the animation direction.
 	*/
 	void controlAnimations();
 };

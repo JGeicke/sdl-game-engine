@@ -4,6 +4,8 @@
 * @param spriteManager - Reference to the sprite manager for sprite objects.
 * @param positionManager  - Reference to the position manager for position objects.
 * @param renderer - Reference to the SDL_Renderer for the actual rendering of the sprites in the gameworld.
+* @param cameraFollowManager - Camera follow component manager for rendering of 2d camera. 
+* @param animatorManager - Animator manager to animate the sprites with an animator component. 
 */
 RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager) {
 	this->positionManager = positionManager;
@@ -69,6 +71,9 @@ void RenderSystem::draw(Sprite* sprite) {
 	SDL_RenderCopyEx(renderer, sprite->getTexture().texture, sprite->getSourceRect(), sprite->getDestinationRect(), NULL, NULL, sprite->getTextureFlip());
 }
 
+/**
+ * @brief Control the animations depending on the animation state and the animation direction.
+*/
 void RenderSystem::controlAnimations() {
 	unsigned int index = animatorManager->getComponentCount();
 	for (size_t i = 0; i < index; i++) {

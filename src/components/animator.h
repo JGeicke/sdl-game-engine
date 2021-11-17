@@ -5,11 +5,17 @@
 #include "SDL.h"
 #include "../util/fileloader.h"
 #include "../util/texture.h"
+/**
+ * @brief Enum of animation states used for different animation.
+*/
 enum STATES {
 	IDLE,
 	WALK,
 };
 
+/**
+ * @brief Enum of animation direction used to control the direction of the animation (e.g. walk up, walk down, walk sideways etc.).
+*/
 enum DIRECTION {
 	SIDE,
 	UP,
@@ -183,18 +189,33 @@ public:
 		return currentState;
 	}
 
+	/**
+	 * @brief Sets the new animation state.
+	*/
 	void setState(size_t newState) {
 		currentState = newState;
 	}
 
+	/**
+	 * @brief Gets the current animation direction.
+	 * @return Current animation direction.
+	*/
 	int getDirection() {
 		return direction;
 	}
 
+	/**
+	* @brief Sets the current animation direction.
+	* @param newDirection - New animation direction.
+	*/
 	void setDirection(int newDirection) {
 		direction = newDirection;
 	}
 
+	/**
+	* @brief Gets the name of the current animation.
+	* @return Name of the current animation.
+	*/
 	const char* getCurrentAnimationName() {
 		return currentAnimation;
 	}
