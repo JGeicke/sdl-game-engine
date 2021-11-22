@@ -31,7 +31,14 @@ void RenderSystem::update() {
 
 	render();
 }
+/**
+ * @brief Render the current textures of the renderer.
+*/
+void RenderSystem::render() {
+	SDL_RenderPresent(renderer);
+}
 
+#pragma region Sprites
 /**
 * @brief Renders all current sprites in the window.
 */
@@ -43,14 +50,21 @@ void RenderSystem::renderSprites() {
 		Sprite* sprite = spriteManager->getComponentWithIndex(i);
 		Entity spriteEntity = sprite->getEntity();
 		Position* spritePosition = positionManager->getComponent(spriteEntity);
-		sprite->setDestinationRectPosition((spritePosition->x - (sprite->getDestinationWidth() / 2))-camera.x, (spritePosition->y - (sprite->getDestinationHeight() / 2))-camera.y);
+		sprite->setDestinationRectPosition((spritePosition->x - (sprite->getDestinationWidth() / 2)) - camera.x, (spritePosition->y - (sprite->getDestinationHeight() / 2)) - camera.y);
 		draw(sprite);
 	}
 }
 
 /**
+* @brief Sorts the sprite before rendering. Needed for to be able to display depth in 2d environment.
+*/
+void sortSprites() {
+
+}
+
+/**
  * @brief Checks if the sprite has a texture and creates a texture if it has not. Afterwards adds the sprite to the renderer to render.
- * @param sprite 
+ * @param sprite
 */
 void RenderSystem::draw(Sprite* sprite) {
 	// if sprite has no texture
@@ -70,7 +84,9 @@ void RenderSystem::draw(Sprite* sprite) {
 	}
 	SDL_RenderCopyEx(renderer, sprite->getTexture().texture, sprite->getSourceRect(), sprite->getDestinationRect(), NULL, NULL, sprite->getTextureFlip());
 }
+#pragma endregion Sprites
 
+#pragma region Animations
 /**
  * @brief Control the animations depending on the animation state and the animation direction.
 */
@@ -155,7 +171,7 @@ void RenderSystem::animateSprite(Sprite* sprite, Animator* animator) {
 
 	// calc new x position on new row
 	if ((currentTile) > (lastTileInRow)) {
-		newX = (currentTile - lastTileInRow)-sprite->getSourceWidth();
+		newX = (currentTile - lastTileInRow) - sprite->getSourceWidth();
 	}
 	else {
 		newX = sprite->getSourceWidth() * currentFrame;
@@ -166,15 +182,9 @@ void RenderSystem::animateSprite(Sprite* sprite, Animator* animator) {
 	// set new area of sprite to display
 	sprite->setSourceRectPosition(newX, newY);
 }
+#pragma endregion Animations
 
-
-/**
- * @brief Render the current textures of the renderer.
-*/
-void RenderSystem::render() {
-	SDL_RenderPresent(renderer);
-}
-
+#pragma region Tilemap
 /**
 * @brief Sets the current tilemap to display.
 * @param tilesetPath - Path to tileset image used by tilemap.
@@ -182,7 +192,7 @@ void RenderSystem::render() {
 * @param layerCount - Count of layers in tilemap.
 */
 void RenderSystem::setMap(const char* tilesetPath, const char* tilemapPath, size_t layerCount) {
-	SDL_Point size = {0,0};
+	SDL_Point size = { 0,0 };
 	tilemap = FileLoader::loadTilemap(tilemapPath, layerCount);
 
 	Texture tilesetTexture = FileLoader::loadTexture(tilesetPath, renderer);
@@ -267,7 +277,6 @@ void RenderSystem::setTilesetSrcRectPosition(unsigned int tilemapData, unsigned 
 * @brief Sets the destination rectangle of the tileset to display the tiles in the right area.
 * @param currentX - Current X position on the tilemap.
 * @param currentY - Current Y position on the tilemap.
-* @param maxTilesPerRow - Maxixum tiles per row on the tilemap.
 * @param tileWidth - Width of the tiles.
 * @param tileHeight - Height of the tiles.
 */
@@ -279,7 +288,7 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 	//newY = (currentY == 0) ? currentY * tileHeight : (currentY - 1) * tileHeight;
 	newX = currentX * tileWidth;
 	newY = currentY * tileHeight;
-	
+
 	// substracts the calculated tile position based on tilewidth & the position on the tilemap from the camera origin position (top-left).
 	// if the result is positiv, render the tile on the substracted position (relative to the camera origin).
 	// if the result is negativ, don't render the tile.
@@ -289,6 +298,9 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 	//std::cout << "Tile dest pos: (" << newX << ", " << newY << ");" << std::endl;
 	tileset->setDestinationRect(newX, newY);
 }
+#pragma endregion Tilemap
+
+#pragma region Camera
 /**
 * @brief Initializes the camera with certain viewport.
 * @param viewWidth - Width of viewport.
@@ -301,7 +313,7 @@ void RenderSystem::initCamera(int viewWidth, int viewHeight) {
 /**
  * @brief Moves the camera to the entity with the follow camera component.
 */
-void RenderSystem::moveCamera() { 
+void RenderSystem::moveCamera() {
 	// TODO: test with different maps and different view sizes
 	if (cameraFollowManager->getComponentCount() == 1) {
 		Entity followTarget = cameraFollowManager->getComponentWithIndex(0)->getEntity();
@@ -321,12 +333,13 @@ void RenderSystem::moveCamera() {
 
 
 		//bottom-right
-		if (camera.x > (tilemap->getTotalTilemapWidth()- camera.w - tilemap->getTileWidth())) {
+		if (camera.x > (tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth())) {
 			camera.x = tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth();
 		}
 
-		if (camera.y > (tilemap->getTotalTilemapHeight()-camera.h - tilemap->getTileHeight())) {
+		if (camera.y > (tilemap->getTotalTilemapHeight() - camera.h - tilemap->getTileHeight())) {
 			camera.y = tilemap->getTotalTilemapHeight() - camera.h - tilemap->getTileHeight();
 		}
 	}
 }
+#pragma endregion Camera

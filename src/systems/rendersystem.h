@@ -84,6 +84,11 @@ private:
 	void renderSprites();
 
 	/**
+	 * @brief Sorts the sprite before rendering. Needed for to be able to display depth in 2d environment.
+	*/
+	void sortSprites();
+
+	/**
 	 * @brief Animates the sprite.
 	 * @param  Sprite to animate.
 	*/
@@ -112,7 +117,6 @@ private:
 	 * @brief Sets the destination rectangle of the tileset to display the tiles in the right area.
 	 * @param currentX - Current X position on the tilemap.
 	 * @param currentY - Current Y position on the tilemap.
-	 * @param maxTilesPerRow - Maxixum tiles per row on the tilemap.
 	 * @param tileWidth - Width of the tiles.
 	 * @param tileHeight - Height of the tiles.
 	*/
