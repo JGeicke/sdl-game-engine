@@ -210,6 +210,8 @@ void RenderSystem::renderTilemap() {
 
 	for (size_t i = 0; i < layers; i++)
 	{
+		currentDestX = 0;
+		currentDestY = 0;
 		std::vector<unsigned int> layer = tilemap->getLayer(i);
 		for (size_t i = 0; i < layer.size(); i++)
 		{
@@ -224,14 +226,12 @@ void RenderSystem::renderTilemap() {
 				setTilesetSrcRectPosition(layer[i], tileWidth, tileHeight);
 
 				// calculate part to render at ingame
-				setTilesetDestRectPosition(currentDestX, currentDestY, maxTilesPerRow, tileWidth, tileHeight);
+				setTilesetDestRectPosition(currentDestX, currentDestY, tileWidth, tileHeight);
 
 				SDL_RenderCopy(renderer, tileset->getTexture().texture, tileset->getSourceRect(), tileset->getDestinationRect());
 			}
 			currentDestX = currentDestX + 1;
 		}
-		currentDestX = 0;
-		currentDestY = 0;
 	}
 }
 
@@ -271,19 +271,15 @@ void RenderSystem::setTilesetSrcRectPosition(unsigned int tilemapData, unsigned 
 * @param tileWidth - Width of the tiles.
 * @param tileHeight - Height of the tiles.
 */
-void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned int currentY, unsigned int maxTilesPerRow, unsigned int tileWidth, unsigned int tileHeight) {
+void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned int currentY, unsigned int tileWidth, unsigned int tileHeight) {
 	int newX;
 	int newY;
 
-	if (currentX < maxTilesPerRow) {
-		newX = (currentX == 0) ? currentX * tileWidth : (currentX - 1) * tileWidth;
-		newY = (currentY == 0) ? currentY * tileHeight : (currentY - 1) * tileHeight;
-	}
-	else {
-		// set new position
-		newX = (currentX == 0) ? currentX * tileWidth : (currentX - 1) * tileWidth;
-		newY = (currentY == 0) ? currentY * tileHeight : (currentY - 1) * tileHeight;
-	}
+	//newX = (currentX == 0) ? currentX * tileWidth : (currentX - 1) * tileWidth;
+	//newY = (currentY == 0) ? currentY * tileHeight : (currentY - 1) * tileHeight;
+	newX = currentX * tileWidth;
+	newY = currentY * tileHeight;
+	
 	// substracts the calculated tile position based on tilewidth & the position on the tilemap from the camera origin position (top-left).
 	// if the result is positiv, render the tile on the substracted position (relative to the camera origin).
 	// if the result is negativ, don't render the tile.

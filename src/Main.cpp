@@ -28,6 +28,7 @@ int main(int argc, char* argv[]) {
 
 	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager, animatorManager);
 	renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 2);
+	//renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/debug_level.json", 1);
 	// camera matches viewport
 	renderSystem->initCamera(1280, 720);
 	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager, spriteManager, animatorManager);

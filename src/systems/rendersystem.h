@@ -116,7 +116,7 @@ private:
 	 * @param tileWidth - Width of the tiles.
 	 * @param tileHeight - Height of the tiles.
 	*/
-	void setTilesetDestRectPosition(unsigned int currentX, unsigned int currentY, unsigned int maxTilesPerRow, unsigned int tileWidth, unsigned int tileHeight);
+	void setTilesetDestRectPosition(unsigned int currentX, unsigned int currentY, unsigned int tileWidth, unsigned int tileHeight);
 
 	/**
 	 * @brief Render the textures of the renderer.
