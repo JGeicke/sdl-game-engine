@@ -21,7 +21,6 @@ RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentMan
 void RenderSystem::update() {
 	// clear renderer
 	SDL_RenderClear(renderer);
-
 	moveCamera();
 
 	controlAnimations();
@@ -43,23 +42,93 @@ void RenderSystem::render() {
 * @brief Renders all current sprites in the window.
 */
 void RenderSystem::renderSprites() {
-	// TODO: render sprites lower y first to simulate depth
+	// sort sprites to display depth in 2d environment
+	sortSprites();
+
 	unsigned int index = spriteManager->getComponentCount();
 	for (size_t i = 0; i < index; i++)
 	{
-		Sprite* sprite = spriteManager->getComponentWithIndex(i);
-		Entity spriteEntity = sprite->getEntity();
-		Position* spritePosition = positionManager->getComponent(spriteEntity);
+		Position* spritePosition = &sortedSpritePositions[i];
+		Entity spriteEntity = spritePosition->getEntity();
+		Sprite* sprite = spriteManager->getComponent(spriteEntity);
 		sprite->setDestinationRectPosition((spritePosition->x - (sprite->getDestinationWidth() / 2)) - camera.x, (spritePosition->y - (sprite->getDestinationHeight() / 2)) - camera.y);
 		draw(sprite);
 	}
 }
 
 /**
-* @brief Sorts the sprite before rendering. Needed for to be able to display depth in 2d environment.
+* @brief Sorts the sprite before rendering. Needed to be able to display depth in 2d environment.
 */
-void sortSprites() {
+void RenderSystem::sortSprites() {
+	// copy current array
+	size_t componentCount = positionManager->getComponentCount();
+	for (size_t i = 0; i < componentCount; i++) {
+		sortedSpritePositions[i] = *(positionManager->getComponentWithIndex(i));
+	}
 
+	// sort array
+	mergeSort(&sortedSpritePositions[0], 0, componentCount - 1);
+
+	for (int i = 0; i < componentCount; i++)
+	{
+		std::cout << sortedSpritePositions[i].getEntity().uid << std::endl;
+	}
+}
+
+void RenderSystem::merge(Position* arr, size_t start, size_t middle, size_t end) {
+	size_t i, j, k;
+	i = start;
+	k = start;
+	j = middle + 1;
+
+	Position temp[1024];
+
+	while (i <= middle && j <= end) {
+		Sprite* leftSprite = spriteManager->getComponent(arr[i].getEntity());
+		Sprite* rightSprite = spriteManager->getComponent(arr[j].getEntity());
+
+		int leftY = arr[i].y - (leftSprite->getDestinationHeight() / 2);
+		int rightY = arr[j].y - (rightSprite->getDestinationHeight() / 2);
+
+		if (leftY < rightY) {
+			temp[k] = arr[i];
+			i++;
+			k++;
+		}
+		else {
+			temp[k] = arr[j];
+			j++;
+			k++;
+		}
+	}
+
+	while (i <= middle) {
+		temp[k] = arr[i];
+		i++;
+		k++;
+	}
+
+	while (j <= end) {
+		temp[k] = arr[j];
+		j++;
+		k++;
+	}
+
+	for (i = start; i < k; i++) {
+		arr[i] = temp[i];
+	}
+}
+
+void RenderSystem::mergeSort(Position* arr, size_t start, size_t end) {
+	size_t middle;
+	if (start < end) {
+		// divide array and conquer
+		middle = (start + end) / 2;
+		mergeSort(arr, start, middle);
+		mergeSort(arr, middle + 1, end);
+		// merge arrays
+		merge(arr, start, middle, end);
+	}
 }
 
 /**

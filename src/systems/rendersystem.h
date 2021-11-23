@@ -63,6 +63,9 @@ private:
 	*/
 	SDL_Renderer* renderer;
 
+
+	Position sortedSpritePositions[1024];
+
 	/**
 	 * @brief Reference to the current tilemap.
 	*/
@@ -136,4 +139,8 @@ private:
 	* @brief Control the animations depending on the animation state and the animation direction.
 	*/
 	void controlAnimations();
+
+	void merge(Position* arr, size_t start, size_t middle, size_t end);
+
+	void mergeSort(Position* arr, size_t start, size_t end);
 };
