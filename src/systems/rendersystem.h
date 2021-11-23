@@ -63,7 +63,9 @@ private:
 	*/
 	SDL_Renderer* renderer;
 
-
+	/**
+	 * @brief Position array of the sprites sorted by y value minus half of the displayed sprite height (ascending).
+	*/
 	Position sortedSpritePositions[1024];
 
 	/**
@@ -140,7 +142,20 @@ private:
 	*/
 	void controlAnimations();
 
+	/**
+	 * @brief Sorts and merges the two parts of the position array together.
+	 * @param arr - array to sort and merge the two parts of.
+	 * @param start - Startindex of left side.
+	 * @param middle - Middleindex between left and right side.
+	 * @param end - Endindex of right side.
+	*/
 	void merge(Position* arr, size_t start, size_t middle, size_t end);
 
+	/**
+	 * @brief Merge sort implementation to sort an positions array.
+	 * @param arr - Positions array to sort.
+	 * @param start - Startindex of array.
+	 * @param end - Endindex of array.
+	*/
 	void mergeSort(Position* arr, size_t start, size_t end);
 };

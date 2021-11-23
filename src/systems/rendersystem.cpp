@@ -68,13 +68,15 @@ void RenderSystem::sortSprites() {
 
 	// sort array
 	mergeSort(&sortedSpritePositions[0], 0, componentCount - 1);
-
-	for (int i = 0; i < componentCount; i++)
-	{
-		std::cout << sortedSpritePositions[i].getEntity().uid << std::endl;
-	}
 }
 
+/**
+ * @brief Sorts and merges the two parts of the position array together.
+ * @param arr - array to sort and merge the two parts of.
+ * @param start - Startindex of left side.
+ * @param middle - Middleindex between left and right side.
+ * @param end - Endindex of right side.
+*/
 void RenderSystem::merge(Position* arr, size_t start, size_t middle, size_t end) {
 	size_t i, j, k;
 	i = start;
@@ -119,6 +121,12 @@ void RenderSystem::merge(Position* arr, size_t start, size_t middle, size_t end)
 	}
 }
 
+/**
+ * @brief Merge sort implementation to sort an positions array.
+ * @param arr - Positions array to sort.
+ * @param start - Startindex of array.
+ * @param end - Endindex of array.
+*/
 void RenderSystem::mergeSort(Position* arr, size_t start, size_t end) {
 	size_t middle;
 	if (start < end) {
