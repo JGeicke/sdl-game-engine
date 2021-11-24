@@ -5,4 +5,5 @@
 #include "movement.h"
 #include "camerafollow.h"
 #include "animator.h"
+#include "audio.h"
 #endif // !COMPONENT_H

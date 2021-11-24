@@ -4,6 +4,7 @@
 #include "components/components.h"
 #include "systems/rendersystem.h"
 #include "systems/physicsystem.h"
+#include "systems/audiosystem.h"
 #include "inputmanager.h"
 
 int main(int argc, char* argv[]) {
@@ -25,6 +26,7 @@ int main(int argc, char* argv[]) {
 	// TODO: special manager for single components in scene
 	ComponentManager<CameraFollow>* cameraFollowManager = new ComponentManager<CameraFollow>();
 	ComponentManager<Animator>* animatorManager = new ComponentManager<Animator>();
+	ComponentManager<Audio>* audioManager = new ComponentManager<Audio>();
 
 	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager, animatorManager);
 	renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 2);
@@ -32,6 +34,11 @@ int main(int argc, char* argv[]) {
 	// camera matches viewport
 	renderSystem->initCamera(1280, 720);
 	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager, spriteManager, animatorManager);
+
+	AudioSystem* audioSystem = new AudioSystem(audioManager);
+	audioSystem->init();
+	audioSystem->addBGM("../TestTextures/bgm.mp3");
+	audioSystem->playBGM();
 
 	Entity entity = entityManager->createEntity();
 
@@ -64,6 +71,11 @@ int main(int argc, char* argv[]) {
 	//animator->addAnimation("idle", 6, 100);
 	//animator->play("idle");
 	//animator->play("attack");
+
+	Audio* audioComponent = audioManager->addComponent(entity);
+	audioComponent->setEntity(entity);
+	size_t audioIndex = audioComponent->addAudioClip("../TestTextures/extra_bonus.wav");
+	audioComponent->playAudioClip(audioIndex);
 	// test enemy
 	Entity wizard = entityManager->createEntity();
 	Sprite* wizardSprite = spriteManager->addComponent(wizard);
@@ -86,6 +98,7 @@ int main(int argc, char* argv[]) {
 		if (inputManager->interrupted) break;
 
 		physicSystem->update();
+		audioSystem->update();
 		renderSystem->update();
 
 		Uint32 endTimestamp = SDL_GetTicks();
