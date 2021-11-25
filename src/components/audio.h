@@ -63,7 +63,7 @@ public:
 	 * @brief Prints the audio component.
 	*/
 	void print() {
-		//TODO: implement audio component
+		std::cout << "Audio (Entity: " << entity.uid << ") # of Audio Clips: " << currentIndex << std::endl;
 	}
 
 	/**

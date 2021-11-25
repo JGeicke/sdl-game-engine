@@ -118,9 +118,12 @@ public:
 	 * @brief Prints the animator component.
 	*/
 	void print() {
-		//TODO: implement print for animator
+		std::cout << "Animator (Entity: " << entity.uid << ") # of Animations: " << animations.size() << std::endl;
 	}
 
+	/**
+	 * @brief Default constructor of animator component.
+	*/
 	Animator() {
 		animations = {};
 		direction = DIRECTION::NO_DIRECTION;

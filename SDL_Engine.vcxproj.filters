@@ -95,5 +95,8 @@
     <ClInclude Include="src\components\audio.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="audioclip.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

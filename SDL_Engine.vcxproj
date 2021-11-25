@@ -28,6 +28,7 @@
     <ClCompile Include="src\util\fileloader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="audioclip.h" />
     <ClInclude Include="src\componentmanager.h" />
     <ClInclude Include="src\components\animator.h" />
     <ClInclude Include="src\components\audio.h" />
