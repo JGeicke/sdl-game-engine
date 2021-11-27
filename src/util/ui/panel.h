@@ -36,12 +36,24 @@ public:
 		displayPosition.h = h;
 	}
 
+	void setWidth(int w) {
+		displayPosition.w = w;
+	}
+
+	void setHeight(int h) {
+		displayPosition.h = h;
+	}
+
 	SDL_Texture* getPanelTexture() {
 		return panelTexture;
 	}
 
 	SDL_Rect* getDisplayPosition() {
 		return &displayPosition;
+	}
+
+	int getWidth() {
+		return displayPosition.w;
 	}
 
 	void setPanelColor(SDL_Color color) {

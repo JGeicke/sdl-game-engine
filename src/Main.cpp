@@ -49,10 +49,9 @@ int main(int argc, char* argv[]) {
 	SDL_Color grey = { 48,48,48 };
 	uiManager->addFont("../TestTextures/Fonts/arial.ttf", 32);
 	size_t labelIndex = uiManager->addLabel(25, 25, "Testlabel", { 255,255,255,255 }, 0);
-	uiManager->getLabel(labelIndex)->show(false);
 	uiManager->addPanel(10, 20, 300, 50, grey);
 	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 26 });
-	uiManager->getProgressBar(progIndex)->setProgress(0.8f);
+	uiManager->getProgressBar(progIndex)->setProgress(0.4f);
 
 	Entity entity = entityManager->createEntity();
 

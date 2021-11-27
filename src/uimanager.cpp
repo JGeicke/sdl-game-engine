@@ -3,6 +3,7 @@ UIManager::UIManager(SDL_Renderer* renderer) {
     this->renderer = renderer;
     currentFontIndex = 0;
     currentLabelIndex = 0;
+    currentPanelIndex = 0;
     currentProgressBarIndex = 0;
 }
 

@@ -79,7 +79,7 @@ void RenderSystem::renderPanels() {
 }
 
 /**
-* @brief Redners all the progress bars of the ui.
+* @brief Renders all the progress bars of the ui.
 */
 void RenderSystem::renderProgressBars(){
 	size_t progressBarCount = uiManager->getCurrentProgressBarIndex();
