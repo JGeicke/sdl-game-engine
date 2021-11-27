@@ -107,6 +107,11 @@ private:
 	void renderPanels();
 
 	/**
+	 * @brief Redners all the progress bars of the ui.
+	*/
+	void renderProgressBars();
+
+	/**
 	 * @brief Renders all current sprites in the window.
 	*/
 	void renderSprites();

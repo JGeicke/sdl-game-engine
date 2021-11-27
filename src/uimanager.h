@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "util/ui/label.h"
 #include "util/ui/panel.h"
+#include "util/ui/progressbar.h"
 
 class UIManager {
 public:
@@ -15,25 +16,31 @@ public:
 			return &uiLabels[index];
 		}
 	}
-	void setLabelText(size_t labelIndex, std::string labelText);
-	void setLabelPosition(size_t labelIndex, int x, int y);
-	void setLabelTextColor(size_t labelIndex, SDL_Color textColor);
 	size_t getCurrentLabelIndex() {
 		return currentLabelIndex;
 	}
 
 
-	size_t addPanel(const char* filePath, int x, int y, int w, int h);
-	size_t addPanel(int x, int y, int w, int h);
+	size_t addPanel(const char* filePath, int x, int y, int w, int h, SDL_Color panelColor);
+	size_t addPanel(int x, int y, int w, int h, SDL_Color panelColor);
 	Panel* getPanel(size_t panelIndex) {
 		if (panelIndex < currentPanelIndex) {
 			return &uiPanels[panelIndex];
 		}
 	}
-	void setPanelPosition(size_t panelIndex, int x, int y);
-	void setPanelSize(size_t panelIndex, int w, int h);
 	size_t getCurrentPanelIndex() {
 		return currentPanelIndex;
+	}
+
+	size_t addProgressBar(const char* bgFilePath, const char* progressFilePath, int x, int y, int w, int h, SDL_Color bgColor, SDL_Color progressColor);
+	size_t addProgressBar(int x, int y, int w, int h, SDL_Color bgColor, SDL_Color progressColor);
+	ProgressBar* getProgressBar(size_t progressBarIndex) {
+		if (progressBarIndex < currentProgressBarIndex) {
+			return &uiProgressBars[progressBarIndex];
+		}
+	}
+	size_t getCurrentProgressBarIndex() {
+		return currentProgressBarIndex;
 	}
 private:
 	SDL_Renderer* renderer;
@@ -46,4 +53,7 @@ private:
 
 	Panel uiPanels[32];
 	size_t currentPanelIndex;
+
+	ProgressBar uiProgressBars[32];
+	size_t currentProgressBarIndex;
 };

@@ -30,4 +30,12 @@ public:
 	 * @return Pointer to created texture.
 	*/
 	static Texture loadTexture(const char* path, SDL_Renderer* renderer);
+
+	/**
+	 * @brief Loads SDL_Texture from given path.
+	 * @param path - File path to texture file.
+	 * @param renderer - Reference to window renderer.
+	 * @return Pointer to created SDL_Texture.
+	*/
+	static SDL_Texture* loadSDLTexture(const char* path, SDL_Renderer* renderer);
 };

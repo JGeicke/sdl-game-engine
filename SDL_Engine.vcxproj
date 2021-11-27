@@ -51,6 +51,7 @@
     <ClInclude Include="src\util\tilemap.h" />
     <ClInclude Include="src\util\ui\label.h" />
     <ClInclude Include="src\util\ui\panel.h" />
+    <ClInclude Include="src\util\ui\progressbar.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

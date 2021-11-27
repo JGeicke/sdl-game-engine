@@ -3,6 +3,7 @@ UIManager::UIManager(SDL_Renderer* renderer) {
     this->renderer = renderer;
     currentFontIndex = 0;
     currentLabelIndex = 0;
+    currentProgressBarIndex = 0;
 }
 
 void UIManager::addFont(const char* path, int fontSize){
@@ -21,42 +22,26 @@ size_t UIManager::addLabel(int x, int y, std::string text, SDL_Color color, size
         return currentLabelIndex++;
     }
 }
-
-void UIManager::setLabelText(size_t labelIndex, std::string labelText) {
-    if (labelIndex < currentLabelIndex) {
-        uiLabels[labelIndex].setText(labelText, renderer);
-    }
-}
-void UIManager::setLabelPosition(size_t labelIndex, int x, int y) {
-    if (labelIndex < currentLabelIndex) {
-        uiLabels[labelIndex].setPosition(x, y);
-    }
-}
-
-void UIManager::setLabelTextColor(size_t labelIndex, SDL_Color textColor) {
-    if (labelIndex < currentLabelIndex) {
-        uiLabels[labelIndex].setTextColor(textColor, renderer);
-    }
-}
 #pragma endregion Label
 
 #pragma region Panel
-size_t UIManager::addPanel(const char* filePath, int x, int y, int w, int h) {
-    uiPanels[currentPanelIndex] = *(new Panel(renderer,filePath, x, y, w, h));
+size_t UIManager::addPanel(const char* filePath, int x, int y, int w, int h, SDL_Color panelColor) {
+    uiPanels[currentPanelIndex] = *(new Panel(renderer,filePath, x, y, w, h, panelColor));
     return currentPanelIndex++;
 }
-size_t UIManager::addPanel(int x, int y, int w, int h){
-    uiPanels[currentPanelIndex] = *(new Panel(renderer, x, y, w, h));
+size_t UIManager::addPanel(int x, int y, int w, int h, SDL_Color panelColor){
+    uiPanels[currentPanelIndex] = *(new Panel(renderer, x, y, w, h, panelColor));
     return currentPanelIndex++;
-}
-void UIManager::setPanelPosition(size_t panelIndex, int x, int y){
-    if (panelIndex < currentPanelIndex) {
-        uiPanels[panelIndex].setPosition(x, y);
-    }
-}
-void UIManager::setPanelSize(size_t panelIndex, int w, int h) {
-    if (panelIndex < currentPanelIndex) {
-        uiPanels[panelIndex].setSize(w, h);
-    }
 }
 #pragma endregion Panel
+
+#pragma region ProgressBar
+size_t UIManager::addProgressBar(const char* bgFilePath, const char* progressFilePath, int x, int y, int w, int h, SDL_Color bgColor, SDL_Color progressColor){
+    uiProgressBars[currentProgressBarIndex] = *(new ProgressBar(renderer, bgFilePath, progressFilePath, x, y, w, h, bgColor, progressColor));
+    return currentProgressBarIndex++;
+}
+size_t UIManager::addProgressBar(int x, int y, int w, int h, SDL_Color bgColor, SDL_Color progressColor) {
+    uiProgressBars[currentProgressBarIndex] = *(new ProgressBar(renderer, x, y, w, h, bgColor, progressColor));
+    return currentProgressBarIndex++;
+}
+#pragma endregion ProgressBar

@@ -122,5 +122,8 @@
     <ClInclude Include="src\util\texture.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\ui\progressbar.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

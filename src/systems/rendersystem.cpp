@@ -48,6 +48,7 @@ void RenderSystem::render() {
 */
 void RenderSystem::renderUI(){
 	renderPanels();
+	renderProgressBars();
 	renderLabels();
 }
 
@@ -70,6 +71,18 @@ void RenderSystem::renderPanels() {
 	for (size_t i = 0; i < panelCount; i++) {
 		Panel* nextPanel = uiManager->getPanel(i);
 		SDL_RenderCopy(renderer, nextPanel->getPanelTexture(), NULL, nextPanel->getDisplayPosition());
+	}
+}
+
+/**
+* @brief Redners all the progress bars of the ui.
+*/
+void RenderSystem::renderProgressBars(){
+	size_t progressBarCount = uiManager->getCurrentProgressBarIndex();
+	for (size_t i = 0; i < progressBarCount; i++) {
+		ProgressBar* nextProgressBar = uiManager->getProgressBar(i);
+		SDL_RenderCopy(renderer, nextProgressBar->getBackgroundTexture(), NULL, nextProgressBar->getBackgroundPosition());
+		SDL_RenderCopy(renderer, nextProgressBar->getProgressTexture(), NULL, nextProgressBar->getProgressPosition());
 	}
 }
 #pragma endregion UI

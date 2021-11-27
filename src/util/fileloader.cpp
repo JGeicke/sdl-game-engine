@@ -50,3 +50,17 @@ Texture FileLoader::loadTexture(const char* path, SDL_Renderer* renderer) {
 	return result;
 }
 
+/**
+* @brief Loads SDL_Texture from given path.
+* @param path - File path to texture file.
+* @param renderer - Reference to window renderer.
+* @return Pointer to created SDL_Texture.
+*/
+SDL_Texture* FileLoader::loadSDLTexture(const char* path, SDL_Renderer* renderer) {
+	SDL_Surface* tempSurface = IMG_Load(path);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
+	SDL_FreeSurface(tempSurface);
+	
+	return texture;
+}
+

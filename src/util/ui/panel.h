@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "SDL_image.h"
+#include "../fileloader.h"
 struct Panel {
 public:
 	Panel() {
@@ -8,19 +9,21 @@ public:
 		displayPosition = {0,0,0,0};
 	}
 
-	Panel(SDL_Renderer* renderer, const char* filePath, int x, int y, int w, int h) {
+	Panel(SDL_Renderer* renderer, const char* filePath, int x, int y, int w, int h, SDL_Color panelColor) {
 		setPosition(x, y);
 		setSize(w, h);
 
-		createPanelTexture(renderer, filePath);
+		this->panelTexture = FileLoader::loadSDLTexture(filePath, renderer);
+		setPanelColor(panelColor);
 	}
 
-	Panel(SDL_Renderer* renderer, int x, int y, int w, int h) {
+	Panel(SDL_Renderer* renderer, int x, int y, int w, int h, SDL_Color panelColor) {
 		setPosition(x, y);
 		setSize(w, h);
 
 		// use base panel texture
-		createPanelTexture(renderer, "assets/base_panel.png");
+		this->panelTexture = FileLoader::loadSDLTexture("assets/base_panel.png", renderer);
+		setPanelColor(panelColor);
 	}
 
 	void setPosition(int x, int y) {
@@ -40,13 +43,11 @@ public:
 	SDL_Rect* getDisplayPosition() {
 		return &displayPosition;
 	}
+
+	void setPanelColor(SDL_Color color) {
+		SDL_SetTextureColorMod(panelTexture, color.r, color.g, color.b);
+	}
 private:
 	SDL_Texture* panelTexture;
 	SDL_Rect displayPosition;
-
-	void createPanelTexture(SDL_Renderer* renderer, const char* filePath) {
-		SDL_Surface* tempSurface = IMG_Load(filePath);
-		this->panelTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-		SDL_FreeSurface(tempSurface);
-	}
 };
