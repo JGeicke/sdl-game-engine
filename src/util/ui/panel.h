@@ -47,7 +47,16 @@ public:
 	void setPanelColor(SDL_Color color) {
 		SDL_SetTextureColorMod(panelTexture, color.r, color.g, color.b);
 	}
+
+	bool isVisible() {
+		return visible;
+	}
+
+	void show(bool showPanel) {
+		visible = showPanel;
+	}
 private:
 	SDL_Texture* panelTexture;
 	SDL_Rect displayPosition;
+	bool visible = true;
 };

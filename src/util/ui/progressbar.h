@@ -72,6 +72,14 @@ public:
 	SDL_Rect* getProgressPosition() {
 		return &progressPosition;
 	}
+
+	bool isVisible() {
+		return visible;
+	}
+
+	void show(bool showPanel) {
+		visible = showPanel;
+	}
 private:
 	void colorTexture(SDL_Texture* texture, SDL_Color color) {
 		SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
@@ -83,4 +91,6 @@ private:
 	SDL_Rect progressPosition;
 
 	float progress;
+
+	bool visible = true;
 };

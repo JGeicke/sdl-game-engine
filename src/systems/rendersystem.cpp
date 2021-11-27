@@ -59,7 +59,9 @@ void RenderSystem::renderLabels() {
 	size_t labelCount = uiManager->getCurrentLabelIndex();
 	for (size_t i = 0; i < labelCount; i++) {
 		Label* nextLabel = uiManager->getLabel(i);
-		SDL_RenderCopy(renderer, nextLabel->getLabelTexture(), NULL, nextLabel->getDisplayPosition());
+		if (nextLabel->isVisible()) {
+			SDL_RenderCopy(renderer, nextLabel->getLabelTexture(), NULL, nextLabel->getDisplayPosition());
+		}
 	}
 }
 
@@ -70,7 +72,9 @@ void RenderSystem::renderPanels() {
 	size_t panelCount = uiManager->getCurrentPanelIndex();
 	for (size_t i = 0; i < panelCount; i++) {
 		Panel* nextPanel = uiManager->getPanel(i);
-		SDL_RenderCopy(renderer, nextPanel->getPanelTexture(), NULL, nextPanel->getDisplayPosition());
+		if (nextPanel->isVisible()) {
+			SDL_RenderCopy(renderer, nextPanel->getPanelTexture(), NULL, nextPanel->getDisplayPosition());
+		}
 	}
 }
 
@@ -81,8 +85,10 @@ void RenderSystem::renderProgressBars(){
 	size_t progressBarCount = uiManager->getCurrentProgressBarIndex();
 	for (size_t i = 0; i < progressBarCount; i++) {
 		ProgressBar* nextProgressBar = uiManager->getProgressBar(i);
-		SDL_RenderCopy(renderer, nextProgressBar->getBackgroundTexture(), NULL, nextProgressBar->getBackgroundPosition());
-		SDL_RenderCopy(renderer, nextProgressBar->getProgressTexture(), NULL, nextProgressBar->getProgressPosition());
+		if (nextProgressBar->isVisible()) {
+			SDL_RenderCopy(renderer, nextProgressBar->getBackgroundTexture(), NULL, nextProgressBar->getBackgroundPosition());
+			SDL_RenderCopy(renderer, nextProgressBar->getProgressTexture(), NULL, nextProgressBar->getProgressPosition());
+		}
 	}
 }
 #pragma endregion UI
