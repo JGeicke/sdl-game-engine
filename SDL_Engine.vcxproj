@@ -47,9 +47,9 @@
     <ClInclude Include="src\systems\rendersystem.h" />
     <ClInclude Include="src\uimanager.h" />
     <ClInclude Include="src\util\fileloader.h" />
-    <ClInclude Include="src\util\label.h" />
     <ClInclude Include="src\util\texture.h" />
     <ClInclude Include="src\util\tilemap.h" />
+    <ClInclude Include="src\util\ui\label.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

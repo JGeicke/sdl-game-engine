@@ -1,6 +1,7 @@
 #ifndef BASECOMPONENT_H
 #define BASECOMPONENT_H
 #include "../entity.h"
+// TODO: refactor header guards
 /**
  * @brief Abstract base struct for components.
 */

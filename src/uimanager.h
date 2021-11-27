@@ -1,7 +1,7 @@
 #pragma once
 #include "SDL_ttf.h"
 #include "SDL.h"
-#include "util/label.h"
+#include "util/ui/label.h"
 
 class UIManager {
 public:

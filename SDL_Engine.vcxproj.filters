@@ -101,7 +101,7 @@
     <ClInclude Include="src\uimanager.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\label.h">
+    <ClInclude Include="src\util\ui\label.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
