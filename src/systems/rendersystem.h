@@ -102,6 +102,11 @@ private:
 	void renderLabels();
 
 	/**
+	 * @brief Renders all the panels of the ui.
+	*/
+	void renderPanels();
+
+	/**
 	 * @brief Renders all current sprites in the window.
 	*/
 	void renderSprites();

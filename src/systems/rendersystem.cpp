@@ -47,6 +47,7 @@ void RenderSystem::render() {
 * @brief Renders all the ui elements in the window.
 */
 void RenderSystem::renderUI(){
+	renderPanels();
 	renderLabels();
 }
 
@@ -58,6 +59,17 @@ void RenderSystem::renderLabels() {
 	for (size_t i = 0; i < labelCount; i++) {
 		Label* nextLabel = uiManager->getLabel(i);
 		SDL_RenderCopy(renderer, nextLabel->getLabelTexture(), NULL, nextLabel->getDisplayPosition());
+	}
+}
+
+/**
+* @brief Renders all the panels of the ui.
+*/
+void RenderSystem::renderPanels() {
+	size_t panelCount = uiManager->getCurrentPanelIndex();
+	for (size_t i = 0; i < panelCount; i++) {
+		Panel* nextPanel = uiManager->getPanel(i);
+		SDL_RenderCopy(renderer, nextPanel->getPanelTexture(), NULL, nextPanel->getDisplayPosition());
 	}
 }
 #pragma endregion UI

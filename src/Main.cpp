@@ -47,8 +47,8 @@ int main(int argc, char* argv[]) {
 
 	// UI
 	uiManager->addFont("../TestTextures/Fonts/arial.ttf", 32);
-	uiManager->addLabel(25, 25, "Thommy idiota =)", { 255,255,255,255 }, 0);
-	uiManager->addLabel(25, 175, "Wer das liest ist dumm", { 255,255,255,255 }, 0);
+	uiManager->addLabel(25, 25, "Testlabel", { 255,255,255,255 }, 0);
+	uiManager->addPanel(10, 20, 300, 50);
 
 	Entity entity = entityManager->createEntity();
 

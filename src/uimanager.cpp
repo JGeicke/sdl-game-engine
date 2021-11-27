@@ -39,3 +39,24 @@ void UIManager::setLabelTextColor(size_t labelIndex, SDL_Color textColor) {
     }
 }
 #pragma endregion Label
+
+#pragma region Panel
+size_t UIManager::addPanel(const char* filePath, int x, int y, int w, int h) {
+    uiPanels[currentPanelIndex] = *(new Panel(renderer,filePath, x, y, w, h));
+    return currentPanelIndex++;
+}
+size_t UIManager::addPanel(int x, int y, int w, int h){
+    uiPanels[currentPanelIndex] = *(new Panel(renderer, x, y, w, h));
+    return currentPanelIndex++;
+}
+void UIManager::setPanelPosition(size_t panelIndex, int x, int y){
+    if (panelIndex < currentPanelIndex) {
+        uiPanels[panelIndex].setPosition(x, y);
+    }
+}
+void UIManager::setPanelSize(size_t panelIndex, int w, int h) {
+    if (panelIndex < currentPanelIndex) {
+        uiPanels[panelIndex].setSize(w, h);
+    }
+}
+#pragma endregion Panel
