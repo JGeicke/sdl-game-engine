@@ -36,6 +36,9 @@
     <ClCompile Include="src\systems\audiosystem.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\uimanager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity.h">
@@ -95,7 +98,10 @@
     <ClInclude Include="src\components\audio.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="audioclip.h">
+    <ClInclude Include="src\uimanager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\label.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

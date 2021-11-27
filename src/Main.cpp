@@ -6,12 +6,16 @@
 #include "systems/physicsystem.h"
 #include "systems/audiosystem.h"
 #include "inputmanager.h"
+#include "uimanager.h"
 
 int main(int argc, char* argv[]) {
 	int framerate = 60;
 	float frameDelay = (float)(1000 / framerate);
 
 	SDL_Init(SDL_INIT_EVERYTHING);
+	if (TTF_Init() == -1) {
+		std::cout << "error initializing sdl ttf" << std::endl;
+	}
 	SDL_Window* window = SDL_CreateWindow("Testwindow", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, 0);
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
@@ -20,6 +24,7 @@ int main(int argc, char* argv[]) {
 	// TODO: Singleton Desingpattern for all managers and systems
 	EntityManager* entityManager = new EntityManager();
 	InputManager* inputManager = new InputManager();
+	UIManager* uiManager = new UIManager(renderer);
 	ComponentManager<Sprite>* spriteManager = new ComponentManager<Sprite>();
 	ComponentManager<Position>* posManager = new ComponentManager<Position>();
 	ComponentManager<Movement>* movementManager = new ComponentManager<Movement>();
@@ -28,7 +33,7 @@ int main(int argc, char* argv[]) {
 	ComponentManager<Animator>* animatorManager = new ComponentManager<Animator>();
 	ComponentManager<Audio>* audioManager = new ComponentManager<Audio>();
 
-	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager, animatorManager);
+	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager, animatorManager, uiManager);
 	renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 2);
 	//renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/debug_level.json", 1);
 	// camera matches viewport
@@ -39,6 +44,11 @@ int main(int argc, char* argv[]) {
 	audioSystem->init();
 	audioSystem->addBGM("../TestTextures/bgm.mp3");
 	audioSystem->playBGM();
+
+	// UI
+	uiManager->addFont("../TestTextures/Fonts/arial.ttf", 32);
+	uiManager->addLabel(25, 25, "Thommy idiota =)", { 255,255,255,255 }, 0);
+	uiManager->addLabel(25, 175, "Wer das liest ist dumm", { 255,255,255,255 }, 0);
 
 	Entity entity = entityManager->createEntity();
 
@@ -100,7 +110,6 @@ int main(int argc, char* argv[]) {
 		physicSystem->update();
 		audioSystem->update();
 		renderSystem->update();
-
 		Uint32 endTimestamp = SDL_GetTicks();
 		Uint32 delay = frameDelay - (endTimestamp - startTimestamp);
 		SDL_Delay(delay);

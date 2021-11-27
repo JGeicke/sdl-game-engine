@@ -5,6 +5,7 @@
 #include "../components/components.h"
 #include "../util/fileloader.h"
 #include "../util/tilemap.h"
+#include "../uimanager.h"
 /**
  * @brief Render System to render objects and tilemaps in game world.
 */
@@ -16,9 +17,11 @@ public:
 	 * @param positionManager  - Position manager for position objects.
 	 * @param renderer - SDL_Renderer for the actual rendering of the sprites in the gameworld.
 	 * @param cameraFollowManager - Camera follow component manager for rendering of 2d camera. 
-	 * @param animatorManager - Animator manager to animate the sprites with an animator component. 
+	 * @param animatorManager - Animator manager to animate the sprites with an animator component.
+	 * @param uiManager - UIManager to be able to render the ui elements.
 	*/
-	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager);
+	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,
+		ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager, UIManager* uiManager);
 	/**
 	 * @brief Render system update loop.
 	*/
@@ -40,23 +43,28 @@ public:
 	void initCamera(int viewWidth, int viewHeight);
 private:
 	/**
-	 * @brief Reference to the sprite manager.
+	 * @brief Pointer to the sprite manager.
 	*/
 	ComponentManager<Sprite>* spriteManager;
 	/**
-	 * @brief Reference to the position manager.
+	 * @brief Pointer to the position manager.
 	*/
 	ComponentManager<Position>* positionManager;
 
 	/**
-	 * @brief Reference to the camera follow manager.
+	 * @brief Pointer to the camera follow manager.
 	*/
 	ComponentManager<CameraFollow>* cameraFollowManager;
 
 	/**
-	 * @brief Reference to the animator manager needed for animations.
+	 * @brief Pointer to the animator manager needed for animations.
 	*/
 	ComponentManager<Animator>* animatorManager;
+
+	/**
+	 * @brief Pointer to the ui manager to be able to render the ui elements.
+	*/
+	UIManager* uiManager;
 
 	/**
 	 * @brief Reference to the SDL_Renderer.
@@ -82,6 +90,16 @@ private:
 	 * @brief View area rectangle of the camera.
 	*/
 	SDL_Rect camera;
+
+	/**
+	 * @brief Renders all the ui elements in the window.
+	*/
+	void renderUI();
+
+	/**
+	 * @brief Renders all the labels of the ui.
+	*/
+	void renderLabels();
 
 	/**
 	 * @brief Renders all current sprites in the window.

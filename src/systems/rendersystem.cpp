@@ -5,14 +5,17 @@
 * @param positionManager  - Reference to the position manager for position objects.
 * @param renderer - Reference to the SDL_Renderer for the actual rendering of the sprites in the gameworld.
 * @param cameraFollowManager - Camera follow component manager for rendering of 2d camera. 
-* @param animatorManager - Animator manager to animate the sprites with an animator component. 
+* @param animatorManager - Animator manager to animate the sprites with an animator component.
+ *@param uiManager - UIManager to be able to render the ui elements.
 */
-RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer, ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager) {
+RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,
+	ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager, UIManager* uiManager) {
 	this->positionManager = positionManager;
 	this->spriteManager = spriteManager;
 	this->renderer = renderer;
 	this->cameraFollowManager = cameraFollowManager;
 	this->animatorManager = animatorManager;
+	this->uiManager = uiManager;
 }
 
 /**
@@ -28,6 +31,8 @@ void RenderSystem::update() {
 	renderTilemap();
 	renderSprites();
 
+	renderUI();
+
 	render();
 }
 /**
@@ -36,6 +41,26 @@ void RenderSystem::update() {
 void RenderSystem::render() {
 	SDL_RenderPresent(renderer);
 }
+
+#pragma region UI
+/**
+* @brief Renders all the ui elements in the window.
+*/
+void RenderSystem::renderUI(){
+	renderLabels();
+}
+
+/**
+* @brief Renders all the labels of the ui.
+*/
+void RenderSystem::renderLabels() {
+	size_t labelCount = uiManager->getCurrentLabelIndex();
+	for (size_t i = 0; i < labelCount; i++) {
+		Label* nextLabel = uiManager->getLabel(i);
+		SDL_RenderCopy(renderer, nextLabel->getLabelTexture(), NULL, nextLabel->getDisplayPosition());
+	}
+}
+#pragma endregion UI
 
 #pragma region Sprites
 /**
@@ -408,7 +433,7 @@ void RenderSystem::moveCamera() {
 			camera.y = 0;
 		}
 
-
+		//TODO: camera stops one tile to early
 		//bottom-right
 		if (camera.x > (tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth())) {
 			camera.x = tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth();
