@@ -49,9 +49,11 @@
     <ClInclude Include="src\util\fileloader.h" />
     <ClInclude Include="src\util\texture.h" />
     <ClInclude Include="src\util\tilemap.h" />
+    <ClInclude Include="src\util\ui\button.h" />
     <ClInclude Include="src\util\ui\label.h" />
     <ClInclude Include="src\util\ui\panel.h" />
     <ClInclude Include="src\util\ui\progressbar.h" />
+    <ClInclude Include="src\util\ui\uielement.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

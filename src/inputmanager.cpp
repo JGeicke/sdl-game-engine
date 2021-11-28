@@ -3,6 +3,7 @@
 * @brief Update loop of the input manager to handle user input.
 */
 void InputManager::update() {
+	mouseButton = -1;
 	checkForEvent();
 	//std::cout << "current direction: (" << direction.x << " | " << direction.y << ");\n" << std::endl;
 }
@@ -17,6 +18,10 @@ void InputManager::checkForEvent() {
 		{
 		case SDL_QUIT:
 			interrupted = true;
+			break;
+		case SDL_MOUSEBUTTONUP:
+			// mouse click
+			mouseButton = inputEvent.button.button;
 			break;
 		case SDL_KEYDOWN:
 			// user directional input

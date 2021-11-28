@@ -112,6 +112,11 @@ private:
 	void renderProgressBars();
 
 	/**
+	 * @brief Renders all the buttons of the ui.
+	*/
+	void renderButtons();
+
+	/**
 	 * @brief Renders all current sprites in the window.
 	*/
 	void renderSprites();

@@ -8,6 +8,10 @@
 #include "inputmanager.h"
 #include "uimanager.h"
 
+void testClick() {
+	std::cout << "testfunction" << std::endl;
+};
+
 int main(int argc, char* argv[]) {
 	int framerate = 60;
 	float frameDelay = (float)(1000 / framerate);
@@ -24,7 +28,7 @@ int main(int argc, char* argv[]) {
 	// TODO: Singleton Desingpattern for all managers and systems
 	EntityManager* entityManager = new EntityManager();
 	InputManager* inputManager = new InputManager();
-	UIManager* uiManager = new UIManager(renderer);
+	UIManager* uiManager = new UIManager(renderer, inputManager);
 	ComponentManager<Sprite>* spriteManager = new ComponentManager<Sprite>();
 	ComponentManager<Position>* posManager = new ComponentManager<Position>();
 	ComponentManager<Movement>* movementManager = new ComponentManager<Movement>();
@@ -52,6 +56,8 @@ int main(int argc, char* argv[]) {
 	uiManager->addPanel(10, 20, 300, 50, grey);
 	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 26 });
 	uiManager->getProgressBar(progIndex)->setProgress(0.4f);
+	size_t buttonIndex = uiManager->addButton(500, 20,"Testbutton", { 255,255,255 }, grey, 0, {10,5}, { 255,192,203 });
+	uiManager->getButton(buttonIndex)->onClick(&testClick);
 
 	Entity entity = entityManager->createEntity();
 
@@ -111,6 +117,8 @@ int main(int argc, char* argv[]) {
 		if (inputManager->interrupted) break;
 
 		physicSystem->update();
+		uiManager->update();
+
 		audioSystem->update();
 		renderSystem->update();
 		Uint32 endTimestamp = SDL_GetTicks();

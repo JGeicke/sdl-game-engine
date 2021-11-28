@@ -1,7 +1,8 @@
 #pragma once
 #include "SDL_ttf.h"
 #include "string"
-struct Label {
+#include "uielement.h"
+struct Label: UIElement {
 public:
 	Label(){}
 
@@ -14,7 +15,9 @@ public:
 		createLabelTexture(renderer);
 	}
 
-	~Label(){}
+	~Label(){
+		SDL_DestroyTexture(labelTexture);
+	}
 
 	void setText(std::string text, SDL_Renderer* renderer) {
 		this->text = text;
@@ -38,14 +41,6 @@ public:
 	SDL_Rect* getDisplayPosition() {
 		return &displayPosition;
 	}
-
-	bool isVisible() {
-		return visible;
-	}
-
-	void show(bool showPanel) {
-		visible = showPanel;
-	}
 private:
 	SDL_Rect displayPosition;
 	SDL_Color textColor;
@@ -53,8 +48,6 @@ private:
 	SDL_Texture* labelTexture;
 
 	std::string text;
-
-	bool visible = true;
 
 	void createLabelTexture(SDL_Renderer* renderer) {
 		SDL_Surface* tempSurface = TTF_RenderText_Blended(textFont, text.c_str(), textColor);

@@ -67,6 +67,14 @@ public:
 	 * @return Magnitude of direction vector.
 	*/
 	double getDirectionMagnitude();
+
+	/**
+	 * @brief Gets current mouse button input.
+	 * @return Current mouse button input.
+	*/
+	int getMouseButton() {
+		return mouseButton;
+	}
 private:
 	/**
 	 * @brief Current direction based on keydown events. Base direction is (0,0).
@@ -82,4 +90,9 @@ private:
 	 * @brief Current user input event.
 	*/
 	SDL_Event inputEvent;
+
+	/**
+	 * @brief Current mouse button input.
+	*/
+	int mouseButton = -1;
 };

@@ -1,10 +1,17 @@
 #include "uimanager.h"
-UIManager::UIManager(SDL_Renderer* renderer) {
+// TODO: max elements handling
+UIManager::UIManager(SDL_Renderer* renderer, InputManager* inputManager) {
     this->renderer = renderer;
+    this->inputManager = inputManager;
     currentFontIndex = 0;
     currentLabelIndex = 0;
     currentPanelIndex = 0;
     currentProgressBarIndex = 0;
+    currentButtonIndex = 0;
+}
+
+void UIManager::update() {
+    checkButtons();
 }
 
 void UIManager::addFont(const char* path, int fontSize){
@@ -46,3 +53,40 @@ size_t UIManager::addProgressBar(int x, int y, int w, int h, SDL_Color bgColor, 
     return currentProgressBarIndex++;
 }
 #pragma endregion ProgressBar
+
+#pragma region Button
+size_t UIManager::addButton(int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor){
+    if (fontIndex < currentFontIndex) {
+        uiButtons[currentButtonIndex] = *(new Button(renderer,x,y,buttonText, buttonTextColor, buttonBGColor, fonts[fontIndex], borderWidth, hoverColor));
+        return currentButtonIndex++;
+    }
+}
+size_t UIManager::addButton(const char* panelFilePath, int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor) {
+    if (fontIndex < currentFontIndex) {
+        uiButtons[currentButtonIndex] = *(new Button(renderer, panelFilePath, x, y, buttonText, buttonTextColor, buttonBGColor, fonts[fontIndex], borderWidth, hoverColor));
+        return currentButtonIndex++;
+    }
+}
+
+void UIManager::checkButtons() {
+    SDL_Point mousePosition;
+    for (size_t i = 0; i < currentButtonIndex; i++) {
+        Button* nextButton = getButton(i);
+        if (nextButton->isVisible()) {
+            SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
+            SDL_Rect* buttonPanelPosition = nextButton->getButtonPanelPosition();
+
+            if (SDL_PointInRect(&mousePosition, buttonPanelPosition) == SDL_TRUE) {
+               if (inputManager->getMouseButton() == SDL_BUTTON_LEFT) {
+                    nextButton->click();
+               }
+                nextButton->hover();
+            }
+            else if (nextButton->isHovered()) {
+                // reset hover
+                nextButton->resetHover();
+            }
+        }
+    }
+}
+#pragma endregion Button

@@ -4,10 +4,14 @@
 #include "util/ui/label.h"
 #include "util/ui/panel.h"
 #include "util/ui/progressbar.h"
+#include "util/ui/button.h"
+#include "inputmanager.h"
 
 class UIManager {
 public:
-	UIManager(SDL_Renderer* renderer);
+	UIManager(SDL_Renderer* renderer, InputManager* inputManager);
+	void update();
+
 	void addFont(const char* path, int fontSize);
 
 	size_t addLabel(int x, int y, std::string text, SDL_Color color, size_t fontIndex);
@@ -42,8 +46,23 @@ public:
 	size_t getCurrentProgressBarIndex() {
 		return currentProgressBarIndex;
 	}
+
+	size_t addButton(int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor);
+	size_t addButton(const char* panelFilePath, int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor);
+
+	Button* getButton(size_t buttonIndex) {
+		if (buttonIndex < currentButtonIndex) {
+			return &uiButtons[buttonIndex];
+		}
+	}
+	size_t getCurrentButtonIndex() {
+		return currentButtonIndex;
+	}
+
+	void checkButtons();
 private:
 	SDL_Renderer* renderer;
+	InputManager* inputManager;
 
 	TTF_Font* fonts[3];
 	size_t currentFontIndex;
@@ -56,4 +75,7 @@ private:
 
 	ProgressBar uiProgressBars[32];
 	size_t currentProgressBarIndex;
+
+	Button uiButtons[32];
+	size_t currentButtonIndex;
 };

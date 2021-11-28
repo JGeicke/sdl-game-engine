@@ -1,7 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "../fileloader.h"
-struct ProgressBar {
+struct ProgressBar: UIElement {
 public:
 	ProgressBar() {
 		progress = 0.0f;
@@ -69,14 +69,6 @@ public:
 	SDL_Rect* getProgressPosition() {
 		return progressPanel.getDisplayPosition();
 	}
-
-	bool isVisible() {
-		return visible;
-	}
-
-	void show(bool showPanel) {
-		visible = showPanel;
-	}
 private:
 	void colorTexture(SDL_Texture* texture, SDL_Color color) {
 		SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
@@ -86,6 +78,4 @@ private:
 	Panel backgroundPanel;
 
 	float progress;
-
-	bool visible = true;
 };

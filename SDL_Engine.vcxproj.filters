@@ -125,5 +125,11 @@
     <ClInclude Include="src\util\ui\progressbar.h">
       <Filter>Headerdateien\UI</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\ui\button.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\ui\uielement.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -48,6 +48,7 @@ void RenderSystem::render() {
 */
 void RenderSystem::renderUI(){
 	renderPanels();
+	renderButtons();
 	renderProgressBars();
 	renderLabels();
 }
@@ -88,6 +89,20 @@ void RenderSystem::renderProgressBars(){
 		if (nextProgressBar->isVisible()) {
 			SDL_RenderCopy(renderer, nextProgressBar->getBackgroundTexture(), NULL, nextProgressBar->getBackgroundPosition());
 			SDL_RenderCopy(renderer, nextProgressBar->getProgressTexture(), NULL, nextProgressBar->getProgressPosition());
+		}
+	}
+}
+
+/**
+* @brief Renders all the buttons of the ui.
+*/
+void RenderSystem::renderButtons() {
+	size_t buttonCount = uiManager->getCurrentButtonIndex();
+	for (size_t i = 0; i < buttonCount; i++) {
+		Button* nextButton = uiManager->getButton(i);
+		if (nextButton->isVisible()) {
+			SDL_RenderCopy(renderer, nextButton->getButtonPanel(), NULL, nextButton->getButtonPanelPosition());
+			SDL_RenderCopy(renderer, nextButton->getButtonText(), NULL, nextButton->getButtonTextPosition());
 		}
 	}
 }
