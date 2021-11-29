@@ -21,7 +21,8 @@ public:
 	 * @param uiManager - UIManager to be able to render the ui elements.
 	*/
 	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,
-		ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager, UIManager* uiManager);
+		ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager, UIManager* uiManager,
+		ComponentManager<Collider>* colliderManager);
 	/**
 	 * @brief Render system update loop.
 	*/
@@ -60,6 +61,11 @@ private:
 	 * @brief Pointer to the animator manager needed for animations.
 	*/
 	ComponentManager<Animator>* animatorManager;
+
+	/**
+	 * @brief Pointer to the collider manager needed for debugging.
+	*/
+	ComponentManager<Collider>* colliderManager;
 
 	/**
 	 * @brief Pointer to the ui manager to be able to render the ui elements.
@@ -191,4 +197,14 @@ private:
 	 * @param end - Endindex of array.
 	*/
 	void mergeSort(Position* arr, size_t start, size_t end);
+
+	/**
+	 * @brief Debug function that visualizes the position.
+	*/
+	void debugPosition();
+
+	/**
+	 * @brief Debug function that visualizes the colliders.
+	*/
+	void debugColliders();
 };

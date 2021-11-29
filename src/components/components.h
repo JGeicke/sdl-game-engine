@@ -6,4 +6,5 @@
 #include "camerafollow.h"
 #include "animator.h"
 #include "audio.h"
+#include "collider.h"
 #endif // !COMPONENT_H

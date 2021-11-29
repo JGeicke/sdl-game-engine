@@ -36,13 +36,14 @@ int main(int argc, char* argv[]) {
 	ComponentManager<CameraFollow>* cameraFollowManager = new ComponentManager<CameraFollow>();
 	ComponentManager<Animator>* animatorManager = new ComponentManager<Animator>();
 	ComponentManager<Audio>* audioManager = new ComponentManager<Audio>();
+	ComponentManager<Collider>* colliderManager = new ComponentManager<Collider>();
 
-	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager, animatorManager, uiManager);
+	RenderSystem* renderSystem = new RenderSystem(spriteManager, posManager, renderer, cameraFollowManager, animatorManager, uiManager, colliderManager);
 	renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 2);
 	//renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/debug_level.json", 1);
 	// camera matches viewport
 	renderSystem->initCamera(1280, 720);
-	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager, spriteManager, animatorManager);
+	PhysicSystem* physicSystem = new PhysicSystem(inputManager, movementManager, posManager, spriteManager, animatorManager, colliderManager);
 
 	AudioSystem* audioSystem = new AudioSystem(audioManager);
 	audioSystem->init();
@@ -69,8 +70,7 @@ int main(int argc, char* argv[]) {
 
 	Position* positionComponent = posManager->addComponent(entity);
 	positionComponent->setEntity(entity);
-	positionComponent->x = 250;
-	positionComponent->y = 250;
+	positionComponent->setPosition(500, 250);
 
 	Movement* movementComponent = movementManager->addComponent(entity);
 	movementComponent->setEntity(entity);
@@ -90,6 +90,10 @@ int main(int argc, char* argv[]) {
 	//animator->addAnimation("idle", 6, 100);
 	//animator->play("idle");
 	//animator->play("attack");
+	Collider* playerCollider = colliderManager->addComponent(entity);
+	playerCollider->setEntity(entity);
+	//playerCollider->init(positionComponent->x(), positionComponent->y(), 23, 32, 15,32, false);
+	playerCollider->init(positionComponent->x(), positionComponent->y(), 0, 0, 15, 32, false);
 
 	Audio* audioComponent = audioManager->addComponent(entity);
 	audioComponent->setEntity(entity);
@@ -103,8 +107,12 @@ int main(int argc, char* argv[]) {
 
 	Position* wizardPosition = posManager->addComponent(wizard);
 	wizardPosition->setEntity(wizard);
-	wizardPosition->x = 240;
-	wizardPosition->y = 250;
+	wizardPosition->setPosition(840, 250);
+
+	Collider* wizardCollider = colliderManager->addComponent(wizard);
+	wizardCollider->setEntity(wizard);
+	//wizardCollider->init(wizardPosition->x(), wizardPosition->y(),19, 6, 30, 53, false);
+	wizardCollider->init(wizardPosition->x(), wizardPosition->y(), 0, 0, 30, 53, false);
 
 	Animator* wizardAnimator = animatorManager->addComponent(wizard);
 	wizardAnimator->addAnimation("testing_name", 10, 150);

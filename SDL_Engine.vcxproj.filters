@@ -131,5 +131,8 @@
     <ClInclude Include="src\util\ui\uielement.h">
       <Filter>Headerdateien\UI</Filter>
     </ClInclude>
+    <ClInclude Include="src\components\collider.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

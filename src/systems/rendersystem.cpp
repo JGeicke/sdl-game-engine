@@ -9,13 +9,16 @@
  *@param uiManager - UIManager to be able to render the ui elements.
 */
 RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,
-	ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager, UIManager* uiManager) {
+	ComponentManager<CameraFollow>* cameraFollowManager, ComponentManager<Animator>* animatorManager, UIManager* uiManager, ComponentManager<Collider>* colliderManager) {
 	this->positionManager = positionManager;
 	this->spriteManager = spriteManager;
 	this->renderer = renderer;
 	this->cameraFollowManager = cameraFollowManager;
 	this->animatorManager = animatorManager;
 	this->uiManager = uiManager;
+	this->colliderManager = colliderManager;
+
+	debug = true;
 }
 
 /**
@@ -31,6 +34,9 @@ void RenderSystem::update() {
 	renderTilemap();
 	renderSprites();
 
+	debugPosition();
+	debugColliders();
+
 	renderUI();
 
 	render();
@@ -40,6 +46,35 @@ void RenderSystem::update() {
 */
 void RenderSystem::render() {
 	SDL_RenderPresent(renderer);
+}
+
+/**
+* @brief Debug function that visualizes the position.
+*/
+void RenderSystem::debugPosition() {
+	if (debug) {
+		size_t componentCount = positionManager->getComponentCount();
+
+		for (size_t i = 0; i < componentCount; i++)
+		{
+			Position* nextPosition = positionManager->getComponentWithIndex(i);
+			SDL_RenderDrawPoint(renderer, nextPosition->x() - camera.x, nextPosition->y() - camera.y);
+		}
+	}
+}
+
+void RenderSystem::debugColliders() {
+	if (debug) {
+		size_t componentCount = colliderManager->getComponentCount();
+
+		for (size_t i = 0; i < componentCount; i++)
+		{
+			Collider* nextCollider = colliderManager->getComponentWithIndex(i);
+			SDL_Rect* colliderRect = nextCollider->getColliderRect();
+			SDL_Rect renderRect = { colliderRect->x-camera.x, colliderRect->y-camera.y,colliderRect->w, colliderRect->h };
+			SDL_RenderDrawRect(renderer, &renderRect);
+		}
+	}
 }
 
 #pragma region UI
@@ -122,7 +157,7 @@ void RenderSystem::renderSprites() {
 		Position* spritePosition = &sortedSpritePositions[i];
 		Entity spriteEntity = spritePosition->getEntity();
 		Sprite* sprite = spriteManager->getComponent(spriteEntity);
-		sprite->setDestinationRectPosition((spritePosition->x - (sprite->getDestinationWidth() / 2)) - camera.x, (spritePosition->y - (sprite->getDestinationHeight() / 2)) - camera.y);
+		sprite->setDestinationRectPosition((spritePosition->x() - (sprite->getDestinationWidth() / 2)) - camera.x, (spritePosition->y() - (sprite->getDestinationHeight() / 2)) - camera.y);
 		draw(sprite);
 	}
 }
@@ -160,8 +195,8 @@ void RenderSystem::merge(Position* arr, size_t start, size_t middle, size_t end)
 		Sprite* leftSprite = spriteManager->getComponent(arr[i].getEntity());
 		Sprite* rightSprite = spriteManager->getComponent(arr[j].getEntity());
 
-		int leftY = arr[i].y - (leftSprite->getDestinationHeight() / 2);
-		int rightY = arr[j].y - (rightSprite->getDestinationHeight() / 2);
+		int leftY = arr[i].y() - (leftSprite->getDestinationHeight() / 2);
+		int rightY = arr[j].y() - (rightSprite->getDestinationHeight() / 2);
 
 		if (leftY < rightY) {
 			temp[k] = arr[i];
@@ -467,8 +502,8 @@ void RenderSystem::moveCamera() {
 		Entity followTarget = cameraFollowManager->getComponentWithIndex(0)->getEntity();
 		Position* followPosition = positionManager->getComponent(followTarget);
 
-		camera.x = followPosition->x - (camera.w / 2);
-		camera.y = followPosition->y - (camera.h / 2);
+		camera.x = followPosition->x() - (camera.w / 2);
+		camera.y = followPosition->y() - (camera.h / 2);
 
 		// check the camera bounds
 		// top-left

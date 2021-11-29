@@ -85,6 +85,15 @@ public:
 	unsigned int getComponentCount() {
 		return currentIndex;
 	}
+
+	/**
+	 * @brief Checks if entity has component.
+	 * @param e - Entity to check
+	 * @return Whether entity has component.
+	*/
+	bool hasComponent(Entity e) {
+		return (entityIndexMap.count(e) > 0) ? true : false;
+	}
 private:
 	/**
 	 * @brief Mapping of entity to the index of the entity component in componentData.
