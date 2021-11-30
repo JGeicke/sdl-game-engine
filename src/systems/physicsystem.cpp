@@ -1,5 +1,4 @@
 #include "physicsystem.h"
-
 /**
 * @brief Constructor of physic system to set needed references.
 * @param inputManager - Input manager to handle user inputs.
@@ -109,11 +108,12 @@ void PhysicSystem::adjustColliderPosition(Collider* collider, Position* position
 * @brief Detects collisions between colliders.
 */
 void PhysicSystem::detectCollisions() {
-	// TODO: handle triggers
-	unsigned int componentCount = movementManager->getComponentCount();
-	unsigned int colliderCount = colliderManager->getComponentCount();
+	size_t componentCount = movementManager->getComponentCount();
+	size_t colliderCount = colliderManager->getComponentCount();
 
 	for (size_t i = 0;i < componentCount; i++) {
+		size_t collisionCounter = 0;
+
 		Movement* currentMovement = movementManager->getComponentWithIndex(i);
 		Position* currentPosition = positionManager->getComponent(currentMovement->getEntity());
 		Collider* currentCollider = colliderManager->getComponent(currentMovement->getEntity());
@@ -128,12 +128,31 @@ void PhysicSystem::detectCollisions() {
 					if (nextCollider->getEntity().uid != currentMovement->getEntity().uid) {
 						if (SDL_HasIntersection(currentCollider->getColliderRect(), nextCollider->getColliderRect()) == SDL_TRUE) {
 							// collision
-							currentPosition->restoreLastPosition();
-							adjustColliderPosition(currentCollider, currentPosition);
+							collisionCounter++;
+							// execute collider collision behaviour
+							if (nextCollider->isTrigger()) {
+								nextCollider->collision(currentCollider->getEntity());
+							}
+							else if (currentCollider->isTrigger()) {
+								currentCollider->collision(nextCollider->getEntity());
+							}
+							else {
+								currentCollider->collision(nextCollider->getEntity());
+								nextCollider->collision(currentCollider->getEntity());
+
+								// adjust position
+								currentPosition->restoreLastPosition();
+								adjustColliderPosition(currentCollider, currentPosition);
+							}
 						}
 					}
 				}
 			}
+		}
+
+		// if current collider does not collide with another collider, reset lastCollision
+		if (collisionCounter == 0) {
+			currentCollider->resetLastCollision();
 		}
 	}
 }

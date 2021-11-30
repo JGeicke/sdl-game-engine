@@ -5,12 +5,14 @@
  * @brief Collider component. A collider is needed for collision between entities in the gameworld.
 */
 struct Collider : BaseComponent {
+	// function pointer
+	typedef void (*eventFunction)(void);
 public:
 	/**
 	 * @brief Prints the collider component.
 	*/
 	void print() {
-		// TODO: print collider
+		std::cout << "Collider (Entity: " << entity.uid << ") is Trigger: " << isColliderTrigger << std::endl;
 	}
 
 	/**
@@ -105,9 +107,137 @@ public:
 		colliderRect.x = x;
 		colliderRect.y = y;
 	}
+
+	/**
+	 * @brief Adds a trigger enter function.
+	 * @param triggerFunction - Function to call when trigger collides with another entity collider.
+	*/
+	void onTriggerEnter(eventFunction triggerFunction) {
+		hasTriggerEnterFunction = true;
+		onTriggerEnterFunction = triggerFunction;
+	}
+
+	/**
+	 * @brief Adds a collision enter function.
+	 * @param collisionFunction - Function to call when collider collides with another entity collider.
+	*/
+	void onCollisionEnter(eventFunction collisionFunction) {
+		hasCollisionEnterFunction = true;
+		onCollisionEnterFunction = collisionFunction;
+	}
+
+	/**
+	 * @brief Adds a trigger stay function.
+	 * @param triggerFunction - Function to call when trigger collides with another entity collider.
+	*/
+	void onTriggerStay(eventFunction triggerFunction) {
+		hasTriggerStayFunction = true;
+		onTriggerStayFunction = triggerFunction;
+	}
+
+	/**
+	 * @brief Adds a collision stay function.
+	 * @param collisionFunction - Function to call when collider collides with another entity collider.
+	*/
+	void onCollisionStay(eventFunction collisionFunction) {
+		hasCollisionStayFunction = true;
+		onCollisionStayFunction = collisionFunction;
+	}
+
+	/**
+	 * @brief Executes the on collision behaviour depending on if the collider is a trigger or a normal collider.
+	 * @param collisionEntity - Entity of the collider this collider collided with.
+	*/
+	void collision(Entity collisionEntity) {
+		if (lastCollision.uid == collisionEntity.uid) {
+			if (isColliderTrigger) {
+				if (hasTriggerStayFunction) {
+					onTriggerStayFunction();
+				}
+			}
+			else {
+				if (hasCollisionStayFunction) {
+					onCollisionStayFunction();
+				}
+			}
+		}
+		else {
+			if (isColliderTrigger) {
+				if (hasTriggerEnterFunction) {
+					onTriggerEnterFunction();
+				}
+			}
+			else {
+				if (hasCollisionEnterFunction) {
+					onCollisionEnterFunction();
+				}
+			}
+			lastCollision = collisionEntity;
+		}
+	}
+
+	/**
+	 * @brief Resets last collision. This function is used when no collision occured this frame with this collider.
+	*/
+	void resetLastCollision() {
+		lastCollision = { 0 };
+	}
 private:
-	SDL_Rect colliderRect;
-	SDL_Point offset;
-	SDL_Point size;
-	bool isColliderTrigger;
+	/**
+	 * @brief Rectangle collider that determines position and size.
+	*/
+	SDL_Rect colliderRect = {0,0,0,0};
+	/**
+	 * @brief Position offset of the collider relativ to the entity position.
+	*/
+	SDL_Point offset = {0,0};
+	/**
+	 * @brief Width/Height of the collider.
+	*/
+	SDL_Point size = { 0,0 };
+	/**
+	 * @brief Whether the collider is a trigger. Trigger colliders do not block movement and interact differently.
+	*/
+	bool isColliderTrigger = false;
+
+	/**
+	 * @brief Handler function when another collider first collides with this trigger collider.
+	*/
+	eventFunction onTriggerEnterFunction = NULL;
+	/**
+	 * @brief Whether the collider has a trigger enter handler function.
+	*/
+	bool hasTriggerEnterFunction = false;
+
+	/**
+	 * @brief Handler function when another collider first collides with this collider.
+	*/
+	eventFunction onCollisionEnterFunction = NULL;
+	/**
+	 * @brief Whether the collider has a collision enter handler function.
+	*/
+	bool hasCollisionEnterFunction = false;
+
+	/**
+	 * @brief Handler function for the ongoing collision of the trigger collider with another collider.
+	*/
+	eventFunction onTriggerStayFunction = NULL;
+	/**
+	 * @brief Whether the trigger collider has a trigger stay function for the ongoing collision with another collider.
+	*/
+	bool hasTriggerStayFunction = false;
+	
+	/**
+	 * @brief Handler function for the ongoing collision of the collider with another collider.
+	*/
+	eventFunction onCollisionStayFunction = NULL;
+	/**
+	 * @brief Whether the collider has a collision stay function for the ongoing collision with another collider.
+	*/
+	bool hasCollisionStayFunction = false;
+
+	/**
+	 * @brief Entity of the last collider this collider collided with.
+	*/
+	Entity lastCollision = { 0 };
 };
