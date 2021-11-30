@@ -151,7 +151,12 @@ void PhysicSystem::detectCollisions() {
 		}
 
 		// if current collider does not collide with another collider, reset lastCollision
-		if (collisionCounter == 0) {
+		if (collisionCounter == 0 && !currentCollider->getLastCollision().uid == 0) {
+			Collider* lastCollider = colliderManager->getComponent(currentCollider->getLastCollision());
+			if (lastCollider->getLastCollision().uid == currentCollider->getEntity().uid) {
+				// check if last collision was with current entity. if this is the case, reset last collision.
+				lastCollider->resetLastCollision();
+			}
 			currentCollider->resetLastCollision();
 		}
 	}

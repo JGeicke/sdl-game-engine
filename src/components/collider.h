@@ -182,6 +182,14 @@ public:
 	void resetLastCollision() {
 		lastCollision = { 0 };
 	}
+
+	/**
+	 * @brief Gets last collision. This function is used to be able to reset last collision of static entities (non-moving).
+	 * @return The entity of the last collider this collider collided with.
+	*/
+	Entity getLastCollision() {
+		return lastCollision;
+	}
 private:
 	/**
 	 * @brief Rectangle collider that determines position and size.
