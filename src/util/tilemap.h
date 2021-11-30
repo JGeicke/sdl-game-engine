@@ -48,12 +48,13 @@ public:
 	/**
 	 * @brief Gets the tilemap data of layer with certain index.
 	 * @param layer - Index of layer to get the data from
-	 * @return Data of tilemap layer.
+	 * @return Data of tilemap layer. Returns nullptr if given layer index is not allowed.
 	*/
 	std::vector<unsigned int> getLayer(size_t layer) {
 		if (layer < layerCount) {
 			return layers[layer];
 		}
+		return std::vector<unsigned int>();
 	}
 
 	/**
@@ -155,6 +156,8 @@ public:
 	*/
 	Tileset(Texture tilesetTexture) {
 		this->tilesetTexture = tilesetTexture;
+		this->tilesetDestinationRect = {};
+		this->tilesetSourceRect = {};
 	}
 
 	/**

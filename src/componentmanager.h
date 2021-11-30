@@ -74,7 +74,7 @@ public:
 	 * @brief Returns the component with given index.
 	 * @param idx - index of component.
 	*/
-	Component* getComponentWithIndex(unsigned idx) {
+	Component* getComponentWithIndex(size_t idx) {
 		return &componentData[idx];
 	}
 
@@ -82,7 +82,7 @@ public:
 	* @brief Returns current component count.
 	* @return Current component count.
 	*/
-	unsigned int getComponentCount() {
+	size_t getComponentCount() {
 		return currentIndex;
 	}
 
@@ -106,6 +106,6 @@ private:
 	/**
 	* @brief Next free index of componentData array.
 	*/
-	unsigned int currentIndex = 0;
+	size_t currentIndex = 0;
 };
 #endif // !COMPONENTMANAGER_H

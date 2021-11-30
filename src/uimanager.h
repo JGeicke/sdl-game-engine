@@ -45,12 +45,13 @@ public:
 	/**
 	 * @brief Gets label.
 	 * @param index - Index of label
-	 * @return Pointer to label.
+	 * @return Pointer to label. Returns nullptr if given index is not allowed.
 	*/
 	Label* getLabel(size_t index) {
 		if (index < currentLabelIndex) {
 			return &uiLabels[index];
 		}
+		return nullptr;
 	}
 	/**
 	 * @brief Gets current label index.
@@ -84,12 +85,13 @@ public:
 	/**
 	 * @brief Gets panel.
 	 * @param panelIndex - Index of panel.
-	 * @return Pointer to panel.
+	 * @return Pointer to panel. Returns nullptr if given index is not allowed.
 	*/
 	Panel* getPanel(size_t panelIndex) {
 		if (panelIndex < currentPanelIndex) {
 			return &uiPanels[panelIndex];
 		}
+		return nullptr;
 	}
 	/**
 	 * @brief Gets current panel index.
@@ -132,6 +134,7 @@ public:
 		if (progressBarIndex < currentProgressBarIndex) {
 			return &uiProgressBars[progressBarIndex];
 		}
+		return nullptr;
 	}
 	/**
 	 * @brief Gets current progressbar index.
@@ -178,6 +181,7 @@ public:
 		if (buttonIndex < currentButtonIndex) {
 			return &uiButtons[buttonIndex];
 		}
+		return nullptr;
 	}
 	/**
 	 * @brief Gets current button index.

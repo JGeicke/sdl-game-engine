@@ -109,6 +109,7 @@ void PhysicSystem::adjustColliderPosition(Collider* collider, Position* position
 * @brief Detects collisions between colliders.
 */
 void PhysicSystem::detectCollisions() {
+	// TODO: handle triggers
 	unsigned int componentCount = movementManager->getComponentCount();
 	unsigned int colliderCount = colliderManager->getComponentCount();
 
@@ -117,16 +118,20 @@ void PhysicSystem::detectCollisions() {
 		Position* currentPosition = positionManager->getComponent(currentMovement->getEntity());
 		Collider* currentCollider = colliderManager->getComponent(currentMovement->getEntity());
 
-		for (size_t z = 0; z < colliderCount; z++)
-		{
-			Collider* nextCollider = colliderManager->getComponentWithIndex(z);
+		if (currentCollider->isActive()) {
+			for (size_t z = 0; z < colliderCount; z++)
+			{
+				Collider* nextCollider = colliderManager->getComponentWithIndex(z);
 
-			// check if both entities
-			if (nextCollider->getEntity().uid != currentMovement->getEntity().uid) {
-				if (SDL_HasIntersection(currentCollider->getColliderRect(), nextCollider->getColliderRect()) == SDL_TRUE) {
-					// collision
-					currentPosition->restoreLastPosition();
-					adjustColliderPosition(currentCollider, currentPosition);
+				if (nextCollider->isActive()) {
+					// check if both entities
+					if (nextCollider->getEntity().uid != currentMovement->getEntity().uid) {
+						if (SDL_HasIntersection(currentCollider->getColliderRect(), nextCollider->getColliderRect()) == SDL_TRUE) {
+							// collision
+							currentPosition->restoreLastPosition();
+							adjustColliderPosition(currentCollider, currentPosition);
+						}
+					}
 				}
 			}
 		}

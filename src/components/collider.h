@@ -25,7 +25,6 @@ public:
 	*/
 	void init(int x, int y, int offsetX, int offsetY, int w, int h, bool isTrigger) {
 		isColliderTrigger = isTrigger;
-		enabled = true;
 		size.x = w;
 		size.y = h;
 
@@ -56,14 +55,6 @@ public:
 	}
 
 	/**
-	 * @brief Checks if the collider is enabled.
-	 * @return Whether the collider is enabled.
-	*/
-	bool isEnabled() {
-		return enabled;
-	}
-
-	/**
 	 * @brief Checks if the collider is a trigger.
 	 * @return Whether the collider is a trigger.
 	*/
@@ -87,14 +78,6 @@ public:
 	*/
 	void setColliderOffset(SDL_Point offset) {
 		this->offset = offset;
-	}
-
-	/**
-	 * @brief Enables or disables the component.
-	 * @param enableCollider - Whether the collider is enabled or not.
-	*/
-	void enable(bool enableCollider) {
-		enabled = enableCollider;
 	}
 
 	/**
@@ -126,6 +109,5 @@ private:
 	SDL_Rect colliderRect;
 	SDL_Point offset;
 	SDL_Point size;
-	bool enabled;
 	bool isColliderTrigger;
 };

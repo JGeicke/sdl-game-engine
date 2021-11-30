@@ -92,7 +92,6 @@ int main(int argc, char* argv[]) {
 	//animator->play("attack");
 	Collider* playerCollider = colliderManager->addComponent(entity);
 	playerCollider->setEntity(entity);
-	//playerCollider->init(positionComponent->x(), positionComponent->y(), 23, 32, 15,32, false);
 	playerCollider->init(positionComponent->x(), positionComponent->y(), 0, 0, 15, 32, false);
 
 	Audio* audioComponent = audioManager->addComponent(entity);
@@ -111,7 +110,6 @@ int main(int argc, char* argv[]) {
 
 	Collider* wizardCollider = colliderManager->addComponent(wizard);
 	wizardCollider->setEntity(wizard);
-	//wizardCollider->init(wizardPosition->x(), wizardPosition->y(),19, 6, 30, 53, false);
 	wizardCollider->init(wizardPosition->x(), wizardPosition->y(), 0, 0, 30, 53, false);
 
 	Animator* wizardAnimator = animatorManager->addComponent(wizard);

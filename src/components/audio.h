@@ -67,11 +67,6 @@ public:
 	}
 
 	/**
-	 * @brief Default audio component constructor.
-	*/
-	Audio() {}
-
-	/**
 	 * @brief Initializes the audio component.
 	*/
 	void init() {

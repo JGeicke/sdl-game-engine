@@ -27,10 +27,33 @@ struct BaseComponent {
 	Entity getEntity() {
 		return entity;
 	}
+
+	/**
+	 * @brief Activates or deactivates the component.
+	 * @param isActive - Whether the component is active or not
+	*/
+	void setActive(bool isActive) {
+		active = isActive;
+	}
+
+	/**
+	 * @brief Checks if the component is active.
+	 * @return Whether the component is active.
+	*/
+	bool isActive() {
+		return active;
+	}
 protected:
 	/**
 	 * @brief Entity that owns the component.
 	*/
 	Entity entity;
+
+	/**
+	 * @brief Whether the component is active.
+	*/
+	bool active = true;
+
+
 };
 #endif // !BASECOMPONENT_H

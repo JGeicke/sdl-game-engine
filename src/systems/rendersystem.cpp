@@ -274,7 +274,7 @@ void RenderSystem::draw(Sprite* sprite) {
  * @brief Control the animations depending on the animation state and the animation direction.
 */
 void RenderSystem::controlAnimations() {
-	unsigned int index = animatorManager->getComponentCount();
+	size_t index = animatorManager->getComponentCount();
 	for (size_t i = 0; i < index; i++) {
 		Animator* currentAnimator = animatorManager->getComponentWithIndex(i);
 		size_t state = currentAnimator->getState();

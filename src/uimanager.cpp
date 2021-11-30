@@ -8,6 +8,7 @@
 UIManager::UIManager(SDL_Renderer* renderer, InputManager* inputManager) {
     this->renderer = renderer;
     this->inputManager = inputManager;
+ 
     currentFontIndex = 0;
     currentLabelIndex = 0;
     currentPanelIndex = 0;
@@ -44,13 +45,14 @@ void UIManager::addFont(const char* path, int fontSize){
 * @param text - Text of label.
 * @param color - Text color of label.
 * @param fontIndex - Index of text font.
-* @return Index of created label.
+* @return Index of created label. -1 if no label was created.
 */
 size_t UIManager::addLabel(int x, int y, std::string text, SDL_Color color, size_t fontIndex){
     if (fontIndex < currentFontIndex) {
         uiLabels[currentLabelIndex] = *(new Label(x, y, text, color, renderer, fonts[fontIndex]));
         return currentLabelIndex++;
     }
+    return -1;
 }
 #pragma endregion Label
 
@@ -130,13 +132,14 @@ size_t UIManager::addProgressBar(int x, int y, int w, int h, SDL_Color bgColor, 
 * @param fontIndex - Index of font.
 * @param borderWidth - Borderwidth of button
 * @param hoverColor - Hover color of button background texture.
-* @return Index of created button.
+* @return Index of created button. -1 if no button was created.
 */
 size_t UIManager::addButton(int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor){
     if (fontIndex < currentFontIndex) {
         uiButtons[currentButtonIndex] = *(new Button(renderer,x,y,buttonText, buttonTextColor, buttonBGColor, fonts[fontIndex], borderWidth, hoverColor));
         return currentButtonIndex++;
     }
+    return -1;
 }
 
 /**
@@ -157,6 +160,7 @@ size_t UIManager::addButton(const char* panelFilePath, int x, int y, std::string
         uiButtons[currentButtonIndex] = *(new Button(renderer, panelFilePath, x, y, buttonText, buttonTextColor, buttonBGColor, fonts[fontIndex], borderWidth, hoverColor));
         return currentButtonIndex++;
     }
+    return -1;
 }
 
 /**
