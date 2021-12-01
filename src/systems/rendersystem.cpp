@@ -514,14 +514,14 @@ void RenderSystem::moveCamera() {
 			camera.y = 0;
 		}
 
-		//TODO: camera stops one tile to early
+		//TODO: adjust camera movement for smoother movement
 		//bottom-right
 		if (camera.x > (int)(tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth())) {
-			camera.x = tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth();
+			camera.x = tilemap->getTotalTilemapWidth() - camera.w;
 		}
 
 		if (camera.y > (int)(tilemap->getTotalTilemapHeight() - camera.h - tilemap->getTileHeight())) {
-			camera.y = tilemap->getTotalTilemapHeight() - camera.h - tilemap->getTileHeight();
+			camera.y = tilemap->getTotalTilemapHeight() - camera.h;
 		}
 	}
 }
