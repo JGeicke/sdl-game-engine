@@ -29,7 +29,7 @@ public:
 	*/
 	Component* getComponent(Entity e) {
 		if (entityIndexMap.count(e) > 0) {
-			unsigned int idx = entityIndexMap[e];
+			size_t idx = entityIndexMap[e];
 			//REMOVE: std::cout << "found index for component:" << idx << std::endl;
 			return &componentData[idx];
 		}
@@ -98,7 +98,7 @@ private:
 	/**
 	 * @brief Mapping of entity to the index of the entity component in componentData.
 	*/
-	std::map<Entity, unsigned> entityIndexMap;
+	std::map<Entity, size_t> entityIndexMap;
 	/**
 	* @brief Array of components.
 	*/

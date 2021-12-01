@@ -27,7 +27,7 @@ protected:
 	/**
 	 * @brief Whether the gamesystem runs in debug mode.
 	*/
-	bool debug;
+	bool debug = false;
 };
 #endif // !GAMESYSTEM_H
 

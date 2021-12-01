@@ -8,12 +8,22 @@
 UIManager::UIManager(SDL_Renderer* renderer, InputManager* inputManager) {
     this->renderer = renderer;
     this->inputManager = inputManager;
- 
+
     currentFontIndex = 0;
     currentLabelIndex = 0;
     currentPanelIndex = 0;
     currentProgressBarIndex = 0;
     currentButtonIndex = 0;
+}
+
+/**
+* @brief Destructor of UI manager.
+*/
+UIManager::~UIManager() {
+    for (size_t i = 0; i < currentFontIndex; i++)
+    {
+        TTF_CloseFont(fonts[i]);
+    }
 }
 
 /**

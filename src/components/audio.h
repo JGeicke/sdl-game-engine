@@ -67,14 +67,6 @@ public:
 	}
 
 	/**
-	 * @brief Initializes the audio component.
-	*/
-	void init() {
-		currentIndex = 0;
-		playedAudioClips = 0;
-	}
-
-	/**
 	 * @brief Adds an audio clip to the audio component.
 	 * @param filePath - Path to audio file to create the audioclip from.
 	 * @return Index of the audio clip.
@@ -108,7 +100,7 @@ public:
 
 	/**
 	 * @brief Gets next audio clip that is marked as played.
-	 * @return The marked audio clip.
+	 * @return The marked audio clip. Returns nullptr if no audio clip should be played.
 	*/
 	AudioClip* getNextAudioClip() {
 		for (size_t i = 0; i < currentIndex; i++) {
@@ -118,6 +110,7 @@ public:
 				return &audioClips[i];
 			}
 		}
+		return nullptr;
 	}
 
 	/**
@@ -135,9 +128,9 @@ private:
 	/**
 	 * @brief Next free index in the array.
 	*/
-	size_t currentIndex;
+	size_t currentIndex = 0;
 	/**
 	 * @brief Count of marked audio clips.
 	*/
-	unsigned int playedAudioClips;
+	unsigned int playedAudioClips = 0;
 };

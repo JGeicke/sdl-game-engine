@@ -129,7 +129,7 @@ int main(int argc, char* argv[]) {
 		audioSystem->update();
 		renderSystem->update();
 		Uint32 endTimestamp = SDL_GetTicks();
-		Uint32 delay = frameDelay - (endTimestamp - startTimestamp);
+		Uint32 delay = (Uint32)(frameDelay - (endTimestamp - startTimestamp));
 		SDL_Delay(delay);
 	}
 	SDL_DestroyRenderer(renderer);

@@ -29,7 +29,7 @@ void PhysicSystem::update() {
 * @brief Handles the player movement each frame.
 */
 void PhysicSystem::handlePlayerMovement() {
-	unsigned int componentCount = movementManager->getComponentCount();
+	size_t componentCount = movementManager->getComponentCount();
 	for (size_t i = 0; i < componentCount; i++)
 	{
 		Movement* movementComponent = movementManager->getComponentWithIndex(i);
@@ -39,8 +39,8 @@ void PhysicSystem::handlePlayerMovement() {
 
 		if (inputManager->getDirectionMagnitude() > 0.0) {
 			// moving
-			int newX = inputManager->getNormalizedDirectionX() * movementComponent->getMovementSpeed();
-			int newY = inputManager->getNormalizedDirectionY() * movementComponent->getMovementSpeed();
+			int newX = (int)(inputManager->getNormalizedDirectionX() * movementComponent->getMovementSpeed());
+			int newY = (int)(inputManager->getNormalizedDirectionY() * movementComponent->getMovementSpeed());
 			positionComponent->movePosition(newX, newY);
 
 			// adjust animator
@@ -78,7 +78,7 @@ void PhysicSystem::handleCollision(){
  * @brief Calculates the positions of the colliders.
 */
 void PhysicSystem::calculateColliderPositions(){
-	unsigned int componentCount = colliderManager->getComponentCount();
+	size_t componentCount = colliderManager->getComponentCount();
 
 	for (size_t i = 0; i < componentCount; i++) {
 		Collider* currentCollider = colliderManager->getComponentWithIndex(i);

@@ -22,7 +22,7 @@ AudioSystem::~AudioSystem() {
 * @brief Audio system update loop. Iterates the audio components to check if the audio clips should be played.
 */
 void AudioSystem::update() {
-	unsigned int componentCount = audioManager->getComponentCount();
+	size_t componentCount = audioManager->getComponentCount();
 	for (size_t i = 0; i < componentCount; i++)
 	{
 		Audio* audioComponent = audioManager->getComponentWithIndex(i);
@@ -59,7 +59,7 @@ void AudioSystem::addBGM(const char* filePath) {
 */
 void AudioSystem::playBGM() {
 	Mix_PlayMusic(bgm, -1);
-	Mix_VolumeMusic(MIX_MAX_VOLUME * (masterVolume*musicVolume));
+	Mix_VolumeMusic((int)(MIX_MAX_VOLUME * (masterVolume*musicVolume)));
 }
 
 /**
@@ -68,5 +68,5 @@ void AudioSystem::playBGM() {
 */
 void AudioSystem::playSound(AudioClip* audio) {
 	int channel = Mix_PlayChannel(-1, audio->getAudioChunk(), 0);
-	Mix_Volume(channel, MIX_MAX_VOLUME * (masterVolume * soundVolume));
+	Mix_Volume(channel, (int)(MIX_MAX_VOLUME * (masterVolume * soundVolume)));
 }

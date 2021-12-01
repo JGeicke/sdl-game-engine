@@ -17,7 +17,7 @@ RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentMan
 	this->animatorManager = animatorManager;
 	this->uiManager = uiManager;
 	this->colliderManager = colliderManager;
-
+	this->camera = { 0,0,0,0 };
 	debug = true;
 }
 
@@ -151,7 +151,7 @@ void RenderSystem::renderSprites() {
 	// sort sprites to display depth in 2d environment
 	sortSprites();
 
-	unsigned int index = spriteManager->getComponentCount();
+	size_t index = spriteManager->getComponentCount();
 	for (size_t i = 0; i < index; i++)
 	{
 		Position* spritePosition = &sortedSpritePositions[i];
@@ -516,11 +516,11 @@ void RenderSystem::moveCamera() {
 
 		//TODO: camera stops one tile to early
 		//bottom-right
-		if (camera.x > (tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth())) {
+		if (camera.x > (int)(tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth())) {
 			camera.x = tilemap->getTotalTilemapWidth() - camera.w - tilemap->getTileWidth();
 		}
 
-		if (camera.y > (tilemap->getTotalTilemapHeight() - camera.h - tilemap->getTileHeight())) {
+		if (camera.y > (int)(tilemap->getTotalTilemapHeight() - camera.h - tilemap->getTileHeight())) {
 			camera.y = tilemap->getTotalTilemapHeight() - camera.h - tilemap->getTileHeight();
 		}
 	}

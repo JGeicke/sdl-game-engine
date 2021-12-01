@@ -20,6 +20,11 @@ public:
 	UIManager(SDL_Renderer* renderer, InputManager* inputManager);
 
 	/**
+	* @brief Destructor of UI manager.
+	*/
+	~UIManager();
+
+	/**
 	 * @brief UIManager update loop. Used to handle button clicks/hovers.
 	*/
 	void update();

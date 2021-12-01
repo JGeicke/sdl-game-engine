@@ -85,7 +85,7 @@ public:
 	*/
 	void setProgress(float progress) {
 		this->progress = progress;
-		progressPanel.setWidth((int)backgroundPanel.getWidth() * progress);
+		progressPanel.setWidth((int)(backgroundPanel.getWidth() * progress));
 	}
 
 	/**
