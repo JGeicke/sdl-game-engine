@@ -1,6 +1,4 @@
-#ifndef GAMESYSTEM_H
-#define GAMESYSTEM_H
-
+#pragma once
 /**
  * @brief Abstract base class of game systems.
 */
@@ -29,5 +27,4 @@ protected:
 	*/
 	bool debug = false;
 };
-#endif // !GAMESYSTEM_H
 

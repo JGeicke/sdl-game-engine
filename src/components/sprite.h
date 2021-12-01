@@ -1,5 +1,4 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#pragma once
 #include "SDL.h"
 #include "../util/texture.h"
 /**
@@ -166,4 +165,3 @@ private:
 	*/
 	SDL_RendererFlip currentTextureFlip;
 };
-#endif // !SPRITE_H

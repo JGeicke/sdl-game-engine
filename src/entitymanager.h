@@ -1,5 +1,4 @@
-#ifndef ENTITYMANAGER_H
-#define ENTITYMANAGER_H
+#pragma once
 #include "entity.h"
 #include <unordered_set>
 
@@ -56,4 +55,3 @@ private:
 	*/
 	Entity next = { 0 };
 };
-#endif // !ENTITYMANAGER_H

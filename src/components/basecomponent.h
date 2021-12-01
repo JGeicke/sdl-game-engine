@@ -1,5 +1,4 @@
-#ifndef BASECOMPONENT_H
-#define BASECOMPONENT_H
+#pragma once
 #include "../entity.h"
 // TODO: refactor header guards
 /**
@@ -56,4 +55,3 @@ protected:
 
 
 };
-#endif // !BASECOMPONENT_H

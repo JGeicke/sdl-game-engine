@@ -1,5 +1,4 @@
-#ifndef COMPONENTMANAGER_H
-#define COMPONENTMANAGER_H
+#pragma once
 #include "entity.h"
 #include <map>
 #include <array>
@@ -108,4 +107,3 @@ private:
 	*/
 	size_t currentIndex = 0;
 };
-#endif // !COMPONENTMANAGER_H

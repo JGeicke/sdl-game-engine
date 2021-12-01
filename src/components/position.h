@@ -1,5 +1,4 @@
-#ifndef POSITION_H
-#define POSITION_H
+#pragma once
 #include <iostream>
 #include "basecomponent.h"
 #include "SDL.h"
@@ -74,5 +73,4 @@ private:
 	*/
 	SDL_Point lastPos = { 0,0 };
 };
-#endif // !POSITION_H
 

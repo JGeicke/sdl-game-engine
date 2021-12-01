@@ -1,5 +1,4 @@
-#ifndef COMPONENT_H
-#define COMPONENT_H
+#pragma once
 #include "position.h"
 #include "sprite.h"
 #include "movement.h"
@@ -7,4 +6,4 @@
 #include "animator.h"
 #include "audio.h"
 #include "collider.h"
-#endif // !COMPONENT_H
+

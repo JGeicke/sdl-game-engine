@@ -1,5 +1,4 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#pragma once
 /**
  * @brief Base struct to represent Entities in the game.
 */
@@ -36,4 +35,3 @@ struct Entity {
 		return uid != other.uid;
 	}
 };
-#endif
