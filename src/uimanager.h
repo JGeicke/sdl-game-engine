@@ -33,8 +33,9 @@ public:
 	 * @brief Adds a text font.
 	 * @param path - Font filepath.
 	 * @param fontSize - Fontsize.
+	 * @return Index of created font. When unsuccesful, returns SIZE_MAX. 
 	*/
-	void addFont(const char* path, int fontSize);
+	size_t addFont(const char* path, int fontSize);
 
 	/**
 	 * @brief Adds label to ui.
@@ -43,7 +44,7 @@ public:
 	 * @param text - Text of label.
 	 * @param color - Text color of label.
 	 * @param fontIndex - Index of text font.
-	 * @return Index of created label.
+	 * @return Index of created label. When unsuccesful, returns SIZE_MAX. 
 	*/
 	size_t addLabel(int x, int y, std::string text, SDL_Color color, size_t fontIndex);
 
@@ -74,7 +75,7 @@ public:
 	 * @param w - Width of panel.
 	 * @param h - Height of panel.
 	 * @param panelColor - Background color of panel.
-	 * @return Index of created panel.
+	 * @return Index of created panel. When unsuccesful, returns SIZE_MAX. 
 	*/
 	size_t addPanel(const char* filePath, int x, int y, int w, int h, SDL_Color panelColor);
 	/**
@@ -84,7 +85,7 @@ public:
 	 * @param w - Width of panel.
 	 * @param h - Height of panel.
 	 * @param panelColor - Background color of panel.
-	 * @return Index of created panel.
+	 * @return Index of created panel. When unsuccesful, returns SIZE_MAX. 
 	*/
 	size_t addPanel(int x, int y, int w, int h, SDL_Color panelColor);
 	/**
@@ -116,7 +117,7 @@ public:
 	 * @param h - Height of progressbar.
 	 * @param bgColor - Color of background texture.
 	 * @param progressColor - Color of progress texture.
-	 * @return Index of created progressbar.
+	 * @return Index of created progressbar. When unsuccesful, returns SIZE_MAX. 
 	*/
 	size_t addProgressBar(const char* bgFilePath, const char* progressFilePath, int x, int y, int w, int h, SDL_Color bgColor, SDL_Color progressColor);
 	/**
@@ -127,7 +128,7 @@ public:
 	 * @param h - Height of progressbar.
 	 * @param bgColor - Color of background texture.
 	 * @param progressColor - Color of progress texture.
-	 * @return Index of created progressbar.
+	 * @return Index of created progressbar. When unsuccesful, returns SIZE_MAX. 
 	*/
 	size_t addProgressBar(int x, int y, int w, int h, SDL_Color bgColor, SDL_Color progressColor);
 	/**
@@ -159,7 +160,7 @@ public:
 	 * @param fontIndex - Index of font.
 	 * @param borderWidth - Borderwidth of button
 	 * @param hoverColor - Hover color of button background texture.
-	 * @return Index of created button.
+	 * @return Index of created button. When unsuccesful, returns SIZE_MAX. 
 	*/
 	size_t addButton(int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor);
 	/**
@@ -173,7 +174,7 @@ public:
 	 * @param fontIndex - Index of font.
 	 * @param borderWidth - Borderwidth of button
 	 * @param hoverColor - Hover color of button background texture.
-	 * @return Index of created button.
+	 * @return Index of created button. When unsuccesful, returns SIZE_MAX. 
 	*/
 	size_t addButton(const char* panelFilePath, int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor);
 

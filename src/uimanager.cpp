@@ -37,15 +37,21 @@ void UIManager::update() {
 * @brief Adds a text font.
 * @param path - Font filepath.
 * @param fontSize - Fontsize.
+* @return Index of created font. When unsuccesful, returns SIZE_MAX. 
 */
-void UIManager::addFont(const char* path, int fontSize){
+size_t UIManager::addFont(const char* path, int fontSize){
+    if (currentFontIndex == 3) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't load anymore fonts.", NULL);
+        return SIZE_MAX;
+    }
+
     fonts[currentFontIndex] = TTF_OpenFont(path, fontSize);
     if (!fonts[currentFontIndex]) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", TTF_GetError(), NULL);
-        return;
+        return SIZE_MAX;
     }
 
-    currentFontIndex++;
+    return currentFontIndex++;
 }
 #pragma region Label
 /**
@@ -55,14 +61,16 @@ void UIManager::addFont(const char* path, int fontSize){
 * @param text - Text of label.
 * @param color - Text color of label.
 * @param fontIndex - Index of text font.
-* @return Index of created label. -1 if no label was created.
+* @return Index of created label. -1 if no label was created. When unsuccesful, returns SIZE_MAX. 
 */
 size_t UIManager::addLabel(int x, int y, std::string text, SDL_Color color, size_t fontIndex){
-    if (fontIndex < currentFontIndex) {
+    if (currentLabelIndex == 32) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore labels.", NULL);
+    } else if (fontIndex < currentFontIndex) {
         uiLabels[currentLabelIndex] = *(new Label(x, y, text, color, renderer, fonts[fontIndex]));
         return currentLabelIndex++;
     }
-    return -1;
+    return SIZE_MAX;
 }
 #pragma endregion Label
 
@@ -75,9 +83,13 @@ size_t UIManager::addLabel(int x, int y, std::string text, SDL_Color color, size
 * @param w - Width of panel.
 * @param h - Height of panel.
 * @param panelColor - Background color of panel.
-* @return Index of created panel.
+* @return Index of created panel. When unsuccesful, returns SIZE_MAX. 
 */
 size_t UIManager::addPanel(const char* filePath, int x, int y, int w, int h, SDL_Color panelColor) {
+    if (currentPanelIndex == 32) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore panels.", NULL);
+        return SIZE_MAX;
+    }
     uiPanels[currentPanelIndex] = *(new Panel(renderer,filePath, x, y, w, h, panelColor));
     return currentPanelIndex++;
 }
@@ -89,9 +101,13 @@ size_t UIManager::addPanel(const char* filePath, int x, int y, int w, int h, SDL
 * @param w - Width of panel.
 * @param h - Height of panel.
 * @param panelColor - Background color of panel.
-* @return Index of created panel.
+* @return Index of created panel. When unsuccesful, returns SIZE_MAX. 
 */
 size_t UIManager::addPanel(int x, int y, int w, int h, SDL_Color panelColor){
+    if (currentPanelIndex == 32) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore panels.", NULL);
+        return SIZE_MAX;
+    }
     uiPanels[currentPanelIndex] = *(new Panel(renderer, x, y, w, h, panelColor));
     return currentPanelIndex++;
 }
@@ -108,9 +124,13 @@ size_t UIManager::addPanel(int x, int y, int w, int h, SDL_Color panelColor){
 * @param h - Height of progressbar.
 * @param bgColor - Color of background texture.
 * @param progressColor - Color of progress texture.
-* @return Index of created progressbar.
+* @return Index of created progressbar. When unsuccesful, returns SIZE_MAX. 
 */
 size_t UIManager::addProgressBar(const char* bgFilePath, const char* progressFilePath, int x, int y, int w, int h, SDL_Color bgColor, SDL_Color progressColor){
+    if (currentProgressBarIndex == 32) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore progress bars.", NULL);
+        return SIZE_MAX;
+    }
     uiProgressBars[currentProgressBarIndex] = *(new ProgressBar(renderer, bgFilePath, progressFilePath, x, y, w, h, bgColor, progressColor));
     return currentProgressBarIndex++;
 }
@@ -123,9 +143,13 @@ size_t UIManager::addProgressBar(const char* bgFilePath, const char* progressFil
 * @param h - Height of progressbar.
 * @param bgColor - Color of background texture.
 * @param progressColor - Color of progress texture.
-* @return Index of created progressbar.
+* @return Index of created progressbar. When unsuccesful, returns SIZE_MAX. 
 */
 size_t UIManager::addProgressBar(int x, int y, int w, int h, SDL_Color bgColor, SDL_Color progressColor) {
+    if (currentProgressBarIndex == 32) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore progress bars.", NULL);
+        return SIZE_MAX;
+    }
     uiProgressBars[currentProgressBarIndex] = *(new ProgressBar(renderer, x, y, w, h, bgColor, progressColor));
     return currentProgressBarIndex++;
 }
@@ -142,14 +166,16 @@ size_t UIManager::addProgressBar(int x, int y, int w, int h, SDL_Color bgColor, 
 * @param fontIndex - Index of font.
 * @param borderWidth - Borderwidth of button
 * @param hoverColor - Hover color of button background texture.
-* @return Index of created button. -1 if no button was created.
+* @return Index of created button. -1 if no button was created. When unsuccesful, returns SIZE_MAX. 
 */
 size_t UIManager::addButton(int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor){
-    if (fontIndex < currentFontIndex) {
+    if (currentButtonIndex == 32) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore progress bars.", NULL);
+    }else if (fontIndex < currentFontIndex) {
         uiButtons[currentButtonIndex] = *(new Button(renderer,x,y,buttonText, buttonTextColor, buttonBGColor, fonts[fontIndex], borderWidth, hoverColor));
         return currentButtonIndex++;
     }
-    return -1;
+    return SIZE_MAX;
 }
 
 /**
@@ -163,14 +189,16 @@ size_t UIManager::addButton(int x, int y, std::string buttonText, SDL_Color butt
 * @param fontIndex - Index of font.
 * @param borderWidth - Borderwidth of button
 * @param hoverColor - Hover color of button background texture.
-* @return Index of created button.
+* @return Index of created button. When unsuccesful, returns SIZE_MAX. 
 */
 size_t UIManager::addButton(const char* panelFilePath, int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor) {
-    if (fontIndex < currentFontIndex) {
+    if (currentButtonIndex == 32) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore progress bars.", NULL);
+    }else if (fontIndex < currentFontIndex) {
         uiButtons[currentButtonIndex] = *(new Button(renderer, panelFilePath, x, y, buttonText, buttonTextColor, buttonBGColor, fonts[fontIndex], borderWidth, hoverColor));
         return currentButtonIndex++;
     }
-    return -1;
+    return SIZE_MAX;
 }
 
 /**
