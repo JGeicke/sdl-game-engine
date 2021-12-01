@@ -1,6 +1,5 @@
 #pragma once
 #include "../entity.h"
-// TODO: refactor header guards
 /**
  * @brief Abstract base struct for components.
 */
