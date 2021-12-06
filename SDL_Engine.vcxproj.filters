@@ -54,6 +54,12 @@
     <ClCompile Include="src\uimanager.cpp">
       <Filter>Quelldateien\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="src\gameengine.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\window.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity.h">
@@ -133,6 +139,15 @@
     </ClInclude>
     <ClInclude Include="src\components\collider.h">
       <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameengine.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\gamesystems.h">
+      <Filter>Headerdateien\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\window.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -151,6 +151,7 @@ public:
 	 * @param texture - Texture of the animation.
 	*/
 	void addAnimation(const char* animationName, int frames, int frameDelayMS, Texture texture) {
+		// TODO: research and change how animations are made.
 		Animation* animation;
 		animation = new Animation(frames, frameDelayMS, texture);
 		animations[animationName] = animation;

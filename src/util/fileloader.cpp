@@ -20,6 +20,11 @@ Tilemap* FileLoader::loadTilemap(const char* path, size_t layerCount) {
 
 		for (size_t i = 0; i < layerCount; i++)
 		{
+			std::string layerName = tilemap_raw["layers"][i]["name"];
+			if (layerName == "Collision" || layerName == "collision") {
+				std::cout << "Found collision layer" << std::endl;
+				result->setCollisionLayerIndex(i);
+			}
 			// add layer
 			result->addLayer(i, tilemap_raw["layers"][i]["data"].get<std::vector<unsigned int>>());
 		}
@@ -40,6 +45,9 @@ Texture FileLoader::loadTexture(const char* path, SDL_Renderer* renderer) {
 
 	// create texture
 	SDL_Surface* tempSurface = IMG_Load(path);
+	if (!tempSurface) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Texture IO Error", IMG_GetError(), NULL);
+	}
 	result.texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
 
 	// get width & height of texture
@@ -58,6 +66,9 @@ Texture FileLoader::loadTexture(const char* path, SDL_Renderer* renderer) {
 */
 SDL_Texture* FileLoader::loadSDLTexture(const char* path, SDL_Renderer* renderer) {
 	SDL_Surface* tempSurface = IMG_Load(path);
+	if (!tempSurface) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Texture IO Error", IMG_GetError(), NULL);
+	}
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
 	SDL_FreeSurface(tempSurface);
 	

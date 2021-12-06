@@ -13,18 +13,21 @@ public:
 	/**
 	 * @brief Adds the component type to the entity and returns added component.
 	 * @param e - Entity to add the component to.
-	 * @return Added component of entity.
+	 * @return Added component of entity. Returns nullptr on failure.
 	*/
 	Component* addComponent(Entity e) {
 		//REMOVE: std::cout << "created component for entity with index " << currentIndex << std::endl;
-		entityIndexMap[e] = currentIndex;
-		currentIndex++;
-		return &componentData[currentIndex - 1];
+		if (currentIndex < maxIndex) {
+			entityIndexMap[e] = currentIndex;
+			currentIndex++;
+			return &componentData[currentIndex - 1];
+		}
+		return nullptr;
 	}
 	/**
 	 * @brief Gets the component of given entity.
 	 * @param e - Entity to get the component from.
-	 * @return The component of entity.
+	 * @return The component of entity. Returns nullptr on failure.
 	*/
 	Component* getComponent(Entity e) {
 		if (entityIndexMap.count(e) > 0) {
@@ -71,10 +74,13 @@ public:
 
 	/**
 	 * @brief Returns the component with given index.
-	 * @param idx - index of component.
+	 * @param idx - index of component. Returns nullptr on failure.
 	*/
 	Component* getComponentWithIndex(size_t idx) {
-		return &componentData[idx];
+		if (idx < maxIndex) {
+			return &componentData[idx];
+		}
+		return nullptr;
 	}
 
 	/**
@@ -106,4 +112,9 @@ private:
 	* @brief Next free index of componentData array.
 	*/
 	size_t currentIndex = 0;
+
+	/**
+	 * @brief Maximum number of components
+	*/
+	size_t maxIndex = 1024;
 };

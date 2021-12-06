@@ -7,18 +7,18 @@
 /**
  * @brief Physic System to simulate moving objects in the game world.
 */
-class PhysicSystem : GameSystem {
+class PhysicSystem : public GameSystem {
 public:
 	/**
 	 * @brief Constructor of physic system to set needed references.
 	 * @param inputManager - Input manager to handle user inputs.
-	 * @param movementManager - Movement Manager to gain access to movement components.
+	 * @param playerMovement - Movement component of player.
 	 * @param positionManager - Position manager to gain access to position components.
 	 * @param spriteManager - Sprite manager to access to sprite components.
 	 * @param animatorManager - Animator manager to access animator components.
 	 * @param colliderManager - Collider manager to access collider components for collisions.
 	*/
-	PhysicSystem(InputManager* inputManager, ComponentManager<Movement>* movementManager, ComponentManager<Position>* positionManager,
+	PhysicSystem(InputManager* inputManager, Movement* playerMovement, ComponentManager<Position>* positionManager,
 		ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager, ComponentManager<Collider>* colliderManager);
 
 	/**
@@ -31,9 +31,9 @@ private:
 	*/
 	InputManager* inputManager;
 	/**
-	 * @brief Pointer to the movement manager to gain access to movement components.
+	 * @brief Pointer to the movement component of the player.
 	*/
-	ComponentManager<Movement>* movementManager;
+	Movement* playerMovement;
 
 	/**
 	 * @brief Pointer to the position manager to gain acess to position components.

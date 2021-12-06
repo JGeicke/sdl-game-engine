@@ -5,7 +5,7 @@
 /**
  * @brief Audio system to manage the ingame audio.
 */
-class AudioSystem : GameSystem {
+class AudioSystem : public GameSystem {
 public:
 	/**
 	 * @brief Constructor of the audio system.
@@ -38,6 +38,11 @@ public:
 	 * @brief Plays the current background music.
 	*/
 	void playBGM();
+
+	/**
+	 * @brief Toggles the current background music.
+	*/
+	void toggleBGM();
 
 	/**
 	 * @brief Plays audio clip.

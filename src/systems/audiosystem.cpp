@@ -5,7 +5,7 @@
 */
 AudioSystem::AudioSystem(ComponentManager<Audio>* audioManager) {
 	this->audioManager = audioManager;
-	this->bgm = NULL;
+	this->bgm = nullptr;
 
 	this->masterVolume = .5f;
 	this->soundVolume = 1.0f;
@@ -58,8 +58,26 @@ void AudioSystem::addBGM(const char* filePath) {
 * @brief Plays the current background music and adjusts the volume.
 */
 void AudioSystem::playBGM() {
-	Mix_PlayMusic(bgm, -1);
-	Mix_VolumeMusic((int)(MIX_MAX_VOLUME * (masterVolume*musicVolume)));
+	if (bgm != nullptr) {
+		Mix_PlayMusic(bgm, -1);
+		Mix_VolumeMusic((int)(MIX_MAX_VOLUME * (masterVolume * musicVolume)));
+	}
+}
+
+/**
+* @brief Toggles the current background music.
+*/
+void AudioSystem::toggleBGM() {
+	if (bgm != nullptr) {
+		if (Mix_PlayingMusic() == 1) {
+			// bgm is playing
+			Mix_HaltMusic();
+		}
+		else {
+			// bgm is not playing
+			Mix_ResumeMusic();
+		}
+	}
 }
 
 /**

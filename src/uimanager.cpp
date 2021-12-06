@@ -1,5 +1,4 @@
 #include "uimanager.h"
-// TODO: max elements handling
 /**
 * @brief UIManager constructor.
 * @param renderer - Pointer to the window renderer.

@@ -2,16 +2,16 @@
 /**
 * @brief Constructor of physic system to set needed references.
 * @param inputManager - Input manager to handle user inputs.
-* @param movementManager - Movement Manager to gain access to movement components.
+* @param playerMovement - Movement component of player.
 * @param positionManager - Position manager to gain access to position components.
 * @param spriteManager - Sprite manager to access to sprite components.
 * @param animatorManager - Animator manager to access animator components.
 * @param colliderManager - Collider manager to access collider components for collisions.
 */
-PhysicSystem::PhysicSystem(InputManager* inputManager, ComponentManager<Movement>* movementManager, ComponentManager<Position>* positionManager,
+PhysicSystem::PhysicSystem(InputManager* inputManager, Movement* playerMovement, ComponentManager<Position>* positionManager,
 	ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager, ComponentManager<Collider>* colliderManager) {
 	this->inputManager = inputManager;
-	this->movementManager = movementManager;
+	this->playerMovement = playerMovement;
 	this->positionManager = positionManager;
 	this->spriteManager = spriteManager;
 	this->animatorManager = animatorManager;
@@ -29,37 +29,38 @@ void PhysicSystem::update() {
 * @brief Handles the player movement each frame.
 */
 void PhysicSystem::handlePlayerMovement() {
-	size_t componentCount = movementManager->getComponentCount();
-	for (size_t i = 0; i < componentCount; i++)
+	if(playerMovement != nullptr)
 	{
-		Movement* movementComponent = movementManager->getComponentWithIndex(i);
-		Position* positionComponent = positionManager->getComponent(movementComponent->getEntity());
-		Sprite* spriteComponent = spriteManager->getComponent(movementComponent->getEntity());
-		Animator* animatorComponent = animatorManager->getComponent(movementComponent->getEntity());
+		Position* positionComponent = positionManager->getComponent(this->playerMovement->getEntity());
+		Sprite* spriteComponent = spriteManager->getComponent(this->playerMovement->getEntity());
+		Animator* animatorComponent = animatorManager->getComponent(this->playerMovement->getEntity());
 
 		if (inputManager->getDirectionMagnitude() > 0.0) {
 			// moving
-			int newX = (int)(inputManager->getNormalizedDirectionX() * movementComponent->getMovementSpeed());
-			int newY = (int)(inputManager->getNormalizedDirectionY() * movementComponent->getMovementSpeed());
+			int newX = (int)(inputManager->getNormalizedDirectionX() * this->playerMovement->getMovementSpeed());
+			int newY = (int)(inputManager->getNormalizedDirectionY() * this->playerMovement->getMovementSpeed());
 			positionComponent->movePosition(newX, newY);
 
-			// adjust animator
-			animatorComponent->setState(STATES::WALK);
+			// check if sprite component and animator are present
+			if (animatorComponent != nullptr && spriteComponent != nullptr) {
+				// adjust animator
+				animatorComponent->setState(STATES::WALK);
 
-			// flip sprite depending on user input
-			if (inputManager->getCurrentDirectionX() > 0) {
-				spriteComponent->setTextureFlip(SDL_FLIP_HORIZONTAL);
-				animatorComponent->setDirection(DIRECTION::SIDE);
-			}
-			else if (inputManager->getCurrentDirectionX() < 0) {
-				spriteComponent->setTextureFlip(SDL_FLIP_NONE);
-				animatorComponent->setDirection(DIRECTION::SIDE);
-			}
-			else {
-				(inputManager->getCurrentDirectionY() > 0) ? animatorComponent->setDirection(DIRECTION::DOWN) : animatorComponent->setDirection(DIRECTION::UP);
+				// flip sprite depending on user input
+				if (inputManager->getCurrentDirectionX() > 0) {
+					spriteComponent->setTextureFlip(SDL_FLIP_HORIZONTAL);
+					animatorComponent->setDirection(DIRECTION::SIDE);
+				}
+				else if (inputManager->getCurrentDirectionX() < 0) {
+					spriteComponent->setTextureFlip(SDL_FLIP_NONE);
+					animatorComponent->setDirection(DIRECTION::SIDE);
+				}
+				else {
+					(inputManager->getCurrentDirectionY() > 0) ? animatorComponent->setDirection(DIRECTION::DOWN) : animatorComponent->setDirection(DIRECTION::UP);
+				}
 			}
 		}
-		else {
+		else if(animatorComponent != nullptr){
 			// idling
 			animatorComponent->setState(STATES::IDLE);
 		}
@@ -83,7 +84,7 @@ void PhysicSystem::calculateColliderPositions(){
 	for (size_t i = 0; i < componentCount; i++) {
 		Collider* currentCollider = colliderManager->getComponentWithIndex(i);
 
-		if (movementManager->hasComponent(currentCollider->getEntity())) {
+		if (this->playerMovement->getEntity().uid == currentCollider->getEntity().uid) {
 			// collider on moving player object
 			Position* currentPosition = positionManager->getComponent(currentCollider->getEntity());
 			adjustColliderPosition(currentCollider, currentPosition);
@@ -108,15 +109,17 @@ void PhysicSystem::adjustColliderPosition(Collider* collider, Position* position
 * @brief Detects collisions between colliders.
 */
 void PhysicSystem::detectCollisions() {
-	size_t componentCount = movementManager->getComponentCount();
 	size_t colliderCount = colliderManager->getComponentCount();
 
-	for (size_t i = 0;i < componentCount; i++) {
+	if(playerMovement != nullptr) {
 		size_t collisionCounter = 0;
 
-		Movement* currentMovement = movementManager->getComponentWithIndex(i);
-		Position* currentPosition = positionManager->getComponent(currentMovement->getEntity());
-		Collider* currentCollider = colliderManager->getComponent(currentMovement->getEntity());
+		Position* currentPosition = positionManager->getComponent(this->playerMovement->getEntity());
+		Collider* currentCollider = colliderManager->getComponent(this->playerMovement->getEntity());
+
+		if (currentCollider == nullptr) {
+			return;
+		}
 
 		if (currentCollider->isActive()) {
 			for (size_t z = 0; z < colliderCount; z++)
@@ -125,7 +128,7 @@ void PhysicSystem::detectCollisions() {
 
 				if (nextCollider->isActive()) {
 					// check if both entities
-					if (nextCollider->getEntity().uid != currentMovement->getEntity().uid) {
+					if (nextCollider->getEntity().uid != this->playerMovement->getEntity().uid) {
 						if (SDL_HasIntersection(currentCollider->getColliderRect(), nextCollider->getColliderRect()) == SDL_TRUE) {
 							// collision
 							collisionCounter++;

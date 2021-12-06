@@ -3,6 +3,7 @@
 #include <vector>
 #include "SDL.h"
 #include "../util/texture.h"
+#include <iostream>
 /**
  * @brief Struct to store all data for the tilemap.
 */
@@ -112,6 +113,33 @@ public:
 	unsigned int getTotalTilemapHeight() {
 		return tilesPerCol * tileHeight;
 	}
+
+	/**
+	 * @brief Gets the collision layer index of the tilemap.
+	 * @return The collision layer index.
+	*/
+	int getCollisionLayerIndex() {
+		return collisionLayerIndex;
+	}
+
+	/**
+	 * @brief Sets the current collision layer index.
+	 * @param index - New collision layer index.
+	*/
+	void setCollisionLayerIndex(int index) {
+		if (hasCollisionLayer()) {
+			std::cout << "Multiple collision layers!" << std::endl;
+		}
+		collisionLayerIndex = index;
+	}
+
+	/**
+	 * @brief Checks if tilemap has collision layer.
+	 * @return Whether the tilemap has a collision layer.
+	*/
+	bool hasCollisionLayer() {
+		return collisionLayerIndex != -1;
+	}
 private:
 	/**
 	 * @brief Width of each tile in the tilemap.
@@ -142,6 +170,11 @@ private:
 	 * @brief Data of each layer stored in a map with layer index as the key.
 	*/
 	std::map<size_t, std::vector<unsigned int> > layers = {};
+
+	/**
+	 * @brief Current collision layer index.
+	*/
+	int collisionLayerIndex = -1;
 
 };
 
