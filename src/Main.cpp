@@ -42,12 +42,12 @@ int main(int argc, char* argv[]) {
 	gameEngine->setCameraFollowTarget(player);
 
 	gameEngine->addAnimatorComponent(player);
-	gameEngine->addAnimation(player, "idle_side", 5, 160, "../TestTextures/char_idle_side.png");
-	gameEngine->addAnimation(player, "walk_side", 6, 100, "../TestTextures/char_walk_side.png");
-	gameEngine->addAnimation(player, "idle_up", 5, 160, "../TestTextures/char_idle_up.png");
-	gameEngine->addAnimation(player, "walk_up", 6, 100, "../TestTextures/char_walk_up.png");
-	gameEngine->addAnimation(player, "idle_down", 5, 160, "../TestTextures/char_idle_down.png");
-	gameEngine->addAnimation(player, "walk_down", 6, 100, "../TestTextures/char_walk_down.png");
+	gameEngine->addAnimation(player, STATES::IDLE_SIDE, 5, 160, "../TestTextures/char_idle_side.png");
+	gameEngine->addAnimation(player, STATES::WALK_SIDE, 6, 100, "../TestTextures/char_walk_side.png");
+	gameEngine->addAnimation(player, STATES::IDLE_UP, 5, 160, "../TestTextures/char_idle_up.png");
+	gameEngine->addAnimation(player, STATES::WALK_UP, 6, 100, "../TestTextures/char_walk_up.png");
+	gameEngine->addAnimation(player, STATES::IDLE_DOWN, 5, 160, "../TestTextures/char_idle_down.png");
+	gameEngine->addAnimation(player, STATES::WALK_DOWN, 6, 100, "../TestTextures/char_walk_down.png");
 
 	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 32 }, false);
 	//playerCollider->onCollisionEnter(&testClick);
@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
 	gameEngine->addSpriteComponent(wizard, "../TestTextures/wizard_idle.png", { 64, 64 }, 1.0f);
 	gameEngine->addColliderComponent(wizard, { 0, 0 }, { 30, 53 }, false);
 	gameEngine->addAnimatorComponent(wizard);
-	gameEngine->addAnimation(wizard, "testing_name", 10, 150);
+	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150);
 
 	// scene
 	gameEngine->setTilemap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 3);

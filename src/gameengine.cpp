@@ -177,14 +177,14 @@ Animator* GameEngine::addAnimatorComponent(Entity e) {
 	return animator;
 }
 
-void GameEngine::addAnimation(Entity e, const char* animationName, int frames, int frameDelayMS, const char* filePath) {
+void GameEngine::addAnimation(Entity e, size_t animationState, int frames, int frameDelayMS, const char* filePath) {
 	Animator* animator = animatorManager->getComponent(e);
-	animator->addAnimation(animationName, frames, frameDelayMS, FileLoader::loadTexture(filePath, this->window->getRenderer()));
+	animator->addAnimation(animationState, frames, frameDelayMS, FileLoader::loadTexture(filePath, this->window->getRenderer()));
 }
 
-void GameEngine::addAnimation(Entity e, const char* animationName, int frames, int frameDelayMS) {
+void GameEngine::addAnimation(Entity e, size_t animationState, int frames, int frameDelayMS) {
 	Animator* animator = animatorManager->getComponent(e);
-	animator->addAnimation(animationName, frames, frameDelayMS);
+	animator->addAnimation(animationState, frames, frameDelayMS);
 }
 
 #pragma region Getters

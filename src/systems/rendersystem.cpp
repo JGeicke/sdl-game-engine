@@ -26,8 +26,6 @@ void RenderSystem::update() {
 	SDL_RenderClear(renderer);
 	moveCamera();
 
-	controlAnimations();
-
 	renderTilemap();
 	renderSprites();
 
@@ -273,59 +271,6 @@ void RenderSystem::draw(Sprite* sprite) {
 
 #pragma region Animations
 /**
- * @brief Control the animations depending on the animation state and the animation direction.
-*/
-void RenderSystem::controlAnimations() {
-	size_t index = animatorManager->getComponentCount();
-	for (size_t i = 0; i < index; i++) {
-		Animator* currentAnimator = animatorManager->getComponentWithIndex(i);
-		size_t state = currentAnimator->getState();
-
-		switch (state) {
-		case STATES::IDLE:
-			//IDLE
-			switch (currentAnimator->getDirection()) {
-			case DIRECTION::SIDE:
-				currentAnimator->play("idle_side");
-				break;
-			case DIRECTION::DOWN:
-				currentAnimator->play("idle_down");
-				break;
-			case DIRECTION::UP:
-				currentAnimator->play("idle_up");
-				break;
-			case DIRECTION::NO_DIRECTION:
-				// play current animation
-				currentAnimator->play(currentAnimator->getCurrentAnimationName());
-				break;
-			default:
-				break;
-			}
-			break;
-		case STATES::WALK:
-			//WALK
-			switch (currentAnimator->getDirection()) {
-			case DIRECTION::SIDE:
-				currentAnimator->play("walk_side");
-				break;
-			case DIRECTION::DOWN:
-				currentAnimator->play("walk_down");
-				break;
-			case DIRECTION::UP:
-				currentAnimator->play("walk_up");
-				break;
-			default:
-				break;
-			}
-			break;
-		default:
-			std::cout << "Animation not found" << std::endl;
-			break;
-		}
-	}
-}
-
-/**
 * @brief Animates the sprite.
 * @param sprite - Sprite to animate.
 * @param animator - Animator with animation data.
@@ -334,6 +279,10 @@ void RenderSystem::animateSprite(Sprite* sprite, Animator* animator) {
 	int newX, newY;
 
 	Animation* currentAnimation = animator->getCurrentAnimation();
+
+	if (currentAnimation == nullptr) {
+		return;
+	}
 
 	if (currentAnimation->hasAnimationTexture()) {
 		Texture newTexture = currentAnimation->getAnimationTexture();

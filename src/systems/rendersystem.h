@@ -185,11 +185,6 @@ private:
 	void moveCamera();
 
 	/**
-	* @brief Control the animations depending on the animation state and the animation direction.
-	*/
-	void controlAnimations();
-
-	/**
 	 * @brief Sorts and merges the two parts of the position array together.
 	 * @param arr - array to sort and merge the two parts of.
 	 * @param start - Startindex of left side.

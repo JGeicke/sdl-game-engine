@@ -44,25 +44,41 @@ void PhysicSystem::handlePlayerMovement() {
 			// check if sprite component and animator are present
 			if (animatorComponent != nullptr && spriteComponent != nullptr) {
 				// adjust animator
-				animatorComponent->setState(STATES::WALK);
-
 				// flip sprite depending on user input
 				if (inputManager->getCurrentDirectionX() > 0) {
 					spriteComponent->setTextureFlip(SDL_FLIP_HORIZONTAL);
-					animatorComponent->setDirection(DIRECTION::SIDE);
+					animatorComponent->setState(STATES::WALK_SIDE);
 				}
 				else if (inputManager->getCurrentDirectionX() < 0) {
 					spriteComponent->setTextureFlip(SDL_FLIP_NONE);
-					animatorComponent->setDirection(DIRECTION::SIDE);
+					animatorComponent->setState(STATES::WALK_SIDE);
 				}
 				else {
-					(inputManager->getCurrentDirectionY() > 0) ? animatorComponent->setDirection(DIRECTION::DOWN) : animatorComponent->setDirection(DIRECTION::UP);
+					if (inputManager->getCurrentDirectionY() > 0) {
+						animatorComponent->setState(STATES::WALK_DOWN);
+					}
+					else { 
+						animatorComponent->setState(STATES::WALK_UP); 
+					}
 				}
 			}
 		}
 		else if(animatorComponent != nullptr){
-			// idling
-			animatorComponent->setState(STATES::IDLE);
+			// idling based on previous animation
+			size_t state = animatorComponent->getState();
+			switch (state) {
+			case STATES::WALK_DOWN:
+				animatorComponent->setState(STATES::IDLE_DOWN);
+				break;
+			case STATES::WALK_UP:
+				animatorComponent->setState(STATES::IDLE_UP);
+				break;
+			case STATES::WALK_SIDE:
+				animatorComponent->setState(STATES::IDLE_SIDE);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }

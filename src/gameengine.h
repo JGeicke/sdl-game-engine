@@ -48,9 +48,9 @@ public:
 
 	Animator* addAnimatorComponent(Entity e);
 
-	void addAnimation(Entity e, const char* animationName, int frames, int frameDelayMS, const char* filePath);
+	void addAnimation(Entity e, size_t animationState, int frames, int frameDelayMS, const char* filePath);
 
-	void addAnimation(Entity e, const char* animationName, int frames, int frameDelayMS);
+	void addAnimation(Entity e, size_t animationState, int frames, int frameDelayMS);
 
 	Position* getPositionComponent(Entity e);
 

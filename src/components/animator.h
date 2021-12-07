@@ -9,18 +9,12 @@
  * @brief Enum of animation states used for different animation.
 */
 enum STATES {
-	IDLE,
-	WALK,
-};
-
-/**
- * @brief Enum of animation direction used to control the direction of the animation (e.g. walk up, walk down, walk sideways etc.).
-*/
-enum DIRECTION {
-	SIDE,
-	UP,
-	DOWN,
-	NO_DIRECTION
+	IDLE_SIDE,
+	WALK_SIDE,
+	IDLE_UP,
+	WALK_UP,
+	IDLE_DOWN,
+	WALK_DOWN,
 };
 
 /**
@@ -124,65 +118,53 @@ public:
 	/**
 	 * @brief Default constructor of animator component.
 	*/
-	Animator() {
-		animations = {};
-		direction = DIRECTION::NO_DIRECTION;
-		currentState = STATES::IDLE;
-
-	}
+	Animator() {}
 
 	/**
 	 * @brief Adds an animation the the animator component that uses sprite texture for animation.
-	 * @param animationName - Name of the animation.
+	 * @param animationState - State to play the animation.
 	 * @param frames - Number of frames of the animation.
 	 * @param frameDelayMS - Delay between animation frames.
 	*/
-	void addAnimation(const char* animationName, int frames, int frameDelayMS) {
+	void addAnimation(size_t animationState, int frames, int frameDelayMS) {
 		Texture t;
 		t.emptyInit();
-		addAnimation(animationName, frames, frameDelayMS, t);
+		addAnimation(animationState, frames, frameDelayMS, t);
 	}
 
 	/**
 	 * @brief Adds an animation the the animator component.
-	 * @param animationName - Name of the animation.
+	 * @param animationState - State to play the animation.
 	 * @param frames - Number of frames of the animation.
 	 * @param frameDelayMS - Delay between animation frames.
 	 * @param texture - Texture of the animation.
 	*/
-	void addAnimation(const char* animationName, int frames, int frameDelayMS, Texture texture) {
-		// TODO: research and change how animations are made.
-		Animation* animation;
-		animation = new Animation(frames, frameDelayMS, texture);
-		animations[animationName] = animation;
+	void addAnimation(size_t animationState, int frames, int frameDelayMS, Texture texture) {
+		animations.insert(animations.begin()+animationState,*(new Animation(frames, frameDelayMS, texture)));
 
 		// check if current animation is currently not set
-		if (!currentAnimation) {
-			currentAnimation = animationName;
+		if (currentState == SIZE_MAX) {
+			currentState = animationState;
 		}
 	}
-
+	
 	/**
-	 * @brief Play animation with certain name.
-	 * @param animationName - Name of animation to play.
+	* @brief Checks if the animator component has animations.
+	* @return Whether the animator component has animations.
 	*/
-	void play(const char* animationName) {
-		if (currentAnimation != nullptr) {
-			animations[currentAnimation]->resetYOffset();
-		}
-		currentAnimation = animationName;
-	}
-
 	bool hasAnimation() {
 		return animations.size() > 0;
 	}
 
 	/**
 	 * @brief Gets the currently played animation.
-	 * @return Current animation.
+	 * @return Current animation. Returns nullptr if no animation is present
 	*/
 	Animation* getCurrentAnimation() {
-		return animations[currentAnimation];
+		if (currentState < animations.size()) {
+			return &animations[currentState];
+		}
+		return nullptr;
 	}
 
 	/**
@@ -197,48 +179,21 @@ public:
 	 * @brief Sets the new animation state.
 	*/
 	void setState(size_t newState) {
-		currentState = newState;
-	}
-
-	/**
-	 * @brief Gets the current animation direction.
-	 * @return Current animation direction.
-	*/
-	int getDirection() {
-		return direction;
-	}
-
-	/**
-	* @brief Sets the current animation direction.
-	* @param newDirection - New animation direction.
-	*/
-	void setDirection(int newDirection) {
-		direction = newDirection;
-	}
-
-	/**
-	* @brief Gets the name of the current animation.
-	* @return Name of the current animation.
-	*/
-	const char* getCurrentAnimationName() {
-		return currentAnimation;
+		if (newState < animations.size()) {
+			animations[currentState].resetYOffset();
+			currentState = newState;
+		}
 	}
 private:
 	/**
 	* @brief Map that maps the name of an animation to the animation struct.
 	*/
-	std::map<const char*, Animation*> animations;
+	//std::map<const char*, Animation*> animations;
 
-	/**
-	* @brief Direction to distinguish the different animations for each direction.
-	*/
-	int direction;
+	std::vector<Animation> animations = {};
+
 	/**
 	* @brief Current state of animator.
 	*/
-	size_t currentState;
-	/**
-	* @brief Name of the currently played animation.
-	*/
-	const char* currentAnimation;
+	size_t currentState = SIZE_MAX;
 };
