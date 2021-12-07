@@ -1,4 +1,8 @@
 #include "window.h"
+/**
+* @brief Initializes the game window.
+* @return Whether the game window was successfully initialized.
+*/
 bool Window::initWindow() {
 	this->window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
 	if (this->window == nullptr) {

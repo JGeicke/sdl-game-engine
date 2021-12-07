@@ -127,9 +127,9 @@ public:
 	 * @param frameDelayMS - Delay between animation frames.
 	*/
 	void addAnimation(size_t animationState, int frames, int frameDelayMS) {
-		Texture t;
-		t.emptyInit();
-		addAnimation(animationState, frames, frameDelayMS, t);
+		Texture* t = new Texture();
+		t->emptyInit();
+		addAnimation(animationState, frames, frameDelayMS, *t);
 	}
 
 	/**
