@@ -120,34 +120,20 @@ Entity GameEngine::addPlayer(SDL_Point position, unsigned int movementSpeed) {
 */
 void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapDataFilePath, size_t layerCount) {
 	// TODO: change to scene
-	Tilemap* tilemap = renderSystem->setMap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", layerCount);
+	Tilemap* tilemap = renderSystem->setMap(tilesetFilePath, tilemapDataFilePath, layerCount);
 
 	// create collision objects
 	if (tilemap->hasCollisionLayer()) {
-		int collisionLayerIndex = tilemap->getCollisionLayerIndex();
-		std::vector<unsigned int> layer = tilemap->getLayer(collisionLayerIndex);
-		int tileWidth = tilemap->getTileWidth();
-		int tileHeight = tilemap->getTileHeight();
-		int maxTilesPerRow = tilemap->getTilesPerRow();
-		int currentDestX = 0;
-		int currentDestY = 0;
+		std::vector<SDL_Rect> objLayer = tilemap->getObjectLayer();
 
 
-		for (size_t i = 0; i < layer.size(); i++) {
+		for (size_t i = 0; i < objLayer.size(); i++) {
 			// checks if current x-position is greater or equals to max tilecount in row
-			if (currentDestX >= maxTilesPerRow) {
-				currentDestX = 0;
-				currentDestY = currentDestY + 1;
-			}
+			int newX = objLayer[i].x + (objLayer[i].w / 2);
+			int newY = objLayer[i].y + (objLayer[i].h / 2);
 
-			// has collision entity
-			if (layer[i] != 0) {
-				int newX = currentDestX * tileWidth + (tileWidth/2);
-				int newY = currentDestY * tileHeight + (tileHeight/2);
-				Entity e = this->addEntity({ newX, newY });
-				this->addColliderComponent(e, { 0,0 }, { tileWidth, tileHeight }, false);
-			}
-			currentDestX = currentDestX + 1;
+			Entity e = this->addEntity({ newX, newY });
+			this->addColliderComponent(e, { 0,0 }, { objLayer[i].w, objLayer[i].h }, false);
 		}
 	}
 }

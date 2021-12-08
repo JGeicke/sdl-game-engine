@@ -21,12 +21,19 @@ Tilemap* FileLoader::loadTilemap(const char* path, size_t layerCount) {
 		for (size_t i = 0; i < layerCount; i++)
 		{
 			std::string layerName = tilemap_raw["layers"][i]["name"];
-			if (layerName == "Collision" || layerName == "collision") {
+			std::string type = tilemap_raw["layers"][i]["type"];
+			if (layerName == "Collision" || layerName == "collision" && type == "objectgroup") {
 				std::cout << "Found collision layer" << std::endl;
+				for (auto obj : tilemap_raw["layers"][i]["objects"])
+				{
+					result->addObject({ obj["x"].get<int>(), obj["y"].get<int>() , obj["width"].get<int>() ,obj["height"].get<int>()});
+				}
 				result->setCollisionLayerIndex(i);
 			}
-			// add layer
-			result->addLayer(i, tilemap_raw["layers"][i]["data"].get<std::vector<unsigned int>>());
+			else {
+				// add layer
+				result->addLayer(i, tilemap_raw["layers"][i]["data"].get<std::vector<unsigned int>>());
+			}
 		}
 		file.close();
 		return result;

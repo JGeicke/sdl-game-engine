@@ -35,6 +35,16 @@ public:
 	}
 
 	/**
+	 * @brief Adds an object to the object layer.
+	 * @param obj - Object to add.
+	*/
+	void addObject(SDL_Rect obj) {
+		objectLayer.insert(objectLayer.begin() + objectIndex, obj);
+		objectIndex++;
+		std::cout << obj.x << " " << obj.y << " " << obj.w << " " << obj.h << std::endl;
+	}
+
+	/**
 	 * @brief Prints layer with certain index.
 	 * @param layer - Index of layer to print.
 	*/
@@ -56,6 +66,14 @@ public:
 			return layers[layer];
 		}
 		return std::vector<unsigned int>();
+	}
+
+	/**
+	 * @brief Gets the object layer of the tilemap.
+	 * @return Object layer of the tilemap.
+	*/
+	std::vector<SDL_Rect> getObjectLayer() {
+		return objectLayer;
 	}
 
 	/**
@@ -167,9 +185,19 @@ private:
 	size_t layerCount;
 
 	/**
-	 * @brief Data of each layer stored in a map with layer index as the key.
+	 * @brief Data of each tile layer stored in a map with layer index as the key.
 	*/
 	std::map<size_t, std::vector<unsigned int> > layers = {};
+
+	/**
+	 * @brief Data of each object layer stored in a map with layer index as the key.
+	*/
+	std::vector<SDL_Rect> objectLayer = {};
+
+	/**
+	 * @brief Current object count of object layer.
+	*/
+	size_t objectIndex = 0;
 
 	/**
 	 * @brief Current collision layer index.

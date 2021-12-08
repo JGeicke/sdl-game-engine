@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
 	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150);
 
 	// scene
-	gameEngine->setTilemap("../TestTextures/test_level_1.png", "../TestTextures/test_level_1.json", 3);
+	gameEngine->setTilemap("../TestTextures/test_level_1.png", "../TestTextures/level_1_col.json", 3);
 	gameEngine->setBGM("../TestTextures/new_bgm.mp3");
 
 	gameEngine->run();
