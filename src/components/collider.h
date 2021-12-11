@@ -7,7 +7,7 @@
 */
 struct Collider : BaseComponent {
 	// function pointer
-	typedef void (*eventFunction)(void);
+	typedef void (*eventFunction)(Collider*, Collider*);
 public:
 	/**
 	 * @brief Prints the collider component.
@@ -147,33 +147,33 @@ public:
 
 	/**
 	 * @brief Executes the on collision behaviour depending on if the collider is a trigger or a normal collider.
-	 * @param collisionEntity - Entity of the collider this collider collided with.
+	 * @param collisionComponent - Collision component this collider collided with.
 	*/
-	void collision(Entity collisionEntity) {
-		if (lastCollision.uid == collisionEntity.uid) {
+	void collision(Collider* collisionComponent) {
+		if (lastCollision.uid == collisionComponent->getEntity().uid) {
 			if (isColliderTrigger) {
 				if (hasTriggerStayFunction) {
-					onTriggerStayFunction();
+					onTriggerStayFunction(this, collisionComponent);
 				}
 			}
 			else {
 				if (hasCollisionStayFunction) {
-					onCollisionStayFunction();
+					onCollisionStayFunction(this, collisionComponent);
 				}
 			}
 		}
 		else {
 			if (isColliderTrigger) {
 				if (hasTriggerEnterFunction) {
-					onTriggerEnterFunction();
+					onTriggerEnterFunction(this, collisionComponent);
 				}
 			}
 			else {
 				if (hasCollisionEnterFunction) {
-					onCollisionEnterFunction();
+					onCollisionEnterFunction(this, collisionComponent);
 				}
 			}
-			lastCollision = collisionEntity;
+			lastCollision = collisionComponent->getEntity();
 		}
 	}
 

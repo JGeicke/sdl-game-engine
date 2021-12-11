@@ -1,3 +1,4 @@
+#include <string>
 #pragma once
 /**
  * @brief Base struct to represent Entities in the game.
@@ -7,6 +8,11 @@ struct Entity {
 	 * @brief Unique identifier for each entity.
 	*/
 	unsigned int uid;
+
+	/**
+	 * @brief Tag of the entity.
+	*/
+	std::string tag = "";
 
 	/**
 	 * @brief Overloading == operator to be able to check if entities are equal.
@@ -33,5 +39,13 @@ struct Entity {
 	*/
 	bool operator != (const Entity& other) const {
 		return uid != other.uid;
+	}
+
+	/**
+	 * @brief Tags the entity with tag.
+	 * @param tag - Tag of the entity.
+	*/
+	void setTag(std::string tag) {
+		this->tag = tag;
 	}
 };

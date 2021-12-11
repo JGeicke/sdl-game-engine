@@ -14,20 +14,23 @@
 
 Game* game = nullptr;
 
-void testWrapper() {
-	game->buttonHandler();
+void enemyCollisionWrapper(Collider* a, Collider* b) {
+	game->enemyCollisionHandler(a,b);
 }
 
-void Game::buttonHandler() {
-	ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
-	UIManager* uimanager = this->gameEngine->getUIManager();
-	Health* playerHealth = manager->getComponent(this->player);
-	playerHealth->takeDamage(25);
+void Game::enemyCollisionHandler(Collider* a, Collider* b) {
+	if (b->getEntity().tag == "player") {
+		std::cout << b->getEntity().tag << std::endl;
+		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
+		UIManager* uimanager = this->gameEngine->getUIManager();
+		Health* playerHealth = manager->getComponent(this->player);
+		playerHealth->takeDamage(25);
 
-	//update ui
-	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+		//update ui
+		uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 
-	playerHealth->print();
+		playerHealth->print();
+	}
 }
 
 void Game::initUI(UIManager* uiManager) {
@@ -45,7 +48,7 @@ void Game::initUI(UIManager* uiManager) {
 
 	this->hpBarIndex = progIndex;
 	size_t buttonIndex = uiManager->addButton(500, 20, "Testbutton", textColor, grey, fontIndex, { 10,5 },buttonHover);
-	uiManager->getButton(buttonIndex)->onClick(&testWrapper);
+	//uiManager->getButton(buttonIndex)->onClick(&testWrapper);
 }
 
 void Game::init() {
@@ -55,6 +58,7 @@ void Game::init() {
 
 	//player
 	this->player = gameEngine->addPlayer({ 840,550 }, 5);
+	this->player.setTag("player");
 	gameEngine->addSpriteComponent(player, "../TestTextures/char_idle_side.png", { 64, 64 }, 1.5f);
 	gameEngine->setCameraFollowTarget(player);
 
@@ -71,12 +75,13 @@ void Game::init() {
 	playerHealth->print();
 	UIManager* uimanager = this->gameEngine->getUIManager();
 	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
-	playerCollider->onCollisionEnter(&testWrapper);
 
 	//wizard
 	Entity wizard = gameEngine->addEntity({ 1040, 850 });
+	wizard.setTag("enemy");
 	gameEngine->addSpriteComponent(wizard, "../TestTextures/wizard_idle.png", { 64, 64 }, 1.0f);
-	gameEngine->addColliderComponent(wizard, { 0, 0 }, { 30, 53 }, false);
+	Collider* wizardCollider = gameEngine->addColliderComponent(wizard, { 0, 0 }, { 30, 53 }, false);
+	wizardCollider->onCollisionEnter(&enemyCollisionWrapper);
 	gameEngine->addAnimatorComponent(wizard);
 	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150);
 

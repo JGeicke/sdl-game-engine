@@ -5,7 +5,7 @@ public:
 	void init();
 	void start();
 
-	void buttonHandler();
+	void enemyCollisionHandler(Collider* a, Collider* b);
 private:
 	void initUI(UIManager* uiManager);
 

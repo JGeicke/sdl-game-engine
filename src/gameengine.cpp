@@ -46,6 +46,7 @@ void GameEngine::run() {
 		if (inputManager->interrupted) break;
 
 		physicSystem->update();
+		healthSystem->update();
 		uiManager->update();
 
 		audioSystem->update();

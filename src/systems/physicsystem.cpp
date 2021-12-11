@@ -150,14 +150,14 @@ void PhysicSystem::detectCollisions() {
 							collisionCounter++;
 							// execute collider collision behaviour
 							if (nextCollider->isTrigger()) {
-								nextCollider->collision(currentCollider->getEntity());
+								nextCollider->collision(currentCollider);
 							}
 							else if (currentCollider->isTrigger()) {
-								currentCollider->collision(nextCollider->getEntity());
+								currentCollider->collision(nextCollider);
 							}
 							else {
-								currentCollider->collision(nextCollider->getEntity());
-								nextCollider->collision(currentCollider->getEntity());
+								currentCollider->collision(nextCollider);
+								nextCollider->collision(currentCollider);
 
 								// adjust position
 								currentPosition->restoreLastPosition();
