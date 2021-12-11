@@ -18,6 +18,10 @@ void enemyCollisionWrapper(Collider* a, Collider* b) {
 	game->enemyCollisionHandler(a,b);
 }
 
+void onPlayerDeathWrapper(Health* healthComponent) {
+	game->onPlayerDeath(healthComponent);
+}
+
 void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 	if (b->getEntity().tag == "player") {
 		std::cout << b->getEntity().tag << std::endl;
@@ -31,6 +35,10 @@ void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 
 		playerHealth->print();
 	}
+}
+
+void Game::onPlayerDeath(Health* healthComponent) {
+	std::cout << "Game over" << std::endl;
 }
 
 void Game::initUI(UIManager* uiManager) {
@@ -72,6 +80,7 @@ void Game::init() {
 
 	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 32 }, false);
 	Health* playerHealth = gameEngine->addHealthComponent(player, 100);
+	playerHealth->onZeroHealth(&onPlayerDeathWrapper);
 	playerHealth->print();
 	UIManager* uimanager = this->gameEngine->getUIManager();
 	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());

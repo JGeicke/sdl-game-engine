@@ -5,6 +5,8 @@
  * @brief Health component.
 */
 struct Health : BaseComponent {
+	// function pointer
+	typedef void (*healthHandlerFunction)(Health*);
 public:
 	/**
 	 * @brief Prints the collider component.
@@ -71,7 +73,45 @@ public:
 	void setCurrentHealth(int currentHealth) {
 		this->currentHealth = (currentHealth <= maxHealth) ? currentHealth : maxHealth;
 	}
+
+	/**
+	 * @brief Sets the zero health handler of the component.
+	 * @param onZeroHealthHandler - Zero health handler function.
+	*/
+	void onZeroHealth(healthHandlerFunction onZeroHealthHandler) {
+		this->onZeroHealthHandler = onZeroHealthHandler;
+		hasZeroHealthHandler = true;
+	}
+
+	/**
+	 * @brief Sets the full health handler of the component.
+	 * @param onFullHealthHandler - Full health handler function.
+	*/
+	void onMaxHealth(healthHandlerFunction onFullHealthHandler) {
+		this->onFullHealthHandler = onFullHealthHandler;
+		hasFullHealthHandler = true;
+	}
 private:
+
+	/**
+	 * @brief Handler function when the health reaches zero.
+	*/
+	healthHandlerFunction onZeroHealthHandler = nullptr;
+
+	/**
+	 * @brief Whether the component has a on zero health handler function.
+	*/
+	bool hasZeroHealthHandler = false;
+
+	/**
+	 * @brief Handler function when the health reaches full.
+	*/
+	healthHandlerFunction onFullHealthHandler = nullptr;
+
+	/**
+	 * @brief Whether the component has a on full health handler function.
+	*/
+	bool hasFullHealthHandler = false;
 	/**
 	 * @brief Maximum health.
 	*/
@@ -91,6 +131,15 @@ private:
 		}
 		else {
 			currentHealth = ((currentHealth + value) > maxHealth) ? maxHealth : currentHealth + value;
+		}
+
+		// handle full health
+		if (hasFullHealthHandler && currentHealth == maxHealth) {
+			onFullHealthHandler(this);
+		}
+
+		if (hasZeroHealthHandler && currentHealth == 0) {
+			onZeroHealthHandler(this);
 		}
 	}
 };

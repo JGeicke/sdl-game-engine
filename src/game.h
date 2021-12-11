@@ -6,6 +6,8 @@ public:
 	void start();
 
 	void enemyCollisionHandler(Collider* a, Collider* b);
+
+	void onPlayerDeath(Health* healthComponent);
 private:
 	void initUI(UIManager* uiManager);
 
