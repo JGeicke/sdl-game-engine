@@ -22,7 +22,7 @@
     <ClCompile Include="src\entitymanager.cpp" />
     <ClCompile Include="src\gameengine.cpp" />
     <ClCompile Include="src\inputmanager.cpp" />
-    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\systems\audiosystem.cpp" />
     <ClCompile Include="src\systems\physicsystem.cpp" />
     <ClCompile Include="src\systems\rendersystem.cpp" />
@@ -43,6 +43,7 @@
     <ClInclude Include="src\components\sprite.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\entitymanager.h" />
+    <ClInclude Include="src\game.h" />
     <ClInclude Include="src\gameengine.h" />
     <ClInclude Include="src\inputmanager.h" />
     <ClInclude Include="src\systems\audiosystem.h" />

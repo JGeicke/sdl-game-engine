@@ -30,9 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="src\util\fileloader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -58,6 +55,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="src\util\window.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -147,6 +147,9 @@
       <Filter>Headerdateien\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\util\window.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

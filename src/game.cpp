@@ -10,12 +10,19 @@
 #include "uimanager.h"
 */
 #include "gameengine.h"
+#include "game.h"
 
-void testClick() {
-	std::cout << "testfunction" << std::endl;
-};
+Game* game = nullptr;
 
-void initUI(UIManager* uiManager) {
+void testWrapper() {
+	game->buttonHandler();
+}
+
+void Game::buttonHandler() {
+	std::cout << "ok" << std::endl;
+}
+
+void Game::initUI(UIManager* uiManager) {
 	std::cout << "Test" << std::endl;
 	// UI
 	SDL_Color grey = { 48,48,48 };
@@ -28,16 +35,16 @@ void initUI(UIManager* uiManager) {
 	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 26 });
 	uiManager->getProgressBar(progIndex)->setProgress(0.4f);
 	size_t buttonIndex = uiManager->addButton(500, 20, "Testbutton", textColor, grey, fontIndex, { 10,5 },buttonHover);
-	uiManager->getButton(buttonIndex)->onClick(&testClick);
+	uiManager->getButton(buttonIndex)->onClick(&testWrapper);
 }
 
-int main(int argc, char* argv[]) {
-	GameEngine* gameEngine = new GameEngine();
+void Game::init() {
+	gameEngine = new GameEngine();
 	gameEngine->init(60, "Projects of Bach'e Lor", 1280, 720);
 	initUI(gameEngine->getUIManager());
 
 	//player
-	Entity player = gameEngine->addPlayer({ 840,550 }, 5);
+	this->player = gameEngine->addPlayer({ 840,550 }, 5);
 	gameEngine->addSpriteComponent(player, "../TestTextures/char_idle_side.png", { 64, 64 }, 1.5f);
 	gameEngine->setCameraFollowTarget(player);
 
@@ -62,7 +69,15 @@ int main(int argc, char* argv[]) {
 	// scene
 	gameEngine->setTilemap("../TestTextures/test_level_1.png", "../TestTextures/level_1_col.json", 3);
 	gameEngine->setBGM("../TestTextures/new_bgm.mp3");
+}
 
+void Game::start() {
 	gameEngine->run();
+}
+
+int main(int argc, char* argv[]) {
+	game = new Game();
+	game->init();
+	game->start();
 	return 0;
 }
