@@ -263,6 +263,24 @@ void GameEngine::addAnimation(Entity e, size_t animationState, int frames, int f
 	animator->addAnimation(animationState, frames, frameDelayMS);
 }
 
+/**
+* @brief Adds a health component to the entity.
+* @param e - Entity to add component to.
+* @param maximumHealth - Maximum health value.
+* @return Pointer to the added health component.
+*/
+Health* GameEngine::addHealthComponent(Entity e, int maximumHealth) {
+	Health* health = healthManager->addComponent(e);
+	if (health != nullptr) {
+		health->setEntity(e);
+		health->init(maximumHealth);
+	}
+	else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add health component.", NULL);
+	}
+	return health;
+}
+
 #pragma region Getters
 /**
 * @brief Gets position component of the entity.
@@ -322,6 +340,17 @@ Animator* GameEngine::getAnimatorComponent(Entity e){
 Movement* GameEngine::getPlayerMovementComponent(Entity e){
 	return playerMovement;
 }
+
+/**
+* @brief Gets health component of the entity.
+* @param e - Entity to get component off.
+* @return Pointer to the health component of the entity.
+*/
+Health* GameEngine::getHealthComponent(Entity e) {
+	Health* result = this->healthManager->getComponent(e);
+	return result;
+}
+
 #pragma endregion Getters
 
 #pragma region Initialization
@@ -343,6 +372,7 @@ void GameEngine::initComponentManagers() {
 	this->animatorManager = new ComponentManager<Animator>();
 	this->audioManager = new ComponentManager<Audio>();
 	this->colliderManager = new ComponentManager<Collider>();
+	this->healthManager = new ComponentManager<Health>();
 }
 
 /**

@@ -1,5 +1,6 @@
 #pragma once
 #include "basecomponent.h"
+#include <iostream>
 #include "SDL.h"
 /**
  * @brief Collider component. A collider is needed for collision between entities in the gameworld.

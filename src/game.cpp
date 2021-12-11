@@ -19,7 +19,15 @@ void testWrapper() {
 }
 
 void Game::buttonHandler() {
-	std::cout << "ok" << std::endl;
+	ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
+	UIManager* uimanager = this->gameEngine->getUIManager();
+	Health* playerHealth = manager->getComponent(this->player);
+	playerHealth->takeDamage(25);
+
+	//update ui
+	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+
+	playerHealth->print();
 }
 
 void Game::initUI(UIManager* uiManager) {
@@ -34,6 +42,8 @@ void Game::initUI(UIManager* uiManager) {
 	uiManager->addPanel(10, 20, 300, 50, grey);
 	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 26 });
 	uiManager->getProgressBar(progIndex)->setProgress(0.4f);
+
+	this->hpBarIndex = progIndex;
 	size_t buttonIndex = uiManager->addButton(500, 20, "Testbutton", textColor, grey, fontIndex, { 10,5 },buttonHover);
 	uiManager->getButton(buttonIndex)->onClick(&testWrapper);
 }
@@ -57,7 +67,11 @@ void Game::init() {
 	gameEngine->addAnimation(player, STATES::WALK_DOWN, 6, 100, "../TestTextures/char_walk_down.png");
 
 	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 32 }, false);
-	//playerCollider->onCollisionEnter(&testClick);
+	Health* playerHealth = gameEngine->addHealthComponent(player, 100);
+	playerHealth->print();
+	UIManager* uimanager = this->gameEngine->getUIManager();
+	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+	playerCollider->onCollisionEnter(&testWrapper);
 
 	//wizard
 	Entity wizard = gameEngine->addEntity({ 1040, 850 });

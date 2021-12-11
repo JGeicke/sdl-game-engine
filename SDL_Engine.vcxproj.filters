@@ -152,5 +152,8 @@
     <ClInclude Include="src\game.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\components\health.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

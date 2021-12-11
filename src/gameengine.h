@@ -147,6 +147,14 @@ public:
 	void addAnimation(Entity e, size_t animationState, int frames, int frameDelayMS);
 
 	/**
+	 * @brief Adds a health component to the entity.
+	 * @param e - Entity to add component to.
+	 * @param maximumHealth - Maximum health value.
+	 * @return Pointer to the added health component.
+	*/
+	Health* addHealthComponent(Entity e, int maximumHealth);
+
+	/**
 	 * @brief Gets position component of the entity.
 	 * @param e - Entity to get component off.
 	 * @return Pointer to the position component of the entity.
@@ -189,6 +197,13 @@ public:
 	Movement* getPlayerMovementComponent(Entity e);
 
 	/**
+	 * @brief Gets health component of the entity.
+	 * @param e - Entity to get component off.
+	 * @return Pointer to the health component of the entity.
+	*/
+	Health* getHealthComponent(Entity e);
+
+	/**
 	 * @brief Gets the input manager of the game engine.
 	 * @return Pointer to the input manager of the game engine.
 	*/
@@ -229,6 +244,12 @@ public:
 	 * @return Pointer to the collider component manager of the game engine.
 	*/
 	ComponentManager<Collider>* getColliderManager() {return colliderManager;}
+
+	/**
+	 * @brief Gets the health component manager of the game engine.
+	 * @return Pointer to the health component manager of the game engine.
+	*/
+	ComponentManager<Health>* getHealthManager() { return healthManager; }
 private:
 	/**
 	 * @brief Delay between frames.
@@ -255,6 +276,7 @@ private:
 	ComponentManager<Animator>* animatorManager = nullptr;
 	ComponentManager<Audio>* audioManager = nullptr;
 	ComponentManager<Collider>* colliderManager = nullptr;
+	ComponentManager<Health>* healthManager = nullptr;
 
 	// Unique components
 	CameraFollow* cameraFollow = nullptr;

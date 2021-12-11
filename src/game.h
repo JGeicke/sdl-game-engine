@@ -13,4 +13,5 @@ private:
 	UIManager* uiManager;
 
 	Entity player;
+	size_t hpBarIndex = SIZE_MAX;
 };
