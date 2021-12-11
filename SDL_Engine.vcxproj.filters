@@ -60,6 +60,9 @@
     <ClCompile Include="src\game.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\systems\healthsystem.cpp">
+      <Filter>Quelldateien\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="src\components\health.h">
       <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\healthsystem.h">
+      <Filter>Headerdateien\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -396,5 +396,7 @@ void GameEngine::initSystems() {
 
 	this->audioSystem = new AudioSystem(audioManager);
 	this->audioSystem->init();
+
+	this->healthSystem = new HealthSystem(healthManager);
 }
 #pragma endregion Initialization
