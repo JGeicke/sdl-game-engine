@@ -1,6 +1,7 @@
 #include "rendersystem.h"
 /**
 * @brief Constructor for RenderSystem objects to set needed references.
+* @param frameDelay - Delay between frames.
 * @param spriteManager - Reference to the sprite manager for sprite objects.
 * @param positionManager  - Reference to the position manager for position objects.
 * @param renderer - Reference to the SDL_Renderer for the actual rendering of the sprites in the gameworld.
@@ -8,8 +9,9 @@
 * @param animatorManager - Animator manager to animate the sprites with an animator component.
  *@param uiManager - UIManager to be able to render the ui elements.
 */
-RenderSystem::RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,
+RenderSystem::RenderSystem(int frameDelay, ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,
 	ComponentManager<Animator>* animatorManager, UIManager* uiManager, ComponentManager<Collider>* colliderManager) {
+	this->frameDelay = frameDelay;
 	this->positionManager = positionManager;
 	this->spriteManager = spriteManager;
 	this->renderer = renderer;
@@ -288,13 +290,30 @@ void RenderSystem::animateSprite(Sprite* sprite, Animator* animator) {
 		Texture newTexture = currentAnimation->getAnimationTexture();
 		sprite->setTexture(newTexture);
 	}
+	int currentFrame = 0;
 
-	int currentFrame = static_cast<int>((SDL_GetTicks() / currentAnimation->frameDelayMS) % currentAnimation->frames);
+	// check if the current animation is interruptible or should be played fully.
+	if (currentAnimation->interruptible) {
+		currentFrame = static_cast<int>((SDL_GetTicks() / currentAnimation->frameDelayMS) % currentAnimation->frames);
+	}
+	else {
+		currentFrame = currentAnimation->currentFrame / (currentAnimation->frameDelayMS / this->frameDelay);
+	}
+
+	// increment current frame count
+	currentAnimation->currentFrame = currentAnimation->currentFrame + 1;
+
+
 	int lastTileInRow = sprite->getTexture().textureWidth - sprite->getSourceWidth();
 	int currentTile = currentFrame * sprite->getSourceWidth();
 
 	// Reset y offset when returning first frame of animation
-	if (currentFrame == 0) {
+	if (currentFrame == 0 && currentAnimation->interruptible) {
+		currentAnimation->resetYOffset();
+	}
+
+	if (!currentAnimation->interruptible && currentFrame == currentAnimation->frames) {
+		currentAnimation->setFinished();
 		currentAnimation->resetYOffset();
 	}
 

@@ -61,6 +61,11 @@ private:
 	void handlePlayerMovement();
 
 	/**
+	 * @brief Controls the animation states of the player.
+	*/
+	void controlPlayerAnimationStates();
+
+	/**
 	 * @brief Handles collision between entities.
 	*/
 	void handleCollision();

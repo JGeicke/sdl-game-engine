@@ -15,6 +15,9 @@ enum STATES {
 	WALK_UP,
 	IDLE_DOWN,
 	WALK_DOWN,
+	ATK_SIDE,
+	ATK_DOWN,
+	ATK_UP
 };
 
 /**
@@ -32,6 +35,16 @@ struct Animation {
 	int frameDelayMS;
 
 	/**
+	 * @brief Whether the animation is interruptible.
+	*/
+	bool interruptible;
+
+	/**
+	 * @brief Frame frame count the animation is played in.
+	*/
+	int currentFrame;
+
+	/**
 	 * @brief Creates new animation.
 	 * @param frames - Number of frames in the animation.
 	 * @param frameDelayMS - Delay between frames in animation in milliseconds.
@@ -43,6 +56,8 @@ struct Animation {
 		this->incrementFrame = -1;
 		this->currentYOffset = 0;
 		animationTexture = texture;
+		this->interruptible = true;
+		this->currentFrame = 0;
 	}
 
 	/**
@@ -86,6 +101,31 @@ struct Animation {
 	Texture getAnimationTexture() {
 		return animationTexture;
 	}
+
+	/**
+	 * @brief Checks if the animation is finished.
+	 * @return Whether the animation is finished.
+	*/
+	bool isFinished() {
+		return isAnimationFinished;
+	}
+
+	/**
+	 * @brief Sets the animation to finished.
+	*/
+	void setFinished() {
+		this->isAnimationFinished = true;
+	}
+
+	/**
+	 * @brief Resets the animation.
+	*/
+	void resetAnimation() {
+		this->isAnimationFinished = false;
+		this->currentFrame = 0;
+	}
+
+
 private:
 	/**
 	 * @brief Texture of the animation.
@@ -101,6 +141,11 @@ private:
 	 * @brief Last frame where y offset was incremented.
 	*/
 	int incrementFrame;
+
+	/**
+	 * @brief Whether the animation is finshed.
+	*/
+	bool isAnimationFinished = false;
 };
 
 /**
@@ -184,12 +229,19 @@ public:
 			currentState = newState;
 		}
 	}
+
+	/**
+	* @brief Marks an animation as interruptible.
+	*/
+	void markAnimationInterruptible(size_t state) {
+		if (state < animations.size()) {
+			animations[state].interruptible = !animations[state].interruptible;
+		}
+	}
 private:
 	/**
-	* @brief Map that maps the name of an animation to the animation struct.
+	* @brief Vector that uses the animation state as the index for the animation struct.
 	*/
-	//std::map<const char*, Animation*> animations;
-
 	std::vector<Animation> animations = {};
 
 	/**

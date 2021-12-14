@@ -34,50 +34,114 @@ void PhysicSystem::handlePlayerMovement() {
 		Position* positionComponent = positionManager->getComponent(this->playerMovement->getEntity());
 		Sprite* spriteComponent = spriteManager->getComponent(this->playerMovement->getEntity());
 		Animator* animatorComponent = animatorManager->getComponent(this->playerMovement->getEntity());
-
-		if (inputManager->getDirectionMagnitude() > 0.0) {
+		
+		if (animatorComponent->getState() < STATES::ATK_SIDE && inputManager->getDirectionMagnitude() > 0.0) {
 			// moving
 			int newX = (int)(inputManager->getNormalizedDirectionX() * this->playerMovement->getMovementSpeed());
 			int newY = (int)(inputManager->getNormalizedDirectionY() * this->playerMovement->getMovementSpeed());
 			positionComponent->movePosition(newX, newY);
+		}
 
-			// check if sprite component and animator are present
-			if (animatorComponent != nullptr && spriteComponent != nullptr) {
-				// adjust animator
-				// flip sprite depending on user input
-				if (inputManager->getCurrentDirectionX() > 0) {
-					spriteComponent->setTextureFlip(SDL_FLIP_HORIZONTAL);
-					animatorComponent->setState(STATES::WALK_SIDE);
-				}
-				else if (inputManager->getCurrentDirectionX() < 0) {
-					spriteComponent->setTextureFlip(SDL_FLIP_NONE);
-					animatorComponent->setState(STATES::WALK_SIDE);
-				}
-				else {
-					if (inputManager->getCurrentDirectionY() > 0) {
-						animatorComponent->setState(STATES::WALK_DOWN);
-					}
-					else { 
-						animatorComponent->setState(STATES::WALK_UP); 
-					}
+		controlPlayerAnimationStates();
+	}
+}
+
+/**
+* @brief Controls the animations of the player.
+*/
+void PhysicSystem::controlPlayerAnimationStates() {
+	Sprite* spriteComponent = spriteManager->getComponent(this->playerMovement->getEntity());
+	Animator* animatorComponent = animatorManager->getComponent(this->playerMovement->getEntity());
+	Animation* currentAnimation = animatorComponent->getCurrentAnimation();
+
+	// check if sprite component and animator are present
+	if (animatorComponent != nullptr && spriteComponent != nullptr) {
+		// get current state
+		size_t state = animatorComponent->getState();
+
+		if (!currentAnimation->interruptible) {
+			if (currentAnimation->isFinished()) {
+
+				// reset current animation
+				currentAnimation->resetAnimation();
+
+				switch (state) {
+				case STATES::ATK_DOWN:
+					animatorComponent->setState(STATES::IDLE_DOWN);
+					break;
+				case STATES::ATK_UP:
+					animatorComponent->setState(STATES::IDLE_UP);
+					break;
+				case STATES::ATK_SIDE:
+					animatorComponent->setState(STATES::IDLE_SIDE);
+					break;
+				default:
+					animatorComponent->setState(STATES::IDLE_SIDE);
+					break;
 				}
 			}
 		}
-		else if(animatorComponent != nullptr){
-			// idling based on previous animation
-			size_t state = animatorComponent->getState();
+		else if (inputManager->getMouseButton() == SDL_BUTTON_LEFT) {
+			// TODO: have attack colliders 
+			// attack
 			switch (state) {
-			case STATES::WALK_DOWN:
-				animatorComponent->setState(STATES::IDLE_DOWN);
-				break;
-			case STATES::WALK_UP:
-				animatorComponent->setState(STATES::IDLE_UP);
-				break;
-			case STATES::WALK_SIDE:
-				animatorComponent->setState(STATES::IDLE_SIDE);
-				break;
-			default:
-				break;
+				case STATES::WALK_DOWN:
+					animatorComponent->setState(STATES::ATK_DOWN);
+					break;
+				case STATES::WALK_UP:
+					animatorComponent->setState(STATES::ATK_UP);
+					break;
+				case STATES::WALK_SIDE:
+					animatorComponent->setState(STATES::ATK_SIDE);
+					break;
+				case STATES::IDLE_DOWN:
+					animatorComponent->setState(STATES::ATK_DOWN);
+					break;
+				case STATES::IDLE_UP:
+					animatorComponent->setState(STATES::ATK_UP);
+					break;
+				case STATES::IDLE_SIDE:
+					animatorComponent->setState(STATES::ATK_SIDE);
+					break;
+				default:
+					animatorComponent->setState(STATES::ATK_SIDE);
+					break;
+			}
+		} 
+		else if (inputManager->getDirectionMagnitude() > 0.0) {
+			// moving
+			if (inputManager->getCurrentDirectionX() > 0) {
+				spriteComponent->setTextureFlip(SDL_FLIP_HORIZONTAL);
+				animatorComponent->setState(STATES::WALK_SIDE);
+			}
+			else if (inputManager->getCurrentDirectionX() < 0) {
+				spriteComponent->setTextureFlip(SDL_FLIP_NONE);
+				animatorComponent->setState(STATES::WALK_SIDE);
+			}
+			else {
+				if (inputManager->getCurrentDirectionY() > 0) {
+					animatorComponent->setState(STATES::WALK_DOWN);
+				}
+				else {
+					animatorComponent->setState(STATES::WALK_UP);
+				}
+			}
+		}
+		else if(inputManager->getDirectionMagnitude() == 0.0){
+			// transition to idle
+			switch (state) {
+				case STATES::WALK_DOWN:
+					animatorComponent->setState(STATES::IDLE_DOWN);
+					break;
+				case STATES::WALK_UP:
+					animatorComponent->setState(STATES::IDLE_UP);
+					break;
+				case STATES::WALK_SIDE:
+					animatorComponent->setState(STATES::IDLE_SIDE);
+					break;
+				default:
+					//animatorComponent->setState(STATES::IDLE_SIDE);
+					break;
 			}
 		}
 	}

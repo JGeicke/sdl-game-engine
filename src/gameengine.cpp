@@ -251,7 +251,6 @@ void GameEngine::addAnimation(Entity e, size_t animationState, int frames, int f
 	animator->addAnimation(animationState, frames, frameDelayMS, FileLoader::loadTexture(filePath, this->window->getRenderer()));
 }
 
-
 /**
 * @brief Adds animation to entites animator component.
 * @param e - Entity of the animator component.
@@ -388,7 +387,7 @@ void GameEngine::initUniqueComponents() {
 * @brief Initializes the game systems.
 */
 void GameEngine::initSystems() {
-	this->renderSystem = new RenderSystem(spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager);
+	this->renderSystem = new RenderSystem(this->frameDelay, spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager);
 	this->renderSystem->initCamera(this->window->getWindowWidth(), this->window->getWindowHeight());
 	//this->renderSystem->initCamera(640, 360);
 	this->renderSystem->debugging(true);

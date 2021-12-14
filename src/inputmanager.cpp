@@ -19,7 +19,7 @@ void InputManager::checkForEvent() {
 		case SDL_QUIT:
 			interrupted = true;
 			break;
-		case SDL_MOUSEBUTTONUP:
+		case SDL_MOUSEBUTTONDOWN:
 			// mouse click
 			mouseButton = inputEvent.button.button;
 			break;

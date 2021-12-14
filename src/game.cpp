@@ -70,13 +70,20 @@ void Game::init() {
 	gameEngine->addSpriteComponent(player, "../TestTextures/char_idle_side.png", { 64, 64 }, 1.5f);
 	gameEngine->setCameraFollowTarget(player);
 
-	gameEngine->addAnimatorComponent(player);
+	Animator* playerAnimator = gameEngine->addAnimatorComponent(player);
 	gameEngine->addAnimation(player, STATES::IDLE_SIDE, 5, 160, "../TestTextures/char_idle_side.png");
 	gameEngine->addAnimation(player, STATES::WALK_SIDE, 6, 100, "../TestTextures/char_walk_side.png");
 	gameEngine->addAnimation(player, STATES::IDLE_UP, 5, 160, "../TestTextures/char_idle_up.png");
 	gameEngine->addAnimation(player, STATES::WALK_UP, 6, 100, "../TestTextures/char_walk_up.png");
 	gameEngine->addAnimation(player, STATES::IDLE_DOWN, 5, 160, "../TestTextures/char_idle_down.png");
 	gameEngine->addAnimation(player, STATES::WALK_DOWN, 6, 100, "../TestTextures/char_walk_down.png");
+	gameEngine->addAnimation(player, STATES::ATK_SIDE, 3, 200, "../TestTextures/char_atk_side.png");
+	gameEngine->addAnimation(player, STATES::ATK_DOWN, 3, 200, "../TestTextures/char_atk_down.png");
+	gameEngine->addAnimation(player, STATES::ATK_UP, 3, 200, "../TestTextures/char_atk_up.png");
+
+	playerAnimator->markAnimationInterruptible(STATES::ATK_SIDE);
+	playerAnimator->markAnimationInterruptible(STATES::ATK_DOWN);
+	playerAnimator->markAnimationInterruptible(STATES::ATK_UP);
 
 	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 32 }, false);
 	Health* playerHealth = gameEngine->addHealthComponent(player, 100);

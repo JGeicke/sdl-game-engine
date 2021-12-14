@@ -13,6 +13,7 @@ class RenderSystem : public GameSystem {
 public:
 	/**
 	 * @brief Constructor for RenderSystem objects.
+	 * @param frameDelay - Delay between frames.
 	 * @param spriteManager - Sprite manager for sprite objects.
 	 * @param positionManager  - Position manager for position objects.
 	 * @param renderer - SDL_Renderer for the actual rendering of the sprites in the gameworld.
@@ -20,7 +21,7 @@ public:
 	 * @param animatorManager - Animator manager to animate the sprites with an animator component.
 	 * @param uiManager - UIManager to be able to render the ui elements.
 	*/
-	RenderSystem(ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,ComponentManager<Animator>* animatorManager, UIManager* uiManager,
+	RenderSystem(int frameDelay, ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,ComponentManager<Animator>* animatorManager, UIManager* uiManager,
 		ComponentManager<Collider>* colliderManager);
 	/**
 	 * @brief Render system update loop.
@@ -104,6 +105,11 @@ private:
 	 * @brief View area rectangle of the camera.
 	*/
 	SDL_Rect camera = { 0,0,0,0 };
+
+	/**
+	 * @brief Delay between frames.
+	*/
+	int frameDelay = 1000 / 60;
 
 	/**
 	 * @brief Renders all the ui elements in the window.
