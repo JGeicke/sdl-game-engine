@@ -169,7 +169,7 @@ void RenderSystem::sortSprites() {
 	for (size_t i = 0; i < componentCount; i++) {
 		Position* pos = positionManager->getComponentWithIndex(i);
 		if (spriteManager->hasComponent(pos->getEntity())) {
-			sortedSpritePositions[i] = *(positionManager->getComponentWithIndex(i));
+			sortedSpritePositions[counter] = *(positionManager->getComponentWithIndex(i));
 			counter++;
 		}
 	}
@@ -191,8 +191,6 @@ void RenderSystem::merge(Position* arr, size_t start, size_t middle, size_t end)
 	k = start;
 	j = middle + 1;
 
-	Position temp[24];
-
 	while (i <= middle && j <= end) {
 		Sprite* leftSprite = spriteManager->getComponent(arr[i].getEntity());
 		Sprite* rightSprite = spriteManager->getComponent(arr[j].getEntity());
@@ -201,31 +199,31 @@ void RenderSystem::merge(Position* arr, size_t start, size_t middle, size_t end)
 		int rightY = arr[j].y() - (rightSprite->getDestinationHeight() / 2);
 
 		if (leftY < rightY) {
-			temp[k] = arr[i];
+			this->sortArr[k] = arr[i];
 			i++;
 			k++;
 		}
 		else {
-			temp[k] = arr[j];
+			this->sortArr[k] = arr[j];
 			j++;
 			k++;
 		}
 	}
 
 	while (i <= middle) {
-		temp[k] = arr[i];
+		this->sortArr[k] = arr[i];
 		i++;
 		k++;
 	}
 
 	while (j <= end) {
-		temp[k] = arr[j];
+		this->sortArr[k] = arr[j];
 		j++;
 		k++;
 	}
 
 	for (i = start; i < k; i++) {
-		arr[i] = temp[i];
+		arr[i] = this->sortArr[i];
 	}
 }
 
@@ -376,12 +374,13 @@ void RenderSystem::renderTilemap() {
 	unsigned int tileHeight = tilemap->getTileHeight();
 	size_t layers = tilemap->getLayerCount();
 	int collisionLayer = tilemap->getCollisionLayerIndex();
+	int objectLayer = tilemap->getTilemapObjectLayerIndex();
 
 
 
 	for (size_t i = 0; i < layers; i++)
 	{
-		if (i == collisionLayer) {
+		if (i == collisionLayer || i == objectLayer) {
 			continue;
 		}
 		currentDestX = 0;

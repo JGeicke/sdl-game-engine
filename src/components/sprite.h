@@ -19,12 +19,25 @@ public:
 	 * @param scale - Scales how the sprite image should be scaled ingame
 	*/
 	void init(const char* texturePath, int width, int height, float scale) {
-		sourceRect.x = 0;
-		sourceRect.y = 0;
+		this->init(texturePath, 0, 0, width, height, scale);
+	}
+
+	/**
+	 * @brief Initializes the sprite component with custom source rectangle position.
+	 * @param srcX - X position of source rectangle.
+	 * @param srcY - Y position of source rectangle.
+	 * @param texturePath - Filepath to the sprite image
+	 * @param width - Width of the sprite image
+	 * @param height - Height of the sprite image
+	 * @param scale - Scales how the sprite image should be scaled ingame
+	*/
+	void init(const char* texturePath,int srcX, int srcY, int width, int height, float scale) {
+		sourceRect.x = srcX;
+		sourceRect.y = srcY;
 		sourceRect.w = width;
 		sourceRect.h = height;
-		destinationRect.w = (int) (width * scale);
-		destinationRect.h = (int) (height * scale);
+		destinationRect.w = (int)(width * scale);
+		destinationRect.h = (int)(height * scale);
 
 		this->texturePath = texturePath;
 		texture.texture = nullptr;

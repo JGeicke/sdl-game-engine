@@ -51,6 +51,14 @@ public:
 	void setCameraFollowTarget(CameraFollow* cameraFollow) {
 		this->cameraFollow = cameraFollow;
 	}
+
+	/**
+	 * @brief Gets current tileset of tilemap.
+	 * @return Current tileset.
+	*/
+	Tileset* getTileset() {
+		return this->tileset;
+	}
 private:
 	/**
 	 * @brief Pointer to the sprite manager.
@@ -90,6 +98,11 @@ private:
 	 * @brief Position array of the sprites sorted by y value minus half of the displayed sprite height (ascending).
 	*/
 	Position sortedSpritePositions[1024];
+
+	/**
+	 * @brief Position array for merge sort.
+	*/
+	Position sortArr[1024];
 
 	/**
 	 * @brief Reference to the current tilemap.

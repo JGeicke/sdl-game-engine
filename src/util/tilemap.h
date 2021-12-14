@@ -35,12 +35,22 @@ public:
 	}
 
 	/**
-	 * @brief Adds an object to the object layer.
+	 * @brief Adds an collider to the tilemap colliders.
+	 * @param obj - Collider to add.
+	*/
+	void addTilemapCollider(SDL_Rect obj) {
+		tilemapCollider.insert(tilemapCollider.begin() + tilemapColliderIndex, obj);
+		tilemapColliderIndex++;
+		std::cout << obj.x << " " << obj.y << " " << obj.w << " " << obj.h << std::endl;
+	}
+
+	/**
+	 * @brief Adds an object to the tilemap object layer.
 	 * @param obj - Object to add.
 	*/
-	void addObject(SDL_Rect obj) {
-		objectLayer.insert(objectLayer.begin() + objectIndex, obj);
-		objectIndex++;
+	void addTilemapObject(SDL_Rect obj) {
+		tilemapObjects.insert(tilemapObjects.begin() + tilemapObjectIndex, obj);
+		tilemapObjectIndex++;
 		std::cout << obj.x << " " << obj.y << " " << obj.w << " " << obj.h << std::endl;
 	}
 
@@ -69,11 +79,19 @@ public:
 	}
 
 	/**
+	 * @brief Gets the collider layer of the tilemap.
+	 * @return Collider layer of the tilemap.
+	*/
+	std::vector<SDL_Rect> getTilemapCollider() {
+		return tilemapCollider;
+	}
+
+	/**
 	 * @brief Gets the object layer of the tilemap.
 	 * @return Object layer of the tilemap.
 	*/
-	std::vector<SDL_Rect> getObjectLayer() {
-		return objectLayer;
+	std::vector<SDL_Rect> getTilemapObjects() {
+		return tilemapObjects;
 	}
 
 	/**
@@ -152,11 +170,38 @@ public:
 	}
 
 	/**
+	 * @brief Sets the current tilemap object layer index.
+	 * @param index - New tilemap object layer index.
+	*/
+	void setTilemapObjectLayerIndex(int index) {
+		if (hasTilemapObjectLayer()) {
+			std::cout << "Multiple object layers!" << std::endl;
+		}
+		tilemapObjectLayerIndex = index;
+	}
+
+	/**
+	 * @brief Gets the current tilemap object layer index.
+	 * @return The tilemap object layer index.
+	*/
+	int getTilemapObjectLayerIndex() {
+		return tilemapObjectLayerIndex;
+	}
+
+	/**
 	 * @brief Checks if tilemap has collision layer.
 	 * @return Whether the tilemap has a collision layer.
 	*/
 	bool hasCollisionLayer() {
 		return collisionLayerIndex != -1;
+	}
+
+	/**
+	 * @brief Checks if tilemap has object layer.
+	 * @return Whether the tilemap has a object layer.
+	*/
+	bool hasTilemapObjectLayer() {
+		return tilemapObjectLayerIndex != -1;
 	}
 private:
 	/**
@@ -190,19 +235,34 @@ private:
 	std::map<size_t, std::vector<unsigned int> > layers = {};
 
 	/**
-	 * @brief Data of each object layer stored in a map with layer index as the key.
+	 * @brief Data of each tilemap collider.
 	*/
-	std::vector<SDL_Rect> objectLayer = {};
+	std::vector<SDL_Rect> tilemapCollider = {};
 
 	/**
-	 * @brief Current object count of object layer.
+	 * @brief Current tilemap collider count of collision layer.
 	*/
-	size_t objectIndex = 0;
+	size_t tilemapColliderIndex = 0;
 
 	/**
 	 * @brief Current collision layer index.
 	*/
 	int collisionLayerIndex = -1;
+
+	/**
+	 * @brief Data of each object layer stored in a map with layer index as the key.
+	*/
+	std::vector<SDL_Rect> tilemapObjects = {};
+
+	/**
+	 * @brief Current object count of object layer.
+	*/
+	size_t tilemapObjectIndex = 0;
+
+	/**
+	 * @brief Current tilemap object layer index.
+	*/
+	int tilemapObjectLayerIndex = -1;
 
 };
 

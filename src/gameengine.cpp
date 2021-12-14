@@ -125,16 +125,55 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 
 	// create collision objects
 	if (tilemap->hasCollisionLayer()) {
-		std::vector<SDL_Rect> objLayer = tilemap->getObjectLayer();
+		std::vector<SDL_Rect> colLayer = tilemap->getTilemapCollider();
 
+
+		for (size_t i = 0; i < colLayer.size(); i++) {
+			// checks if current x-position is greater or equals to max tilecount in row
+			int newX = colLayer[i].x + (colLayer[i].w / 2);
+			int newY = colLayer[i].y + (colLayer[i].h / 2);
+
+			Entity e = this->addEntity({ newX, newY });
+			this->addColliderComponent(e, { 0,0 }, { colLayer[i].w, colLayer[i].h }, false);
+		}
+	}
+
+	// create tilemap objects
+	if (tilemap->hasTilemapObjectLayer()) {
+		std::cout << "handle objects" << std::endl;
+		std::vector<SDL_Rect> objLayer = tilemap->getTilemapObjects();
+
+		int tileHeight = tilemap->getTileHeight();
+		int tileWidth = tilemap->getTileWidth();
+		Tileset* tileset = this->renderSystem->getTileset();
+		unsigned int tilesetWidth = tileset->getTexture().textureWidth;
 
 		for (size_t i = 0; i < objLayer.size(); i++) {
 			// checks if current x-position is greater or equals to max tilecount in row
 			int newX = objLayer[i].x + (objLayer[i].w / 2);
 			int newY = objLayer[i].y + (objLayer[i].h / 2);
 
+			int dataIndex = (objLayer[i].y / tileHeight)*tilemap->getTilesPerRow();
+			int tilemapData = tilemap->getLayer(tilemap->getLayerCount() - 1)[dataIndex];
+
+			int srcX = 0;
+			int srcY = 0;
+			// check if first row tileWidth * maxWidth
+			if ((tilemapData * tileWidth) <= (tilesetWidth)) {
+				srcX = (tilemapData == 0) ? tilemapData * tileWidth : (tilemapData - 1) * tileWidth;
+			}
+			else {
+				// calculate row
+				unsigned int yoffset = (tilemapData * tileWidth) / (tilesetWidth);
+				unsigned int xoffset = ((tilemapData * tileWidth) % (tilesetWidth)) / tileWidth;
+
+				srcX = (xoffset == 0) ? xoffset * tileWidth : (xoffset - 1) * tileWidth;
+				srcY = yoffset * tileHeight;
+			}
+
 			Entity e = this->addEntity({ newX, newY });
-			this->addColliderComponent(e, { 0,0 }, { objLayer[i].w, objLayer[i].h }, false);
+			Sprite* sprite = this->addSpriteComponent(e, "", {srcX, srcY}, { objLayer[i].w, objLayer[i].h }, 1.0f);
+			sprite->setTexture(tileset->getTexture());
 		}
 	}
 }
@@ -161,6 +200,27 @@ Sprite* GameEngine::addSpriteComponent(Entity e, const char* filePath, SDL_Point
 	if (spriteComponent != nullptr) {
 		spriteComponent->setEntity(e);
 		spriteComponent->init(filePath, size.x, size.y, scale);
+	}
+	else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add sprite component.", NULL);
+	}
+	return spriteComponent;
+}
+
+/**
+* @brief Adds a sprite component to the entity with custom source rectangle.
+* @param e - Entity to add component to
+* @param filePath - File path to the sprite file.
+* @param srcRectPosition - Start position of source rectangle.
+* @param size - SDL_Point(width, height) representing the texture size.
+* @param scale - Scale of the texture.
+* @return Pointer to the added sprite component.
+	*/
+Sprite* GameEngine::addSpriteComponent(Entity e, const char* filePath, SDL_Point srcRectPosition, SDL_Point size, float scale) {
+	Sprite* spriteComponent = spriteManager->addComponent(e);
+	if (spriteComponent != nullptr) {
+		spriteComponent->setEntity(e);
+		spriteComponent->init(filePath,srcRectPosition.x, srcRectPosition.y, size.x, size.y, scale);
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add sprite component.", NULL);

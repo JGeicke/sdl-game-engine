@@ -22,13 +22,22 @@ Tilemap* FileLoader::loadTilemap(const char* path, size_t layerCount) {
 		{
 			std::string layerName = tilemap_raw["layers"][i]["name"];
 			std::string type = tilemap_raw["layers"][i]["type"];
-			if (layerName == "Collision" || layerName == "collision" && type == "objectgroup") {
+			if ((layerName == "Collision" || layerName == "collision") && type == "objectgroup") {
 				std::cout << "Found collision layer" << std::endl;
 				for (auto obj : tilemap_raw["layers"][i]["objects"])
 				{
-					result->addObject({ obj["x"].get<int>(), obj["y"].get<int>() , obj["width"].get<int>() ,obj["height"].get<int>()});
+					result->addTilemapCollider({ obj["x"].get<int>(), obj["y"].get<int>() , obj["width"].get<int>() ,obj["height"].get<int>()});
 				}
 				result->setCollisionLayerIndex(i);
+			}
+			else if (type == "objectgroup") {
+				// add objects
+				std::cout << "found object layer" << std::endl;
+				for (auto obj : tilemap_raw["layers"][i]["objects"])
+				{
+					result->addTilemapObject({ obj["x"].get<int>(), obj["y"].get<int>() , obj["width"].get<int>() ,obj["height"].get<int>() });
+				}
+				result->setTilemapObjectLayerIndex(i);
 			}
 			else {
 				// add layer

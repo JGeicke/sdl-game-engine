@@ -96,6 +96,17 @@ public:
 	Sprite* addSpriteComponent(Entity e, const char* filePath, SDL_Point size, float scale);
 
 	/**
+	 * @brief Adds a sprite component to the entity with custom source rectangle.
+	 * @param e - Entity to add component to
+	 * @param filePath - File path to the sprite file.
+	 * @param srcRectPosition - Start position of source rectangle.
+	 * @param size - SDL_Point(width, height) representing the texture size.
+	 * @param scale - Scale of the texture.
+	 * @return Pointer to the added sprite component.
+	*/
+	Sprite* addSpriteComponent(Entity e, const char* filePath, SDL_Point srcRectPosition, SDL_Point size, float scale);
+
+	/**
 	 * @brief Adds a collider component to the entity.
 	 * @param e - Entity to add component to
 	 * @param offset - SDL_Point(XOffset, YOffset). Offset of the collider. Relative to the entities position.

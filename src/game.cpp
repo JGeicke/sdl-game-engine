@@ -85,7 +85,7 @@ void Game::init() {
 	playerAnimator->markAnimationInterruptible(STATES::ATK_DOWN);
 	playerAnimator->markAnimationInterruptible(STATES::ATK_UP);
 
-	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 32 }, false);
+	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 46 }, false);
 	Health* playerHealth = gameEngine->addHealthComponent(player, 100);
 	playerHealth->onZeroHealth(&onPlayerDeathWrapper);
 	playerHealth->print();
@@ -102,7 +102,7 @@ void Game::init() {
 	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150);
 
 	// scene
-	gameEngine->setTilemap("../TestTextures/test_level_1.png", "../TestTextures/level_1_col.json", 3);
+	gameEngine->setTilemap("../TestTextures/test_level_1.png", "../TestTextures/level_1_col.json", 4);
 	gameEngine->setBGM("../TestTextures/new_bgm.mp3");
 }
 
