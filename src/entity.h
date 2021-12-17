@@ -15,6 +15,11 @@ struct Entity {
 	std::string tag = "";
 
 	/**
+	 * @brief Whether the game object should be preserved between scenes.
+	*/
+	bool preserve = false;
+
+	/**
 	 * @brief Overloading == operator to be able to check if entities are equal.
 	 * @param other - Other entity to check if equal
 	 * @return Whether both entities are equal.
@@ -39,13 +44,5 @@ struct Entity {
 	*/
 	bool operator != (const Entity& other) const {
 		return uid != other.uid;
-	}
-
-	/**
-	 * @brief Tags the entity with tag.
-	 * @param tag - Tag of the entity.
-	*/
-	void setTag(std::string tag) {
-		this->tag = tag;
 	}
 };

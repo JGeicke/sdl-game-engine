@@ -196,6 +196,11 @@ public:
 	size_t getCurrentButtonIndex() {
 		return currentButtonIndex;
 	}
+
+	/**
+	 * @brief Clears every ui element present.
+	*/
+	void clearUI();
 private:
 	/**
 	 * @brief Pointer to window renderer.

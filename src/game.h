@@ -8,8 +8,16 @@ public:
 	void enemyCollisionHandler(Collider* a, Collider* b);
 
 	void onPlayerDeath(Health* healthComponent);
+
+	void initWinterScene();
+
+	void initStartScene();
+
+	void startGame();
+
+	void quitGame();
 private:
-	void initUI(UIManager* uiManager);
+	void initGameplayUI(UIManager* uiManager);
 
 	GameEngine* gameEngine;
 	UIManager* uiManager;

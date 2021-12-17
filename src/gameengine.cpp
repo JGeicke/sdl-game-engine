@@ -53,7 +53,9 @@ void GameEngine::run() {
 		renderSystem->update();
 		Uint32 endTimestamp = SDL_GetTicks();
 		Uint32 delay = (Uint32)(frameDelay - (endTimestamp - startTimestamp));
-		SDL_Delay(delay);
+		if (delay < frameDelay) {
+			SDL_Delay(delay);
+		}
 	}
 }
 
@@ -61,6 +63,7 @@ void GameEngine::run() {
 * @brief Quits the game engine and used libraries.
 */
 void GameEngine::quit() {
+	inputManager->interrupted = true;
 	TTF_Quit();
 	SDL_Quit();
 }
@@ -68,11 +71,13 @@ void GameEngine::quit() {
 #pragma endregion Lifecycle
 /**
 * @brief Adds an entity.
+* @param tag - Tag of entity
+* @param isPreserved -  Whether the entity is preserved across scenes.
 * @param position - Position of the entity.
 * @return Added entity.
 */
-Entity GameEngine::addEntity(SDL_Point position) {
-	Entity entity = entityManager->createEntity();
+Entity GameEngine::addEntity(const char* tag, bool isPreserved, SDL_Point position) {
+	Entity entity = entityManager->createEntity(tag, isPreserved);
 	Position* pos = this->posManager->addComponent(entity);
 	if (pos != nullptr) {
 		pos->setEntity(entity);
@@ -102,12 +107,14 @@ void GameEngine::resetCameraFollowTarget() {
 
 /**
 * @brief Adds player entity. The player entity acts like a regular entity but is moveable.
+* @param tag - Tag of entity
+* @param isPreserved -  Whether the entity is preserved across scenes.
 * @param position - Position of the player entity.
 * @param movementSpeed - Movement speed of the player entity.
 * @return The player entity.
 */
-Entity GameEngine::addPlayer(SDL_Point position, unsigned int movementSpeed) {
-	Entity player = addEntity(position);
+Entity GameEngine::addPlayer(const char* tag, bool isPreserved, SDL_Point position, unsigned int movementSpeed) {
+	Entity player = addEntity(tag, isPreserved, position);
 	this->playerMovement->setEntity(player);
 	this->playerMovement->setMovementSpeed(movementSpeed);
 	return player;
@@ -121,6 +128,10 @@ Entity GameEngine::addPlayer(SDL_Point position, unsigned int movementSpeed) {
 */
 void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapDataFilePath, size_t layerCount) {
 	// TODO: change to scene
+	if (tilesetFilePath == nullptr || tilemapDataFilePath == nullptr) {
+		return;
+	}
+
 	Tilemap* tilemap = renderSystem->setMap(tilesetFilePath, tilemapDataFilePath, layerCount);
 
 	// create collision objects
@@ -133,7 +144,7 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 			int newX = colLayer[i].x + (colLayer[i].w / 2);
 			int newY = colLayer[i].y + (colLayer[i].h / 2);
 
-			Entity e = this->addEntity({ newX, newY });
+			Entity e = this->addEntity("", false,{ newX, newY });
 			this->addColliderComponent(e, { 0,0 }, { colLayer[i].w, colLayer[i].h }, false);
 		}
 	}
@@ -171,7 +182,7 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 				srcY = yoffset * tileHeight;
 			}
 
-			Entity e = this->addEntity({ newX, newY });
+			Entity e = this->addEntity("", false, { newX, newY });
 			Sprite* sprite = this->addSpriteComponent(e, "", {srcX, srcY}, { objLayer[i].w, objLayer[i].h }, 1.0f);
 			sprite->setTexture(tileset->getTexture());
 		}
@@ -183,6 +194,10 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 * @param bgmFilePath - File path to the background music.
 */
 void GameEngine::setBGM(const char* bgmFilePath) {
+	if (bgmFilePath == nullptr) {
+		return;
+	}
+
 	audioSystem->addBGM(bgmFilePath);
 	audioSystem->playBGM();
 }
@@ -460,3 +475,96 @@ void GameEngine::initSystems() {
 	this->healthSystem = new HealthSystem(healthManager);
 }
 #pragma endregion Initialization
+#pragma region Scene
+/**
+* @brief Loads scene.
+* @param scene - Scene to load.
+*/
+void GameEngine::loadScene(Scene* scene) {
+	this->setTilemap(scene->getTilesetFilePath(), scene->getTilemapDataFilePath(), scene->getLayerCount());
+	this->setBGM(scene->getBGMFilePath());
+	scene->init();
+}
+
+/**
+* @brief Changes current scene.
+* @param scene - Scene to change to.
+*/
+void GameEngine::changeScene(Scene* scene) {
+	// clean components and entites
+	this->collectSceneGarbage();
+	this->resetLastCollisions();
+
+	// load new scene
+	this->loadScene(scene);
+}
+#pragma endregion Scene
+
+#pragma region Garbage Collection
+/**
+* @brief Collects and frees the entities and component that should not be preserved when switching scenes.
+*/
+void GameEngine::collectSceneGarbage() {
+	std::vector<Entity> tempVector = {};
+	size_t vectorIndex = 0;
+
+	for (std::unordered_set<Entity>::iterator i = this->entityManager->getEntityBegin(); i != this->entityManager->getEntityEnd(); i++)
+	{
+		Entity e = *i;
+		if (!e.preserve) {
+			//  Clean components of entity.
+			if (this->posManager->hasComponent(e)) {
+				this->posManager->removeComponent(e);
+			}
+
+			if (this->audioManager->hasComponent(e)) {
+				this->audioManager->removeComponent(e);
+			}
+
+			if (this->colliderManager->hasComponent(e)) {
+				this->colliderManager->removeComponent(e);
+			}
+
+			if (this->spriteManager->hasComponent(e)) {
+				this->spriteManager->removeComponent(e);
+			}
+
+			if (this->animatorManager->hasComponent(e)) {
+				this->animatorManager->removeComponent(e);
+			}
+
+			if (this->healthManager->hasComponent(e)) {
+				this->healthManager->removeComponent(e);
+			}
+
+			if (this->cameraFollow->getEntity().uid == e.uid) {
+				this->cameraFollow = nullptr;
+			}
+
+			if (this->playerMovement->getEntity().uid == e.uid) {
+				this->playerMovement = nullptr;
+			}
+
+			tempVector.insert(tempVector.begin() + vectorIndex, e);
+			vectorIndex++;
+		}
+	}
+
+	// clean not preserved entities.
+	for (std::vector<Entity>::iterator i = tempVector.begin(); i != tempVector.end(); i++) {
+		this->entityManager->destroyEntity(*i);
+	}
+}
+
+/**
+ * @brief Resets last collisions of colliders when swapping scenes.
+*/
+void GameEngine::resetLastCollisions() {
+	size_t componentCount = this->colliderManager->getComponentCount();
+
+	for (size_t i = 0; i < componentCount; i++)
+	{
+		this->colliderManager->getComponentWithIndex(i)->resetLastCollision();
+	}
+}
+#pragma endregion Garbage Collection

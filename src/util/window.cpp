@@ -14,6 +14,6 @@ bool Window::initWindow() {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Initialization error", "Could not initialize renderer of game engine.", NULL);
 		return false;
 	}
-	SDL_SetRenderDrawColor(this->renderer, 0, 255, 0, 255);
+	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
 	return true;
 }

@@ -8,6 +8,7 @@
 #include "inputmanager.h"
 #include "uimanager.h"
 #include "util/window.h"
+#include "util/scene.h"
 /**
  * @brief Game Engine class. Used to initialize systems and managers aswell as start the gameloop.
 */
@@ -47,10 +48,12 @@ public:
 
 	/**
 	 * @brief Adds an entity.
+	 * @param tag - Tag of entity
+	 * @param isPreserved -  Whether the entity is preserved across scenes.
 	 * @param position - Position of the entity.
 	 * @return Added entity.
 	*/
-	Entity addEntity(SDL_Point position);
+	Entity addEntity(const char* tag, bool isPreserved, SDL_Point position);
 
 	/**
 	 * @brief Sets the entity that the camera follows.
@@ -65,11 +68,13 @@ public:
 
 	/**
 	 * @brief Adds player entity. The player entity acts like a regular entity but is moveable.
+	 * @param tag - Tag of entity
+	 * @param isPreserved -  Whether the entity is preserved across scenes.
 	 * @param position - Position of the player entity.
 	 * @param movementSpeed - Movement speed of the player entity.
 	 * @return The player entity.
 	*/
-	Entity addPlayer(SDL_Point position, unsigned int movementSpeed);
+	Entity addPlayer(const char* tag, bool isPreserved, SDL_Point position, unsigned int movementSpeed);
 
 	/**
 	 * @brief Sets the current tilemap.
@@ -84,6 +89,12 @@ public:
 	 * @param bgmFilePath - File path to the background music.
 	*/
 	void setBGM(const char* bgmFilePath);
+
+	/**
+	 * @brief Changes current scene.
+	 * @param scene - Scene to change to.
+	*/
+	void changeScene(Scene* scene);
 
 	/**
 	 * @brief Adds a sprite component to the entity.
@@ -261,6 +272,12 @@ public:
 	 * @return Pointer to the health component manager of the game engine.
 	*/
 	ComponentManager<Health>* getHealthManager() { return healthManager; }
+
+	/**
+	 * @brief Loads scene.
+	 * @param scene - Scene to load.
+	*/
+	void loadScene(Scene* scene);
 private:
 	/**
 	 * @brief Delay between frames.
@@ -310,4 +327,14 @@ private:
 	 * @brief Initializes the game systems.
 	*/
 	void initSystems();
+
+	/**
+	 * @brief Collects and frees the entities and component that should not be preserved when switching scenes.
+	*/
+	void collectSceneGarbage();
+
+	/**
+	* @brief Resets last collisions of colliders when swapping scenes.
+	*/
+	void resetLastCollisions();
 };

@@ -52,6 +52,17 @@ size_t UIManager::addFont(const char* path, int fontSize){
 
     return currentFontIndex++;
 }
+
+/**
+* @brief Clears every ui element present.
+*/
+void UIManager::clearUI() {
+    currentLabelIndex = 0;
+    currentButtonIndex = 0;
+    currentPanelIndex = 0;
+    currentProgressBarIndex = 0;
+}
+
 #pragma region Label
 /**
 * @brief Adds label to ui.

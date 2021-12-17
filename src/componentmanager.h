@@ -46,7 +46,7 @@ public:
 	*/
 	void removeComponent(Entity e) {
 		unsigned int deleteIdx = entityIndexMap[e];
-		std::map<Entity, unsigned>::iterator endItr = entityIndexMap.end();
+		std::map<Entity, size_t>::iterator endItr = entityIndexMap.end();
 		--endItr;
 		Entity endEntity = endItr->first;
 		unsigned int endIdx = endItr->second;
@@ -65,7 +65,7 @@ public:
 	 * Should not be used in final project.
 	*/
 	void DebugListEntityIndexMap() {
-		std::map<Entity, unsigned>::iterator itr;
+		std::map<Entity, size_t>::iterator itr;
 		for (itr = entityIndexMap.begin(); itr != entityIndexMap.end(); itr++) {
 			Entity temp = itr->first;
 			std::cout <<temp.uid << " -> " << itr->second << std::endl;

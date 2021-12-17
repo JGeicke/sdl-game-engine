@@ -3,15 +3,19 @@
 
 /**
  * @brief Creates new entity with the next free uid.
+ * @param tag - Tag of entity
+ * @param isPreserved -  Whether the entity is preserved across scenes.
  * @return Copy of created entity.
 */
-Entity EntityManager::createEntity() {
+Entity EntityManager::createEntity(const char* tag, bool isPreserved) {
 	next.uid++;
 	std::cout << "\n+++++++++++++++Start uid:+++++++++++++++++++\n";
 	std::cout << next.uid;
 	while (hasEntity(next)) {
 		next.uid++;
 	}
+	next.tag = tag;
+	next.preserve = isPreserved;
 	std::cout << "\n+++++++++++++++Selected uid:+++++++++++++++++++\n";
 	std::cout << next.uid << "\n";
 	entities.insert(next);

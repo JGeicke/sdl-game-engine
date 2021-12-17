@@ -29,7 +29,7 @@ void PhysicSystem::update() {
 * @brief Handles the player movement each frame.
 */
 void PhysicSystem::handlePlayerMovement() {
-	if(playerMovement != nullptr)
+	if(playerMovement->getEntity().uid != 0)
 	{
 		Position* positionComponent = positionManager->getComponent(this->playerMovement->getEntity());
 		Sprite* spriteComponent = spriteManager->getComponent(this->playerMovement->getEntity());

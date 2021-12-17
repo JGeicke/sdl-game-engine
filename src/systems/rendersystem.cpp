@@ -166,16 +166,18 @@ void RenderSystem::sortSprites() {
 	// copy current array
 	size_t counter = 0;
 	size_t componentCount = positionManager->getComponentCount();
-	for (size_t i = 0; i < componentCount; i++) {
-		Position* pos = positionManager->getComponentWithIndex(i);
-		if (spriteManager->hasComponent(pos->getEntity())) {
-			sortedSpritePositions[counter] = *(positionManager->getComponentWithIndex(i));
-			counter++;
+	if (componentCount != 0) {
+		for (size_t i = 0; i < componentCount; i++) {
+			Position* pos = positionManager->getComponentWithIndex(i);
+			if (spriteManager->hasComponent(pos->getEntity())) {
+				sortedSpritePositions[counter] = *(positionManager->getComponentWithIndex(i));
+				counter++;
+			}
 		}
-	}
 
-	// sort array
-	mergeSort(&sortedSpritePositions[0], 0, counter - 1);
+		// sort array
+		mergeSort(&sortedSpritePositions[0], 0, counter - 1);
+	}
 }
 
 /**

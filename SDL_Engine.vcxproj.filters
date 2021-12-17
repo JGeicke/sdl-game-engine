@@ -28,6 +28,9 @@
     <Filter Include="Headerdateien\Systems">
       <UniqueIdentifier>{180553df-c88b-4015-842f-6b57bf962862}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Managers">
+      <UniqueIdentifier>{923e11c4-3f48-461b-8646-b57046c3a589}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\util\fileloader.cpp">
@@ -68,12 +71,6 @@
     <ClInclude Include="src\entity.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\entitymanager.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="src\inputmanager.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\util\fileloader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -84,9 +81,6 @@
       <Filter>Headerdateien\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\util\ui\panel.h">
-      <Filter>Headerdateien\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\uimanager.h">
       <Filter>Headerdateien\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\components\animator.h">
@@ -160,6 +154,18 @@
     </ClInclude>
     <ClInclude Include="src\systems\healthsystem.h">
       <Filter>Headerdateien\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entitymanager.h">
+      <Filter>Headerdateien\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inputmanager.h">
+      <Filter>Headerdateien\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\uimanager.h">
+      <Filter>Headerdateien\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\scene.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

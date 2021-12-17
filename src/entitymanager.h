@@ -23,9 +23,11 @@ class EntityManager {
 public:
 	/**
 	 * @brief Create new entity object.
-	 * @return Created entity object.
+	 * @param tag - Tag of entity
+	 * @param isPreserved -  Whether the entity is preserved across scenes.
+	 * @return Pointer to created entity.
 	*/
-	Entity createEntity();
+	Entity createEntity(const char* tag, bool isPreserved);
 	/**
 	 * @brief Check if the entity is still alive.
 	 * @param e - Entity to check
@@ -43,6 +45,22 @@ public:
 	 * Should not be used in final project.
 	*/
 	void debugListEntities();
+
+	/**
+	 * @brief Gets iterator to the beginning of the entity set.
+	 * @return Iterator to the beginning of the entity set.
+	*/
+	std::unordered_set<Entity>::iterator getEntityBegin() {
+		return entities.begin();
+	}
+
+	/**
+	 * @brief Gets iterator to the end of the entity set.
+	 * @return Iterator to the end of the entity set.
+	*/
+	std::unordered_set<Entity>::iterator getEntityEnd() {
+		return entities.end();
+	}
 
 	~EntityManager(){}
 private:
