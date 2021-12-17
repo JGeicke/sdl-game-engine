@@ -274,6 +274,18 @@ public:
 	ComponentManager<Health>* getHealthManager() { return healthManager; }
 
 	/**
+	 * @brief Gets game window width.
+	 * @return Width of game window.
+	*/
+	unsigned int getGameWindowWidth() { return this->window->getWindowWidth(); }
+
+	/**
+	 * @brief Gets game window height.
+	 * @return Height of game window.
+	*/
+	unsigned int getGameWindowHeight() { return this->window->getWindowHeight(); }
+
+	/**
 	 * @brief Loads scene.
 	 * @param scene - Scene to load.
 	*/

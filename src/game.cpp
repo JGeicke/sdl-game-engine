@@ -103,7 +103,7 @@ void Game::startGame(){
 	// clear start ui
 	this->uiManager->clearUI();
 
-	Scene* first = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, "../TestTextures/new_bgm.mp3", &initWinterSceneWrapper);
+	Scene* first = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, nullptr, &initWinterSceneWrapper);
 	this->gameEngine->loadScene(first);
 }
 
@@ -114,14 +114,15 @@ void Game::quitGame(){
 void Game::initStartScene() {
 
 	size_t fontIndex = uiManager->addFont("../TestTextures/Fonts/arial.ttf", 32);
-	// TODO: getter for width/height of window
+	unsigned int gameWindowWidth = this->gameEngine->getGameWindowWidth();
+	unsigned int gameWindowHeight = this->gameEngine->getGameWindowHeight();
 	SDL_Color white = { 255,255,255 };
 	SDL_Color grey = { 48,48,48 };
 	SDL_Color buttonHover = { 77,77,77 };
-	uiManager->addLabel((1280 / 2)-110, (720 / 2)-180, "Test Game Title", white, fontIndex);
-	Button* startButton = uiManager->getButton(uiManager->addButton((1280 / 2)-80, (720 / 2), "Start Game", white, grey, 0, { 10,5 }, buttonHover));
+	uiManager->addLabel((gameWindowWidth / 2)-110, (gameWindowHeight / 2)-180, "Test Game Title", white, fontIndex);
+	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2)-80, (gameWindowHeight / 2), "Start Game", white, grey, 0, { 10,5 }, buttonHover));
 	startButton->onClick(&startGameWrapper);
-	Button* quitButton = uiManager->getButton(uiManager->addButton((1280 / 2) - 27, (720 / 2)+65, "Quit", white, grey, 0, { 63,5 }, buttonHover));
+	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 27, (gameWindowHeight / 2)+65, "Quit", white, grey, 0, { 63,5 }, buttonHover));
 	quitButton->onClick(&quitGameWrapper);
 }
 
