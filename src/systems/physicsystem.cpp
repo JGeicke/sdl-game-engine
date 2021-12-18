@@ -189,7 +189,8 @@ void PhysicSystem::calculateColliderPositions(){
 	for (size_t i = 0; i < componentCount; i++) {
 		Collider* currentCollider = colliderManager->getComponentWithIndex(i);
 
-		if (this->playerMovement->getEntity().uid == currentCollider->getEntity().uid) {
+		if (this->playerMovement->getEntity().uid == currentCollider->getEntity().uid 
+			||this->projManager->hasComponent(currentCollider->getEntity())) {
 			// collider on moving player object
 			Position* currentPosition = positionManager->getComponent(currentCollider->getEntity());
 			adjustColliderPosition(currentCollider, currentPosition);

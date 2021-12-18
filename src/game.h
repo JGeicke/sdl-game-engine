@@ -5,6 +5,8 @@ public:
 	void init();
 	void start();
 
+	void enemyProjectileHandler(Collider* a, Collider* b);
+
 	void enemyCollisionHandler(Collider* a, Collider* b);
 
 	void onPlayerDeath(Health* healthComponent);

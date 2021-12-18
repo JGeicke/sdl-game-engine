@@ -56,6 +56,12 @@ public:
 	Entity addEntity(const char* tag, bool isPreserved, SDL_Point position);
 
 	/**
+	 * @brief Destroys the entity and its component.
+	 * @param e - Entity to destroy.
+	*/
+	void destroyEntity(Entity e);
+
+	/**
 	 * @brief Sets the entity that the camera follows.
 	 * @param e - Entity to follow.
 	*/
@@ -175,6 +181,15 @@ public:
 	 * @return Pointer to the added health component.
 	*/
 	Health* addHealthComponent(Entity e, int maximumHealth);
+
+	/**
+	 * @brief Adds a projectile movement component to the entity.
+	 * @param e - Entity to add component to.
+	 * @param direction - Movement direction of the projectile.
+	 * @param projectileSpeed - Projectile speed.
+	 * @return Pointer to the added projectile movement component.
+	*/
+	ProjectileMovement* addProjectileMovement(Entity e, Vector2 direction, unsigned int projectileSpeed);
 
 	/**
 	 * @brief Gets position component of the entity.
@@ -356,4 +371,9 @@ private:
 	* @brief Resets last collisions of colliders when swapping scenes.
 	*/
 	void resetLastCollisions();
+
+	/**
+	 * @brief Removes components of entity.
+	*/
+	void removeEntityComponents(Entity e);
 };

@@ -90,6 +90,15 @@ Entity GameEngine::addEntity(const char* tag, bool isPreserved, SDL_Point positi
 }
 
 /**
+* @brief Destroys the entity and its component.
+* @param e - Entity to destroy.
+*/
+void GameEngine::destroyEntity(Entity e) {
+	this->removeEntityComponents(e);
+	this->entityManager->destroyEntity(e);
+}
+
+/**
 * @brief Sets the entity that the camera follows.
 * @param e - Entity to follow.
 */
@@ -356,6 +365,25 @@ Health* GameEngine::addHealthComponent(Entity e, int maximumHealth) {
 	return health;
 }
 
+/**
+* @brief Adds a projectile movement component to the entity.
+* @param e - Entity to add component to.
+* @param direction - Movement direction of the projectile.
+* @param projectileSpeed - Projectile speed.
+* @return Pointer to the added projectile movement component.
+*/
+ProjectileMovement* GameEngine::addProjectileMovement(Entity e, Vector2 direction, unsigned int projectileSpeed) {
+	ProjectileMovement* component = projectileMovementManager->addComponent(e);
+	if (component != nullptr) {
+		component->setEntity(e);
+		component->init(direction, projectileSpeed);
+	}
+	else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add projectile movement component.", NULL);
+	}
+	return component;
+}
+
 #pragma region Getters
 /**
 * @brief Gets position component of the entity.
@@ -513,38 +541,7 @@ void GameEngine::collectSceneGarbage() {
 	{
 		Entity e = *i;
 		if (!e.preserve) {
-			//  Clean components of entity.
-			if (this->posManager->hasComponent(e)) {
-				this->posManager->removeComponent(e);
-			}
-
-			if (this->audioManager->hasComponent(e)) {
-				this->audioManager->removeComponent(e);
-			}
-
-			if (this->colliderManager->hasComponent(e)) {
-				this->colliderManager->removeComponent(e);
-			}
-
-			if (this->spriteManager->hasComponent(e)) {
-				this->spriteManager->removeComponent(e);
-			}
-
-			if (this->animatorManager->hasComponent(e)) {
-				this->animatorManager->removeComponent(e);
-			}
-
-			if (this->healthManager->hasComponent(e)) {
-				this->healthManager->removeComponent(e);
-			}
-
-			if (this->cameraFollow->getEntity().uid == e.uid) {
-				this->cameraFollow = nullptr;
-			}
-
-			if (this->playerMovement->getEntity().uid == e.uid) {
-				this->playerMovement = nullptr;
-			}
+			this->removeEntityComponents(e);
 
 			tempVector.insert(tempVector.begin() + vectorIndex, e);
 			vectorIndex++;
@@ -566,6 +563,48 @@ void GameEngine::resetLastCollisions() {
 	for (size_t i = 0; i < componentCount; i++)
 	{
 		this->colliderManager->getComponentWithIndex(i)->resetLastCollision();
+	}
+}
+
+/**
+* @brief Removes components of entity.
+*/
+void GameEngine::removeEntityComponents(Entity e) {
+	//  Clean components of entity.
+	if (this->posManager->hasComponent(e)) {
+		this->posManager->removeComponent(e);
+	}
+
+	if (this->audioManager->hasComponent(e)) {
+		this->audioManager->removeComponent(e);
+	}
+
+	if (this->colliderManager->hasComponent(e)) {
+		this->colliderManager->removeComponent(e);
+	}
+
+	if (this->spriteManager->hasComponent(e)) {
+		this->spriteManager->removeComponent(e);
+	}
+
+	if (this->animatorManager->hasComponent(e)) {
+		this->animatorManager->removeComponent(e);
+	}
+
+	if (this->healthManager->hasComponent(e)) {
+		this->healthManager->removeComponent(e);
+	}
+
+	if (this->projectileMovementManager->hasComponent(e)) {
+		this->projectileMovementManager->removeComponent(e);
+	}
+
+	if (this->cameraFollow->getEntity().uid == e.uid) {
+		this->cameraFollow = nullptr;
+	}
+
+	if (this->playerMovement->getEntity().uid == e.uid) {
+		this->playerMovement = nullptr;
 	}
 }
 #pragma endregion Garbage Collection

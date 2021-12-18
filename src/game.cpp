@@ -14,6 +14,10 @@
 
 Game* game = nullptr;
 
+void enemyProjectileWrapper(Collider* a, Collider* b) {
+	game->enemyProjectileHandler(a, b);
+}
+
 void enemyCollisionWrapper(Collider* a, Collider* b) {
 	game->enemyCollisionHandler(a,b);
 }
@@ -53,6 +57,24 @@ void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 		playerHealth->print();
 		*/
 		//this->gameEngine->changeScene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, "../TestTextures/bgm_old.mp3");
+		std::cout << "test" << std::endl;
+	}
+}
+
+void Game::enemyProjectileHandler(Collider* a, Collider* b) {
+	if (b->getEntity().tag == "player") {
+		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
+		UIManager* uimanager = this->gameEngine->getUIManager();
+		Health* playerHealth = manager->getComponent(this->player);
+		playerHealth->takeDamage(25);
+
+		//update ui
+		uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+
+		// delete projectile
+		Entity e = a->getEntity();
+		this->gameEngine->destroyEntity(e);
+		b->resetLastCollision();
 	}
 }
 
@@ -102,9 +124,9 @@ void Game::initWinterScene() {
 	ComponentManager<ProjectileMovement>* man = gameEngine->getProjectileMovementManager();
 	Entity proj = gameEngine->addEntity("projectile", false, { 1080, 850 });
 	gameEngine->addSpriteComponent(proj, "../TestTextures/proj.png", {6,6}, 2.0f);
-	ProjectileMovement* projMov = man->addComponent(proj);
-	projMov->setEntity(proj);
-	projMov->init({ -1,0 }, 8);
+	Collider* projCollider = gameEngine->addColliderComponent(proj, { 0,0 }, { 12,12 }, true);
+	projCollider->onTriggerEnter(&enemyProjectileWrapper);
+	gameEngine->addProjectileMovement(proj, { 0, -1 }, 3);
 }
 
 void Game::startGame(){
