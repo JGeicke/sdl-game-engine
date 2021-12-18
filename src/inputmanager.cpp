@@ -106,8 +106,7 @@ int InputManager::getCurrentDirectionY() {
 * @return normalized y component of direction.
 */
 double InputManager::getNormalizedDirectionY() {
-	//std::cout << "normalized y: " << (direction.y / direction.getMagnitude()) << std::endl;
-	return direction.y / direction.getMagnitude();
+	return direction.getNormalizedY();
 }
 
 /**
@@ -115,8 +114,7 @@ double InputManager::getNormalizedDirectionY() {
 * @return normalized x component of direction.
 */
 double InputManager::getNormalizedDirectionX() {
-	//std::cout << "normalized x: " << (direction.x / direction.getMagnitude()) << std::endl;
-	return direction.x / direction.getMagnitude();
+	return direction.getNormalizedX();
 }
 
 /**

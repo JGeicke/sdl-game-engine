@@ -17,9 +17,11 @@ public:
 	 * @param spriteManager - Sprite manager to access to sprite components.
 	 * @param animatorManager - Animator manager to access animator components.
 	 * @param colliderManager - Collider manager to access collider components for collisions.
+	 * @param progManager - Projectile movement manager to access the projectile movement components.
 	*/
 	PhysicSystem(InputManager* inputManager, Movement* playerMovement, ComponentManager<Position>* positionManager,
-		ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager, ComponentManager<Collider>* colliderManager);
+		ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager, ComponentManager<Collider>* colliderManager,
+		ComponentManager<ProjectileMovement>* projManager);
 
 	/**
 	 * @brief Physic system update loop.
@@ -56,6 +58,11 @@ private:
 	ComponentManager<Collider>* colliderManager;
 
 	/**
+	 * @brief Projectile movement manager to be able to handle the movement of projectiles.
+	*/
+	ComponentManager<ProjectileMovement>* projManager;
+
+	/**
 	 * @brief Handles the player movement each frame.
 	*/
 	void handlePlayerMovement();
@@ -64,6 +71,11 @@ private:
 	 * @brief Controls the animation states of the player.
 	*/
 	void controlPlayerAnimationStates();
+
+	/**
+	 * @brief Handles the movement of projectiles.
+	*/
+	void handleProjectileMovement();
 
 	/**
 	 * @brief Handles collision between entities.

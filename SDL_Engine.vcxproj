@@ -42,6 +42,7 @@
     <ClInclude Include="src\components\health.h" />
     <ClInclude Include="src\components\movement.h" />
     <ClInclude Include="src\components\position.h" />
+    <ClInclude Include="src\components\projectilemovement.h" />
     <ClInclude Include="src\components\sprite.h" />
     <ClInclude Include="src\entity.h" />
     <ClInclude Include="src\entitymanager.h" />

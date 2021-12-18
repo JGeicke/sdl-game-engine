@@ -448,6 +448,7 @@ void GameEngine::initComponentManagers() {
 	this->audioManager = new ComponentManager<Audio>();
 	this->colliderManager = new ComponentManager<Collider>();
 	this->healthManager = new ComponentManager<Health>();
+	this->projectileMovementManager = new ComponentManager<ProjectileMovement>();
 }
 
 /**
@@ -467,7 +468,7 @@ void GameEngine::initSystems() {
 	//this->renderSystem->initCamera(640, 360);
 	this->renderSystem->debugging(true);
 
-	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager);
+	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager, projectileMovementManager);
 
 	this->audioSystem = new AudioSystem(audioManager);
 	this->audioSystem->init();

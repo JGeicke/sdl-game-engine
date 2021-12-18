@@ -7,15 +7,18 @@
 * @param spriteManager - Sprite manager to access to sprite components.
 * @param animatorManager - Animator manager to access animator components.
 * @param colliderManager - Collider manager to access collider components for collisions.
+* @param progManager - Projectile movement manager to access the projectile movement components.
 */
 PhysicSystem::PhysicSystem(InputManager* inputManager, Movement* playerMovement, ComponentManager<Position>* positionManager,
-	ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager, ComponentManager<Collider>* colliderManager) {
+	ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager, ComponentManager<Collider>* colliderManager,
+	ComponentManager<ProjectileMovement>* projManager) {
 	this->inputManager = inputManager;
 	this->playerMovement = playerMovement;
 	this->positionManager = positionManager;
 	this->spriteManager = spriteManager;
 	this->animatorManager = animatorManager;
 	this->colliderManager = colliderManager;
+	this->projManager = projManager;
 }
 
 /**
@@ -23,6 +26,7 @@ PhysicSystem::PhysicSystem(InputManager* inputManager, Movement* playerMovement,
 */
 void PhysicSystem::update() {
 	handlePlayerMovement();
+	handleProjectileMovement();
 	handleCollision();
 }
 /**
@@ -143,6 +147,27 @@ void PhysicSystem::controlPlayerAnimationStates() {
 					//animatorComponent->setState(STATES::IDLE_SIDE);
 					break;
 			}
+		}
+	}
+}
+
+/**
+* @brief Handles the movement of projectiles.
+*/
+void PhysicSystem::handleProjectileMovement() {
+	size_t componentCount = this->projManager->getComponentCount();
+
+	for (size_t i = 0; i < componentCount; i++)
+	{
+		ProjectileMovement* currentComponent = this->projManager->getComponentWithIndex(i);
+
+		if (currentComponent->getDirectionMagnitude() > 0.0) {
+			Position* positionComponent = this->positionManager->getComponent(currentComponent->getEntity());
+
+			// moving
+			int newX = (int)(currentComponent->getNormalizedDirectionX() * currentComponent->getProjectileSpeed());
+			int newY = (int)(currentComponent->getNormalizedDirectionY() * currentComponent->getProjectileSpeed());
+			positionComponent->movePosition(newX, newY);
 		}
 	}
 }

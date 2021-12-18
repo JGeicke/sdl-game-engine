@@ -21,6 +21,22 @@ struct Vector2 {
 	double getMagnitude() {
 		return std::sqrt((x * x) + (y * y));
 	}
+
+	/**
+	 * @brief Gets normalized x value of vector.
+	 * @return Normalized x value.
+	*/
+	double getNormalizedX() {
+		return x / getMagnitude();
+	}
+
+	/**
+	 * @brief Gets normalized y value of vector.
+	 * @return Normalized y value.
+	*/
+	double getNormalizedY() {
+		return y / getMagnitude();
+	}
 };
 
 /**

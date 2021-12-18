@@ -274,6 +274,12 @@ public:
 	ComponentManager<Health>* getHealthManager() { return healthManager; }
 
 	/**
+	 * @brief Gets the projectile movement component manager of the game engine.
+	 * @return Pointer to the projectile movement component manager of the game engine.
+	*/
+	ComponentManager<ProjectileMovement>* getProjectileMovementManager() { return projectileMovementManager; }
+
+	/**
 	 * @brief Gets game window width.
 	 * @return Width of game window.
 	*/
@@ -318,6 +324,7 @@ private:
 	ComponentManager<Audio>* audioManager = nullptr;
 	ComponentManager<Collider>* colliderManager = nullptr;
 	ComponentManager<Health>* healthManager = nullptr;
+	ComponentManager<ProjectileMovement>* projectileMovementManager = nullptr;
 
 	// Unique components
 	CameraFollow* cameraFollow = nullptr;

@@ -97,6 +97,14 @@ void Game::initWinterScene() {
 	wizardCollider->onCollisionEnter(&enemyCollisionWrapper);
 	gameEngine->addAnimatorComponent(wizard);
 	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150);
+
+	// projectile test
+	ComponentManager<ProjectileMovement>* man = gameEngine->getProjectileMovementManager();
+	Entity proj = gameEngine->addEntity("projectile", false, { 1080, 850 });
+	gameEngine->addSpriteComponent(proj, "../TestTextures/proj.png", {6,6}, 2.0f);
+	ProjectileMovement* projMov = man->addComponent(proj);
+	projMov->setEntity(proj);
+	projMov->init({ -1,0 }, 8);
 }
 
 void Game::startGame(){

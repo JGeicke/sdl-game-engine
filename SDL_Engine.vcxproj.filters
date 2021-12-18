@@ -167,5 +167,8 @@
     <ClInclude Include="src\util\scene.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\components\projectilemovement.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
