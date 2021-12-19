@@ -3,6 +3,7 @@
 #include "../componentmanager.h"
 #include "../components/components.h"
 #include "../inputmanager.h"
+#include <cmath>
 
 /**
  * @brief Physic System to simulate moving objects in the game world.

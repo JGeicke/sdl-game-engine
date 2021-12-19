@@ -42,6 +42,13 @@ void initWinterSceneWrapper() {
 	game->initWinterScene();
 }
 
+
+void spawnPlayerProjectileWrapper() {
+	game->spawnPlayerProjectile();
+}
+
+
+
 void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 	if (b->getEntity().tag == "player") {
 		/*
@@ -82,8 +89,22 @@ void Game::onPlayerDeath(Health* healthComponent) {
 	std::cout << "Game over" << std::endl;
 }
 
+void Game::spawnPlayerProjectile() {
+	Position* playerPosition = gameEngine->getPositionComponent(this->player);
+
+	// projectile test
+	Entity proj = gameEngine->addEntity("projectile", false, { playerPosition->x(), playerPosition->y() });
+	gameEngine->addSpriteComponent(proj, "../TestTextures/proj.png", { 6,6 }, 2.0f);
+	Collider* projCollider = gameEngine->addColliderComponent(proj, { 0,0 }, { 12,12 }, true);
+	//projCollider->onTriggerEnter(&enemyProjectileWrapper);
+	gameEngine->addProjectileMovement(proj, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3);
+	
+}
+
+
 void Game::initWinterScene() {
 	initGameplayUI(this->uiManager);
+	this->inputManager->addActionHandler(SDL_BUTTON_LEFT, &spawnPlayerProjectileWrapper);
 
 	//player
 	this->player = gameEngine->addPlayer("player", true, { 840,550 }, 5);
@@ -120,13 +141,14 @@ void Game::initWinterScene() {
 	gameEngine->addAnimatorComponent(wizard);
 	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150);
 
-	// projectile test
+	/* projectile test
 	ComponentManager<ProjectileMovement>* man = gameEngine->getProjectileMovementManager();
-	Entity proj = gameEngine->addEntity("projectile", false, { 1080, 850 });
+	Entity proj = gameEngine->addEntity("projectile", false, { 1040, 850 });
 	gameEngine->addSpriteComponent(proj, "../TestTextures/proj.png", {6,6}, 2.0f);
 	Collider* projCollider = gameEngine->addColliderComponent(proj, { 0,0 }, { 12,12 }, true);
 	projCollider->onTriggerEnter(&enemyProjectileWrapper);
-	gameEngine->addProjectileMovement(proj, { 0, -1 }, 3);
+	gameEngine->addProjectileMovement(proj, { 1040, 850 }, {840, 550}, 3);
+	*/
 }
 
 void Game::startGame(){
@@ -178,6 +200,7 @@ void Game::init() {
 	gameEngine = new GameEngine();
 	gameEngine->init(60, "Projects of Bach'e Lor", 1280, 720);
 	this->uiManager = this->gameEngine->getUIManager();
+	this->inputManager = this->gameEngine->getInputManager();
 
 	// start screen
 	Scene* start = new Scene(nullptr, nullptr, 0, "../TestTextures/new_bgm.mp3", &initStartSceneWrapper);

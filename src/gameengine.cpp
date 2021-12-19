@@ -368,15 +368,22 @@ Health* GameEngine::addHealthComponent(Entity e, int maximumHealth) {
 /**
 * @brief Adds a projectile movement component to the entity.
 * @param e - Entity to add component to.
-* @param direction - Movement direction of the projectile.
+* @param start - Start position.
+* @param target- Target position.
 * @param projectileSpeed - Projectile speed.
 * @return Pointer to the added projectile movement component.
 */
-ProjectileMovement* GameEngine::addProjectileMovement(Entity e, Vector2 direction, unsigned int projectileSpeed) {
+ProjectileMovement* GameEngine::addProjectileMovement(Entity e, SDL_Point start, SDL_Point target, unsigned int projectileSpeed) {
 	ProjectileMovement* component = projectileMovementManager->addComponent(e);
 	if (component != nullptr) {
 		component->setEntity(e);
-		component->init(direction, projectileSpeed);
+
+		// TODO: substract camera from target aswell
+		int deltaX = target.x - (start.x-renderSystem->getCameraX());
+		int deltaY = target.y - (start.y-renderSystem->getCameraY());
+
+		double angle = (std::atan2(deltaY, deltaX) * 180) / M_PI;
+		component->init(angle, projectileSpeed);
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add projectile movement component.", NULL);

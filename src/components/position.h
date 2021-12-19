@@ -11,7 +11,7 @@ public:
 	 * @brief Prints the x & y position of the component.
 	*/
 	void print() {
-		std::cout << "Position (Entity: " << entity.uid << ") X: " << currentPos.x  << " | Y: " << currentPos.y << std::endl;
+		std::cout << "Position (Entity: " << entity.uid << ") X: " << currentX  << " | Y: " << currentY << std::endl;
 	}
 
 	/**
@@ -19,12 +19,12 @@ public:
 	 * @param newX - X position change.
 	 * @param newY - Y position change.
 	*/
-	void movePosition(int newX, int newY) {
-		lastPos.x = currentPos.x;
-		lastPos.y = currentPos.y;
+	void movePosition(float newX, float newY) {
+		lastX = currentX;
+		lastY = currentY;
 
-		currentPos.x += newX;
-		currentPos.y += newY;
+		currentX += newX;
+		currentY += newY;
 	}
 
 	/**
@@ -32,19 +32,19 @@ public:
 	 * @param newX - New x position.
 	 * @param newY - New y position.
 	*/
-	void setPosition(int newX, int newY) {
-		lastPos.x = currentPos.x;
-		lastPos.y = currentPos.y;
+	void setPosition(float newX, float newY) {
+		lastX = currentX;
+		lastY = currentY;
 
-		currentPos.x = newX;
-		currentPos.y = newY;
+		currentX = newX;
+		currentY = newY;
 	}
 	/**
 	 * @brief Gets x position.
 	 * @return X position.
 	*/
 	int x() {
-		return currentPos.x;
+		return (int)currentX;
 	}
 
 	/**
@@ -52,25 +52,37 @@ public:
 	 * @return Y position.
 	*/
 	int y() {
-		return currentPos.y;
+		return (int)currentY;
 	}
 
 	/**
 	 * @brief Restores last position.
 	*/
 	void restoreLastPosition() {
-		currentPos.x = lastPos.x;
-		currentPos.y = lastPos.y;
+		currentX = lastX;
+		currentY = lastY;
 	}
 private:
 	/**
-	 * @brief Position.
+	 * @brief Current x position.
 	*/
-	SDL_Point currentPos = { 0,0 };
+	float currentX = 0.0f;
 
 	/**
-	 * @brief Last position.
+	 * @brief Current y position.
 	*/
-	SDL_Point lastPos = { 0,0 };
+	float currentY = 0.0f;;
+
+	/**
+	 * @brief Last x position.
+	*/
+	float lastX = 0.0f;;
+
+	/**
+	 * @brief Last y position.
+	*/
+	float lastY = 0.0f;;
+
+
 };
 

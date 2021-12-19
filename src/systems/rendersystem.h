@@ -45,6 +45,18 @@ public:
 	void initCamera(int viewWidth, int viewHeight);
 
 	/**
+	 * @brief Gets the camera x position.
+	 * @return Camera x position.
+	*/
+	int getCameraX() { return camera.x; }
+
+	/**
+	 * @brief Gets the camera y position.
+	 * @return Camera y position.
+	*/
+	int getCameraY() { return camera.y; }
+
+	/**
 	 * @brief Sets the current camera follow target component.
 	 * @param cameraFollow - Current camera follow target component.
 	*/

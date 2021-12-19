@@ -7,8 +7,8 @@ public:
 		//TODO: projectile movement print
 	}
 
-	void init(Vector2 direction, unsigned int speed){
-		this->direction = direction;
+	void init(double angle, unsigned int speed){
+		this->angle = angle;
 		this->projectileSpeed = speed;
 	}
 
@@ -16,18 +16,10 @@ public:
 		return projectileSpeed;
 	}
 
-	double getDirectionMagnitude() {
-		return direction.getMagnitude();
-	}
-
-	double getNormalizedDirectionY() {
-		return direction.getNormalizedY();
-	}
-
-	double getNormalizedDirectionX() {
-		return direction.getNormalizedX();
+	double getAngle() {
+		return angle;
 	}
 private:
 	unsigned int projectileSpeed = 0;
-	Vector2 direction = { 0,0 };
+	double angle = 0.0;
 };

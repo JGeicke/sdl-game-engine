@@ -167,11 +167,11 @@ private:
 	/**
 	 * @brief Area of texture to display ingame.
 	*/
-	SDL_Rect sourceRect;
+	SDL_Rect sourceRect = { 0,0,0,0 };;
 	/**
 	 * @brief Area and size where the texture should be drawn on ingame.
 	*/
-	SDL_Rect destinationRect;
+	SDL_Rect destinationRect = { 0,0,0,0 };
 
 	/**
 	 * @brief Determines how the texture is currently flipped.

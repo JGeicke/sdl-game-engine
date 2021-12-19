@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+
+//TODO: add documentation
 struct Scene {
 	// function pointer
 	typedef void (*sceneInitFunction)();

@@ -11,6 +11,8 @@ public:
 
 	void onPlayerDeath(Health* healthComponent);
 
+	void spawnPlayerProjectile();
+
 	void initWinterScene();
 
 	void initStartScene();
@@ -21,9 +23,10 @@ public:
 private:
 	void initGameplayUI(UIManager* uiManager);
 
-	GameEngine* gameEngine;
-	UIManager* uiManager;
+	GameEngine* gameEngine = nullptr;
+	UIManager* uiManager = nullptr;;
+	InputManager* inputManager = nullptr;
 
-	Entity player;
+	Entity player = { 0 };
 	size_t hpBarIndex = SIZE_MAX;
 };

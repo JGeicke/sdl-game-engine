@@ -41,8 +41,8 @@ void PhysicSystem::handlePlayerMovement() {
 		
 		if (animatorComponent->getState() < STATES::ATK_SIDE && inputManager->getDirectionMagnitude() > 0.0) {
 			// moving
-			int newX = (int)(inputManager->getNormalizedDirectionX() * this->playerMovement->getMovementSpeed());
-			int newY = (int)(inputManager->getNormalizedDirectionY() * this->playerMovement->getMovementSpeed());
+			float newX = (inputManager->getNormalizedDirectionX() * this->playerMovement->getMovementSpeed());
+			float newY = (inputManager->getNormalizedDirectionY() * this->playerMovement->getMovementSpeed());
 			positionComponent->movePosition(newX, newY);
 		}
 
@@ -160,15 +160,12 @@ void PhysicSystem::handleProjectileMovement() {
 	for (size_t i = 0; i < componentCount; i++)
 	{
 		ProjectileMovement* currentComponent = this->projManager->getComponentWithIndex(i);
+		Position* positionComponent = this->positionManager->getComponent(currentComponent->getEntity());
 
-		if (currentComponent->getDirectionMagnitude() > 0.0) {
-			Position* positionComponent = this->positionManager->getComponent(currentComponent->getEntity());
-
-			// moving
-			int newX = (int)(currentComponent->getNormalizedDirectionX() * currentComponent->getProjectileSpeed());
-			int newY = (int)(currentComponent->getNormalizedDirectionY() * currentComponent->getProjectileSpeed());
-			positionComponent->movePosition(newX, newY);
-		}
+		// moving
+		float newX = (std::cos(currentComponent->getAngle()*M_PI/180) * currentComponent->getProjectileSpeed());
+		float newY = (std::sin(currentComponent->getAngle()*M_PI/180) * currentComponent->getProjectileSpeed());
+		positionComponent->movePosition(newX, newY);
 	}
 }
 

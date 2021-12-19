@@ -9,6 +9,7 @@
 #include "uimanager.h"
 #include "util/window.h"
 #include "util/scene.h"
+#include <cmath>
 /**
  * @brief Game Engine class. Used to initialize systems and managers aswell as start the gameloop.
 */
@@ -185,11 +186,12 @@ public:
 	/**
 	 * @brief Adds a projectile movement component to the entity.
 	 * @param e - Entity to add component to.
-	 * @param direction - Movement direction of the projectile.
+	 * @param start - Start position.
+	 * @param target- Target position.
 	 * @param projectileSpeed - Projectile speed.
 	 * @return Pointer to the added projectile movement component.
 	*/
-	ProjectileMovement* addProjectileMovement(Entity e, Vector2 direction, unsigned int projectileSpeed);
+	ProjectileMovement* addProjectileMovement(Entity e, SDL_Point start, SDL_Point target, unsigned int projectileSpeed);
 
 	/**
 	 * @brief Gets position component of the entity.
@@ -305,6 +307,14 @@ public:
 	 * @return Height of game window.
 	*/
 	unsigned int getGameWindowHeight() { return this->window->getWindowHeight(); }
+
+	/**
+	 * @brief Gets the renderer of the current window.
+	 * @return Pointer to the current SDL_Renderer.
+	*/
+	SDL_Renderer* getRenderer() {
+		return this->window->getRenderer();
+	}
 
 	/**
 	 * @brief Loads scene.

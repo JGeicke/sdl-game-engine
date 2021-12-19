@@ -5,6 +5,7 @@
 void InputManager::update() {
 	mouseButton = -1;
 	checkForEvent();
+	setCurrentMousePosition();
 	//std::cout << "current direction: (" << direction.x << " | " << direction.y << ");\n" << std::endl;
 }
 
@@ -22,6 +23,15 @@ void InputManager::checkForEvent() {
 		case SDL_MOUSEBUTTONDOWN:
 			// mouse click
 			mouseButton = inputEvent.button.button;
+			switch (mouseButton) {
+			case SDL_BUTTON_LEFT:
+				if (lmbHandler != nullptr) {
+					lmbHandler();
+				}
+				break;
+			default:
+				break;
+			}
 			break;
 		case SDL_KEYDOWN:
 			// user directional input
@@ -123,4 +133,27 @@ double InputManager::getNormalizedDirectionX() {
 */
 double InputManager::getDirectionMagnitude() {
 	return direction.getMagnitude();
+}
+
+/**
+ * @brief Sets the current mouse position.
+*/
+void InputManager::setCurrentMousePosition() {
+	SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
+}
+
+/**
+* @brief Adds an action handler function to a key.
+* @param keyCode - Key code of the key triggering the handler.
+* @param handler - Handler function
+* @return Whether the process was successful.
+*/
+bool InputManager::addActionHandler(int keyCode, actionHandler handler) {
+	switch (keyCode) {
+	case SDL_BUTTON_LEFT:
+		lmbHandler = handler;
+		return true;
+	default:
+		return false;
+	}
 }

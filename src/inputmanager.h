@@ -43,6 +43,8 @@ struct Vector2 {
  * @brief User Input Manager.
 */
 class InputManager {
+	// action handler
+	typedef void (*actionHandler)();
 public:
 	/**
 	 * @brief Update loop of the input manager to handle user input.
@@ -91,6 +93,22 @@ public:
 	int getMouseButton() {
 		return mouseButton;
 	}
+
+	/**
+	 * @brief Gets current mouse position.
+	 * @return Current mouse position.
+	*/
+	SDL_Point getMousePosition() {
+		return mousePosition;
+	}
+
+	/**
+	 * @brief Adds an action handler function to a key.
+	 * @param keyCode - Key code of the key triggering the handler.
+	 * @param handler - Handler function
+	 * @return Whether the process was successful.
+	*/
+	bool addActionHandler(int keyCode, actionHandler handler);
 private:
 	/**
 	 * @brief Current direction based on keydown events. Base direction is (0,0).
@@ -111,4 +129,19 @@ private:
 	 * @brief Current mouse button input.
 	*/
 	int mouseButton = -1;
+
+	/**
+	 * @brief Current mouse position.
+	*/
+	SDL_Point mousePosition = { 0,0 };
+
+	/**
+	 * @brief Action handler for left mouse button.
+	*/
+	actionHandler lmbHandler = nullptr;
+
+	/**
+	 * @brief Sets the current mouse position.
+	*/
+	void setCurrentMousePosition();
 };
