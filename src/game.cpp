@@ -64,8 +64,9 @@ void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 		playerHealth->print();
 		*/
 		//this->gameEngine->changeScene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, "../TestTextures/bgm_old.mp3");
-		std::cout << "test" << std::endl;
+		//std::cout << "test" << std::endl;
 	}
+
 }
 
 void Game::enemyProjectileHandler(Collider* a, Collider* b) {
@@ -92,13 +93,16 @@ void Game::onPlayerDeath(Health* healthComponent) {
 void Game::spawnPlayerProjectile() {
 	Position* playerPosition = gameEngine->getPositionComponent(this->player);
 
-	// projectile test
+	Entity e = this->gameEngine->createProjectile("../TestTextures/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3.0f, true);
+	Collider* col = this->gameEngine->getColliderComponent(e);
+	col->onTriggerEnter(&enemyCollisionWrapper);
+	/* projectile test
 	Entity proj = gameEngine->addEntity("projectile", false, { playerPosition->x(), playerPosition->y() });
 	gameEngine->addSpriteComponent(proj, "../TestTextures/proj.png", { 6,6 }, 2.0f);
 	Collider* projCollider = gameEngine->addColliderComponent(proj, { 0,0 }, { 12,12 }, true);
 	//projCollider->onTriggerEnter(&enemyProjectileWrapper);
-	gameEngine->addProjectileMovement(proj, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3);
-	
+	gameEngine->addProjectileMovement(proj, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3, true);
+	*/
 }
 
 

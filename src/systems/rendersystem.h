@@ -71,6 +71,22 @@ public:
 	Tileset* getTileset() {
 		return this->tileset;
 	}
+
+	/**
+	 * @brief Gets the total tilemap width.
+	 * @return Total tilemap width.
+	*/
+	int getTotalTilemapWidth() {
+		return this->tilemap->getTotalTilemapWidth();
+	}
+
+	/**
+	 * @brief Gets the total tilemap height.
+	 * @return Total tilemap height.
+	*/
+	int getTotalTilemapHeight() {
+		return this->tilemap->getTotalTilemapHeight();
+	}
 private:
 	/**
 	 * @brief Pointer to the sprite manager.

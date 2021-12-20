@@ -66,6 +66,9 @@
     <ClCompile Include="src\systems\healthsystem.cpp">
       <Filter>Quelldateien\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="src\util\objectpool.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="src\components\projectilemovement.h">
       <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\objectpool.h">
+      <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

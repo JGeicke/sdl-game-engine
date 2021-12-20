@@ -176,7 +176,9 @@ void RenderSystem::sortSprites() {
 		}
 
 		// sort array
-		mergeSort(&sortedSpritePositions[0], 0, counter - 1);
+		if (counter > 0) {
+			mergeSort(&sortedSpritePositions[0], 0, counter - 1);
+		}
 	}
 }
 

@@ -24,6 +24,7 @@ void GameEngine::init(int fps, std::string windowTitle, int width, int height) {
 		this->initManagers();
 		this->initComponentManagers();
 		this->initUniqueComponents();
+		this->initObjectPools();
 		this->initSystems();
 	}
 }
@@ -49,6 +50,8 @@ void GameEngine::run() {
 		healthSystem->update();
 		uiManager->update();
 
+		collectObjects();
+
 		audioSystem->update();
 		renderSystem->update();
 		Uint32 endTimestamp = SDL_GetTicks();
@@ -66,6 +69,20 @@ void GameEngine::quit() {
 	inputManager->interrupted = true;
 	TTF_Quit();
 	SDL_Quit();
+}
+
+/**
+* @brief Calculates the angle of the vector a->b in the unit circle.
+* @param a - Point a
+* @param b - Point b
+* @return Angle of vector a->b
+*/
+double GameEngine::calcAngle(SDL_Point a, SDL_Point b) {
+	int deltaX = b.x - a.x;
+	int deltaY = b.y - a.y;
+
+	double angle = (std::atan2(deltaY, deltaX) * 180) / M_PI;
+	return angle;
 }
 
 #pragma endregion Lifecycle
@@ -127,6 +144,74 @@ Entity GameEngine::addPlayer(const char* tag, bool isPreserved, SDL_Point positi
 	this->playerMovement->setEntity(player);
 	this->playerMovement->setMovementSpeed(movementSpeed);
 	return player;
+}
+
+/**
+* @brief Creates new projectile from projectile object pool.
+* @param spritePath - File path to sprite.
+* @param size - Size of sprite.
+* @param scale - Scale of sprite.
+* @param start  - Start position.
+* @param target - Target position.
+* @param projectileSpeed - Projectile speed.
+* @param isCursorTarget - Whether the cursor position is the target position.
+* @return Projectile entity.
+*/
+Entity GameEngine::createProjectile(const char* spritePath, SDL_Point size, float scale, SDL_Point start, SDL_Point target, float projectileSpeed, bool isCursorTarget) {
+	Entity result = this->projectilePool->getNext();
+	if (result.uid != 0) {
+		Position* position = this->posManager->getComponent(result);
+		position->setPosition(start.x, start.y);
+
+		// adjust or create sprite component
+		if (!this->spriteManager->hasComponent(result)) {
+			this->addSpriteComponent(result, spritePath, size, scale);
+		}
+		else {
+			Sprite* sprite = this->spriteManager->getComponent(result);
+			sprite->init(spritePath, size.x, size.y, scale);
+			sprite->setActive(true);
+		}
+		// adjust or create collider component
+		if (!this->colliderManager->hasComponent(result)) {
+			this->addColliderComponent(result, { 0,0 }, size, true);
+		}
+		else {
+			Collider* collider = this->colliderManager->getComponent(result);
+			collider->init(start.x, start.y, 0, 0, size.x, size.y, true);
+			collider->resetLastCollision();
+			collider->setActive(true);
+		}
+
+		// adjust or create projectile movement component
+		if (!this->projectileMovementManager->hasComponent(result)) {
+			this->addProjectileMovement(result, start, target, projectileSpeed, isCursorTarget);
+		}
+		else {
+			ProjectileMovement* projectileMovement = this->projectileMovementManager->getComponent(result);
+			double angle = (isCursorTarget) ? this->calcAngle({ start.x - renderSystem->getCameraX(),start.y - renderSystem->getCameraY() }, target) : this->calcAngle(start, target);
+			projectileMovement->init(angle, projectileSpeed);
+			projectileMovement->setActive(true);
+		}
+	}
+	return result;
+}
+
+/**
+* @brief Destroys projectile of projectile object pool.
+* @param e - Entity to destroy.
+*/
+void GameEngine::destroyProjectile(Entity e) {
+	if (this->projectilePool->collect(e)) {
+		Sprite* sprite = this->spriteManager->getComponent(e);
+		sprite->setActive(false);
+
+		ProjectileMovement* projectileMovement = this->projectileMovementManager->getComponent(e);
+		projectileMovement->setActive(false);
+
+		Collider* collider = this->colliderManager->getComponent(e);
+		collider->setActive(false);
+	}
 }
 
 /**
@@ -370,18 +455,15 @@ Health* GameEngine::addHealthComponent(Entity e, int maximumHealth) {
 * @param start - Start position.
 * @param target- Target position.
 * @param projectileSpeed - Projectile speed.
+* @param isCursorTarget - Whether the target position is the position of the mouse cursor in the window.
 * @return Pointer to the added projectile movement component.
 */
-ProjectileMovement* GameEngine::addProjectileMovement(Entity e, SDL_Point start, SDL_Point target, unsigned int projectileSpeed) {
+ProjectileMovement* GameEngine::addProjectileMovement(Entity e, SDL_Point start, SDL_Point target, float projectileSpeed, bool isCursorTarget) {
 	ProjectileMovement* component = projectileMovementManager->addComponent(e);
 	if (component != nullptr) {
 		component->setEntity(e);
 
-		// TODO: substract camera from target aswell
-		int deltaX = target.x - (start.x-renderSystem->getCameraX());
-		int deltaY = target.y - (start.y-renderSystem->getCameraY());
-
-		double angle = (std::atan2(deltaY, deltaX) * 180) / M_PI;
+		double angle = (isCursorTarget) ? this->calcAngle({start.x-renderSystem->getCameraX(),start.y-renderSystem->getCameraY()}, target) : this->calcAngle(start, target);
 		component->init(angle, projectileSpeed);
 	}
 	else {
@@ -494,13 +576,22 @@ void GameEngine::initUniqueComponents() {
 }
 
 /**
+* @brief Initializes the object pools.
+*/
+void GameEngine::initObjectPools() {
+	// init projectile pool
+	this->projectilePool = new ObjectPool(this->entityManager, this->posManager);
+	this->projectilePool->init("projectile");
+}
+
+/**
 * @brief Initializes the game systems.
 */
 void GameEngine::initSystems() {
 	this->renderSystem = new RenderSystem(this->frameDelay, spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager);
 	this->renderSystem->initCamera(this->window->getWindowWidth(), this->window->getWindowHeight());
 	//this->renderSystem->initCamera(640, 360);
-	//this->renderSystem->debugging(true);
+	this->renderSystem->debugging(true);
 
 	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager, projectileMovementManager);
 
@@ -611,6 +702,34 @@ void GameEngine::removeEntityComponents(Entity e) {
 
 	if (this->playerMovement->getEntity().uid == e.uid) {
 		this->playerMovement = nullptr;
+	}
+}
+
+/**
+* @brief Collects objects of the object pools.
+*/
+void GameEngine::collectObjects() {
+	this->collectProjectileObjects();
+}
+
+/**
+* @brief Collects objects of the projectile object pool.
+*/
+void GameEngine::collectProjectileObjects() {
+	int poolSize = this->projectilePool->getPoolSize();
+
+	for (size_t i = 0; i < poolSize; i++)
+	{
+		// check if entity is currently used
+		if (this->projectilePool->isEntityUsed(i)) {
+			Position* position = this->posManager->getComponent(this->projectilePool->getEntityByIndex(i));
+			if (position->x() < 0
+				|| position->x() > this->renderSystem->getTotalTilemapWidth()
+				|| position->y() < 0 
+				|| position->y() > this->renderSystem->getTotalTilemapHeight()) {
+				this->destroyProjectile(this->projectilePool->getEntityByIndex(i));
+			}
+		}
 	}
 }
 #pragma endregion Garbage Collection

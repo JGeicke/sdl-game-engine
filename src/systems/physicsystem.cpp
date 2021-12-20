@@ -160,12 +160,14 @@ void PhysicSystem::handleProjectileMovement() {
 	for (size_t i = 0; i < componentCount; i++)
 	{
 		ProjectileMovement* currentComponent = this->projManager->getComponentWithIndex(i);
-		Position* positionComponent = this->positionManager->getComponent(currentComponent->getEntity());
+		if (currentComponent->isActive()) {
+			Position* positionComponent = this->positionManager->getComponent(currentComponent->getEntity());
 
-		// moving
-		float newX = (std::cos(currentComponent->getAngle()*M_PI/180) * currentComponent->getProjectileSpeed());
-		float newY = (std::sin(currentComponent->getAngle()*M_PI/180) * currentComponent->getProjectileSpeed());
-		positionComponent->movePosition(newX, newY);
+			// moving
+			float newX = (std::cos(currentComponent->getAngle() * M_PI / 180) * currentComponent->getProjectileSpeed());
+			float newY = (std::sin(currentComponent->getAngle() * M_PI / 180) * currentComponent->getProjectileSpeed());
+			positionComponent->movePosition(newX, newY);
+		}
 	}
 }
 
@@ -213,6 +215,7 @@ void PhysicSystem::adjustColliderPosition(Collider* collider, Position* position
 */
 void PhysicSystem::detectCollisions() {
 	size_t colliderCount = colliderManager->getComponentCount();
+	size_t projectileMovementCount = projManager->getComponentCount();
 
 	if(playerMovement != nullptr) {
 		size_t collisionCounter = 0;

@@ -29,6 +29,7 @@
     <ClCompile Include="src\systems\rendersystem.cpp" />
     <ClCompile Include="src\uimanager.cpp" />
     <ClCompile Include="src\util\fileloader.cpp" />
+    <ClCompile Include="src\util\objectpool.cpp" />
     <ClCompile Include="src\util\window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +58,7 @@
     <ClInclude Include="src\systems\rendersystem.h" />
     <ClInclude Include="src\uimanager.h" />
     <ClInclude Include="src\util\fileloader.h" />
+    <ClInclude Include="src\util\objectpool.h" />
     <ClInclude Include="src\util\scene.h" />
     <ClInclude Include="src\util\texture.h" />
     <ClInclude Include="src\util\tilemap.h" />

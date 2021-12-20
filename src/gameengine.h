@@ -9,6 +9,7 @@
 #include "uimanager.h"
 #include "util/window.h"
 #include "util/scene.h"
+#include "util/objectpool.h"
 #include <cmath>
 /**
  * @brief Game Engine class. Used to initialize systems and managers aswell as start the gameloop.
@@ -82,6 +83,25 @@ public:
 	 * @return The player entity.
 	*/
 	Entity addPlayer(const char* tag, bool isPreserved, SDL_Point position, unsigned int movementSpeed);
+
+	/**
+	 * @brief Creates new projectile from projectile object pool.
+	 * @param spritePath - File path to sprite.
+	 * @param size - Size of sprite.
+	 * @param scale - Scale of sprite.
+	 * @param start  - Start position.
+	 * @param target - Target position.
+	 * @param projectileSpeed - Projectile speed.
+	 * @param isCursorTarget - Whether the cursor position is the target position.
+	 * @return Projectile entity.
+	*/
+	Entity createProjectile(const char* spritePath, SDL_Point size, float scale, SDL_Point start, SDL_Point target, float projectileSpeed, bool isCursorTarget);
+
+	/**
+	 * @brief Destroys projectile of projectile object pool.
+	 * @param e - Entity to destroy.
+	*/
+	void destroyProjectile(Entity e);
 
 	/**
 	 * @brief Sets the current background music.
@@ -181,9 +201,10 @@ public:
 	 * @param start - Start position.
 	 * @param target- Target position.
 	 * @param projectileSpeed - Projectile speed.
+	 * @param isCursorTarget - Whether the target position is the position of the mouse cursor in the window.
 	 * @return Pointer to the added projectile movement component.
 	*/
-	ProjectileMovement* addProjectileMovement(Entity e, SDL_Point start, SDL_Point target, unsigned int projectileSpeed);
+	ProjectileMovement* addProjectileMovement(Entity e, SDL_Point start, SDL_Point target, float projectileSpeed, bool isCursorTarget);
 
 	/**
 	 * @brief Gets position component of the entity.
@@ -347,10 +368,14 @@ private:
 	CameraFollow* cameraFollow = nullptr;
 	Movement* playerMovement = nullptr;
 
+	//Object pool
+	ObjectPool* projectilePool = nullptr;
+
 	/**
 	 * @brief Initializes the managers of the game engine.
 	*/
 	void initManagers();
+
 	/**
 	 * @brief Initializes the component manager of the game engine.
 	*/
@@ -359,6 +384,11 @@ private:
 	 * @brief Initializes the unique components of the game engine.
 	*/
 	void initUniqueComponents();
+
+	/**
+	 * @brief Initializes the object pools.
+	*/
+	void initObjectPools();
 	/**
 	 * @brief Initializes the game systems.
 	*/
@@ -368,6 +398,16 @@ private:
 	 * @brief Collects and frees the entities and component that should not be preserved when switching scenes.
 	*/
 	void collectSceneGarbage();
+
+	/**
+	 * @brief Collects objects of the object pools.
+	*/
+	void collectObjects();
+
+	/**
+	 * @brief Collects objects of the projectile object pool.
+	*/
+	void collectProjectileObjects();
 
 	/**
 	* @brief Resets last collisions of colliders when swapping scenes.
@@ -386,4 +426,12 @@ private:
 	 * @brief Removes components of entity.
 	*/
 	void removeEntityComponents(Entity e);
+
+	/**
+	 * @brief Calculates the angle of the vector a->b in the unit circle.
+	 * @param a - Point a
+	 * @param b - Point b
+	 * @return Angle of vector a->b
+	*/
+	double calcAngle(SDL_Point a, SDL_Point b);
 };

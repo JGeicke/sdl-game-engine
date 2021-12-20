@@ -19,7 +19,7 @@ public:
 	 * @param angle - Angle between start point and target point.
 	 * @param speed - Projectile speed.
 	*/
-	void init(double angle, unsigned int speed){
+	void init(double angle, float speed){
 		this->angle = angle;
 		this->projectileSpeed = speed;
 	}
@@ -43,7 +43,7 @@ private:
 	/**
 	 * @brief The projectile speed.
 	*/
-	unsigned int projectileSpeed = 0;
+	float projectileSpeed = 0;
 	/**
 	 * @brief Movement angle of the projectile.
 	*/
