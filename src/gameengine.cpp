@@ -501,7 +501,7 @@ void GameEngine::initSystems() {
 	this->renderSystem = new RenderSystem(this->frameDelay, spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager);
 	this->renderSystem->initCamera(this->window->getWindowWidth(), this->window->getWindowHeight());
 	//this->renderSystem->initCamera(640, 360);
-	this->renderSystem->debugging(true);
+	//this->renderSystem->debugging(true);
 
 	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager, projectileMovementManager);
 

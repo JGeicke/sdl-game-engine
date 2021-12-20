@@ -498,7 +498,7 @@ void RenderSystem::moveCamera() {
 				camera.y = 0;
 			}
 
-			//TODO: adjust camera movement for smoother movement
+			//TODO: adjust camera movement for smoother movement. Update 19.12.21: gone?
 			//bottom-right
 			if (camera.x > (int)(tilemap->getTotalTilemapWidth() - camera.w)) {
 				camera.x = tilemap->getTotalTilemapWidth() - camera.w;
