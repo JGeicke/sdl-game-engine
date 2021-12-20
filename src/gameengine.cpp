@@ -136,7 +136,6 @@ Entity GameEngine::addPlayer(const char* tag, bool isPreserved, SDL_Point positi
 * @param layerCount - Number of layers in the tilemap.
 */
 void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapDataFilePath, size_t layerCount) {
-	// TODO: change to scene
 	if (tilesetFilePath == nullptr || tilemapDataFilePath == nullptr) {
 		return;
 	}

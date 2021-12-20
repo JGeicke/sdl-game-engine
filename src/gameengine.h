@@ -84,14 +84,6 @@ public:
 	Entity addPlayer(const char* tag, bool isPreserved, SDL_Point position, unsigned int movementSpeed);
 
 	/**
-	 * @brief Sets the current tilemap.
-	 * @param tilesetFilePath - File path to the used tileset.
-	 * @param tilemapDataFilePath - File path to the data of the tilemap.
-	 * @param layerCount - Number of layers in the tilemap.
-	*/
-	void setTilemap(const char* tilesetFilePath, const char* tilemapDataFilePath, size_t layerCount);
-
-	/**
 	 * @brief Sets the current background music.
 	 * @param bgmFilePath - File path to the background music.
 	*/
@@ -381,6 +373,14 @@ private:
 	* @brief Resets last collisions of colliders when swapping scenes.
 	*/
 	void resetLastCollisions();
+
+	/**
+	 * @brief Sets the current tilemap.
+	 * @param tilesetFilePath - File path to the used tileset.
+	 * @param tilemapDataFilePath - File path to the data of the tilemap.
+	 * @param layerCount - Number of layers in the tilemap.
+	*/
+	void setTilemap(const char* tilesetFilePath, const char* tilemapDataFilePath, size_t layerCount);
 
 	/**
 	 * @brief Removes components of entity.
