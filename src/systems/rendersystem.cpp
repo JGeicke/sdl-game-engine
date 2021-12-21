@@ -264,11 +264,18 @@ void RenderSystem::draw(Sprite* sprite) {
 		sprite->setTexture(spriteTexture);
 	}
 
+	// ignore sprites outside of camera when animating/rendering
+	SDL_Rect* rect  = sprite->getDestinationRect();
+	if ((rect->x+rect->w) < 0 || rect->x > camera.w || (rect->y+rect->h) < 0 || rect->y > camera.h) {
+		return;
+	}
+
 	Animator* animator = animatorManager->getComponent(sprite->getEntity());
 
 	if (animator != nullptr && animator->hasAnimation()) {
 		animateSprite(sprite, animator);
 	}
+
 	SDL_RenderCopyEx(renderer, sprite->getTexture().texture, sprite->getSourceRect(), sprite->getDestinationRect(), NULL, NULL, sprite->getTextureFlip());
 }
 #pragma endregion Sprites
