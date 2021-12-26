@@ -11,7 +11,7 @@
 */
 PhysicSystem::PhysicSystem(InputManager* inputManager, Movement* playerMovement, ComponentManager<Position>* positionManager,
 	ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager, ComponentManager<Collider>* colliderManager,
-	ComponentManager<ProjectileMovement>* projManager) {
+	ComponentManager<ProjectileMovement>* projManager, ComponentManager<EnemyMovement>* enemyMovementManager) {
 	this->inputManager = inputManager;
 	this->playerMovement = playerMovement;
 	this->positionManager = positionManager;
@@ -19,15 +19,97 @@ PhysicSystem::PhysicSystem(InputManager* inputManager, Movement* playerMovement,
 	this->animatorManager = animatorManager;
 	this->colliderManager = colliderManager;
 	this->projManager = projManager;
+	this->enemyMovementManager = enemyMovementManager;
 }
 
 /**
 * @brief Render system update loop. Iterates over every movement component and changes the position component of the same entity. 
 */
 void PhysicSystem::update() {
+	handleEnemyMovement();
 	handlePlayerMovement();
 	handleProjectileMovement();
 	handleCollision();
+}
+
+/**
+* @brief Initializes the grid for the physic system.
+* @param row - Number of rows.
+* @param col - Number of cols.
+* @param tileSize - Size of the tiles.
+* @param tilesPerRow - Tiles per row.
+*/
+void PhysicSystem::initGrid(int row, int col, SDL_Point tileSize, int tilesPerRow) {
+
+	this->row = row;
+	this->col = col;
+	this->tileWidth = tileSize.x;
+	this->tileHeight = tileSize.y;
+	this->tilesPerRow = tilesPerRow;
+
+	if (row < 1 || col < 1) {
+		return;
+	}
+
+	nodes = new Node[row*col];
+	for (size_t x = 0; x < row; x++)
+	{
+		for (size_t y = 0; y < col; y++)
+		{
+			nodes[y * row + x].x = x;
+			nodes[y * row + x].y = y;
+			nodes[y * row + x].visited = false;
+			nodes[y * row + x].parent = nullptr;
+			nodeCount++;
+		}
+	}
+
+	// determine neighbours
+	for (size_t x = 0; x < row; x++)
+	{
+		for (size_t y = 0; y < col; y++)
+		{
+			// left
+			if (x > 0) {
+				nodes[y * row + x].neighbours.push_back(&nodes[y * row + (x - 1)]);
+
+				// top
+				if (y > 0) {
+					nodes[y * row + x].neighbours.push_back(&nodes[(y - 1) * row + (x-1)]);
+				}
+
+				//down
+				if (y < (col - 1)) {
+					nodes[y * row + x].neighbours.push_back(&nodes[(y + 1) * row + (x-1)]);
+				}
+			}
+
+			// right
+			if (x < (row - 1)) {
+				nodes[y * row + x].neighbours.push_back(&nodes[y * row + (x + 1)]);
+
+				// top
+				if (y > 0) {
+					nodes[y * row + x].neighbours.push_back(&nodes[(y - 1) * row + (x + 1)]);
+				}
+
+				//down
+				if (y < (col - 1)) {
+					nodes[y * row + x].neighbours.push_back(&nodes[(y + 1) * row + (x + 1)]);
+				}
+			}
+
+			// top
+			if (y > 0) {
+				nodes[y * row + x].neighbours.push_back(&nodes[(y-1) * row + x ]);
+			}
+
+			//down
+			if (y < (col) - 1) {
+				nodes[y * row + x].neighbours.push_back(&nodes[(y + 1) * row + x]);
+			}
+		}
+	}
 }
 /**
 * @brief Handles the player movement each frame.
@@ -170,11 +252,50 @@ void PhysicSystem::handleProjectileMovement() {
 		}
 	}
 }
+/**
+* @brief Handles the movement of enemies.
+*/
+void PhysicSystem::handleEnemyMovement() {
+	size_t componentCount = this->enemyMovementManager->getComponentCount();
+	Uint32 newTimestamp = SDL_GetTicks();
+
+	for (size_t i = 0; i < componentCount; i++)
+	{
+		EnemyMovement* currentComponent = this->enemyMovementManager->getComponentWithIndex(i);
+		if (currentComponent->isActive() && currentComponent->getDestination() != nullptr) {
+			Position* currPos = this->positionManager->getComponent(currentComponent->getEntity());
+			// calculate path
+			if (currentComponent->isFlagged()) {
+				currentComponent->flag(false);
+				Node* curr = this->getCurrentNode(currPos);
+				currentComponent->setRoute(this->aStar(curr, currentComponent->getDestination()));
+			}
+			//move
+			if (currentComponent->arrivedAtNextNode(currPos->x() / 32, currPos->y() / 32)) {
+				currentComponent->setNextNode();
+			}
+			Node* currentTarget = currentComponent->getNextNode();
+			Vector2 direction;
+			direction.x = (currentTarget->x*tileWidth + tileWidth/2) - currPos->x();
+			direction.y = (currentTarget->y*tileHeight + tileHeight/2) - currPos->y();
+			// normalize direction
+			float newX = direction.getNormalizedX();
+			float newY = direction.getNormalizedY();
+
+			currPos->movePosition(newX * currentComponent->getMovementSpeed(), newY * currentComponent->getMovementSpeed());
+
+			// increase component timer
+			currentComponent->increaseTimer(newTimestamp- lastEnemyMovementTimestamp);
+		}
+	}
+	lastEnemyMovementTimestamp = newTimestamp;
+}
 
 /**
 * @brief Handles collision between entities.
 */
 void PhysicSystem::handleCollision(){
+	//TODO: handle collision between objects and enemies.
 	calculateColliderPositions();
 	detectCollisions();
 }
@@ -189,7 +310,7 @@ void PhysicSystem::calculateColliderPositions(){
 		Collider* currentCollider = colliderManager->getComponentWithIndex(i);
 
 		if (this->playerMovement->getEntity().uid == currentCollider->getEntity().uid 
-			||this->projManager->hasComponent(currentCollider->getEntity())) {
+			||this->projManager->hasComponent(currentCollider->getEntity()) || this->enemyMovementManager->hasComponent(currentCollider->getEntity())) {
 			// collider on moving player object
 			Position* currentPosition = positionManager->getComponent(currentCollider->getEntity());
 			adjustColliderPosition(currentCollider, currentPosition);
@@ -270,3 +391,127 @@ void PhysicSystem::detectCollisions() {
 		}
 	}
 }
+
+#pragma region AStar
+/**
+* @brief Calculates the heuristic cost of the position to the destination.
+* @param pos - Position to calculate the heuristic cost of.
+* @param dest - Destination node.
+* @return Heuristic cost from the position to the destination.
+*/
+float PhysicSystem::calculateHCost(Node* pos, Node* dest) {
+	float hCost = std::sqrt((pos->x-dest->x) * (pos->x - dest->x) + (pos->y - dest->y) * (pos->y - dest->y));
+	return hCost;
+}
+
+/**
+* @brief Calculates the path from the start node to the destination node using the a* algorithm.
+* @param start - Startnode.
+* @param dest - Destinationnode.
+* @return Path from the start node to the destination node.
+*/
+std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
+	// reset nodes
+	for (size_t x = 0; x < row; x++)
+	{
+		for (size_t y = 0; y < col; y++)
+		{
+			nodes[y * row + x].visited = false;
+			nodes[y * row + x].fcost = INFINITY;
+			nodes[y * row + x].gcost = INFINITY;
+			nodes[y * row + x].parent = nullptr;
+			nodes[y * row + x].obstacle = false;
+		}
+	}
+
+	this->markNodesAsObstacles();
+
+	Node* current = start;
+	start->gcost = 0.0f;
+	start->fcost = calculateHCost(start, dest);
+
+	// nodes to test
+	std::list<Node*> openNodes;
+	openNodes.push_back(start);
+
+	while (!openNodes.empty() && current != dest) {
+		openNodes.sort([](const Node* l, const Node* r) {return l->fcost < r->fcost;});
+
+		// remove visited nodes
+		while (!openNodes.empty() && openNodes.front()->visited) {
+			openNodes.pop_front();
+		}
+
+		if (openNodes.empty()) {
+			break;
+		}
+
+		current = openNodes.front();
+		current->visited = true;
+
+		// check neighbours
+		for (auto neighbour : current->neighbours) {
+			if (!neighbour->visited && (!neighbour->obstacle || neighbour == dest)) {
+				openNodes.push_back(neighbour);
+			}
+
+			float gCostNeighbour = current->gcost + calculateHCost(current, neighbour);
+
+			if (gCostNeighbour < neighbour->gcost) {
+				neighbour->parent = current;
+				neighbour->gcost = gCostNeighbour;
+
+				neighbour->fcost = neighbour->fcost + calculateHCost(neighbour, dest);
+			}
+
+		}
+	}
+
+	// backtrack found path
+	std::vector<Node*> result;
+	result.push_back(current);
+	while (current->parent != nullptr) {
+		current = current->parent;
+		result.push_back(current);
+	}
+
+	return result;
+}
+
+/**
+* @brief Gets the current Node based on the position.
+* @param pos - Position to get the current node off.
+* @return Current Node.
+*/
+Node* PhysicSystem::getCurrentNode(Position* pos) {
+	int newX = pos->x() / tileWidth;
+	int newY = pos->y() / tileHeight;
+
+	int idx = newY * tilesPerRow + newX;
+
+	if (idx < this->nodeCount) {
+		return &this->nodes[idx];
+	}
+	return nullptr;
+}
+
+/**
+* @brief Marks nodes as obstacle when the match the collider positions.
+*/
+void PhysicSystem::markNodesAsObstacles() {
+	//TODO: handle bigger colliders than 32x32
+	size_t componentCount = colliderManager->getComponentCount();
+
+	for (size_t i = 0; i < componentCount; i++)
+	{
+		Collider* collider = colliderManager->getComponentWithIndex(i);
+
+		if (collider->isActive() && !collider->isTrigger()) {
+			Position* pos = positionManager->getComponent(collider->getEntity());
+
+			Node* colNode = this->getCurrentNode(pos);
+			colNode->obstacle = true;
+		}
+	}
+}
+#pragma endregion AStar

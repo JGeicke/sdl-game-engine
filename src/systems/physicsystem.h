@@ -4,6 +4,7 @@
 #include "../components/components.h"
 #include "../inputmanager.h"
 #include <cmath>
+#include <list>
 
 /**
  * @brief Physic System to simulate moving objects in the game world.
@@ -19,16 +20,36 @@ public:
 	 * @param animatorManager - Animator manager to access animator components.
 	 * @param colliderManager - Collider manager to access collider components for collisions.
 	 * @param progManager - Projectile movement manager to access the projectile movement components.
+	 * @param enemyMovementManager - Enemy movement manager to be able to visually debug the pathing of enemies.
 	*/
 	PhysicSystem(InputManager* inputManager, Movement* playerMovement, ComponentManager<Position>* positionManager,
 		ComponentManager<Sprite>* spriteManager, ComponentManager<Animator>* animatorManager, ComponentManager<Collider>* colliderManager,
-		ComponentManager<ProjectileMovement>* projManager);
+		ComponentManager<ProjectileMovement>* projManager, ComponentManager<EnemyMovement>* enemyMovementManager);
 
 	/**
 	 * @brief Physic system update loop.
 	*/
 	virtual void update();
+
+	/**
+	 * @brief Initializes the grid for the physic system.
+	 * @param row - Number of rows.
+	 * @param col - Number of cols.
+	 * @param tileSize - Size of the tiles.
+	 * @param tilesPerRow - Tiles per row.
+	*/
+	void initGrid(int row, int col, SDL_Point tileSize, int tilesPerRow);
+
+	/**
+	 * @brief Gets the current Node based on the position.
+	 * @param pos - Position to get the current node off.
+	 * @return Current Node.
+	*/
+	Node* getCurrentNode(Position* pos);
 private:
+	Node* nodes = nullptr;
+	size_t nodeCount = 0;
+
 	/**
 	 * @brief Pointer to input manager to use the user input.
 	*/
@@ -64,6 +85,37 @@ private:
 	ComponentManager<ProjectileMovement>* projManager;
 
 	/**
+	 * @brief Enemy movement manager to simulate enemy movement including pathfinding.
+	*/
+	ComponentManager<EnemyMovement>* enemyMovementManager;
+
+	/**
+	 * @brief Last timestamp of enemy movement simulation. Used to increase the pathfinding timers to the enemy movement components accordingly.
+	*/
+	Uint32 lastEnemyMovementTimestamp = 0;
+
+	/**
+	 * @brief Tilewidth of the current tilemap.
+	*/
+	int tileWidth=0;
+	/**
+	 * @brief Tileheight of the current tilemap.
+	*/
+	int tileHeight=0;
+	/**
+	 * @brief Number of columns in the current tilemap.
+	*/
+	size_t col=0;
+	/**
+	 * @brief Number of rows in the current tilemap.
+	*/
+	size_t row=0;
+	/**
+	 * @brief Tiles per row in the current tilemap.
+	*/
+	size_t tilesPerRow=0;
+
+	/**
 	 * @brief Handles the player movement each frame.
 	*/
 	void handlePlayerMovement();
@@ -97,4 +149,30 @@ private:
 	 * @brief Detects collisions between colliders.
 	*/
 	void detectCollisions();
+
+	/**
+	 * @brief Calculates the heuristic cost of the position to the destination.
+	 * @param pos - Position to calculate the heuristic cost of.
+	 * @param dest - Destination node.
+	 * @return Heuristic cost from the position to the destination.
+	*/
+	float calculateHCost(Node* pos, Node* dest);
+
+	/**
+	 * @brief Marks nodes as obstacle when the match the collider positions.
+	*/
+	void markNodesAsObstacles();
+
+	/**
+	 * @brief Calculates the path from the start node to the destination node using the a* algorithm.
+	 * @param start - Startnode.
+	 * @param dest - Destinationnode.
+	 * @return Path from the start node to the destination node.
+	*/
+	std::vector<Node*> aStar(Node* start, Node* dest);
+
+	/**
+	 * @brief Handles the movement of enemies.
+	*/
+	void handleEnemyMovement();
 };

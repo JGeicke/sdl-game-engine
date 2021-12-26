@@ -10,7 +10,7 @@
  *@param uiManager - UIManager to be able to render the ui elements.
 */
 RenderSystem::RenderSystem(int frameDelay, ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,
-	ComponentManager<Animator>* animatorManager, UIManager* uiManager, ComponentManager<Collider>* colliderManager) {
+	ComponentManager<Animator>* animatorManager, UIManager* uiManager, ComponentManager<Collider>* colliderManager, ComponentManager<EnemyMovement>* enemyMovementManager) {
 	this->frameDelay = frameDelay;
 	this->positionManager = positionManager;
 	this->spriteManager = spriteManager;
@@ -18,6 +18,7 @@ RenderSystem::RenderSystem(int frameDelay, ComponentManager<Sprite>* spriteManag
 	this->animatorManager = animatorManager;
 	this->uiManager = uiManager;
 	this->colliderManager = colliderManager;
+	this->enemyMovementManager = enemyMovementManager;
 }
 
 /**
@@ -33,6 +34,7 @@ void RenderSystem::update() {
 
 	debugPosition();
 	debugColliders();
+	debugEnemyPathing();
 
 	renderUI();
 
@@ -60,6 +62,9 @@ void RenderSystem::debugPosition() {
 	}
 }
 
+/**
+* @brief Debug function that visualizes the colliders.
+*/
 void RenderSystem::debugColliders() {
 	if (debug) {
 		size_t componentCount = colliderManager->getComponentCount();
@@ -70,6 +75,29 @@ void RenderSystem::debugColliders() {
 			SDL_Rect* colliderRect = nextCollider->getColliderRect();
 			SDL_Rect renderRect = { colliderRect->x-camera.x, colliderRect->y-camera.y,colliderRect->w, colliderRect->h };
 			SDL_RenderDrawRect(renderer, &renderRect);
+		}
+	}
+}
+
+/**
+* @brief Debug functrion that visualizes the enemy pathing.
+*/
+void RenderSystem::debugEnemyPathing() {
+	if (debug) {
+		size_t componentCount = enemyMovementManager->getComponentCount();
+		unsigned w = this->getTileWidth();
+		unsigned h = this->getTileHeight();
+
+		Node* prev = nullptr;
+		for (size_t i = 0; i < componentCount; i++)
+		{
+			EnemyMovement* component = enemyMovementManager->getComponentWithIndex(i);
+			for (auto node : component->getRoute()) {
+				if (prev != nullptr) {
+					SDL_RenderDrawLine(renderer, (prev->x * w + (w/2))-camera.x, (prev->y * h + (h/2))-camera.y, (node->x * w + (w / 2))-camera.x, (node->y * h + (h / 2))-camera.y);
+				}
+				prev = node;
+			}
 		}
 	}
 }

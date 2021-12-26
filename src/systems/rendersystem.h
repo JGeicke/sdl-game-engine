@@ -20,9 +20,10 @@ public:
 	 * @param cameraFollow - Camera follow for rendering of 2d camera. 
 	 * @param animatorManager - Animator manager to animate the sprites with an animator component.
 	 * @param uiManager - UIManager to be able to render the ui elements.
+	 * @param enemyMovementManager - Enemy movement manager to be able to visually debug the pathing of enemies.
 	*/
 	RenderSystem(int frameDelay, ComponentManager<Sprite>* spriteManager, ComponentManager<Position>* positionManager, SDL_Renderer* renderer,ComponentManager<Animator>* animatorManager, UIManager* uiManager,
-		ComponentManager<Collider>* colliderManager);
+		ComponentManager<Collider>* colliderManager, ComponentManager<EnemyMovement>* enemyMovementManager);
 	/**
 	 * @brief Render system update loop.
 	*/
@@ -77,7 +78,10 @@ public:
 	 * @return Total tilemap width.
 	*/
 	int getTotalTilemapWidth() {
-		return this->tilemap->getTotalTilemapWidth();
+		if (tilemap != nullptr) {
+			return this->tilemap->getTotalTilemapWidth();
+		}
+		return -1;
 	}
 
 	/**
@@ -85,7 +89,65 @@ public:
 	 * @return Total tilemap height.
 	*/
 	int getTotalTilemapHeight() {
-		return this->tilemap->getTotalTilemapHeight();
+		if (tilemap != nullptr) {
+			return this->tilemap->getTotalTilemapHeight();
+		}
+		return -1;
+	}
+
+	/**
+	 * @brief Gets the width of the tiles.
+	 * @return Width of the tiles.
+	*/
+	int getTileWidth() {
+		if (tilemap != nullptr) {
+			return this->tilemap->getTileWidth();
+		}
+		return -1;
+	}
+
+	/**
+	 * @brief Gets the height of the tiles.
+	 * @return Height of the tiles.
+	*/
+	int getTileHeight() {
+		if (tilemap != nullptr) {
+			return this->tilemap->getTileHeight();
+		}
+		return -1;
+	}
+
+	/**
+	 * @brief Gets the tiles per row in tilemap.
+	 * @return Tiles per row in tilemap.
+	*/
+	int getTilesPerRow() {
+		if (tilemap != nullptr) {
+			return this->tilemap->getTilesPerRow();
+		}
+		return -1;
+	}
+
+	/**
+	 * @brief Gets the number of columns in the tilemap.
+	 * @return Number of columns in the tilemap.
+	*/
+	int getTilemapNumberOfCols() {
+		if (tilemap != nullptr) {
+			return this->tilemap->getNumberOfCols();
+		}
+		return -1;
+	}
+
+	/**
+	 * @brief Gets the number of rows in the tilemap.
+	 * @return Number of rows in the tilemap.
+	*/
+	int getTilemapNumberOfRows() {
+		if (tilemap != nullptr) {
+			return this->tilemap->getNumberOfRows();
+		}
+		return -1;
 	}
 private:
 	/**
@@ -111,6 +173,11 @@ private:
 	 * @brief Pointer to the collider manager needed for debugging.
 	*/
 	ComponentManager<Collider>* colliderManager = nullptr;
+
+	/**
+	 * @brief Pointer to the enemy movement manager needed for debugging.
+	*/
+	ComponentManager<EnemyMovement>* enemyMovementManager = nullptr;
 
 	/**
 	 * @brief Pointer to the ui manager to be able to render the ui elements.
@@ -257,4 +324,9 @@ private:
 	 * @brief Debug function that visualizes the colliders.
 	*/
 	void debugColliders();
+
+	/**
+	 * @brief Debug functrion that visualizes the enemy pathing.
+	*/
+	void debugEnemyPathing();
 };

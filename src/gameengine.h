@@ -110,6 +110,13 @@ public:
 	void setBGM(const char* bgmFilePath);
 
 	/**
+	 * @brief Sets the destination of the enemy.
+	 * @param e - Entity to set the destination from.
+	 * @param pos - Destination position.
+	*/
+	void setEnemyDestination(Entity e, Position* pos);
+
+	/**
 	 * @brief Changes current scene.
 	 * @param scene - Scene to change to.
 	*/
@@ -204,7 +211,15 @@ public:
 	 * @param isCursorTarget - Whether the target position is the position of the mouse cursor in the window.
 	 * @return Pointer to the added projectile movement component.
 	*/
-	ProjectileMovement* addProjectileMovement(Entity e, SDL_Point start, SDL_Point target, float projectileSpeed, bool isCursorTarget);
+	ProjectileMovement* addProjectileMovementComponent(Entity e, SDL_Point start, SDL_Point target, float projectileSpeed, bool isCursorTarget);
+	
+	/**
+	 * @brief Adds a enemy movement component to the entity.
+	 * @param e - Entity to add component to.
+	 * @param movementSpeed - Movement speed of the entity.
+	 * @return Pointer to the added enemy movement component.
+	*/
+	EnemyMovement* addEnemyMovementComponent(Entity e, float movementSpeed);
 
 	/**
 	 * @brief Gets position component of the entity.
@@ -254,6 +269,13 @@ public:
 	 * @return Pointer to the health component of the entity.
 	*/
 	Health* getHealthComponent(Entity e);
+
+	/**
+	 * @brief Gets enemy movement component of the entity.
+	 * @param e - Entity to get component off.
+	 * @return Pointer to the enemy movement component of the entity.
+	*/
+	EnemyMovement* getEnemyMovementComponent(Entity e);
 
 	/**
 	 * @brief Gets the input manager of the game engine.
@@ -310,6 +332,12 @@ public:
 	ComponentManager<ProjectileMovement>* getProjectileMovementManager() { return projectileMovementManager; }
 
 	/**
+	 * @brief Gets the enemy movement component manager of the game engine.
+	 * @return Pointer to the enemy movement component manager of the game engine.
+	*/
+	ComponentManager<EnemyMovement>* getEnemyMovementManager() { return enemyMovementManager; }
+
+	/**
 	 * @brief Gets game window width.
 	 * @return Width of game window.
 	*/
@@ -363,6 +391,7 @@ private:
 	ComponentManager<Collider>* colliderManager = nullptr;
 	ComponentManager<Health>* healthManager = nullptr;
 	ComponentManager<ProjectileMovement>* projectileMovementManager = nullptr;
+	ComponentManager<EnemyMovement>* enemyMovementManager = nullptr;
 
 	// Unique components
 	CameraFollow* cameraFollow = nullptr;

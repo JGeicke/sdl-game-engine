@@ -1,6 +1,9 @@
 #pragma once
 #include "SDL.h"
 #include <iostream>
+
+//TODO: vector2 auslagern
+
 /**
  * @brief Structure to represent 2D position and vectors.
 */

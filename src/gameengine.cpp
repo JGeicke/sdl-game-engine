@@ -185,7 +185,7 @@ Entity GameEngine::createProjectile(const char* spritePath, SDL_Point size, floa
 
 		// adjust or create projectile movement component
 		if (!this->projectileMovementManager->hasComponent(result)) {
-			this->addProjectileMovement(result, start, target, projectileSpeed, isCursorTarget);
+			this->addProjectileMovementComponent(result, start, target, projectileSpeed, isCursorTarget);
 		}
 		else {
 			ProjectileMovement* projectileMovement = this->projectileMovementManager->getComponent(result);
@@ -293,6 +293,21 @@ void GameEngine::setBGM(const char* bgmFilePath) {
 
 	audioSystem->addBGM(bgmFilePath);
 	audioSystem->playBGM();
+}
+
+/**
+* @brief Sets the destination of the enemy.
+* @param e - Entity to set the destination from.
+* @param pos - Destination position.
+*/
+void GameEngine::setEnemyDestination(Entity e, Position* pos) {
+	Node* dest = this->physicSystem->getCurrentNode(pos);
+	if (dest != nullptr) {
+		EnemyMovement* component = enemyMovementManager->getComponent(e);
+		if (component != nullptr) {
+			component->setDestination(dest);
+		}
+	}
 }
 
 /**
@@ -458,7 +473,7 @@ Health* GameEngine::addHealthComponent(Entity e, int maximumHealth) {
 * @param isCursorTarget - Whether the target position is the position of the mouse cursor in the window.
 * @return Pointer to the added projectile movement component.
 */
-ProjectileMovement* GameEngine::addProjectileMovement(Entity e, SDL_Point start, SDL_Point target, float projectileSpeed, bool isCursorTarget) {
+ProjectileMovement* GameEngine::addProjectileMovementComponent(Entity e, SDL_Point start, SDL_Point target, float projectileSpeed, bool isCursorTarget) {
 	ProjectileMovement* component = projectileMovementManager->addComponent(e);
 	if (component != nullptr) {
 		component->setEntity(e);
@@ -468,6 +483,24 @@ ProjectileMovement* GameEngine::addProjectileMovement(Entity e, SDL_Point start,
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add projectile movement component.", NULL);
+	}
+	return component;
+}
+
+/**
+ * @brief Adds a enemy movement component to the entity.
+ * @param e - Entity to add component to.
+ * @param movementSpeed - Movement speed of the entity.
+ * @return Pointer to the added enemy movement component.
+*/
+EnemyMovement* GameEngine::addEnemyMovementComponent(Entity e, float movementSpeed) {
+	EnemyMovement* component = enemyMovementManager->addComponent(e);
+	if (component != nullptr) {
+		component->setEntity(e);
+		component->setMovementSpeed(movementSpeed);
+	}
+	else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add enemy movement component.", NULL);
 	}
 	return component;
 }
@@ -542,6 +575,16 @@ Health* GameEngine::getHealthComponent(Entity e) {
 	return result;
 }
 
+/**
+* @brief Gets enemy movement component of the entity.
+* @param e - Entity to get component off.
+* @return Pointer to the enemy movement component of the entity.
+*/
+EnemyMovement* GameEngine::getEnemyMovementComponent(Entity e){
+	EnemyMovement* result = this->enemyMovementManager->getComponent(e);
+	return result;
+}
+
 #pragma endregion Getters
 
 #pragma region Initialization
@@ -565,6 +608,7 @@ void GameEngine::initComponentManagers() {
 	this->colliderManager = new ComponentManager<Collider>();
 	this->healthManager = new ComponentManager<Health>();
 	this->projectileMovementManager = new ComponentManager<ProjectileMovement>();
+	this->enemyMovementManager = new ComponentManager<EnemyMovement>();
 }
 
 /**
@@ -588,12 +632,13 @@ void GameEngine::initObjectPools() {
 * @brief Initializes the game systems.
 */
 void GameEngine::initSystems() {
-	this->renderSystem = new RenderSystem(this->frameDelay, spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager);
+	this->renderSystem = new RenderSystem(this->frameDelay, spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager, enemyMovementManager);
 	this->renderSystem->initCamera(this->window->getWindowWidth(), this->window->getWindowHeight());
 	//this->renderSystem->initCamera(640, 360);
 	this->renderSystem->debugging(true);
 
-	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager, projectileMovementManager);
+	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager, projectileMovementManager, enemyMovementManager);
+	this->physicSystem->initGrid(renderSystem->getTilemapNumberOfRows(), renderSystem->getTilemapNumberOfCols(), {renderSystem->getTileWidth(), renderSystem->getTileHeight()}, renderSystem->getTilesPerRow());
 
 	this->audioSystem = new AudioSystem(audioManager);
 	this->audioSystem->init();
@@ -609,7 +654,9 @@ void GameEngine::initSystems() {
 void GameEngine::loadScene(Scene* scene) {
 	this->setTilemap(scene->getTilesetFilePath(), scene->getTilemapDataFilePath(), scene->getLayerCount());
 	this->setBGM(scene->getBGMFilePath());
+	this->physicSystem->initGrid(renderSystem->getTilemapNumberOfRows(), renderSystem->getTilemapNumberOfCols(), { renderSystem->getTileWidth(), renderSystem->getTileHeight() }, renderSystem->getTilesPerRow());
 	scene->init();
+	
 }
 
 /**

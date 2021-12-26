@@ -135,6 +135,22 @@ public:
 	}
 
 	/**
+	 * @brief Gets the number of columns in the tilemap.
+	 * @return Number of colums in the tilemap.
+	*/
+	unsigned int getNumberOfCols() {
+		return getTotalTilemapWidth() / tileWidth;
+	}
+
+	/**
+	 * @brief Gets the number of rows in the tilemap.
+	 * @return Number of rows in the tilemap.
+	*/
+	unsigned int getNumberOfRows() {
+		return getTotalTilemapHeight() / tileHeight;
+	}
+
+	/**
 	 * @brief Gets total width of the tilemap.
 	 * @return Total width of the tilemap.
 	*/

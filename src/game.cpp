@@ -111,7 +111,7 @@ void Game::initWinterScene() {
 	this->inputManager->addActionHandler(SDL_BUTTON_LEFT, &spawnPlayerProjectileWrapper);
 
 	//player
-	this->player = gameEngine->addPlayer("player", true, { 840,550 }, 5);
+	this->player = gameEngine->addPlayer("player", true, { 440,550 }, 5);
 	gameEngine->addSpriteComponent(player, "../TestTextures/char_idle_side.png", { 64, 64 }, 1.5f);
 	gameEngine->setCameraFollowTarget(player);
 
@@ -144,6 +144,9 @@ void Game::initWinterScene() {
 	wizardCollider->onCollisionEnter(&enemyCollisionWrapper);
 	gameEngine->addAnimatorComponent(wizard);
 	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150);
+	
+	gameEngine->addEnemyMovementComponent(wizard, 1.5);
+	gameEngine->setEnemyDestination(wizard, gameEngine->getPositionComponent(player));
 
 	/* projectile test
 	ComponentManager<ProjectileMovement>* man = gameEngine->getProjectileMovementManager();

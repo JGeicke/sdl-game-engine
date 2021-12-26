@@ -176,5 +176,8 @@
     <ClInclude Include="src\util\objectpool.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\components\enemymovement.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
