@@ -440,7 +440,14 @@ void RenderSystem::renderTilemap() {
 				// calculate part to render at ingame
 				setTilesetDestRectPosition(currentDestX, currentDestY, tileWidth, tileHeight);
 
-				SDL_RenderCopy(renderer, tileset->getTexture().texture, tileset->getSourceRect(), tileset->getDestinationRect());
+				SDL_Rect* rect = tileset->getDestinationRect();
+				if ((rect->x + rect->w) < 0 || rect->x > camera.w || (rect->y + rect->h) < 0 || rect->y > camera.h) {
+					// skip rendering
+				}
+				else {
+					// if tile is in camera view, render tile.
+					SDL_RenderCopy(renderer, tileset->getTexture().texture, tileset->getSourceRect(), tileset->getDestinationRect());
+				}
 			}
 			currentDestX = currentDestX + 1;
 		}
