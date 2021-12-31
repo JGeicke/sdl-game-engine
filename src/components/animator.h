@@ -60,6 +60,17 @@ struct Animation {
 		this->currentFrame = 0;
 	}
 
+	Animation() {
+		this->frameDelayMS = 0;
+		this->frames = 0;
+		this->incrementFrame = -1;
+		this->currentYOffset = 0;
+		animationTexture = *(new Texture());
+		animationTexture.emptyInit();
+		this->interruptible = true;
+		this->currentFrame = 0;
+	}
+
 	/**
 	 * @brief Increments the y offset of the animation. Enables different structured tilesets to be used.
 	 * @param frame - Frame where the y offset was increased.
@@ -185,7 +196,8 @@ public:
 	 * @param texture - Texture of the animation.
 	*/
 	void addAnimation(size_t animationState, int frames, int frameDelayMS, Texture texture) {
-		animations.insert(animations.begin()+animationState,*(new Animation(frames, frameDelayMS, texture)));
+		animations[animationState] = *(new Animation(frames, frameDelayMS, texture));
+		//animations.insert(animations.begin()+animationState,*(new Animation(frames, frameDelayMS, texture)));
 
 		// check if current animation is currently not set
 		if (currentState == SIZE_MAX) {
@@ -240,9 +252,9 @@ public:
 	}
 private:
 	/**
-	* @brief Vector that uses the animation state as the index for the animation struct.
+	* @brief Array that uses the animation state as the index for the animation struct.
 	*/
-	std::vector<Animation> animations = {};
+	std::array<Animation,ATK_UP+1> animations = {};
 
 	/**
 	* @brief Current state of animator.

@@ -128,16 +128,19 @@ void PhysicSystem::handlePlayerMovement() {
 			positionComponent->movePosition(newX, newY);
 		}
 
-		controlPlayerAnimationStates();
+		controlAnimationStates(this->playerMovement->getEntity(), inputManager->getDirection(), true);
 	}
 }
 
 /**
-* @brief Controls the animations of the player.
+* @brief Controls the animations of an entity.
+* @param e - Entity to control animation states off.
+* @param direction - Direction of movement if present.
+* @param checkMouseInput - Whether mouse input should be checked.
 */
-void PhysicSystem::controlPlayerAnimationStates() {
-	Sprite* spriteComponent = spriteManager->getComponent(this->playerMovement->getEntity());
-	Animator* animatorComponent = animatorManager->getComponent(this->playerMovement->getEntity());
+void PhysicSystem::controlAnimationStates(Entity e, Vector2* direction, bool checkMouseInput) {
+	Sprite* spriteComponent = spriteManager->getComponent(e);
+	Animator* animatorComponent = animatorManager->getComponent(e);
 	Animation* currentAnimation = animatorComponent->getCurrentAnimation();
 
 	// check if sprite component and animator are present
@@ -167,7 +170,7 @@ void PhysicSystem::controlPlayerAnimationStates() {
 				}
 			}
 		}
-		else if (inputManager->getMouseButton() == SDL_BUTTON_LEFT) {
+		else if (checkMouseInput && inputManager->getMouseButton() == SDL_BUTTON_LEFT) {
 			// TODO: have attack colliders 
 			// attack
 			switch (state) {
@@ -194,18 +197,18 @@ void PhysicSystem::controlPlayerAnimationStates() {
 					break;
 			}
 		} 
-		else if (inputManager->getDirectionMagnitude() > 0.0) {
+		else if (direction->getMagnitude() > 0.0) {
 			// moving
-			if (inputManager->getCurrentDirectionX() > 0) {
+			if (direction->x > 0) {
 				spriteComponent->setTextureFlip(SDL_FLIP_HORIZONTAL);
 				animatorComponent->setState(STATES::WALK_SIDE);
 			}
-			else if (inputManager->getCurrentDirectionX() < 0) {
+			else if (direction->x < 0) {
 				spriteComponent->setTextureFlip(SDL_FLIP_NONE);
 				animatorComponent->setState(STATES::WALK_SIDE);
 			}
 			else {
-				if (inputManager->getCurrentDirectionY() > 0) {
+				if (direction->y > 0) {
 					animatorComponent->setState(STATES::WALK_DOWN);
 				}
 				else {
@@ -213,7 +216,7 @@ void PhysicSystem::controlPlayerAnimationStates() {
 				}
 			}
 		}
-		else if(inputManager->getDirectionMagnitude() == 0.0){
+		else if(direction->getMagnitude() == 0.0){
 			// transition to idle
 			switch (state) {
 				case STATES::WALK_DOWN:
@@ -262,8 +265,10 @@ void PhysicSystem::handleEnemyMovement() {
 	for (size_t i = 0; i < componentCount; i++)
 	{
 		EnemyMovement* currentComponent = this->enemyMovementManager->getComponentWithIndex(i);
+		Vector2 direction = { 0,0 };
 		if (currentComponent->isActive() && currentComponent->getDestination() != nullptr) {
 			Position* currPos = this->positionManager->getComponent(currentComponent->getEntity());
+
 			// calculate path
 			if (currentComponent->isFlagged()) {
 				currentComponent->flag(false);
@@ -275,9 +280,9 @@ void PhysicSystem::handleEnemyMovement() {
 				currentComponent->setNextNode();
 			}
 			Node* currentTarget = currentComponent->getNextNode();
-			Vector2 direction;
 			direction.x = (currentTarget->x*tileWidth + tileWidth/2) - currPos->x();
 			direction.y = (currentTarget->y*tileHeight + tileHeight/2) - currPos->y();
+
 			// normalize direction
 			float newX = direction.getNormalizedX();
 			float newY = direction.getNormalizedY();
@@ -287,6 +292,8 @@ void PhysicSystem::handleEnemyMovement() {
 			// increase component timer
 			currentComponent->increaseTimer(newTimestamp- lastEnemyMovementTimestamp);
 		}
+		// control animation state
+		this->controlAnimationStates(currentComponent->getEntity(), &direction, false);
 	}
 	lastEnemyMovementTimestamp = newTimestamp;
 }
@@ -411,6 +418,8 @@ float PhysicSystem::calculateHCost(Node* pos, Node* dest) {
 * @return Path from the start node to the destination node.
 */
 std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
+	// TODO: handle multiple enemy pathings
+
 	// reset nodes
 	for (size_t x = 0; x < row; x++)
 	{
@@ -451,19 +460,20 @@ std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
 
 		// check neighbours
 		for (auto neighbour : current->neighbours) {
-			if (!neighbour->visited && (!neighbour->obstacle || neighbour == dest)) {
-				openNodes.push_back(neighbour);
+			if (!neighbour->obstacle || neighbour == dest) {
+				if (!neighbour->visited) {
+					openNodes.push_back(neighbour);
+				}
+
+				float gCostNeighbour = current->gcost + calculateHCost(current, neighbour);
+
+				if (gCostNeighbour < neighbour->gcost) {
+					neighbour->parent = current;
+					neighbour->gcost = gCostNeighbour;
+
+					neighbour->fcost = neighbour->fcost + calculateHCost(neighbour, dest);
+				}
 			}
-
-			float gCostNeighbour = current->gcost + calculateHCost(current, neighbour);
-
-			if (gCostNeighbour < neighbour->gcost) {
-				neighbour->parent = current;
-				neighbour->gcost = gCostNeighbour;
-
-				neighbour->fcost = neighbour->fcost + calculateHCost(neighbour, dest);
-			}
-
 		}
 	}
 
@@ -496,10 +506,26 @@ Node* PhysicSystem::getCurrentNode(Position* pos) {
 }
 
 /**
+* @brief Gets the current Node based on the position.
+* @param pos - Position to get the current node off.
+* @return Current Node.
+*/
+Node* PhysicSystem::getCurrentNode(SDL_Point pos) {
+	int newX = pos.x / tileWidth;
+	int newY = pos.y / tileHeight;
+
+	int idx = newY * tilesPerRow + newX;
+
+	if (idx < this->nodeCount) {
+		return &this->nodes[idx];
+	}
+	return nullptr;
+}
+
+/**
 * @brief Marks nodes as obstacle when the match the collider positions.
 */
 void PhysicSystem::markNodesAsObstacles() {
-	//TODO: handle bigger colliders than 32x32
 	size_t componentCount = colliderManager->getComponentCount();
 
 	for (size_t i = 0; i < componentCount; i++)
@@ -509,8 +535,54 @@ void PhysicSystem::markNodesAsObstacles() {
 		if (collider->isActive() && !collider->isTrigger()) {
 			Position* pos = positionManager->getComponent(collider->getEntity());
 
-			Node* colNode = this->getCurrentNode(pos);
-			colNode->obstacle = true;
+			SDL_Point* size = collider->getColliderSize();
+			
+			int colX = size->x / tileWidth;
+			int colY = size->y / tileHeight;
+
+			SDL_Point position = { pos->x() - (size->x / 2),  pos->y() - (size->y / 2) };
+			Node* colNode = nullptr;
+
+			if (colX > 0 && colY > 0) {
+				// collider bigger or equal to a tile
+				for (int x = 0; x < colX; x++)
+				{
+					for (int y = 0; y < colY; y++)
+					{
+						colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y + y * tileHeight });
+						if (colNode != nullptr) {
+							colNode->obstacle = true;
+						}
+					}
+				}
+			}
+			else if (colX > 0) {
+				// collider height smaller than a tile
+				for (int x = 0; x < colX; x++)
+				{
+					colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y});
+					if (colNode != nullptr) {
+						colNode->obstacle = true;
+					}
+				}
+			}
+			else if (colY > 0) {
+				// collider width smaller than a tile
+				for (int y = 0; y < colY; y++)
+				{
+					colNode = this->getCurrentNode({ position.x, position.y + y * tileHeight });
+					if (colNode != nullptr) {
+						colNode->obstacle = true;
+					}
+				}
+			}
+			else {
+				// collider smaller than a tile
+				colNode = this->getCurrentNode({ position.x, position.y });
+				if (colNode != nullptr) {
+					colNode->obstacle = true;
+				}
+			}
 		}
 	}
 }

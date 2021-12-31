@@ -44,7 +44,7 @@ public:
 	 * @param idx - Index of entity.
 	 * @return Entity with pool index.
 	*/
-	Entity getEntityByIndex(int idx) {
+	Entity getEntityByIndex(size_t idx) {
 		return entites[idx];
 	}
 
@@ -53,14 +53,14 @@ public:
 	 * @param idx - Index of entity.
 	 * @return Whether the object with the pool index is currently used.
 	*/
-	bool isEntityUsed(int idx) {
+	bool isEntityUsed(size_t idx) {
 		return usedEntites[idx];
 	}
 private:
 	/**
 	 * @brief Size of object pool.
 	*/
-	static const int POOL_SIZE = 100;
+	static const size_t POOL_SIZE = 100;
 	/**
 	 * @brief Array with objects/entites in the pool.
 	*/

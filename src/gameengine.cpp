@@ -505,6 +505,24 @@ EnemyMovement* GameEngine::addEnemyMovementComponent(Entity e, float movementSpe
 	return component;
 }
 
+/**
+* @brief Adds a enemy movement component to the entity.
+* @param e - Entity to add component to.
+* @param movementSpeed - Movement speed of the entity.
+* @param pathfindingTimerMS - Timer how often the path is calculated.
+* @return Pointer to the added enemy movement component.
+*/
+EnemyMovement* GameEngine::addEnemyMovementComponent(Entity e, float movementSpeed, int pathfindingTimerMS) {
+	EnemyMovement* component = this->addEnemyMovementComponent(e, movementSpeed);
+	if (component != nullptr) {
+		component->setPathfindingTimer(pathfindingTimerMS);
+	}
+	else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add enemy movement component.", NULL);
+	}
+	return component;
+}
+
 #pragma region Getters
 /**
 * @brief Gets position component of the entity.

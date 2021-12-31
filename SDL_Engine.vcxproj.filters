@@ -179,5 +179,8 @@
     <ClInclude Include="src\components\enemymovement.h">
       <Filter>Headerdateien\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\vector2.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

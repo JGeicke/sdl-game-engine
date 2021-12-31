@@ -68,6 +68,7 @@
     <ClInclude Include="src\util\ui\panel.h" />
     <ClInclude Include="src\util\ui\progressbar.h" />
     <ClInclude Include="src\util\ui\uielement.h" />
+    <ClInclude Include="src\util\vector2.h" />
     <ClInclude Include="src\util\window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

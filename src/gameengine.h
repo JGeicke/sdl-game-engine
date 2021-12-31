@@ -222,6 +222,15 @@ public:
 	EnemyMovement* addEnemyMovementComponent(Entity e, float movementSpeed);
 
 	/**
+	 * @brief Adds a enemy movement component to the entity.
+	 * @param e - Entity to add component to.
+	 * @param movementSpeed - Movement speed of the entity.
+	 * @param pathfindingTimerMS - Timer how often the path is calculated.
+	 * @return Pointer to the added enemy movement component.
+	*/
+	EnemyMovement* addEnemyMovementComponent(Entity e, float movementSpeed, int pathfindingTimerMS);
+
+	/**
 	 * @brief Gets position component of the entity.
 	 * @param e - Entity to get component off.
 	 * @return Pointer to the position component of the entity.

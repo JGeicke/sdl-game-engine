@@ -111,7 +111,7 @@ void Game::initWinterScene() {
 	this->inputManager->addActionHandler(SDL_BUTTON_LEFT, &spawnPlayerProjectileWrapper);
 
 	//player
-	this->player = gameEngine->addPlayer("player", true, { 440,550 }, 5);
+	this->player = gameEngine->addPlayer("player", true, { 492,1350 }, 5);
 	gameEngine->addSpriteComponent(player, "../TestTextures/char_idle_side.png", { 64, 64 }, 1.5f);
 	gameEngine->setCameraFollowTarget(player);
 
@@ -137,16 +137,21 @@ void Game::initWinterScene() {
 	UIManager* uimanager = this->gameEngine->getUIManager();
 	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 
-	//wizard
-	Entity wizard = gameEngine->addEntity("enemy", false,{ 1040, 850 });
-	gameEngine->addSpriteComponent(wizard, "../TestTextures/wizard_idle.png", { 64, 64 }, 1.0f);
-	Collider* wizardCollider = gameEngine->addColliderComponent(wizard, { 0, 0 }, { 30, 53 }, false);
+	//wolf
+	Entity wolf = gameEngine->addEntity("enemy", false,{ 1040, 850 });
+	gameEngine->addSpriteComponent(wolf, "../TestTextures/wolf_idle_side.png", { 32, 32 }, 2.0f);
+	Collider* wizardCollider = gameEngine->addColliderComponent(wolf, { 0, 0 }, { 32, 32 }, false);
 	wizardCollider->onCollisionEnter(&enemyCollisionWrapper);
-	gameEngine->addAnimatorComponent(wizard);
-	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150);
+	gameEngine->addAnimatorComponent(wolf);
+	gameEngine->addAnimation(wolf, STATES::IDLE_SIDE, 1, 150, "../TestTextures/wolf_idle_side.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_SIDE, 3, 150, "../TestTextures/wolf_walk_side.png");
+	gameEngine->addAnimation(wolf, STATES::IDLE_UP, 1, 150, "../TestTextures/wolf_idle_up.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_UP, 3, 150, "../TestTextures/wolf_walk_up.png");
+	gameEngine->addAnimation(wolf, STATES::IDLE_DOWN, 1, 150, "../TestTextures/wolf_idle_down.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_DOWN, 3, 150, "../TestTextures/wolf_walk_down.png");
 	
-	gameEngine->addEnemyMovementComponent(wizard, 1.5);
-	gameEngine->setEnemyDestination(wizard, gameEngine->getPositionComponent(player));
+	gameEngine->addEnemyMovementComponent(wolf, 1.5);
+	gameEngine->setEnemyDestination(wolf, gameEngine->getPositionComponent(player));
 
 	/* projectile test
 	ComponentManager<ProjectileMovement>* man = gameEngine->getProjectileMovementManager();

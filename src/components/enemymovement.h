@@ -1,6 +1,7 @@
 #pragma once
 #include "basecomponent.h"
 #include <iostream>
+#include <vector>
 /**
  * @brief Struct representing the logical position on the tilemap grid.
 */
@@ -148,6 +149,14 @@ public:
 		else {
 			destination = nullptr;
 		}
+	}
+
+	/**
+	 * @brief Sets the pathfinding timer. This determins how often the path is calculated.
+	 * @param timerMS - New pathfinding timer.
+	*/
+	void setPathfindingTimer(int timerMS) {
+		this->timerBase = timerMS;
 	}
 private:
 	/**

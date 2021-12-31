@@ -45,11 +45,11 @@ public:
 	 * @param e - Entity to remove the component from.
 	*/
 	void removeComponent(Entity e) {
-		unsigned int deleteIdx = entityIndexMap[e];
+		size_t deleteIdx = entityIndexMap[e];
 		std::map<Entity, size_t>::iterator endItr = entityIndexMap.end();
 		--endItr;
 		Entity endEntity = endItr->first;
-		unsigned int endIdx = endItr->second;
+		size_t endIdx = endItr->second;
 
 		entityIndexMap.erase(e);
 		if (e != endEntity) {

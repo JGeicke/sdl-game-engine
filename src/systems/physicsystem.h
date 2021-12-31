@@ -46,6 +46,13 @@ public:
 	 * @return Current Node.
 	*/
 	Node* getCurrentNode(Position* pos);
+
+	/**
+	 * @brief Gets the current Node based on the position.
+	 * @param pos - Position to get the current node off.
+	 * @return Current Node.
+	*/
+	Node* getCurrentNode(SDL_Point pos);
 private:
 	Node* nodes = nullptr;
 	size_t nodeCount = 0;
@@ -121,9 +128,12 @@ private:
 	void handlePlayerMovement();
 
 	/**
-	 * @brief Controls the animation states of the player.
+	 * @brief Controls the animation states of the an entity.
+	 * @param e - Entity to control animation states off.
+	 * @param direction - Direction of movement if present.
+	 * @param checkMouseInput - Whether mouse input should be checked.
 	*/
-	void controlPlayerAnimationStates();
+	void controlAnimationStates(Entity e, Vector2* direction, bool checkMouseInput);
 
 	/**
 	 * @brief Handles the movement of projectiles.
