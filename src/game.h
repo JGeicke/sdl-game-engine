@@ -13,6 +13,8 @@ public:
 
 	void spawnPlayerProjectile();
 
+	void addEnemyWolf(SDL_Point pos);
+
 	void initWinterScene();
 
 	void initStartScene();

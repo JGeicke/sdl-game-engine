@@ -419,7 +419,6 @@ float PhysicSystem::calculateHCost(Node* pos, Node* dest) {
 */
 std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
 	// TODO: handle multiple enemy pathings
-
 	// reset nodes
 	for (size_t x = 0; x < row; x++)
 	{
@@ -549,6 +548,7 @@ void PhysicSystem::markNodesAsObstacles() {
 				{
 					for (int y = 0; y < colY; y++)
 					{
+						std::cout << "collider: " << position.x + x * tileWidth << " " << position.y + y * tileHeight << "\n";
 						colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y + y * tileHeight });
 						if (colNode != nullptr) {
 							colNode->obstacle = true;

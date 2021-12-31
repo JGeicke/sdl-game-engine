@@ -98,6 +98,7 @@ void RenderSystem::debugEnemyPathing() {
 				}
 				prev = node;
 			}
+			prev = nullptr;
 		}
 	}
 }

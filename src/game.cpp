@@ -105,6 +105,22 @@ void Game::spawnPlayerProjectile() {
 	*/
 }
 
+void Game::addEnemyWolf(SDL_Point pos) {
+	Entity wolf = gameEngine->addEntity("enemy", false, pos);
+	gameEngine->addSpriteComponent(wolf, "../TestTextures/wolf_idle_side.png", { 32, 32 }, 2.0f);
+	Collider* wolfCollider = gameEngine->addColliderComponent(wolf, { 0, 0 }, { 32, 32 }, false);
+	wolfCollider->onCollisionEnter(&enemyCollisionWrapper);
+	gameEngine->addAnimatorComponent(wolf);
+	gameEngine->addAnimation(wolf, STATES::IDLE_SIDE, 1, 150, "../TestTextures/wolf_idle_side.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_SIDE, 3, 150, "../TestTextures/wolf_walk_side.png");
+	gameEngine->addAnimation(wolf, STATES::IDLE_UP, 1, 150, "../TestTextures/wolf_idle_up.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_UP, 3, 150, "../TestTextures/wolf_walk_up.png");
+	gameEngine->addAnimation(wolf, STATES::IDLE_DOWN, 1, 150, "../TestTextures/wolf_idle_down.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_DOWN, 3, 150, "../TestTextures/wolf_walk_down.png");
+
+	gameEngine->addEnemyMovementComponent(wolf, 1.5);
+	gameEngine->setEnemyDestination(wolf, gameEngine->getPositionComponent(player));
+}
 
 void Game::initWinterScene() {
 	initGameplayUI(this->uiManager);
@@ -138,20 +154,10 @@ void Game::initWinterScene() {
 	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 
 	//wolf
-	Entity wolf = gameEngine->addEntity("enemy", false,{ 1040, 850 });
-	gameEngine->addSpriteComponent(wolf, "../TestTextures/wolf_idle_side.png", { 32, 32 }, 2.0f);
-	Collider* wizardCollider = gameEngine->addColliderComponent(wolf, { 0, 0 }, { 32, 32 }, false);
-	wizardCollider->onCollisionEnter(&enemyCollisionWrapper);
-	gameEngine->addAnimatorComponent(wolf);
-	gameEngine->addAnimation(wolf, STATES::IDLE_SIDE, 1, 150, "../TestTextures/wolf_idle_side.png");
-	gameEngine->addAnimation(wolf, STATES::WALK_SIDE, 3, 150, "../TestTextures/wolf_walk_side.png");
-	gameEngine->addAnimation(wolf, STATES::IDLE_UP, 1, 150, "../TestTextures/wolf_idle_up.png");
-	gameEngine->addAnimation(wolf, STATES::WALK_UP, 3, 150, "../TestTextures/wolf_walk_up.png");
-	gameEngine->addAnimation(wolf, STATES::IDLE_DOWN, 1, 150, "../TestTextures/wolf_idle_down.png");
-	gameEngine->addAnimation(wolf, STATES::WALK_DOWN, 3, 150, "../TestTextures/wolf_walk_down.png");
-	
-	gameEngine->addEnemyMovementComponent(wolf, 1.5);
-	gameEngine->setEnemyDestination(wolf, gameEngine->getPositionComponent(player));
+	this->addEnemyWolf({ 1040, 850 });
+
+	//wolf2
+	this->addEnemyWolf({ 840,850 });
 
 	/* projectile test
 	ComponentManager<ProjectileMovement>* man = gameEngine->getProjectileMovementManager();
