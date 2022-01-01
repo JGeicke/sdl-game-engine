@@ -179,7 +179,7 @@ void Game::initWinterScene() {
 	this->addEnemyWolf({ 1040, 850 }, 50);
 
 	//wolf2
-	//this->addEnemyWolf({ 840,850 }, 50);
+	this->addEnemyWolf({ 840,850 }, 50);
 
 	/* projectile test
 	ComponentManager<ProjectileMovement>* man = gameEngine->getProjectileMovementManager();

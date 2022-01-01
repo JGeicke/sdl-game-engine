@@ -427,6 +427,7 @@ void PhysicSystem::detectCollisions() {
 
 							// execute collider collision behaviour
 							currentCollider->collision(nextCollider);
+							break;
 						}
 					}
 				}
