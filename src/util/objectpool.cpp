@@ -6,7 +6,7 @@
 void ObjectPool::init(const char* entityTag) {
 	for (size_t i = 0; i < POOL_SIZE; i++)
 	{
-		entites[i] = this->entityManager->createEntity(entityTag, false);
+		entites[i] = this->entityManager->createEntity(entityTag, true);
 		Position* pos = this->positionManager->addComponent(entites[i]);
 		if (pos != nullptr) {
 			pos->setEntity(entites[i]);

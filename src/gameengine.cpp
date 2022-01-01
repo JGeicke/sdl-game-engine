@@ -211,6 +211,7 @@ void GameEngine::destroyProjectile(Entity e) {
 
 		Collider* collider = this->colliderManager->getComponent(e);
 		collider->setActive(false);
+		collider->resetLastCollision();
 	}
 }
 
