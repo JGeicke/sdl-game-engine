@@ -761,6 +761,10 @@ void GameEngine::removeEntityComponents(Entity e) {
 		this->projectileMovementManager->removeComponent(e);
 	}
 
+	if (this->enemyMovementManager->hasComponent(e)) {
+		this->enemyMovementManager->removeComponent(e);
+	}
+
 	if (this->cameraFollow->getEntity().uid == e.uid) {
 		this->cameraFollow = nullptr;
 	}

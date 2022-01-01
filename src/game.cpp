@@ -18,12 +18,20 @@ void enemyProjectileWrapper(Collider* a, Collider* b) {
 	game->enemyProjectileHandler(a, b);
 }
 
+void playerProjectileWrapper(Collider* a, Collider* b) {
+	game->playerProjectileHandler(a, b);
+}
+
 void enemyCollisionWrapper(Collider* a, Collider* b) {
 	game->enemyCollisionHandler(a,b);
 }
 
 void onPlayerDeathWrapper(Health* healthComponent) {
 	game->onPlayerDeath(healthComponent);
+}
+
+void onWolfDeathWrapper(Health* healthComponent) {
+	game->onWolfDeath(healthComponent);
 }
 
 void initStartSceneWrapper() {
@@ -51,6 +59,7 @@ void spawnPlayerProjectileWrapper() {
 
 void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 	if (b->getEntity().tag == "player") {
+		std::cout << "oh no, anyways..." << std::endl;
 		/*
 		std::cout << b->getEntity().tag << std::endl;
 		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
@@ -74,15 +83,28 @@ void Game::enemyProjectileHandler(Collider* a, Collider* b) {
 		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
 		UIManager* uimanager = this->gameEngine->getUIManager();
 		Health* playerHealth = manager->getComponent(this->player);
-		playerHealth->takeDamage(25);
 
 		//update ui
 		uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 
 		// delete projectile
 		Entity e = a->getEntity();
-		this->gameEngine->destroyEntity(e);
+		this->gameEngine->destroyProjectile(e);
 		b->resetLastCollision();
+
+		playerHealth->takeDamage(25);
+	}
+}
+
+void Game::playerProjectileHandler(Collider* a, Collider* b) {
+	if (b->getEntity().tag == "enemy") {
+		Health* enemyHealth = gameEngine->getHealthComponent(b->getEntity());
+
+		// delete projectile
+		Entity e = a->getEntity();
+		this->gameEngine->destroyProjectile(e);
+
+		enemyHealth->takeDamage(25);
 	}
 }
 
@@ -90,22 +112,19 @@ void Game::onPlayerDeath(Health* healthComponent) {
 	std::cout << "Game over" << std::endl;
 }
 
+void Game::onWolfDeath(Health* healthComponent) {
+	this->gameEngine->destroyEntity(healthComponent->getEntity());
+}
+
 void Game::spawnPlayerProjectile() {
 	Position* playerPosition = gameEngine->getPositionComponent(this->player);
 
 	Entity e = this->gameEngine->createProjectile("../TestTextures/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3.0f, true);
 	Collider* col = this->gameEngine->getColliderComponent(e);
-	col->onTriggerEnter(&enemyCollisionWrapper);
-	/* projectile test
-	Entity proj = gameEngine->addEntity("projectile", false, { playerPosition->x(), playerPosition->y() });
-	gameEngine->addSpriteComponent(proj, "../TestTextures/proj.png", { 6,6 }, 2.0f);
-	Collider* projCollider = gameEngine->addColliderComponent(proj, { 0,0 }, { 12,12 }, true);
-	//projCollider->onTriggerEnter(&enemyProjectileWrapper);
-	gameEngine->addProjectileMovement(proj, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3, true);
-	*/
+	col->onTriggerEnter(&playerProjectileWrapper);
 }
 
-void Game::addEnemyWolf(SDL_Point pos) {
+void Game::addEnemyWolf(SDL_Point pos, int health) {
 	Entity wolf = gameEngine->addEntity("enemy", false, pos);
 	gameEngine->addSpriteComponent(wolf, "../TestTextures/wolf_idle_side.png", { 32, 32 }, 2.0f);
 	Collider* wolfCollider = gameEngine->addColliderComponent(wolf, { 0, 0 }, { 32, 32 }, false);
@@ -120,6 +139,9 @@ void Game::addEnemyWolf(SDL_Point pos) {
 
 	gameEngine->addEnemyMovementComponent(wolf, 1.5);
 	gameEngine->setEnemyDestination(wolf, gameEngine->getPositionComponent(player));
+
+	Health* healthComponent = gameEngine->addHealthComponent(wolf, health);
+	healthComponent->onZeroHealth(&onWolfDeathWrapper);
 }
 
 void Game::initWinterScene() {
@@ -154,10 +176,10 @@ void Game::initWinterScene() {
 	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 
 	//wolf
-	this->addEnemyWolf({ 1040, 850 });
+	this->addEnemyWolf({ 1040, 850 }, 50);
 
 	//wolf2
-	this->addEnemyWolf({ 840,850 });
+	//this->addEnemyWolf({ 840,850 }, 50);
 
 	/* projectile test
 	ComponentManager<ProjectileMovement>* man = gameEngine->getProjectileMovementManager();

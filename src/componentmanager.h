@@ -46,15 +46,19 @@ public:
 	*/
 	void removeComponent(Entity e) {
 		size_t deleteIdx = entityIndexMap[e];
-		std::map<Entity, size_t>::iterator endItr = entityIndexMap.end();
-		--endItr;
-		Entity endEntity = endItr->first;
-		size_t endIdx = endItr->second;
-
 		entityIndexMap.erase(e);
-		if (e != endEntity) {
-			/* entity is not last in map */
-			componentData[deleteIdx] = componentData[endIdx];
+
+		if (deleteIdx != currentIndex - 1) {
+			Entity endEntity;
+
+			for (auto& i : entityIndexMap) {
+				if (i.second == currentIndex - 1) {
+					endEntity = i.first;
+					break;
+				}
+			}
+
+			componentData[deleteIdx] = componentData[currentIndex - 1];
 			entityIndexMap[endEntity] = deleteIdx;
 		}
 		currentIndex--;

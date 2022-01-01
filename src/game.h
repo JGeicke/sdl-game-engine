@@ -5,15 +5,19 @@ public:
 	void init();
 	void start();
 
+	void playerProjectileHandler(Collider* a, Collider* b);
+
 	void enemyProjectileHandler(Collider* a, Collider* b);
 
 	void enemyCollisionHandler(Collider* a, Collider* b);
 
 	void onPlayerDeath(Health* healthComponent);
 
+	void onWolfDeath(Health* healthComponent);
+
 	void spawnPlayerProjectile();
 
-	void addEnemyWolf(SDL_Point pos);
+	void addEnemyWolf(SDL_Point pos, int health);
 
 	void initWinterScene();
 

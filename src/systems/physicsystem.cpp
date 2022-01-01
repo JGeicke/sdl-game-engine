@@ -397,6 +397,52 @@ void PhysicSystem::detectCollisions() {
 			currentCollider->resetLastCollision();
 		}
 	}
+	
+	for (size_t i = 0; i < projectileMovementCount; i++)
+	{
+		size_t collisionCounter = 0;
+		ProjectileMovement* projMovement = this->projManager->getComponentWithIndex(i);
+
+		if (!projMovement->isActive()) {
+			continue;
+		}
+		Position* currentPosition = positionManager->getComponent(projMovement->getEntity());
+		Collider* currentCollider = colliderManager->getComponent(projMovement->getEntity());
+
+		if (currentCollider == nullptr) {
+			return;
+		}
+
+		if (currentCollider->isActive()) {
+			for (size_t z = 0; z < colliderCount; z++)
+			{
+				Collider* nextCollider = colliderManager->getComponentWithIndex(z);
+
+				if (nextCollider->isActive()) {
+					// check if both entities
+					if (nextCollider->getEntity().uid != this->projManager->getComponentWithIndex(i)->getEntity().uid) {
+						if (SDL_HasIntersection(currentCollider->getColliderRect(), nextCollider->getColliderRect()) == SDL_TRUE) {
+							// collision
+							collisionCounter++;
+
+							// execute collider collision behaviour
+							currentCollider->collision(nextCollider);
+						}
+					}
+				}
+			}
+		}
+
+		// if current collider does not collide with another collider, reset lastCollision
+		if (collisionCounter == 0 && !currentCollider->getLastCollision().uid == 0) {
+			Collider* lastCollider = colliderManager->getComponent(currentCollider->getLastCollision());
+			if (lastCollider->getLastCollision().uid == currentCollider->getEntity().uid) {
+				// check if last collision was with current entity. if this is the case, reset last collision.
+				lastCollider->resetLastCollision();
+			}
+			currentCollider->resetLastCollision();
+		}
+	}
 }
 
 #pragma region AStar
@@ -548,7 +594,6 @@ void PhysicSystem::markNodesAsObstacles() {
 				{
 					for (int y = 0; y < colY; y++)
 					{
-						std::cout << "collider: " << position.x + x * tileWidth << " " << position.y + y * tileHeight << "\n";
 						colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y + y * tileHeight });
 						if (colNode != nullptr) {
 							colNode->obstacle = true;
