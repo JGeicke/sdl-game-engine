@@ -266,31 +266,61 @@ void PhysicSystem::handleEnemyMovement() {
 	{
 		EnemyMovement* currentComponent = this->enemyMovementManager->getComponentWithIndex(i);
 		Vector2 direction = { 0,0 };
-		if (currentComponent->isActive() && currentComponent->getDestination() != nullptr) {
+		// check if the component is active and has currently a destination node.
+		if (currentComponent->isActive() && (currentComponent->getDestination() != nullptr)) {
 			Position* currPos = this->positionManager->getComponent(currentComponent->getEntity());
 
 			// calculate path
 			if (currentComponent->isFlagged()) {
 				currentComponent->flag(false);
+
+				// check if the component has a target
+				if (currentComponent->hasTarget()) {
+					Position* targetPosition = this->positionManager->getComponent(currentComponent->getTarget());
+					if (targetPosition != nullptr) {
+						Node* newDest = this->getCurrentNode(targetPosition);
+						if (newDest != nullptr) {
+							currentComponent->setDestination(newDest);
+						}
+					}
+				}
+
+				// get current node of enemy
 				Node* curr = this->getCurrentNode(currPos);
-				currentComponent->setRoute(this->aStar(curr, currentComponent->getDestination()));
+				if (curr != nullptr) {
+					currentComponent->setRoute(this->aStar(curr, currentComponent->getDestination()));
+				}
 			}
 			//move
-			if (currentComponent->arrivedAtNextNode(currPos->x() / 32, currPos->y() / 32)) {
+			if (currentComponent->arrivedAtNextNode(currPos->x() / tileWidth, currPos->y() / tileHeight)) {
 				currentComponent->setNextNode();
 			}
-			Node* currentTarget = currentComponent->getNextNode();
-			direction.x = (currentTarget->x*tileWidth + tileWidth/2) - currPos->x();
-			direction.y = (currentTarget->y*tileHeight + tileHeight/2) - currPos->y();
 
-			// normalize direction
-			float newX = direction.getNormalizedX();
-			float newY = direction.getNormalizedY();
+			// check if there is another node to traverse to.
+			if (currentComponent->hasNextNode()) {
+				Node* currentTarget = currentComponent->getNextNode();
+				direction.x = (currentTarget->x * tileWidth + tileWidth / 2) - currPos->x();
+				direction.y = (currentTarget->y * tileHeight + tileHeight / 2) - currPos->y();
 
-			currPos->movePosition(newX * currentComponent->getMovementSpeed(), newY * currentComponent->getMovementSpeed());
+				// normalize direction
+				float newX = direction.getNormalizedX();
+				float newY = direction.getNormalizedY();
 
+				currPos->movePosition(newX * currentComponent->getMovementSpeed(), newY * currentComponent->getMovementSpeed());
+			}
 			// increase component timer
 			currentComponent->increaseTimer(newTimestamp- lastEnemyMovementTimestamp);
+		}
+		// check if component has target
+		else if (currentComponent->getDestination() == nullptr && currentComponent->hasTarget()) {
+			Position* targetPosition = this->positionManager->getComponent(currentComponent->getTarget());
+			if (targetPosition != nullptr) {
+				Node* newDest = this->getCurrentNode(targetPosition);
+				if (newDest != nullptr) {
+					currentComponent->setDestination(newDest);
+					currentComponent->flag(true);
+				}
+			}
 		}
 		// control animation state
 		this->controlAnimationStates(currentComponent->getEntity(), &direction, false);

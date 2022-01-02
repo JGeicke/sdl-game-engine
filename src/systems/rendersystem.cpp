@@ -57,6 +57,7 @@ void RenderSystem::debugPosition() {
 		for (size_t i = 0; i < componentCount; i++)
 		{
 			Position* nextPosition = positionManager->getComponentWithIndex(i);
+			if (!nextPosition->isActive()) continue;
 			SDL_RenderDrawPoint(renderer, nextPosition->x() - camera.x, nextPosition->y() - camera.y);
 		}
 	}
@@ -71,7 +72,10 @@ void RenderSystem::debugColliders() {
 
 		for (size_t i = 0; i < componentCount; i++)
 		{
+
 			Collider* nextCollider = colliderManager->getComponentWithIndex(i);
+
+			if (!nextCollider->isActive()) continue;
 			SDL_Rect* colliderRect = nextCollider->getColliderRect();
 			SDL_Rect renderRect = { colliderRect->x-camera.x, colliderRect->y-camera.y,colliderRect->w, colliderRect->h };
 			SDL_RenderDrawRect(renderer, &renderRect);
@@ -283,6 +287,9 @@ void RenderSystem::mergeSort(Position* arr, size_t start, size_t end) {
  * @param sprite
 */
 void RenderSystem::draw(Sprite* sprite) {
+	// check if sprite is active
+	if (!sprite->isActive())return;
+
 	// if sprite has no texture
 	if (!sprite->hasTexture()) {
 

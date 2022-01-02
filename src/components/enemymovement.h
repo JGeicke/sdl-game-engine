@@ -103,7 +103,6 @@ public:
 		currentTimer += increase;
 		if (currentTimer >= timerBase) {
 			flag(true);
-			currentTimer = 0;
 		}
 	}
 
@@ -113,6 +112,9 @@ public:
 	*/
 	void flag(bool flag) {
 		calcRoute = flag;
+		if (!calcRoute) {
+			currentTimer = 0;
+		}
 	}
 
 	/**
@@ -129,6 +131,10 @@ public:
 		return route[nextNodeIndex];
 	}
 
+	bool hasNextNode() {
+		return nextNodeIndex >= 0;
+	}
+
 	/**
 	 * @brief Checks if the enemy arrived at the next node on the route based on the current position.
 	 * @param x - Current x position of the enemy.
@@ -136,7 +142,10 @@ public:
 	 * @return Whether the enemy arrived at the next node on the route.
 	*/
 	bool arrivedAtNextNode(int x, int y) {
-		return (x == route[nextNodeIndex]->x && y == route[nextNodeIndex]->y) ? true : false;
+		if (nextNodeIndex >= 0) {
+			return (x == route[nextNodeIndex]->x && y == route[nextNodeIndex]->y) ? true : false;
+		}
+		return true;
 	}
 
 	/**
@@ -158,6 +167,37 @@ public:
 	void setPathfindingTimer(int timerMS) {
 		this->timerBase = timerMS;
 	}
+
+	/**
+	 * @brief Sets current target entity.
+	 * @param e - New target entity.
+	*/
+	void setTarget(Entity e) {
+		this->target = e;
+	}
+
+	/**
+	 * @brief Checks if the component has a target entity.
+	 * @return Whether the component has a target entity.
+	*/
+	bool hasTarget() {
+		return this->target.uid != 0;
+	}
+
+	/**
+	 * @brief Resets the current target entity.
+	*/
+	void resetTarget() {
+		this->target = { 0, "", false};
+	}
+
+	/**
+	 * @brief Gets the current target entity.
+	 * @return The current target entity.
+	*/
+	Entity getTarget() {
+		return this->target;
+	}
 private:
 	/**
 	 * @brief Base timer between pathfindings.
@@ -178,13 +218,18 @@ private:
 	float movementSpeed = 0.0f;
 
 	/**
+	 * @brief Current target entity.
+	*/
+	Entity target = { 0, "", false };
+
+	/**
 	 * @brief Pointer to the current movement destination node.
 	*/
 	Node* destination = nullptr;
 	/**
 	 * @brief Index to the next node of the route.
 	*/
-	size_t nextNodeIndex = 0;
+	int nextNodeIndex = 0;
 	/**
 	 * @brief Current route to the destination node.
 	*/

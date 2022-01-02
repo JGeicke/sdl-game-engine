@@ -137,8 +137,8 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 	gameEngine->addAnimation(wolf, STATES::IDLE_DOWN, 1, 150, "../TestTextures/wolf_idle_down.png");
 	gameEngine->addAnimation(wolf, STATES::WALK_DOWN, 3, 150, "../TestTextures/wolf_walk_down.png");
 
-	gameEngine->addEnemyMovementComponent(wolf, 1.5);
-	gameEngine->setEnemyDestination(wolf, gameEngine->getPositionComponent(player));
+	gameEngine->addEnemyMovementComponent(wolf, 1.5, player);
+	//gameEngine->setEnemyDestination(wolf, gameEngine->getPositionComponent(player));
 
 	Health* healthComponent = gameEngine->addHealthComponent(wolf, health);
 	healthComponent->onZeroHealth(&onWolfDeathWrapper);
@@ -168,7 +168,7 @@ void Game::initWinterScene() {
 	playerAnimator->markAnimationInterruptible(STATES::ATK_DOWN);
 	playerAnimator->markAnimationInterruptible(STATES::ATK_UP);
 
-	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 46 }, false);
+	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 46 }, true);
 	Health* playerHealth = gameEngine->addHealthComponent(player, 100);
 	playerHealth->onZeroHealth(&onPlayerDeathWrapper);
 	playerHealth->print();
