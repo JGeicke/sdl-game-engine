@@ -22,6 +22,10 @@ void playerProjectileWrapper(Collider* a, Collider* b) {
 	game->playerProjectileHandler(a, b);
 }
 
+void portalWrapper(Collider* a, Collider* b) {
+	game->portalHandler(a, b);
+}
+
 void enemyCollisionWrapper(Collider* a, Collider* b) {
 	game->enemyCollisionHandler(a,b);
 }
@@ -48,6 +52,10 @@ void startGameWrapper() {
 
 void initWinterSceneWrapper() {
 	game->initWinterScene();
+}
+
+void initWinterEndSceneWrapper() {
+	game->initWinterEndScene();
 }
 
 
@@ -108,12 +116,21 @@ void Game::playerProjectileHandler(Collider* a, Collider* b) {
 	}
 }
 
+void Game::portalHandler(Collider* a, Collider* b) {
+	if (b->getEntity().tag == "player" && this->enemyCount == 0) {
+		std::cout << "touched" << std::endl;
+		Scene* end = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter_lake.json", 4, nullptr, &initWinterEndSceneWrapper);
+		this->gameEngine->changeScene(end);
+	}
+}
+
 void Game::onPlayerDeath(Health* healthComponent) {
 	std::cout << "Game over" << std::endl;
 }
 
 void Game::onWolfDeath(Health* healthComponent) {
 	this->gameEngine->destroyEntity(healthComponent->getEntity());
+	enemyCount--;
 }
 
 void Game::spawnPlayerProjectile() {
@@ -142,6 +159,12 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 
 	Health* healthComponent = gameEngine->addHealthComponent(wolf, health);
 	healthComponent->onZeroHealth(&onWolfDeathWrapper);
+
+	this->enemyCount++;
+}
+
+void Game::initWinterEndScene() {
+	this->gameEngine->getPositionComponent(this->player)->setPosition(32 * 26 + 16, 32 * 26 + 16);
 }
 
 void Game::initWinterScene() {
@@ -168,13 +191,15 @@ void Game::initWinterScene() {
 	playerAnimator->markAnimationInterruptible(STATES::ATK_DOWN);
 	playerAnimator->markAnimationInterruptible(STATES::ATK_UP);
 
-	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 46 }, true);
+	Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 46 }, false);
 	Health* playerHealth = gameEngine->addHealthComponent(player, 100);
 	playerHealth->onZeroHealth(&onPlayerDeathWrapper);
 	playerHealth->print();
 	UIManager* uimanager = this->gameEngine->getUIManager();
 	uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 
+
+	// TODO: fix player collision with enemies (knockback etc.)
 	//wolf
 	this->addEnemyWolf({ 1040, 850 }, 50);
 
@@ -189,6 +214,13 @@ void Game::initWinterScene() {
 	projCollider->onTriggerEnter(&enemyProjectileWrapper);
 	gameEngine->addProjectileMovement(proj, { 1040, 850 }, {840, 550}, 3);
 	*/
+
+	//portal
+	// TODO: fix portal collision reset
+	Entity portal = gameEngine->addEntity("portal", false, {13*32+16,42*32 + 32});
+	gameEngine->addSpriteComponent(portal, "../TestTextures/portal.png", { 32,64 }, 1.0f);
+	Collider* col = gameEngine->addColliderComponent(portal, { 0,0 }, { 32,64 }, true);
+	col->onTriggerEnter(&portalWrapper);
 }
 
 void Game::startGame(){

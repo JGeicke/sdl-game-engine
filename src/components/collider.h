@@ -174,6 +174,7 @@ public:
 				}
 			}
 			lastCollision = collisionComponent->getEntity();
+			collisionComponent->lastCollision = this->entity;
 		}
 	}
 

@@ -132,7 +132,7 @@ public:
 	}
 
 	bool hasNextNode() {
-		return nextNodeIndex >= 0;
+		return nextNodeIndex >= 0 && route.size() > 0;
 	}
 
 	/**
@@ -142,7 +142,7 @@ public:
 	 * @return Whether the enemy arrived at the next node on the route.
 	*/
 	bool arrivedAtNextNode(int x, int y) {
-		if (nextNodeIndex >= 0) {
+		if (nextNodeIndex >= 0 && route.size() > 0) {
 			return (x == route[nextNodeIndex]->x && y == route[nextNodeIndex]->y) ? true : false;
 		}
 		return true;
@@ -198,6 +198,22 @@ public:
 	Entity getTarget() {
 		return this->target;
 	}
+
+	/**
+	 * @brief Sets the maximum distance to the target.
+	 * @param distance - New maximum distance to the target.
+	*/
+	void setMaxDistance(int distance) {
+		this->maxDistance = distance;
+	}
+
+	/**
+	 * @brief Gets the max distance to the target.
+	 * @return Max distance.
+	*/
+	int getMaxDistance() {
+		return this->maxDistance;
+	}
 private:
 	/**
 	 * @brief Base timer between pathfindings.
@@ -221,6 +237,11 @@ private:
 	 * @brief Current target entity.
 	*/
 	Entity target = { 0, "", false };
+
+	/**
+	 * @brief Max distance to target.
+	*/
+	int maxDistance = 10;
 
 	/**
 	 * @brief Pointer to the current movement destination node.

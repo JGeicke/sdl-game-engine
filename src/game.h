@@ -11,6 +11,8 @@ public:
 
 	void enemyCollisionHandler(Collider* a, Collider* b);
 
+	void portalHandler(Collider* a, Collider* b);
+
 	void onPlayerDeath(Health* healthComponent);
 
 	void onWolfDeath(Health* healthComponent);
@@ -20,6 +22,8 @@ public:
 	void addEnemyWolf(SDL_Point pos, int health);
 
 	void initWinterScene();
+
+	void initWinterEndScene();
 
 	void initStartScene();
 
@@ -35,4 +39,6 @@ private:
 
 	Entity player = { 0 };
 	size_t hpBarIndex = SIZE_MAX;
+
+	size_t enemyCount = 0;
 };

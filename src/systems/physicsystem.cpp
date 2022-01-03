@@ -287,6 +287,7 @@ void PhysicSystem::handleEnemyMovement() {
 
 				// get current node of enemy
 				Node* curr = this->getCurrentNode(currPos);
+
 				if (curr != nullptr) {
 					currentComponent->setRoute(this->aStar(curr, currentComponent->getDestination()));
 				}
@@ -313,9 +314,16 @@ void PhysicSystem::handleEnemyMovement() {
 		}
 		// check if component has target
 		else if (currentComponent->getDestination() == nullptr && currentComponent->hasTarget()) {
+			Position* currPos = this->positionManager->getComponent(currentComponent->getEntity());
+			Node* curr = this->getCurrentNode(currPos);
+
 			Position* targetPosition = this->positionManager->getComponent(currentComponent->getTarget());
 			if (targetPosition != nullptr) {
 				Node* newDest = this->getCurrentNode(targetPosition);
+
+				if (calculateHCost(curr, newDest) > currentComponent->getMaxDistance()) {
+					continue;
+				}
 				if (newDest != nullptr) {
 					currentComponent->setDestination(newDest);
 					currentComponent->flag(true);
@@ -484,7 +492,10 @@ void PhysicSystem::detectCollisions() {
 * @return Heuristic cost from the position to the destination.
 */
 float PhysicSystem::calculateHCost(Node* pos, Node* dest) {
-	float hCost = std::sqrt((pos->x-dest->x) * (pos->x - dest->x) + (pos->y - dest->y) * (pos->y - dest->y));
+	float hCost = 0.0f;
+	if (pos != nullptr && dest != nullptr) {
+		hCost = std::sqrt((pos->x - dest->x) * (pos->x - dest->x) + (pos->y - dest->y) * (pos->y - dest->y));
+	}
 	return hCost;
 }
 
@@ -495,7 +506,7 @@ float PhysicSystem::calculateHCost(Node* pos, Node* dest) {
 * @return Path from the start node to the destination node.
 */
 std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
-	// TODO: handle multiple enemy pathings
+	// TODO: change from list to priority queue
 	// reset nodes
 	for (size_t x = 0; x < row; x++)
 	{
