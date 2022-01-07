@@ -11,7 +11,7 @@ public:
 	 * @brief Default audio clip constructor.
 	*/
 	AudioClip(){
-		play = false;
+		playCount = 0;
 	}
 
 	/**
@@ -23,7 +23,7 @@ public:
 		if (audioChunk == NULL) {
 			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL Mixer Error", "Could not load sound file!", NULL);
 		}
-		play = false;
+		playCount = 0;
 	}
 
 	/**
@@ -44,9 +44,9 @@ public:
 	}
 
 	/**
-	 * @brief Should the audio clip be played by the audio system.
+	 * @brief How many times the audio clip should be played.
 	*/
-	bool play;
+	size_t playCount;
 private:
 	/**
 	 * @brief Audio chunk of an audio file.
@@ -93,7 +93,7 @@ public:
 	*/
 	void playAudioClip(size_t index) {
 		if (index < currentIndex) {
-			audioClips[index].play = true;
+			audioClips[index].playCount += 1;
 			playedAudioClips++;
 		}
 	}
@@ -104,9 +104,9 @@ public:
 	*/
 	AudioClip* getNextAudioClip() {
 		for (size_t i = 0; i < currentIndex; i++) {
-			if (audioClips[i].play) {
+			if (audioClips[i].playCount > 0) {
 				playedAudioClips--;
-				audioClips[i].play = false;
+				audioClips[i].playCount -= 1;
 				return &audioClips[i];
 			}
 		}

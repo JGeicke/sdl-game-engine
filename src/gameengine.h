@@ -110,6 +110,13 @@ public:
 	void setBGM(const char* bgmFilePath);
 
 	/**
+	 * @brief Plays audio clip with index of entity.
+	 * @param e - Entity to play audio clip of.
+	 * @param index - Index of audio clip.
+	*/
+	void playAudioClip(Entity e, size_t index);
+
+	/**
 	 * @brief Sets the destination of the enemy.
 	 * @param e - Entity to set the destination from.
 	 * @param pos - Destination position.

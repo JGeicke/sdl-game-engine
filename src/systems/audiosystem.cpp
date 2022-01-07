@@ -26,9 +26,10 @@ void AudioSystem::update() {
 	for (size_t i = 0; i < componentCount; i++)
 	{
 		Audio* audioComponent = audioManager->getComponentWithIndex(i);
-		if (audioComponent->getPlayedAudioClipsCount() > 0) {
+		while (audioComponent->getPlayedAudioClipsCount() > 0) {
 			AudioClip* nextClip = audioComponent->getNextAudioClip();
-			Mix_PlayChannel(-1, nextClip->getAudioChunk(), 0);
+			this->playSound(nextClip);
+			std::cout << "play audio" << std::endl;
 		}
 	}
 }
@@ -37,8 +38,8 @@ void AudioSystem::update() {
 * @brief Initializes the audio system.
 */
 void AudioSystem::init() {
-	// initializes SDL_mixer with frequency of 44100, default sample format, 2 hardware channels and 2048 byte chunk size
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+	// initializes SDL_mixer with frequency of 44100, default sample format, 8 hardware channels and 2048 byte chunk size
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 8, 2048) < 0) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL Mixer Error", "Could not initialize SDL Mixer!", NULL);
 	}
 }

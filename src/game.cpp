@@ -107,14 +107,18 @@ void Game::enemyProjectileHandler(Collider* a, Collider* b) {
 void Game::playerProjectileHandler(Collider* a, Collider* b) {
 	if (b->getEntity().tag == "enemy") {
 		Health* enemyHealth = gameEngine->getHealthComponent(b->getEntity());
-
+	
 		// delete projectile
 		Entity e = a->getEntity();
 		this->gameEngine->destroyProjectile(e);
-		Audio* component = this->gameEngine->getAudioComponent(b->getEntity());
-		component->playAudioClip(0);
+
+		std::cout << "play clip" << std::endl;
 
 		enemyHealth->takeDamage(25);
+
+		if (enemyHealth->getCurrentHealth() > 0) {
+			this->gameEngine->playAudioClip(b->getEntity(), 0);
+		}
 	}
 }
 
@@ -131,6 +135,7 @@ void Game::onPlayerDeath(Health* healthComponent) {
 }
 
 void Game::onWolfDeath(Health* healthComponent) {
+	this->gameEngine->playAudioClip(healthComponent->getEntity(), 1);
 	this->gameEngine->destroyEntity(healthComponent->getEntity());
 	enemyCount--;
 }
@@ -164,6 +169,7 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 
 	gameEngine->addAudioComponent(wolf);
 	gameEngine->addAudioClip(wolf, "../TestTextures/hit.mp3");
+	gameEngine->addAudioClip(wolf, "../TestTextures/uff.mp3");
 
 	this->enemyCount++;
 }

@@ -297,6 +297,21 @@ void GameEngine::setBGM(const char* bgmFilePath) {
 }
 
 /**
+* @brief Plays audio clip with index of entity.
+* @param e - Entity to play audio clip of.
+* @param index - Index of audio clip.
+*/
+void GameEngine::playAudioClip(Entity e, size_t index) {
+	Audio* audio = this->getAudioComponent(e);
+	if (audio != nullptr) {
+		AudioClip* clip = audio->getAudioClip(index);
+		if (clip != nullptr) {
+			this->audioSystem->playSound(clip);
+		}
+	}
+}
+
+/**
 * @brief Sets the destination of the enemy.
 * @param e - Entity to set the destination from.
 * @param pos - Destination position.
