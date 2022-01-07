@@ -259,6 +259,7 @@ void PhysicSystem::handleProjectileMovement() {
 * @brief Handles the movement of enemies.
 */
 void PhysicSystem::handleEnemyMovement() {
+	// TODO: handle fps drops when no path was found
 	size_t componentCount = this->enemyMovementManager->getComponentCount();
 	Uint32 newTimestamp = SDL_GetTicks();
 
@@ -321,12 +322,11 @@ void PhysicSystem::handleEnemyMovement() {
 			if (targetPosition != nullptr) {
 				Node* newDest = this->getCurrentNode(targetPosition);
 
-				if (calculateHCost(curr, newDest) > currentComponent->getMaxDistance()) {
-					continue;
-				}
-				if (newDest != nullptr) {
-					currentComponent->setDestination(newDest);
-					currentComponent->flag(true);
+				if (calculateHCost(curr, newDest) <= currentComponent->getMaxDistance()) {
+					if (newDest != nullptr) {
+						currentComponent->setDestination(newDest);
+						currentComponent->flag(true);
+					}
 				}
 			}
 		}
@@ -564,12 +564,15 @@ std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
 		}
 	}
 
-	// backtrack found path
 	std::vector<Node*> result;
-	result.push_back(current);
-	while (current->parent != nullptr) {
-		current = current->parent;
+
+	// backtrack found path
+	if (current == dest) {
 		result.push_back(current);
+		while (current->parent != nullptr) {
+			current = current->parent;
+			result.push_back(current);
+		}
 	}
 
 	return result;

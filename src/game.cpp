@@ -111,6 +111,8 @@ void Game::playerProjectileHandler(Collider* a, Collider* b) {
 		// delete projectile
 		Entity e = a->getEntity();
 		this->gameEngine->destroyProjectile(e);
+		Audio* component = this->gameEngine->getAudioComponent(b->getEntity());
+		component->playAudioClip(0);
 
 		enemyHealth->takeDamage(25);
 	}
@@ -159,6 +161,9 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 
 	Health* healthComponent = gameEngine->addHealthComponent(wolf, health);
 	healthComponent->onZeroHealth(&onWolfDeathWrapper);
+
+	gameEngine->addAudioComponent(wolf);
+	gameEngine->addAudioClip(wolf, "../TestTextures/hit.mp3");
 
 	this->enemyCount++;
 }
@@ -216,7 +221,6 @@ void Game::initWinterScene() {
 	*/
 
 	//portal
-	// TODO: fix portal collision reset
 	Entity portal = gameEngine->addEntity("portal", false, {13*32+16,42*32 + 32});
 	gameEngine->addSpriteComponent(portal, "../TestTextures/portal.png", { 32,64 }, 1.0f);
 	Collider* col = gameEngine->addColliderComponent(portal, { 0,0 }, { 32,64 }, true);
