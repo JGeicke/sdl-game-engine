@@ -2,6 +2,28 @@
 #include "basecomponent.h"
 #include <iostream>
 #include <vector>
+#include <queue>
+template<typename T, typename priority>
+struct PriorityQueue {
+	typedef std::pair<priority, T> Element;
+	std::priority_queue<Element, std::vector<Element>, std::greater<Element>> elements;
+
+	inline bool empty(){
+		return elements.empty();
+	}	
+
+
+	inline void put(T item, priority prio) {
+		elements.emplace(prio, item);
+	}
+
+	T get() {
+		T best_item = elements.top().second;
+		elements.pop();
+		return best_item;
+	}
+};
+
 /**
  * @brief Struct representing the logical position on the tilemap grid.
 */

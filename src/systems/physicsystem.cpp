@@ -340,7 +340,6 @@ void PhysicSystem::handleEnemyMovement() {
 * @brief Handles collision between entities.
 */
 void PhysicSystem::handleCollision(){
-	//TODO: handle collision between objects and enemies.
 	calculateColliderPositions();
 	detectCollisions();
 }
@@ -506,7 +505,6 @@ float PhysicSystem::calculateHCost(Node* pos, Node* dest) {
 * @return Path from the start node to the destination node.
 */
 std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
-	// TODO: change from list to priority queue
 	// reset nodes
 	for (size_t x = 0; x < row; x++)
 	{
@@ -527,38 +525,40 @@ std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
 	start->fcost = calculateHCost(start, dest);
 
 	// nodes to test
-	std::list<Node*> openNodes;
-	openNodes.push_back(start);
+	PriorityQueue<Node*, float>  openNodes;
+	openNodes.put(start, 0.0f);
 
-	while (!openNodes.empty() && current != dest) {
-		openNodes.sort([](const Node* l, const Node* r) {return l->fcost < r->fcost;});
+	while (!openNodes.empty()) {
 
-		// remove visited nodes
-		while (!openNodes.empty() && openNodes.front()->visited) {
-			openNodes.pop_front();
+		if (current == dest) {
+			break;
 		}
 
 		if (openNodes.empty()) {
 			break;
 		}
 
-		current = openNodes.front();
+		current = openNodes.get();
+
+		while (!openNodes.empty() && current->visited) {
+			current = openNodes.get();
+		}
 		current->visited = true;
 
 		// check neighbours
 		for (auto neighbour : current->neighbours) {
 			if (!neighbour->obstacle || neighbour == dest) {
-				if (!neighbour->visited) {
-					openNodes.push_back(neighbour);
-				}
-
 				float gCostNeighbour = current->gcost + calculateHCost(current, neighbour);
 
 				if (gCostNeighbour < neighbour->gcost) {
 					neighbour->parent = current;
 					neighbour->gcost = gCostNeighbour;
 
-					neighbour->fcost = neighbour->fcost + calculateHCost(neighbour, dest);
+					neighbour->fcost = neighbour->gcost + calculateHCost(neighbour, dest);
+				}
+
+				if (!neighbour->visited) {
+					openNodes.put(neighbour, neighbour->fcost);
 				}
 			}
 		}
