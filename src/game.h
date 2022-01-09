@@ -17,9 +17,13 @@ public:
 
 	void onWolfDeath(Health* healthComponent);
 
+	void onWizardDeath(Health* healthComponent);
+
 	void spawnPlayerProjectile();
 
 	void addEnemyWolf(SDL_Point pos, int health);
+
+	void addEnemyWizard(SDL_Point pos, int health);
 
 	void initWinterScene();
 
@@ -27,7 +31,17 @@ public:
 
 	void initStartScene();
 
+	void initGameOverScene();
+
+	void initWinningScene();
+
 	void startGame();
+
+	void restartGame();
+
+	void gameOver();
+
+	void wonGame();
 
 	void quitGame();
 private:

@@ -403,6 +403,7 @@ void PhysicSystem::detectCollisions() {
 						if (SDL_HasIntersection(currentCollider->getColliderRect(), nextCollider->getColliderRect()) == SDL_TRUE) {
 							// collision
 							collisionCounter++;
+
 							// execute collider collision behaviour
 							if (nextCollider->isTrigger()) {
 								nextCollider->collision(currentCollider);
@@ -411,7 +412,14 @@ void PhysicSystem::detectCollisions() {
 								currentCollider->collision(nextCollider);
 							}
 							else {
+								bool firstCollision = false;
+								if (currentCollider->getLastCollision().uid == 0 && nextCollider->getLastCollision().uid == 0) {
+									firstCollision = true;
+								}
 								currentCollider->collision(nextCollider);
+								if (firstCollision) {
+									nextCollider->resetLastCollision();
+								}
 								nextCollider->collision(currentCollider);
 
 								// adjust position
@@ -427,7 +435,7 @@ void PhysicSystem::detectCollisions() {
 		// if current collider does not collide with another collider, reset lastCollision
 		if (collisionCounter == 0 && !currentCollider->getLastCollision().uid == 0) {
 			Collider* lastCollider = colliderManager->getComponent(currentCollider->getLastCollision());
-			if (lastCollider->getLastCollision().uid == currentCollider->getEntity().uid) {
+			if (lastCollider != nullptr && lastCollider->getLastCollision().uid == currentCollider->getEntity().uid) {
 				// check if last collision was with current entity. if this is the case, reset last collision.
 				lastCollider->resetLastCollision();
 			}

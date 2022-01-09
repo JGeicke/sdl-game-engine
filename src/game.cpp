@@ -38,6 +38,10 @@ void onWolfDeathWrapper(Health* healthComponent) {
 	game->onWolfDeath(healthComponent);
 }
 
+void onWizardDeathWrapper(Health* healthComponent) {
+	game->onWizardDeath(healthComponent);
+}
+
 void initStartSceneWrapper() {
 	game->initStartScene();
 }
@@ -46,8 +50,16 @@ void quitGameWrapper() {
 	game->quitGame();
 }
 
+void initWinningSceneWrapper() {
+	game->initWinningScene();
+}
+
 void startGameWrapper() {
 	game->startGame();
+}
+
+void restartGameWrapper() {
+	game->restartGame();
 }
 
 void initWinterSceneWrapper() {
@@ -58,30 +70,27 @@ void initWinterEndSceneWrapper() {
 	game->initWinterEndScene();
 }
 
+void initGameOverSceneWrapper() {
+	game->initGameOverScene();
+}
+
 
 void spawnPlayerProjectileWrapper() {
 	game->spawnPlayerProjectile();
 }
 
-
-
 void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 	if (b->getEntity().tag == "player") {
-		std::cout << "oh no, anyways..." << std::endl;
-		/*
 		std::cout << b->getEntity().tag << std::endl;
 		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
 		UIManager* uimanager = this->gameEngine->getUIManager();
 		Health* playerHealth = manager->getComponent(this->player);
-		playerHealth->takeDamage(25);
+		playerHealth->takeDamage(100);
 
 		//update ui
-		uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+		//uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 
 		playerHealth->print();
-		*/
-		//this->gameEngine->changeScene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, "../TestTextures/bgm_old.mp3");
-		//std::cout << "test" << std::endl;
 	}
 
 }
@@ -126,11 +135,12 @@ void Game::portalHandler(Collider* a, Collider* b) {
 	if (b->getEntity().tag == "player" && this->enemyCount == 0) {
 		std::cout << "touched" << std::endl;
 		Scene* end = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter_lake.json", 4, nullptr, &initWinterEndSceneWrapper);
-		this->gameEngine->changeScene(end);
+		this->gameEngine->changeScene(end, false);
 	}
 }
 
 void Game::onPlayerDeath(Health* healthComponent) {
+	this->gameOver();
 	std::cout << "Game over" << std::endl;
 }
 
@@ -140,12 +150,19 @@ void Game::onWolfDeath(Health* healthComponent) {
 	enemyCount--;
 }
 
+void Game::onWizardDeath(Health* healthComponent) {
+	std::cout << "rip boss" << std::endl;
+	enemyCount--;
+	this->wonGame();
+}
+
 void Game::spawnPlayerProjectile() {
 	Position* playerPosition = gameEngine->getPositionComponent(this->player);
-
-	Entity e = this->gameEngine->createProjectile("../TestTextures/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3.0f, true);
-	Collider* col = this->gameEngine->getColliderComponent(e);
-	col->onTriggerEnter(&playerProjectileWrapper);
+	if (playerPosition != nullptr) {
+		Entity e = this->gameEngine->createProjectile("../TestTextures/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3.0f, true);
+		Collider* col = this->gameEngine->getColliderComponent(e);
+		col->onTriggerEnter(&playerProjectileWrapper);
+	}
 }
 
 void Game::addEnemyWolf(SDL_Point pos, int health) {
@@ -174,8 +191,22 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 	this->enemyCount++;
 }
 
+void Game::addEnemyWizard(SDL_Point pos, int health) {
+	Entity wizard = gameEngine->addEntity("enemy", false, pos);
+	gameEngine->addSpriteComponent(wizard, "../TestTextures/wizard_idle.png", {64,64}, 1.0f);
+	Collider* wizardCollider = gameEngine->addColliderComponent(wizard, { 0, 0 }, { 64, 64 }, false);
+
+	Health* healthComponent = gameEngine->addHealthComponent(wizard, health);
+	healthComponent->onZeroHealth(&onWizardDeathWrapper);
+
+	this->enemyCount++;
+	//wolfCollider->onCollisionEnter(&enemyCollisionWrapper);
+}
+
 void Game::initWinterEndScene() {
 	this->gameEngine->getPositionComponent(this->player)->setPosition(32 * 26 + 16, 32 * 26 + 16);
+
+	this->addEnemyWizard({ 330, 494 }, 500);
 }
 
 void Game::initWinterScene() {
@@ -234,11 +265,39 @@ void Game::initWinterScene() {
 }
 
 void Game::startGame(){
+	this->enemyCount = 0;
 	// clear start ui
 	this->uiManager->clearUI();
 
 	Scene* first = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, nullptr, &initWinterSceneWrapper);
-	this->gameEngine->loadScene(first);
+	this->gameEngine->changeScene(first, false);
+}
+
+void Game::restartGame() {
+	this->enemyCount = 0;
+	// clear start ui
+	this->uiManager->clearUI();
+
+	Scene* first = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, "../TestTextures/new_bgm.mp3", &initWinterSceneWrapper);
+	this->gameEngine->changeScene(first, false);
+}
+
+void Game::gameOver() {
+	// clear start ui
+	this->uiManager->clearUI();
+
+	// start screen
+	Scene* gameOver = new Scene("../TestTextures/game_over_tileset.png", "../TestTextures/game_over.json", 1, "../TestTextures/game_over.mp3", &initGameOverSceneWrapper);
+	this->gameEngine->changeScene(gameOver, true);
+}
+
+void Game::wonGame() {
+	// clear start ui
+	this->uiManager->clearUI();
+
+	// start screen
+	Scene* won = new Scene("../TestTextures/game_over_tileset.png", "../TestTextures/game_over.json", 1, "../TestTextures/win.mp3", &initWinningSceneWrapper);
+	this->gameEngine->changeScene(won, true);
 }
 
 void Game::quitGame(){
@@ -257,6 +316,30 @@ void Game::initStartScene() {
 	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2)-80, (gameWindowHeight / 2), "Start Game", white, grey, 0, { 10,5 }, buttonHover));
 	startButton->onClick(&startGameWrapper);
 	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 27, (gameWindowHeight / 2)+65, "Quit", white, grey, 0, { 63,5 }, buttonHover));
+	quitButton->onClick(&quitGameWrapper);
+}
+
+void Game::initGameOverScene() {
+	SDL_Color white = { 255,255,255 };
+	SDL_Color grey = { 48,48,48 };
+	SDL_Color buttonHover = { 77,77,77 };
+	unsigned int gameWindowWidth = this->gameEngine->getGameWindowWidth();
+	unsigned int gameWindowHeight = this->gameEngine->getGameWindowHeight();
+	uiManager->addLabel((gameWindowWidth / 2) - 110, (gameWindowHeight / 2) - 180, "Game Over", white, 0);
+	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 65, (gameWindowHeight / 2), "Try Again", white, grey, 0, { 10,5 }, buttonHover));
+	startButton->onClick(&restartGameWrapper);
+	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 27, (gameWindowHeight / 2) + 65, "Quit", white, grey, 0, { 63,5 }, buttonHover));
+	quitButton->onClick(&quitGameWrapper);
+}
+
+void Game::initWinningScene() {
+	SDL_Color white = { 255,255,255 };
+	SDL_Color grey = { 48,48,48 };
+	SDL_Color buttonHover = { 77,77,77 };
+	unsigned int gameWindowWidth = this->gameEngine->getGameWindowWidth();
+	unsigned int gameWindowHeight = this->gameEngine->getGameWindowHeight();
+	uiManager->addLabel((gameWindowWidth / 2) - 110, (gameWindowHeight / 2) - 180, "You won!", white, 0);
+	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 27, (gameWindowHeight / 2), "Quit", white, grey, 0, { 63,5 }, buttonHover));
 	quitButton->onClick(&quitGameWrapper);
 }
 
@@ -286,7 +369,7 @@ void Game::init() {
 
 	// start screen
 	Scene* start = new Scene(nullptr, nullptr, 0, "../TestTextures/new_bgm.mp3", &initStartSceneWrapper);
-	this->gameEngine->loadScene(start);
+	this->gameEngine->changeScene(start, false);
 }
 
 void Game::start() {

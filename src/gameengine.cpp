@@ -735,10 +735,11 @@ void GameEngine::loadScene(Scene* scene) {
 /**
 * @brief Changes current scene.
 * @param scene - Scene to change to.
+* @param collectEverything - Whether every Entity should be collected.
 */
-void GameEngine::changeScene(Scene* scene) {
+void GameEngine::changeScene(Scene* scene, bool clearEveryEntity) {
 	// clean components and entites
-	this->collectSceneGarbage();
+	this->collectSceneGarbage(clearEveryEntity);
 	this->resetLastCollisions();
 
 	// load new scene
@@ -749,15 +750,16 @@ void GameEngine::changeScene(Scene* scene) {
 #pragma region Garbage Collection
 /**
 * @brief Collects and frees the entities and component that should not be preserved when switching scenes.
+* @param collectEverything - Whether every Entity should be collected.
 */
-void GameEngine::collectSceneGarbage() {
+void GameEngine::collectSceneGarbage(bool collectEverything) {
 	std::vector<Entity> tempVector = {};
 	size_t vectorIndex = 0;
 
 	for (std::unordered_set<Entity>::iterator i = this->entityManager->getEntityBegin(); i != this->entityManager->getEntityEnd(); i++)
 	{
 		Entity e = *i;
-		if (!e.preserve) {
+		if (collectEverything || !e.preserve) {
 			this->removeEntityComponents(e);
 
 			tempVector.insert(tempVector.begin() + vectorIndex, e);
@@ -768,6 +770,10 @@ void GameEngine::collectSceneGarbage() {
 	// clean not preserved entities.
 	for (std::vector<Entity>::iterator i = tempVector.begin(); i != tempVector.end(); i++) {
 		this->entityManager->destroyEntity(*i);
+	}
+
+	if (collectEverything) {
+		initObjectPools();
 	}
 }
 
@@ -820,12 +826,14 @@ void GameEngine::removeEntityComponents(Entity e) {
 		this->enemyMovementManager->removeComponent(e);
 	}
 
-	if (this->cameraFollow->getEntity().uid == e.uid) {
-		this->cameraFollow = nullptr;
+	if (this->cameraFollow != nullptr && this->cameraFollow->getEntity().uid == e.uid) {
+		//this->cameraFollow = nullptr;
+		this->cameraFollow->setEntity({ 0, "", false });
 	}
 
-	if (this->playerMovement->getEntity().uid == e.uid) {
-		this->playerMovement = nullptr;
+	if (this->playerMovement!= nullptr && this->playerMovement->getEntity().uid == e.uid) {
+		//this->playerMovement = nullptr;
+		this->playerMovement->setEntity({ 0, "", false });
 	}
 }
 

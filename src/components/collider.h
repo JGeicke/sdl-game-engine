@@ -150,7 +150,7 @@ public:
 	 * @param collisionComponent - Collision component this collider collided with.
 	*/
 	void collision(Collider* collisionComponent) {
-		if (lastCollision.uid == collisionComponent->getEntity().uid) {
+		if (lastCollision.uid == collisionComponent->getEntity().uid && lastCollision.uid != 0) {
 			if (isColliderTrigger) {
 				if (hasTriggerStayFunction) {
 					onTriggerStayFunction(this, collisionComponent);

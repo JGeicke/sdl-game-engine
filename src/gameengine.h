@@ -126,8 +126,9 @@ public:
 	/**
 	 * @brief Changes current scene.
 	 * @param scene - Scene to change to.
+	 * @param collectEverything - Whether every Entity should be collected.
 	*/
-	void changeScene(Scene* scene);
+	void changeScene(Scene* scene, bool clearEveryEntity);
 
 	/**
 	 * @brief Adds a sprite component to the entity.
@@ -391,12 +392,6 @@ public:
 	SDL_Renderer* getRenderer() {
 		return this->window->getRenderer();
 	}
-
-	/**
-	 * @brief Loads scene.
-	 * @param scene - Scene to load.
-	*/
-	void loadScene(Scene* scene);
 private:
 	/**
 	 * @brief Delay between frames.
@@ -460,8 +455,9 @@ private:
 
 	/**
 	 * @brief Collects and frees the entities and component that should not be preserved when switching scenes.
+	 * @param collectEverything - Whether every Entity should be collected.
 	*/
-	void collectSceneGarbage();
+	void collectSceneGarbage(bool collectEverything);
 
 	/**
 	 * @brief Collects objects of the object pools.
@@ -498,4 +494,10 @@ private:
 	 * @return Angle of vector a->b
 	*/
 	double calcAngle(SDL_Point a, SDL_Point b);
+
+	/**
+	 * @brief Loads scene.
+	 * @param scene - Scene to load.
+	*/
+	void loadScene(Scene* scene);
 };
