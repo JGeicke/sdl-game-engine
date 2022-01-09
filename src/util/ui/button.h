@@ -39,7 +39,7 @@ public:
 		buttonLabel = *(new Label(x, y, buttonText, buttonTextColor, renderer, font));
 		SDL_Point size;
 		SDL_QueryTexture(buttonLabel.getLabelTexture(), NULL, NULL, &size.x, &size.y);
-		buttonPanel = *(new Panel(renderer, x-borderWidth.x, y - borderWidth.y, size.x+(borderWidth.x*2), size.y + (borderWidth.y * 2), buttonBGColor));
+		buttonPanel = *(new Panel(renderer, x- (size.x/2) - borderWidth.x, y -(size.y/2) - borderWidth.y, size.x+(borderWidth.x*2), size.y + (borderWidth.y * 2), buttonBGColor));
 		hasOnClickFunction = false;
 	}
 

@@ -35,11 +35,10 @@ public:
 	 * @param panelColor - Color of the panel texture.
 	*/
 	Panel(SDL_Renderer* renderer, const char* filePath, int x, int y, int w, int h, SDL_Color panelColor) {
-		setPosition(x, y);
-		setSize(w, h);
-
 		this->panelTexture = FileLoader::loadSDLTexture(filePath, renderer);
 		setPanelColor(panelColor);
+		setPosition(x, y);
+		setSize(w, h);
 	}
 
 	/**
@@ -52,12 +51,11 @@ public:
 	 * @param panelColor - Color of the panel texture.
 	*/
 	Panel(SDL_Renderer* renderer, int x, int y, int w, int h, SDL_Color panelColor) {
-		setPosition(x, y);
-		setSize(w, h);
-
 		// use base panel texture
 		this->panelTexture = FileLoader::loadSDLTexture("assets/base_panel.png", renderer);
 		setPanelColor(panelColor);
+		setPosition(x, y);
+		setSize(w, h);
 	}
 
 	/**
@@ -66,6 +64,7 @@ public:
 	 * @param y - New y position.
 	*/
 	void setPosition(int x, int y) {
+		SDL_Point size;
 		displayPosition.x = x;
 		displayPosition.y = y;
 	}

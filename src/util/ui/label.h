@@ -31,8 +31,8 @@ public:
 		this->textColor = color;
 		this->textFont = font;
 
-		setPosition(x, y);
 		createLabelTexture(renderer);
+		setPosition(x, y);
 	}
 
 	/**
@@ -58,8 +58,13 @@ public:
 	 * @param y - New y position.
 	*/
 	void setPosition(int x, int y) {
-		displayPosition.x = x;
-		displayPosition.y = y;
+		SDL_Point size;
+		if (labelTexture != nullptr) {
+			SDL_QueryTexture(labelTexture, nullptr, nullptr, &size.x, &size.y);
+		}
+
+		displayPosition.x = x-size.x/2;
+		displayPosition.y = y-size.y/2;
 	}
 
 	/**

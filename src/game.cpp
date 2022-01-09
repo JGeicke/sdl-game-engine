@@ -80,15 +80,20 @@ void spawnPlayerProjectileWrapper() {
 }
 
 void Game::enemyCollisionHandler(Collider* a, Collider* b) {
+	int enemyAtk = 100;
+
 	if (b->getEntity().tag == "player") {
 		std::cout << b->getEntity().tag << std::endl;
 		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
 		UIManager* uimanager = this->gameEngine->getUIManager();
 		Health* playerHealth = manager->getComponent(this->player);
-		playerHealth->takeDamage(100);
+		int currHealth = playerHealth->getCurrentHealth();
+		playerHealth->takeDamage(enemyAtk);
 
-		//update ui
-		//uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+		if (currHealth - enemyAtk > 0) {
+			//update ui
+			uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+		}
 
 		playerHealth->print();
 	}
@@ -312,10 +317,10 @@ void Game::initStartScene() {
 	SDL_Color white = { 255,255,255 };
 	SDL_Color grey = { 48,48,48 };
 	SDL_Color buttonHover = { 77,77,77 };
-	uiManager->addLabel((gameWindowWidth / 2)-110, (gameWindowHeight / 2)-180, "Test Game Title", white, fontIndex);
-	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2)-80, (gameWindowHeight / 2), "Start Game", white, grey, 0, { 10,5 }, buttonHover));
+	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2)-180, "Test Game Title", white, fontIndex);
+	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2), "Start Game", white, grey, 0, { 10,5 }, buttonHover));
 	startButton->onClick(&startGameWrapper);
-	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 27, (gameWindowHeight / 2)+65, "Quit", white, grey, 0, { 63,5 }, buttonHover));
+	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2)+65, "Quit", white, grey, 0, { 63,5 }, buttonHover));
 	quitButton->onClick(&quitGameWrapper);
 }
 
@@ -325,10 +330,10 @@ void Game::initGameOverScene() {
 	SDL_Color buttonHover = { 77,77,77 };
 	unsigned int gameWindowWidth = this->gameEngine->getGameWindowWidth();
 	unsigned int gameWindowHeight = this->gameEngine->getGameWindowHeight();
-	uiManager->addLabel((gameWindowWidth / 2) - 110, (gameWindowHeight / 2) - 180, "Game Over", white, 0);
-	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 65, (gameWindowHeight / 2), "Try Again", white, grey, 0, { 10,5 }, buttonHover));
+	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2) - 180, "Game Over", white, 0);
+	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2), "Try Again", white, grey, 0, { 10,5 }, buttonHover));
 	startButton->onClick(&restartGameWrapper);
-	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 27, (gameWindowHeight / 2) + 65, "Quit", white, grey, 0, { 63,5 }, buttonHover));
+	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2) + 65, "Quit", white, grey, 0, { 48,5 }, buttonHover));
 	quitButton->onClick(&quitGameWrapper);
 }
 
@@ -338,8 +343,8 @@ void Game::initWinningScene() {
 	SDL_Color buttonHover = { 77,77,77 };
 	unsigned int gameWindowWidth = this->gameEngine->getGameWindowWidth();
 	unsigned int gameWindowHeight = this->gameEngine->getGameWindowHeight();
-	uiManager->addLabel((gameWindowWidth / 2) - 110, (gameWindowHeight / 2) - 180, "You won!", white, 0);
-	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2) - 27, (gameWindowHeight / 2), "Quit", white, grey, 0, { 63,5 }, buttonHover));
+	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2) - 180, "You won!", white, 0);
+	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2), "Quit", white, grey, 0, { 48,5 }, buttonHover));
 	quitButton->onClick(&quitGameWrapper);
 }
 
@@ -351,13 +356,13 @@ void Game::initGameplayUI(UIManager* uiManager) {
 	SDL_Color buttonHover = { 255,192,203 };
 	//size_t fontIndex = uiManager->addFont("../TestTextures/Fonts/arial.ttf", 32);
 	size_t fontIndex = 0;
-	size_t labelIndex = uiManager->addLabel(25, 25, "Testlabel", textColor, fontIndex);
-	uiManager->addPanel(10, 20, 300, 50, grey);
+	//size_t labelIndex = uiManager->addLabel(25, 25, "Testlabel", textColor, fontIndex);
+	//uiManager->addPanel(10, 20, 300, 50, grey);
 	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 26 });
 	uiManager->getProgressBar(progIndex)->setProgress(0.4f);
 
 	this->hpBarIndex = progIndex;
-	size_t buttonIndex = uiManager->addButton(500, 20, "Testbutton", textColor, grey, fontIndex, { 10,5 },buttonHover);
+	//size_t buttonIndex = uiManager->addButton(500, 20, "Testbutton", textColor, grey, fontIndex, { 10,5 },buttonHover);
 	//uiManager->getButton(buttonIndex)->onClick(&testWrapper);
 }
 
