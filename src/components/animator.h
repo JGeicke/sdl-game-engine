@@ -200,9 +200,11 @@ public:
 		//animations.insert(animations.begin()+animationState,*(new Animation(frames, frameDelayMS, texture)));
 
 		// check if current animation is currently not set
+		/*
 		if (currentState == SIZE_MAX) {
 			currentState = animationState;
-		}
+		}*/
+		currentState = 0;
 	}
 	
 	/**

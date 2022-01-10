@@ -1,18 +1,11 @@
-/*
-#include "SDL.h"
-#include "entitymanager.h"
-#include "componentmanager.h"
-#include "components/components.h"
-#include "systems/rendersystem.h"
-#include "systems/physicsystem.h"
-#include "systems/audiosystem.h"
-#include "inputmanager.h"
-#include "uimanager.h"
-*/
 #include "gameengine.h"
 #include "game.h"
 
 Game* game = nullptr;
+
+void onBossRoomEnterWrapper(Collider* a, Collider* b) {
+	game->onBossRoomEnter(a, b);
+}
 
 void enemyProjectileWrapper(Collider* a, Collider* b) {
 	game->enemyProjectileHandler(a, b);
@@ -77,6 +70,15 @@ void initGameOverSceneWrapper() {
 
 void spawnPlayerProjectileWrapper() {
 	game->spawnPlayerProjectile();
+}
+
+void Game::onBossRoomEnter(Collider* a, Collider* b) {
+	if (b->getEntity().tag == "player") {
+		// do stuff
+		Collider* bossRoomBlockCollider = this->gameEngine->getColliderComponent(this->bossRoomBlock);
+		bossRoomBlockCollider->setActive(true);
+		this->gameEngine->setBGM("../TestTextures/boss_theme.mp3");
+	}
 }
 
 void Game::enemyCollisionHandler(Collider* a, Collider* b) {
@@ -197,21 +199,33 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 }
 
 void Game::addEnemyWizard(SDL_Point pos, int health) {
+	// TODO: add onDestinationArrival hook to enemy movement and add enemy movement to wizard
 	Entity wizard = gameEngine->addEntity("enemy", false, pos);
 	gameEngine->addSpriteComponent(wizard, "../TestTextures/wizard_idle.png", {64,64}, 1.0f);
 	Collider* wizardCollider = gameEngine->addColliderComponent(wizard, { 0, 0 }, { 64, 64 }, false);
+
+	gameEngine->addAnimatorComponent(wizard);
+	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150, "../TestTextures/wizard_idle.png");
 
 	Health* healthComponent = gameEngine->addHealthComponent(wizard, health);
 	healthComponent->onZeroHealth(&onWizardDeathWrapper);
 
 	this->enemyCount++;
-	//wolfCollider->onCollisionEnter(&enemyCollisionWrapper);
 }
 
 void Game::initWinterEndScene() {
 	this->gameEngine->getPositionComponent(this->player)->setPosition(32 * 26 + 16, 32 * 26 + 16);
 
 	this->addEnemyWizard({ 330, 494 }, 500);
+
+	// add boss trigger
+	Entity trigger = gameEngine->addEntity("trigger", false, { 705, 529});
+	Collider* bossRoomTrigger = gameEngine->addColliderComponent(trigger, { 0,0 }, { 64, 96 }, true);
+	bossRoomTrigger->onTriggerEnter(&onBossRoomEnterWrapper);
+
+	this->bossRoomBlock = gameEngine->addEntity("", false, {783, 529});
+	Collider* bossRoomBlockCollider = gameEngine->addColliderComponent(this->bossRoomBlock, { 0,0 }, { 32,96 }, false);
+	bossRoomBlockCollider->setActive(false);
 }
 
 void Game::initWinterScene() {
@@ -310,13 +324,15 @@ void Game::quitGame(){
 }
 
 void Game::initStartScene() {
-
 	size_t fontIndex = uiManager->addFont("../TestTextures/Fonts/arial.ttf", 32);
 	unsigned int gameWindowWidth = this->gameEngine->getGameWindowWidth();
 	unsigned int gameWindowHeight = this->gameEngine->getGameWindowHeight();
 	SDL_Color white = { 255,255,255 };
 	SDL_Color grey = { 48,48,48 };
 	SDL_Color buttonHover = { 77,77,77 };
+	Entity bg = gameEngine->addEntity("", false, { (int)(gameWindowWidth/2), (int)(gameWindowHeight/2) });
+	gameEngine->addSpriteComponent(bg, "../TestTextures/BG.png", { 1800,893 }, 1.0f);
+
 	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2)-180, "Test Game Title", white, fontIndex);
 	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2), "Start Game", white, grey, 0, { 10,5 }, buttonHover));
 	startButton->onClick(&startGameWrapper);
@@ -349,21 +365,15 @@ void Game::initWinningScene() {
 }
 
 void Game::initGameplayUI(UIManager* uiManager) {
-	std::cout << "Test" << std::endl;
 	// UI
 	SDL_Color grey = { 48,48,48 };
 	SDL_Color textColor = { 255,255,255 };
 	SDL_Color buttonHover = { 255,192,203 };
-	//size_t fontIndex = uiManager->addFont("../TestTextures/Fonts/arial.ttf", 32);
 	size_t fontIndex = 0;
-	//size_t labelIndex = uiManager->addLabel(25, 25, "Testlabel", textColor, fontIndex);
-	//uiManager->addPanel(10, 20, 300, 50, grey);
 	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 26 });
 	uiManager->getProgressBar(progIndex)->setProgress(0.4f);
 
 	this->hpBarIndex = progIndex;
-	//size_t buttonIndex = uiManager->addButton(500, 20, "Testbutton", textColor, grey, fontIndex, { 10,5 },buttonHover);
-	//uiManager->getButton(buttonIndex)->onClick(&testWrapper);
 }
 
 void Game::init() {

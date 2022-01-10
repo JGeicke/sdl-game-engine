@@ -11,6 +11,8 @@ public:
 
 	void enemyCollisionHandler(Collider* a, Collider* b);
 
+	void onBossRoomEnter(Collider* a, Collider* b);
+
 	void portalHandler(Collider* a, Collider* b);
 
 	void onPlayerDeath(Health* healthComponent);
@@ -52,6 +54,8 @@ private:
 	InputManager* inputManager = nullptr;
 
 	Entity player = { 0 };
+
+	Entity bossRoomBlock = { 0 };
 	size_t hpBarIndex = SIZE_MAX;
 
 	size_t enemyCount = 0;
