@@ -13,6 +13,8 @@ public:
 
 	void onBossRoomEnter(Collider* a, Collider* b);
 
+	bool onBossReachingDestination(EnemyMovement* mov);
+
 	void portalHandler(Collider* a, Collider* b);
 
 	void onPlayerDeath(Health* healthComponent);
@@ -57,6 +59,10 @@ private:
 
 	Entity bossRoomBlock = { 0 };
 	size_t hpBarIndex = SIZE_MAX;
+
+	Entity boss = { 0 };
+	Entity bossDestinations[3];
+	size_t bossDestinationIndex = 0;
 
 	size_t enemyCount = 0;
 };

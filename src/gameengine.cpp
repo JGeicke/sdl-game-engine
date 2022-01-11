@@ -322,6 +322,7 @@ void GameEngine::setEnemyDestination(Entity e, Position* pos) {
 		EnemyMovement* component = enemyMovementManager->getComponent(e);
 		if (component != nullptr) {
 			component->setDestination(dest);
+			component->flag(true);
 		}
 	}
 }
@@ -514,6 +515,7 @@ EnemyMovement* GameEngine::addEnemyMovementComponent(Entity e, float movementSpe
 	if (component != nullptr) {
 		component->setEntity(e);
 		component->setMovementSpeed(movementSpeed);
+		component->resetComponent();
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add enemy movement component.", NULL);
