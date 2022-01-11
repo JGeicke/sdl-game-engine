@@ -27,10 +27,6 @@ void onPlayerDeathWrapper(Health* healthComponent) {
 	game->onPlayerDeath(healthComponent);
 }
 
-bool onBossReachingDestinationWrapper(EnemyMovement* mov) {
-	return game->onBossReachingDestination(mov);
-}
-
 void onWolfDeathWrapper(Health* healthComponent) {
 	game->onWolfDeath(healthComponent);
 }
@@ -167,21 +163,6 @@ void Game::onWizardDeath(Health* healthComponent) {
 	this->wonGame();
 }
 
-bool Game::onBossReachingDestination(EnemyMovement* mov) {
-	std::cout << "penis" << std::endl;
-
-	if (mov != nullptr) {
-		this->gameEngine->setEnemyDestination(this->boss, this->gameEngine->getPositionComponent(this->bossDestinations[bossDestinationIndex]));
-		bossDestinationIndex++;
-
-		if (bossDestinationIndex == 3) {
-			bossDestinationIndex = 0;
-		}
-		return true;
-	}
-	return false;
-}
-
 void Game::spawnPlayerProjectile() {
 	Position* playerPosition = gameEngine->getPositionComponent(this->player);
 	if (playerPosition != nullptr) {
@@ -226,33 +207,17 @@ void Game::addEnemyWizard(SDL_Point pos, int health) {
 	gameEngine->addAnimatorComponent(wizard);
 	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150, "../TestTextures/wizard_idle.png");
 
-	gameEngine->addEnemyMovementComponent(wizard, 4.0f);
-
 	Health* healthComponent = gameEngine->addHealthComponent(wizard, health);
 	healthComponent->onZeroHealth(&onWizardDeathWrapper);
 
 	this->enemyCount++;
-
-	this->boss = wizard;
 }
 
 void Game::initWinterEndScene() {
 	this->gameEngine->getPositionComponent(this->player)->setPosition(32 * 26 + 16, 32 * 26 + 16);
 
-	// add paths for boss
-	this->bossDestinations[0] = this->gameEngine->addEntity("node", false, { 112, 464 });
-	this->bossDestinations[1] = this->gameEngine->addEntity("node", false, { 464, 142 });
-	this->bossDestinations[2] = this->gameEngine->addEntity("node", false, { 623, 687 });
-
 	this->addEnemyWizard({ 330, 494 }, 500);
 
-	EnemyMovement* enemyMov = this->gameEngine->getEnemyMovementComponent(this->boss);
-
-	if (enemyMov != nullptr) {
-		this->gameEngine->setEnemyDestination(this->boss, this->gameEngine->getPositionComponent(this->bossDestinations[bossDestinationIndex]));
-		enemyMov->onReachingDestination(&onBossReachingDestinationWrapper);
-		bossDestinationIndex++;
-	}
 	// add boss trigger
 	Entity trigger = gameEngine->addEntity("trigger", false, { 705, 529});
 	Collider* bossRoomTrigger = gameEngine->addColliderComponent(trigger, { 0,0 }, { 64, 96 }, true);

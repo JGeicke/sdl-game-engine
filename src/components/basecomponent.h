@@ -41,13 +41,6 @@ struct BaseComponent {
 	bool isActive() {
 		return active;
 	}
-
-	/**
-	 * @brief Resets the component.
-	*/
-	virtual void resetComponent() {
-
-	}
 protected:
 	/**
 	 * @brief Entity that owns the component.
