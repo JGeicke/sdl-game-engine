@@ -431,6 +431,7 @@ Animator* GameEngine::addAnimatorComponent(Entity e) {
 	Animator* animator = animatorManager->addComponent(e);
 	if (animator != nullptr) {
 		animator->setEntity(e);
+		animator->resetComponent();
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add animator component.", NULL);

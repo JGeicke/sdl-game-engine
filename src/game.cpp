@@ -168,8 +168,6 @@ void Game::onWizardDeath(Health* healthComponent) {
 }
 
 bool Game::onBossReachingDestination(EnemyMovement* mov) {
-	std::cout << "penis" << std::endl;
-
 	if (mov != nullptr) {
 		this->gameEngine->setEnemyDestination(this->boss, this->gameEngine->getPositionComponent(this->bossDestinations[bossDestinationIndex]));
 		bossDestinationIndex++;
@@ -223,8 +221,13 @@ void Game::addEnemyWizard(SDL_Point pos, int health) {
 	gameEngine->addSpriteComponent(wizard, "../TestTextures/wizard_idle.png", {64,64}, 1.0f);
 	Collider* wizardCollider = gameEngine->addColliderComponent(wizard, { 0, 0 }, { 64, 64 }, false);
 
-	gameEngine->addAnimatorComponent(wizard);
+	Animator* anim = gameEngine->addAnimatorComponent(wizard);
 	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150, "../TestTextures/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::WALK_SIDE, 10, 150, "../TestTextures/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::IDLE_UP, 10, 150, "../TestTextures/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::WALK_UP, 10, 150, "../TestTextures/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::IDLE_DOWN, 10, 150, "../TestTextures/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::WALK_DOWN, 10, 150, "../TestTextures/wizard_idle.png");
 
 	gameEngine->addEnemyMovementComponent(wizard, 4.0f);
 

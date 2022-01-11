@@ -172,6 +172,13 @@ public:
 	}
 
 	/**
+	 * @brief Resets the component.
+	*/
+	void resetComponent() {
+		this->animations = {};
+	}
+
+	/**
 	 * @brief Default constructor of animator component.
 	*/
 	Animator() {}
