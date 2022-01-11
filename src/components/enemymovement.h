@@ -3,20 +3,40 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+/**
+ * @brief Priority Queue struct for the astar pathfinding.
+ * @tparam T - Nodes.
+ * @tparam priority - Fcosts of the nodes.
+*/
 template<typename T, typename priority>
 struct PriorityQueue {
+	/**
+	 * @brief Pair of the node and the fcost of the node.
+	*/
 	typedef std::pair<priority, T> Element;
 	std::priority_queue<Element, std::vector<Element>, std::greater<Element>> elements;
 
+	/**
+	 * @brief Checks if the priority queue is empty.
+	 * @return Whether the priority queue is empty.
+	*/
 	inline bool empty(){
 		return elements.empty();
 	}	
 
-
+	/**
+	 * @brief Adds a node to the priority queue.
+	 * @param item - Node to add to the priority queue.
+	 * @param prio - Fcost of the node.
+	*/
 	inline void put(T item, priority prio) {
 		elements.emplace(prio, item);
 	}
 
+	/**
+	 * @brief Gets the node out of the queue with the smallest fcost.
+	 * @return Node with the smallest Ffcost.
+	*/
 	T get() {
 		T best_item = elements.top().second;
 		elements.pop();
@@ -68,12 +88,30 @@ struct Node {
  * @brief Component to hold the attributes used for enemy movement.
 */
 struct EnemyMovement : BaseComponent {
+	// function pointer. Return true if new destination was set.
+	typedef bool (*eventFunction)(EnemyMovement*);
 public:
 	/**
 	 * @brief Prints the enemy movement component.
 	*/
 	void print() {
 		std::cout << "Enemy Movement (Entity: " << entity.uid << ") Movement speed: " << movementSpeed << std::endl;
+	}
+
+	/**
+	 * @brief Resets the component.
+	*/
+	void resetComponent() {
+		currentTimer = 0;
+		this->resetTarget();
+		this->setDestination(nullptr);
+		this->onReachingDestination(nullptr);
+		this->onReachingDestinationCalled = false;
+		this->timerBase = 3000;
+		this->calcRoute = true;
+		this->maxDistance = 10;
+		this->nextNodeIndex = 0;
+		this->route = {};
 	}
 
 	/**
@@ -92,12 +130,15 @@ public:
 	 * @return Pointer to the current destination node.
 	*/
 	Node* getDestination() { return destination; }
+
 	/**
 	 * @brief Sets the current movement destination node.
 	 * @param newDest - New movement destination node.
 	*/
 	void setDestination(Node* newDest) {
 		destination = newDest;
+		this->route = {};
+		onReachingDestinationCalled = false;
 	}
 
 	/**
@@ -179,6 +220,11 @@ public:
 		}
 		else {
 			destination = nullptr;
+			// check if component has onReachingDestinationFunction
+			if (nextNodeIndex == 0 && onReachingDestinationFunction != nullptr && !onReachingDestinationCalled) {
+				onReachingDestinationCalled = true;
+				onReachingDestinationFunction(this);
+			}
 		}
 	}
 
@@ -236,6 +282,14 @@ public:
 	int getMaxDistance() {
 		return this->maxDistance;
 	}
+
+	/**
+	 * @brief Sets the onReachingDestination handler.
+	 * @param handler - New onReachingDestination handler.
+	*/
+	void onReachingDestination(eventFunction handler) {
+		this->onReachingDestinationFunction = handler;
+	}
 private:
 	/**
 	 * @brief Base timer between pathfindings.
@@ -277,4 +331,14 @@ private:
 	 * @brief Current route to the destination node.
 	*/
 	std::vector<Node*> route;
+
+	/**
+	 * @brief Handler function when the entity reaches the destination.
+	*/
+	eventFunction onReachingDestinationFunction = nullptr;
+
+	/**
+	 * @brief Whether the handler function has been called.
+	*/
+	bool onReachingDestinationCalled = false;
 };
