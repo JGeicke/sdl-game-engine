@@ -6,8 +6,10 @@
 * @param windowTitle - Title of game window.
 * @param windowWidth - Width of game window.
 * @param windowHeight - Height of game window.
+* @param cameraWidth - Width of camera.
+* @param cameraHeight - Height of camera.
 */
-void GameEngine::init(int fps, std::string windowTitle, int width, int height) {
+void GameEngine::init(int fps, std::string windowTitle, int width, int height, int cameraWidth, int cameraHeight) {
 	if (fps > 0) {
 		this->frameDelay = 1000 / fps;
 	}
@@ -25,7 +27,7 @@ void GameEngine::init(int fps, std::string windowTitle, int width, int height) {
 		this->initComponentManagers();
 		this->initUniqueComponents();
 		this->initObjectPools();
-		this->initSystems();
+		this->initSystems(cameraWidth, cameraHeight);
 	}
 }
 
@@ -98,7 +100,7 @@ Entity GameEngine::addEntity(const char* tag, bool isPreserved, SDL_Point positi
 	Position* pos = this->posManager->addComponent(entity);
 	if (pos != nullptr) {
 		pos->setEntity(entity);
-		pos->setPosition(position.x, position.y);
+		pos->setPosition(position.x*renderSystem->getCameraZoomFactorX(), position.y*renderSystem->getCameraZoomFactorY());
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Entity Initialization error", "Could not add position component to entity.", NULL);
@@ -235,11 +237,13 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 
 		for (size_t i = 0; i < colLayer.size(); i++) {
 			// checks if current x-position is greater or equals to max tilecount in row
+			//int newX = colLayer[i].x* this->renderSystem->getCameraZoomFactorX() + (colLayer[i].w * this->renderSystem->getCameraZoomFactorX() / 2);
+			//int newY = colLayer[i].y* this->renderSystem->getCameraZoomFactorY() + (colLayer[i].h* this->renderSystem->getCameraZoomFactorY() / 2);
 			int newX = colLayer[i].x + (colLayer[i].w / 2);
 			int newY = colLayer[i].y + (colLayer[i].h / 2);
 
 			Entity e = this->addEntity("", false,{ newX, newY });
-			this->addColliderComponent(e, { 0,0 }, { colLayer[i].w, colLayer[i].h }, false);
+			this->addColliderComponent(e, { 0,0 }, { colLayer[i].w, colLayer[i].h}, false);
 		}
 	}
 
@@ -255,7 +259,7 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 
 		for (size_t i = 0; i < objLayer.size(); i++) {
 			// checks if current x-position is greater or equals to max tilecount in row
-			int newX = objLayer[i].x + (objLayer[i].w / 2);
+			int newX = objLayer[i].x  + (objLayer[i].w / 2);
 			int newY = objLayer[i].y + (objLayer[i].h / 2);
 
 			int dataIndex = (objLayer[i].y / tileHeight)*tilemap->getTilesPerRow();
@@ -381,7 +385,7 @@ Collider* GameEngine::addColliderComponent(Entity e, SDL_Point offset, SDL_Point
 	if (colliderComponent != nullptr) {
 		colliderComponent->setEntity(e);
 		Position* positionComponent = posManager->getComponent(e);
-		colliderComponent->init(positionComponent->x(), positionComponent->y(), offset.x, offset.y, size.x, size.y, isTrigger);
+		colliderComponent->init(positionComponent->x(), positionComponent->y(), offset.x, offset.y, (int)(size.x*renderSystem->getCameraZoomFactorX()), (int)(size.y*renderSystem->getCameraZoomFactorY()), isTrigger);
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add collider component.", NULL);
@@ -706,14 +710,17 @@ void GameEngine::initObjectPools() {
 
 /**
 * @brief Initializes the game systems.
+* @param cameraWidth - Width of camera.
+* @param cameraHeight - Height of camera.
 */
-void GameEngine::initSystems() {
+void GameEngine::initSystems(int cameraWidth, int cameraHeight) {
 	this->renderSystem = new RenderSystem(this->frameDelay, spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager, enemyMovementManager);
-	this->renderSystem->initCamera(this->window->getWindowWidth(), this->window->getWindowHeight());
+	this->renderSystem->initCamera(this->window->getWindowWidth(), this->window->getWindowHeight(), cameraWidth, cameraHeight);
 	//this->renderSystem->initCamera(640, 360);
 	this->renderSystem->debugging(true);
 
 	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager, projectileMovementManager, enemyMovementManager);
+	this->physicSystem->setCameraZoom(this->renderSystem->getCameraZoomFactorX(), this->renderSystem->getCameraZoomFactorY());
 	this->physicSystem->initGrid(renderSystem->getTilemapNumberOfRows(), renderSystem->getTilemapNumberOfCols(), {renderSystem->getTileWidth(), renderSystem->getTileHeight()}, renderSystem->getTilesPerRow());
 
 	this->audioSystem = new AudioSystem(audioManager);
@@ -859,9 +866,9 @@ void GameEngine::collectProjectileObjects() {
 		if (this->projectilePool->isEntityUsed(i)) {
 			Position* position = this->posManager->getComponent(this->projectilePool->getEntityByIndex(i));
 			if (position->x() < 0
-				|| position->x() > this->renderSystem->getTotalTilemapWidth()
+				|| position->x() > this->renderSystem->getTotalTilemapWidth()*renderSystem->getCameraZoomFactorX()
 				|| position->y() < 0 
-				|| position->y() > this->renderSystem->getTotalTilemapHeight()) {
+				|| position->y() > this->renderSystem->getTotalTilemapHeight() * renderSystem->getCameraZoomFactorY()) {
 				this->destroyProjectile(this->projectilePool->getEntityByIndex(i));
 			}
 		}

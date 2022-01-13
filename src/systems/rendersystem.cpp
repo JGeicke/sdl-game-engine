@@ -89,8 +89,8 @@ void RenderSystem::debugColliders() {
 void RenderSystem::debugEnemyPathing() {
 	if (debug) {
 		size_t componentCount = enemyMovementManager->getComponentCount();
-		unsigned w = this->getTileWidth();
-		unsigned h = this->getTileHeight();
+		unsigned w = (unsigned)(this->getTileWidth()*this->cameraZoomX);
+		unsigned h = (unsigned)(this->getTileHeight()*this->cameraZoomY);
 
 		Node* prev = nullptr;
 		for (size_t i = 0; i < componentCount; i++)
@@ -187,7 +187,7 @@ void RenderSystem::renderSprites() {
 		Position* spritePosition = &sortedSpritePositions[i];
 		Entity spriteEntity = spritePosition->getEntity();
 		Sprite* sprite = spriteManager->getComponent(spriteEntity);
-		sprite->setDestinationRectPosition((spritePosition->x() - (sprite->getDestinationWidth() / 2)) - camera.x, (spritePosition->y() - (sprite->getDestinationHeight() / 2)) - camera.y);
+		sprite->setDestinationRectPosition((spritePosition->x() - (sprite->getDestinationWidth()*cameraZoomX/ 2)) - camera.x, (spritePosition->y() - (sprite->getDestinationHeight()*cameraZoomY / 2)) - camera.y);
 		draw(sprite);
 	}
 }
@@ -302,7 +302,10 @@ void RenderSystem::draw(Sprite* sprite) {
 
 	// ignore sprites outside of camera when animating/rendering
 	SDL_Rect* rect  = sprite->getDestinationRect();
-	if ((rect->x+rect->w) < 0 || rect->x > camera.w || (rect->y+rect->h) < 0 || rect->y > camera.h) {
+
+	SDL_Rect newRect = { rect->x, rect->y, rect->w* cameraZoomX, rect->h * cameraZoomY };
+
+	if ((newRect.x+newRect.w) < 0 || newRect.x > window.x || (newRect.y+newRect.h) < 0 || newRect.y > window.y) {
 		return;
 	}
 
@@ -312,7 +315,7 @@ void RenderSystem::draw(Sprite* sprite) {
 		animateSprite(sprite, animator);
 	}
 
-	SDL_RenderCopyEx(renderer, sprite->getTexture().texture, sprite->getSourceRect(), sprite->getDestinationRect(), NULL, NULL, sprite->getTextureFlip());
+	SDL_RenderCopyEx(renderer, sprite->getTexture().texture, sprite->getSourceRect(), &newRect, NULL, NULL, sprite->getTextureFlip());
 }
 #pragma endregion Sprites
 
@@ -423,8 +426,6 @@ void RenderSystem::renderTilemap() {
 	int collisionLayer = tilemap->getCollisionLayerIndex();
 	int objectLayer = tilemap->getTilemapObjectLayerIndex();
 
-
-
 	for (size_t i = 0; i < layers; i++)
 	{
 		if (i == collisionLayer || i == objectLayer) {
@@ -449,13 +450,15 @@ void RenderSystem::renderTilemap() {
 				setTilesetDestRectPosition(currentDestX, currentDestY, tileWidth, tileHeight);
 
 				SDL_Rect* rect = tileset->getDestinationRect();
-				if ((rect->x + rect->w) < 0 || rect->x > camera.w || (rect->y + rect->h) < 0 || rect->y > camera.h) {
+				SDL_Rect newRect = { rect->x, rect->y, rect->w*cameraZoomX, rect->h*cameraZoomY };
+				
+				if ((newRect.x + newRect.w) < 0 || newRect.x > window.x || (newRect.y + newRect.h) < 0 || newRect.y > window.y) {
 					// skip rendering
 				}
 				else {
 					// if tile is in camera view, render tile.
-					SDL_RenderCopy(renderer, tileset->getTexture().texture, tileset->getSourceRect(), tileset->getDestinationRect());
-				}
+					SDL_RenderCopy(renderer, tileset->getTexture().texture, tileset->getSourceRect(), &newRect);
+				} 
 			}
 			currentDestX = currentDestX + 1;
 		}
@@ -501,10 +504,8 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 	int newX;
 	int newY;
 
-	//newX = (currentX == 0) ? currentX * tileWidth : (currentX - 1) * tileWidth;
-	//newY = (currentY == 0) ? currentY * tileHeight : (currentY - 1) * tileHeight;
-	newX = currentX * tileWidth;
-	newY = currentY * tileHeight;
+	newX = currentX * (tileWidth*cameraZoomX);
+	newY = currentY * (tileHeight*cameraZoomY);
 
 	// substracts the calculated tile position based on tilewidth & the position on the tilemap from the camera origin position (top-left).
 	// if the result is positiv, render the tile on the substracted position (relative to the camera origin).
@@ -512,7 +513,6 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 	newX = newX - camera.x;
 	newY = newY - camera.y;
 
-	//std::cout << "Tile dest pos: (" << newX << ", " << newY << ");" << std::endl;
 	tileset->setDestinationRect(newX, newY);
 }
 #pragma endregion Tilemap
@@ -522,9 +522,16 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 * @brief Initializes the camera with certain viewport.
 * @param viewWidth - Width of viewport.
 * @param viewHeight - Height of viewport.
+* @param cameraWidth - Width of camera.
+* @param cameraHeight - Height of camera.
 */
-void RenderSystem::initCamera(int viewWidth, int viewHeight) {
-	camera = { 0, 0, viewWidth, viewHeight };
+void RenderSystem::initCamera(int viewWidth, int viewHeight, int cameraWidth, int cameraHeight) {
+	camera = { 0, 0,cameraWidth,cameraHeight };
+
+	cameraZoomX = (float)viewWidth / cameraWidth;
+	cameraZoomY = (float)viewHeight / cameraHeight;
+
+	window = { viewWidth, viewHeight };
 }
 
 /**
@@ -536,8 +543,8 @@ void RenderSystem::moveCamera() {
 		Entity followTarget = cameraFollow->getEntity();
 		Position* followPosition = positionManager->getComponent(followTarget);
 
-		camera.x = followPosition->x() - (camera.w / 2);
-		camera.y = followPosition->y() - (camera.h / 2);
+		camera.x = followPosition->x() - (window.x / 2);
+		camera.y = followPosition->y() - (window.y / 2);
 
 		//camera map bounds
 		if (this->tilemap != nullptr) {
@@ -552,12 +559,12 @@ void RenderSystem::moveCamera() {
 
 			//TODO: adjust camera movement for smoother movement. Update 19.12.21: gone?
 			//bottom-right
-			if (camera.x > (int)(tilemap->getTotalTilemapWidth() - camera.w)) {
-				camera.x = tilemap->getTotalTilemapWidth() - camera.w;
+			if (camera.x > (int)(tilemap->getTotalTilemapWidth()*cameraZoomX - window.x)) {
+				camera.x = tilemap->getTotalTilemapWidth()*cameraZoomX - window.x;
 			}
 
-			if (camera.y > (int)(tilemap->getTotalTilemapHeight() - camera.h)) {
-				camera.y = tilemap->getTotalTilemapHeight() - camera.h;
+			if (camera.y > (int)(tilemap->getTotalTilemapHeight() * cameraZoomY - window.y)) {
+				camera.y = tilemap->getTotalTilemapHeight() * cameraZoomY - window.y;
 			}
 		}
 	}

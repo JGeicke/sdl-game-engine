@@ -43,8 +43,8 @@ void PhysicSystem::initGrid(int row, int col, SDL_Point tileSize, int tilesPerRo
 
 	this->row = row;
 	this->col = col;
-	this->tileWidth = tileSize.x;
-	this->tileHeight = tileSize.y;
+	this->tileWidth = (int)(tileSize.x*cameraZoomX);
+	this->tileHeight = (int)(tileSize.y*cameraZoomY);
 	this->tilesPerRow = tilesPerRow;
 
 	if (row < 1 || col < 1) {
@@ -123,8 +123,8 @@ void PhysicSystem::handlePlayerMovement() {
 		
 		if (animatorComponent->getState() < STATES::ATK_SIDE && inputManager->getDirectionMagnitude() > 0.0) {
 			// moving
-			float newX = (inputManager->getNormalizedDirectionX() * this->playerMovement->getMovementSpeed());
-			float newY = (inputManager->getNormalizedDirectionY() * this->playerMovement->getMovementSpeed());
+			float newX = (inputManager->getNormalizedDirectionX() * (this->playerMovement->getMovementSpeed()*cameraZoomX));
+			float newY = (inputManager->getNormalizedDirectionY() * (this->playerMovement->getMovementSpeed()*cameraZoomY));
 			positionComponent->movePosition(newX, newY);
 		}
 
@@ -251,8 +251,8 @@ void PhysicSystem::handleProjectileMovement() {
 			Position* positionComponent = this->positionManager->getComponent(currentComponent->getEntity());
 
 			// moving
-			float newX = (std::cos(currentComponent->getAngle() * M_PI / 180) * currentComponent->getProjectileSpeed());
-			float newY = (std::sin(currentComponent->getAngle() * M_PI / 180) * currentComponent->getProjectileSpeed());
+			float newX = (std::cos(currentComponent->getAngle() * M_PI / 180) * (currentComponent->getProjectileSpeed()*cameraZoomX));
+			float newY = (std::sin(currentComponent->getAngle() * M_PI / 180) * (currentComponent->getProjectileSpeed()*cameraZoomY));
 			positionComponent->movePosition(newX, newY);
 		}
 	}
@@ -310,7 +310,7 @@ void PhysicSystem::handleEnemyMovement() {
 				float newX = direction.getNormalizedX();
 				float newY = direction.getNormalizedY();
 
-				currPos->movePosition(newX * currentComponent->getMovementSpeed(), newY * currentComponent->getMovementSpeed());
+				currPos->movePosition(newX * (currentComponent->getMovementSpeed()*cameraZoomX), newY * (currentComponent->getMovementSpeed()*cameraZoomY));
 			}
 			// increase component timer
 			currentComponent->increaseTimer(newTimestamp- lastEnemyMovementTimestamp);

@@ -53,6 +53,16 @@ public:
 	 * @return Current Node.
 	*/
 	Node* getCurrentNode(SDL_Point pos);
+
+	/**
+	 * @brief Sets the current camera zoom values.
+	 * @param cameraZoomX - Current camera x zoom.
+	 * @param cameraZoomY - Current camera y zoom.
+	*/
+	void setCameraZoom(float cameraZoomX, float cameraZoomY) {
+		this->cameraZoomX = cameraZoomX;
+		this->cameraZoomY = cameraZoomY;
+	}
 private:
 	Node* nodes = nullptr;
 	size_t nodeCount = 0;
@@ -121,6 +131,16 @@ private:
 	 * @brief Tiles per row in the current tilemap.
 	*/
 	size_t tilesPerRow=0;
+
+	/**
+	 * @brief X zoom factor of camera.
+	*/
+	float cameraZoomX = 1.0f;
+
+	/**
+	 * @brief Y zoom factor of camera.
+	*/
+	float cameraZoomY = 1.0f;
 
 	/**
 	 * @brief Handles the player movement each frame.

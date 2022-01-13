@@ -269,7 +269,7 @@ void Game::addEnemyWizard(SDL_Point pos, int health) {
 }
 
 void Game::initWinterEndScene() {
-	this->gameEngine->getPositionComponent(this->player)->setPosition(32 * 26 + 16, 32 * 26 + 16);
+	this->gameEngine->getPositionComponent(this->player)->setPosition(32 * 26*gameEngine->getCameraZoomFactorX(), 32 * 25*gameEngine->getCameraZoomFactorY());
 
 	// add paths for boss
 	this->bossDestinations[0] = this->gameEngine->addEntity("node", false, { 112, 464 });
@@ -300,7 +300,7 @@ void Game::initWinterScene() {
 	this->inputManager->addActionHandler(SDL_BUTTON_LEFT, &spawnPlayerProjectileWrapper);
 
 	//player
-	this->player = gameEngine->addPlayer("player", true, { 492,1350 }, 5);
+	this->player = gameEngine->addPlayer("player", true, { 27*32,42*32 }, 5);
 	gameEngine->addSpriteComponent(player, "../TestTextures/char_idle_side.png", { 64, 64 }, 1.5f);
 	gameEngine->setCameraFollowTarget(player);
 
@@ -397,7 +397,7 @@ void Game::initStartScene() {
 	SDL_Color white = { 255,255,255 };
 	SDL_Color grey = { 48,48,48 };
 	SDL_Color buttonHover = { 77,77,77 };
-	Entity bg = gameEngine->addEntity("", false, { (int)(gameWindowWidth/2), (int)(gameWindowHeight/2) });
+	Entity bg = gameEngine->addEntity("", false, { (int)((gameWindowWidth/2)/gameEngine->getCameraZoomFactorX()), (int)((gameWindowHeight/2) / gameEngine->getCameraZoomFactorY()) });
 	gameEngine->addSpriteComponent(bg, "../TestTextures/BG.png", { 1800,893 }, 1.0f);
 
 	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2)-180, "Test Game Title", white, fontIndex);
@@ -445,8 +445,8 @@ void Game::initGameplayUI(UIManager* uiManager) {
 
 void Game::init() {
 	gameEngine = new GameEngine();
-	gameEngine->init(60, "Demo Game", 1280, 720);
-	//gameEngine->init(60, "Projects of Bach'e Lor", 1920, 1080);
+	gameEngine->init(60, "Demo Game", 1920, 1080, 1280, 720);
+	//gameEngine->init(60, "Demo Game", 1280, 720, 1280, 720);
 	this->uiManager = this->gameEngine->getUIManager();
 	this->inputManager = this->gameEngine->getInputManager();
 

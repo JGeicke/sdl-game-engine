@@ -35,8 +35,10 @@ public:
 	 * @param windowTitle - Title of game window.
 	 * @param windowWidth - Width of game window.
 	 * @param windowHeight - Height of game window.
+	 * @param cameraWidth - Width of camera.
+	 * @param cameraHeight - Height of camera.
 	*/
-	void init(int fps, std::string windowTitle, int windowWidth, int windowHeight);
+	void init(int fps, std::string windowTitle, int windowWidth, int windowHeight, int cameraWidth, int cameraHeight);
 
 	/**
 	 * @brief Runs the game engine. Starts the game loop.
@@ -392,6 +394,22 @@ public:
 	SDL_Renderer* getRenderer() {
 		return this->window->getRenderer();
 	}
+
+	/**
+	 * @brief Gets the camera x zoom factor.
+	 * @return Camera x zoom factor.
+	*/
+	float getCameraZoomFactorX() {
+		return this->renderSystem->getCameraZoomFactorX();
+	}
+
+	/**
+	 * @brief Gets the camera y zoom factor.
+	 * @return Camera y zoom factor.
+	*/
+	float getCameraZoomFactorY() {
+		return this->renderSystem->getCameraZoomFactorY();
+	}
 private:
 	/**
 	 * @brief Delay between frames.
@@ -450,8 +468,10 @@ private:
 	void initObjectPools();
 	/**
 	 * @brief Initializes the game systems.
+	 * @param cameraWidth - Width of camera.
+	 * @param cameraHeight - Height of camera.
 	*/
-	void initSystems();
+	void initSystems(int cameraWidth, int cameraHeight);
 
 	/**
 	 * @brief Collects and frees the entities and component that should not be preserved when switching scenes.

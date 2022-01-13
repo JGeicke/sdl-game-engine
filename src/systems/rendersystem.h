@@ -42,8 +42,10 @@ public:
 	 * @brief Initializes the camera with certain viewport.
 	 * @param viewWidth - Width of viewport.
 	 * @param viewHeight - Height of viewport.
+	 * @param cameraWidth - Width of camera.
+	 * @param cameraHeight - Height of camera.
 	*/
-	void initCamera(int viewWidth, int viewHeight);
+	void initCamera(int viewWidth, int viewHeight, int cameraWidth, int cameraHeight);
 
 	/**
 	 * @brief Gets the camera x position.
@@ -149,6 +151,22 @@ public:
 		}
 		return -1;
 	}
+
+	/**
+	 * @brief Gets the camera x zoom factor.
+	 * @return Camera x zoom factor.
+	*/
+	float getCameraZoomFactorX() {
+		return this->cameraZoomX;
+	}
+
+	/**
+	 * @brief Gets the camera y zoom factor.
+	 * @return Camera y zoom factor.
+	*/
+	float getCameraZoomFactorY() {
+		return this->cameraZoomY;
+	}
 private:
 	/**
 	 * @brief Pointer to the sprite manager.
@@ -213,6 +231,18 @@ private:
 	 * @brief View area rectangle of the camera.
 	*/
 	SDL_Rect camera = { 0,0,0,0 };
+
+	SDL_Point window = { 0,0 };
+
+	/**
+	 * @brief X zoom factor of camera.
+	*/
+	float cameraZoomX = 1.0f;
+
+	/**
+	 * @brief Y zoom factor of camera.
+	*/
+	float cameraZoomY = 1.0f;
 
 	/**
 	 * @brief Delay between frames.
