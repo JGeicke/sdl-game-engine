@@ -25,6 +25,8 @@ public:
 
 	void spawnPlayerProjectile();
 
+	void spawnBossProjectiles();
+
 	void addEnemyWolf(SDL_Point pos, int health);
 
 	void addEnemyWizard(SDL_Point pos, int health);

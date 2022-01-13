@@ -89,10 +89,8 @@ void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 	int enemyAtk = 100;
 
 	if (b->getEntity().tag == "player") {
-		std::cout << b->getEntity().tag << std::endl;
-		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
 		UIManager* uimanager = this->gameEngine->getUIManager();
-		Health* playerHealth = manager->getComponent(this->player);
+		Health* playerHealth = this->gameEngine->getHealthComponent(this->player);
 		int currHealth = playerHealth->getCurrentHealth();
 		playerHealth->takeDamage(enemyAtk);
 
@@ -107,7 +105,9 @@ void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 }
 
 void Game::enemyProjectileHandler(Collider* a, Collider* b) {
+	int enemyAtk = 35;
 	if (b->getEntity().tag == "player") {
+		/*
 		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
 		UIManager* uimanager = this->gameEngine->getUIManager();
 		Health* playerHealth = manager->getComponent(this->player);
@@ -121,6 +121,23 @@ void Game::enemyProjectileHandler(Collider* a, Collider* b) {
 		b->resetLastCollision();
 
 		playerHealth->takeDamage(25);
+		*/
+		UIManager* uimanager = this->gameEngine->getUIManager();
+		Health* playerHealth = this->gameEngine->getHealthComponent(this->player);
+		int currHealth = playerHealth->getCurrentHealth();
+
+		//destroy projectile
+		this->gameEngine->destroyProjectile(a->getEntity());
+
+		playerHealth->takeDamage(35);
+
+		if (currHealth - enemyAtk > 0) {
+			//update ui
+			uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+		}
+
+		playerHealth->print();
+		std::cout << "works great" << std::endl;
 	}
 }
 
@@ -132,8 +149,6 @@ void Game::playerProjectileHandler(Collider* a, Collider* b) {
 		Entity e = a->getEntity();
 		this->gameEngine->destroyProjectile(e);
 
-		std::cout << "play clip" << std::endl;
-
 		enemyHealth->takeDamage(25);
 
 		if (enemyHealth->getCurrentHealth() > 0) {
@@ -144,7 +159,6 @@ void Game::playerProjectileHandler(Collider* a, Collider* b) {
 
 void Game::portalHandler(Collider* a, Collider* b) {
 	if (b->getEntity().tag == "player" && this->enemyCount == 0) {
-		std::cout << "touched" << std::endl;
 		Scene* end = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter_lake.json", 4, nullptr, &initWinterEndSceneWrapper);
 		this->gameEngine->changeScene(end, false);
 	}
@@ -152,7 +166,6 @@ void Game::portalHandler(Collider* a, Collider* b) {
 
 void Game::onPlayerDeath(Health* healthComponent) {
 	this->gameOver();
-	std::cout << "Game over" << std::endl;
 }
 
 void Game::onWolfDeath(Health* healthComponent) {
@@ -162,13 +175,13 @@ void Game::onWolfDeath(Health* healthComponent) {
 }
 
 void Game::onWizardDeath(Health* healthComponent) {
-	std::cout << "rip boss" << std::endl;
 	enemyCount--;
 	this->wonGame();
 }
 
 bool Game::onBossReachingDestination(EnemyMovement* mov) {
 	if (mov != nullptr) {
+		this->spawnBossProjectiles();
 		this->gameEngine->setEnemyDestination(this->boss, this->gameEngine->getPositionComponent(this->bossDestinations[bossDestinationIndex]));
 		bossDestinationIndex++;
 
@@ -180,10 +193,27 @@ bool Game::onBossReachingDestination(EnemyMovement* mov) {
 	return false;
 }
 
+void Game::spawnBossProjectiles() {
+	Position* bossPosition = gameEngine->getPositionComponent(this->boss);
+	if (bossPosition != nullptr) {
+
+		for (int x = -1; x < 2; x++)
+		{
+			for (int y = -1; y < 2; y++)
+			{
+				if (y == 0 && x == 0) continue;
+				Entity e = this->gameEngine->createProjectile("../TestTextures/boss_proj.png", { 6,6 }, 2.0f, { bossPosition->x(), bossPosition->y() }, { bossPosition->x() + x, bossPosition->y()+y }, 3.0f, false);
+				Collider* col = this->gameEngine->getColliderComponent(e);
+				col->onTriggerEnter(&enemyProjectileWrapper);
+			}
+		}
+	}
+}
+
 void Game::spawnPlayerProjectile() {
 	Position* playerPosition = gameEngine->getPositionComponent(this->player);
 	if (playerPosition != nullptr) {
-		Entity e = this->gameEngine->createProjectile("../TestTextures/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 3.0f, true);
+		Entity e = this->gameEngine->createProjectile("../TestTextures/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 5.0f, true);
 		Collider* col = this->gameEngine->getColliderComponent(e);
 		col->onTriggerEnter(&playerProjectileWrapper);
 	}
@@ -216,7 +246,6 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 }
 
 void Game::addEnemyWizard(SDL_Point pos, int health) {
-	// TODO: add onDestinationArrival hook to enemy movement and add enemy movement to wizard
 	Entity wizard = gameEngine->addEntity("enemy", false, pos);
 	gameEngine->addSpriteComponent(wizard, "../TestTextures/wizard_idle.png", {64,64}, 1.0f);
 	Collider* wizardCollider = gameEngine->addColliderComponent(wizard, { 0, 0 }, { 64, 64 }, false);
@@ -282,9 +311,9 @@ void Game::initWinterScene() {
 	gameEngine->addAnimation(player, STATES::WALK_UP, 6, 100, "../TestTextures/char_walk_up.png");
 	gameEngine->addAnimation(player, STATES::IDLE_DOWN, 5, 160, "../TestTextures/char_idle_down.png");
 	gameEngine->addAnimation(player, STATES::WALK_DOWN, 6, 100, "../TestTextures/char_walk_down.png");
-	gameEngine->addAnimation(player, STATES::ATK_SIDE, 3, 200, "../TestTextures/char_atk_side.png");
-	gameEngine->addAnimation(player, STATES::ATK_DOWN, 3, 200, "../TestTextures/char_atk_down.png");
-	gameEngine->addAnimation(player, STATES::ATK_UP, 3, 200, "../TestTextures/char_atk_up.png");
+	gameEngine->addAnimation(player, STATES::ATK_SIDE, 3, 180, "../TestTextures/char_atk_side.png");
+	gameEngine->addAnimation(player, STATES::ATK_DOWN, 3, 180, "../TestTextures/char_atk_down.png");
+	gameEngine->addAnimation(player, STATES::ATK_UP, 3, 180, "../TestTextures/char_atk_up.png");
 
 	playerAnimator->markAnimationInterruptible(STATES::ATK_SIDE);
 	playerAnimator->markAnimationInterruptible(STATES::ATK_DOWN);
@@ -416,7 +445,8 @@ void Game::initGameplayUI(UIManager* uiManager) {
 
 void Game::init() {
 	gameEngine = new GameEngine();
-	gameEngine->init(60, "Projects of Bach'e Lor", 1280, 720);
+	gameEngine->init(60, "Demo Game", 1280, 720);
+	//gameEngine->init(60, "Projects of Bach'e Lor", 1920, 1080);
 	this->uiManager = this->gameEngine->getUIManager();
 	this->inputManager = this->gameEngine->getInputManager();
 

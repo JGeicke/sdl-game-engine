@@ -171,7 +171,7 @@ void PhysicSystem::controlAnimationStates(Entity e, Vector2* direction, bool che
 			}
 		}
 		else if (checkMouseInput && inputManager->getMouseButton() == SDL_BUTTON_LEFT) {
-			// TODO: have attack colliders 
+			// TODO: Missing: have attack colliders 
 			// attack
 			switch (state) {
 				case STATES::WALK_DOWN:
@@ -209,9 +209,11 @@ void PhysicSystem::controlAnimationStates(Entity e, Vector2* direction, bool che
 			}
 			else {
 				if (direction->y > 0) {
+					spriteComponent->setTextureFlip(SDL_FLIP_NONE);
 					animatorComponent->setState(STATES::WALK_DOWN);
 				}
 				else {
+					spriteComponent->setTextureFlip(SDL_FLIP_NONE);
 					animatorComponent->setState(STATES::WALK_UP);
 				}
 			}
