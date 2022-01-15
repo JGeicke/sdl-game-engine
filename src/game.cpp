@@ -400,7 +400,7 @@ void Game::initStartScene() {
 	Entity bg = gameEngine->addEntity("", false, { (int)((gameWindowWidth/2)/gameEngine->getCameraZoomFactorX()), (int)((gameWindowHeight/2) / gameEngine->getCameraZoomFactorY()) });
 	gameEngine->addSpriteComponent(bg, "../TestTextures/BG.png", { 1800,893 }, 1.0f);
 
-	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2)-180, "Test Game Title", white, fontIndex);
+	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2)-180, "Test Game Title", grey, fontIndex);
 	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2), "Start Game", white, grey, 0, { 10,5 }, buttonHover));
 	startButton->onClick(&startGameWrapper);
 	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2)+65, "Quit", white, grey, 0, { 63,5 }, buttonHover));
@@ -445,8 +445,8 @@ void Game::initGameplayUI(UIManager* uiManager) {
 
 void Game::init() {
 	gameEngine = new GameEngine();
-	gameEngine->init(60, "Demo Game", 1920, 1080, 1280, 720);
-	//gameEngine->init(60, "Demo Game", 1280, 720, 1280, 720);
+	//gameEngine->init(60, "Demo Game", 1920, 1080, 1280, 720);
+	gameEngine->init(60, "Demo Game", 1280, 720, 1280, 720);
 	this->uiManager = this->gameEngine->getUIManager();
 	this->inputManager = this->gameEngine->getInputManager();
 

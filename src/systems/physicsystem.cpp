@@ -324,7 +324,7 @@ void PhysicSystem::handleEnemyMovement() {
 			if (targetPosition != nullptr) {
 				Node* newDest = this->getCurrentNode(targetPosition);
 
-				if (calculateHCost(curr, newDest) <= currentComponent->getMaxDistance()) {
+				if (calculateHCost(curr, newDest) <= currentComponent->getMaxDistance()*((cameraZoomX+cameraZoomY)/2.0)) {
 					if (newDest != nullptr) {
 						currentComponent->setDestination(newDest);
 						currentComponent->flag(true);

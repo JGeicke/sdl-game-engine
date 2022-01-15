@@ -429,7 +429,6 @@ private:
 	RenderSystem* renderSystem = nullptr;
 	PhysicSystem* physicSystem = nullptr;
 	AudioSystem* audioSystem = nullptr;
-	HealthSystem* healthSystem = nullptr;
 
 	// Component managers
 	ComponentManager<Sprite>* spriteManager =  nullptr;

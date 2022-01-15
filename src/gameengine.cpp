@@ -49,7 +49,6 @@ void GameEngine::run() {
 		if (inputManager->interrupted) break;
 
 		physicSystem->update();
-		healthSystem->update();
 		uiManager->update();
 
 		collectObjects();
@@ -725,8 +724,6 @@ void GameEngine::initSystems(int cameraWidth, int cameraHeight) {
 
 	this->audioSystem = new AudioSystem(audioManager);
 	this->audioSystem->init();
-
-	this->healthSystem = new HealthSystem(healthManager);
 }
 #pragma endregion Initialization
 #pragma region Scene

@@ -63,9 +63,6 @@
     <ClCompile Include="src\game.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\systems\healthsystem.cpp">
-      <Filter>Quelldateien\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="src\util\objectpool.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
@@ -154,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="src\components\health.h">
       <Filter>Headerdateien\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\systems\healthsystem.h">
-      <Filter>Headerdateien\Systems</Filter>
     </ClInclude>
     <ClInclude Include="src\entitymanager.h">
       <Filter>Headerdateien\Managers</Filter>
