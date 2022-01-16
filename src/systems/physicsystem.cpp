@@ -52,9 +52,9 @@ void PhysicSystem::initGrid(int row, int col, SDL_Point tileSize, int tilesPerRo
 	}
 
 	nodes = new Node[row*col];
-	for (size_t x = 0; x < row; x++)
+	for (int x = 0; x < row; x++)
 	{
-		for (size_t y = 0; y < col; y++)
+		for (int y = 0; y < col; y++)
 		{
 			nodes[y * row + x].x = x;
 			nodes[y * row + x].y = y;
@@ -292,17 +292,29 @@ void PhysicSystem::handleEnemyMovement() {
 				Node* curr = this->getCurrentNode(currPos);
 
 				if (curr != nullptr) {
-					currentComponent->setRoute(this->aStar(curr, currentComponent->getDestination()));
+					currentComponent->setRoute(this->aStar(currentComponent->getEntity(),curr, currentComponent->getDestination()));
 				}
 			}
 			//move
 			if (currentComponent->arrivedAtNextNode(currPos->x() / tileWidth, currPos->y() / tileHeight)) {
 				currentComponent->setNextNode();
+
+				// is next node currently an obstacle (e.g. there is a collider)
+				if (currentComponent->getNextNode()->obstacle && currentComponent->getNextNode() != currentComponent->getDestination()) {
+					currentComponent->flag(true);
+					continue;
+				}
 			}
 
 			// check if there is another node to traverse to.
 			if (currentComponent->hasNextNode()) {
 				Node* currentTarget = currentComponent->getNextNode();
+
+				// is target node currently an obstacle (e.g. there is a collider)
+				if (currentTarget->obstacle) {
+					currentComponent->flag(true);
+					continue;
+				}
 				direction.x = (currentTarget->x * tileWidth + tileWidth / 2) - currPos->x();
 				direction.y = (currentTarget->y * tileHeight + tileHeight / 2) - currPos->y();
 
@@ -510,11 +522,12 @@ float PhysicSystem::calculateHCost(Node* pos, Node* dest) {
 
 /**
 * @brief Calculates the path from the start node to the destination node using the a* algorithm.
+* @param e - Entity to calculate path for.
 * @param start - Startnode.
 * @param dest - Destinationnode.
 * @return Path from the start node to the destination node.
 */
-std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
+std::vector<Node*> PhysicSystem::aStar(Entity e, Node* start, Node* dest) {
 	// reset nodes
 	for (size_t x = 0; x < row; x++)
 	{
@@ -528,7 +541,7 @@ std::vector<Node*> PhysicSystem::aStar(Node* start, Node* dest) {
 		}
 	}
 
-	this->markNodesAsObstacles();
+	this->markNodesAsObstacles(e);
 
 	Node* current = start;
 	start->gcost = 0.0f;
@@ -624,13 +637,17 @@ Node* PhysicSystem::getCurrentNode(SDL_Point pos) {
 
 /**
 * @brief Marks nodes as obstacle when the match the collider positions.
+* @param e - Entity to mark the obstacles for
 */
-void PhysicSystem::markNodesAsObstacles() {
+void PhysicSystem::markNodesAsObstacles(Entity e) {
 	size_t componentCount = colliderManager->getComponentCount();
 
 	for (size_t i = 0; i < componentCount; i++)
 	{
 		Collider* collider = colliderManager->getComponentWithIndex(i);
+
+		// skip self
+		if (collider->getEntity().uid == e.uid) continue;
 
 		if (collider->isActive() && !collider->isTrigger()) {
 			Position* pos = positionManager->getComponent(collider->getEntity());
@@ -640,50 +657,85 @@ void PhysicSystem::markNodesAsObstacles() {
 			int colX = size->x / tileWidth;
 			int colY = size->y / tileHeight;
 
-			SDL_Point position = { pos->x() - (size->x / 2),  pos->y() - (size->y / 2) };
-			Node* colNode = nullptr;
+			SDL_Point position = { 0,0 };
 
-			if (colX > 0 && colY > 0) {
-				// collider bigger or equal to a tile
-				for (int x = 0; x < colX; x++)
-				{
-					for (int y = 0; y < colY; y++)
-					{
-						colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y + y * tileHeight });
-						if (colNode != nullptr) {
-							colNode->obstacle = true;
-						}
-					}
-				}
-			}
-			else if (colX > 0) {
-				// collider height smaller than a tile
-				for (int x = 0; x < colX; x++)
-				{
-					colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y});
-					if (colNode != nullptr) {
-						colNode->obstacle = true;
-					}
-				}
-			}
-			else if (colY > 0) {
-				// collider width smaller than a tile
-				for (int y = 0; y < colY; y++)
-				{
-					colNode = this->getCurrentNode({ position.x, position.y + y * tileHeight });
-					if (colNode != nullptr) {
-						colNode->obstacle = true;
-					}
+			// handle moving unit 
+			if (enemyMovementManager->hasComponent(collider->getEntity())) {
+				if (colX == 1 && colY == 1) {
+					// collider equal to a tile
+					Node* node = nullptr;
+
+					//check corners
+					// top-left
+					position = { pos->x() - (size->x / 2),  pos->y() - (size->y / 2) };
+					node = this->getCurrentNode(position);
+					this->markNodeAsObstacle(node);
+
+					// top-right
+					position = { pos->x() + (size->x / 2),  pos->y() - (size->y / 2) };
+					node = this->getCurrentNode(position);
+					this->markNodeAsObstacle(node);
+
+					// bottom-left
+					position = { pos->x() - (size->x / 2),  pos->y() + (size->y / 2) };
+					node = this->getCurrentNode(position);
+					this->markNodeAsObstacle(node);
+
+					// bottom-right
+					position = { pos->x() + (size->x / 2),  pos->y() + (size->y / 2) };
+					node = this->getCurrentNode(position);
+					this->markNodeAsObstacle(node);
+
 				}
 			}
 			else {
-				// collider smaller than a tile
-				colNode = this->getCurrentNode({ position.x, position.y });
-				if (colNode != nullptr) {
-					colNode->obstacle = true;
+				position = { pos->x() - (size->x / 2),  pos->y() - (size->y / 2) };
+				Node* colNode = nullptr;
+
+				if (colX > 0 && colY > 0) {
+					// collider bigger or equal to a tile
+					for (int x = 0; x < colX; x++)
+					{
+						for (int y = 0; y < colY; y++)
+						{
+							colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y + y * tileHeight });
+							this->markNodeAsObstacle(colNode);
+						}
+					}
+				}
+				else if (colX > 0) {
+					// collider height smaller than a tile
+					for (int x = 0; x < colX; x++)
+					{
+						colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y });
+						this->markNodeAsObstacle(colNode);
+					}
+				}
+				else if (colY > 0) {
+					// collider width smaller than a tile
+					for (int y = 0; y < colY; y++)
+					{
+						colNode = this->getCurrentNode({ position.x, position.y + y * tileHeight });
+						this->markNodeAsObstacle(colNode);
+					}
+				}
+				else {
+					// collider smaller than a tile
+					colNode = this->getCurrentNode({ position.x, position.y });
+					this->markNodeAsObstacle(colNode);
 				}
 			}
 		}
+	}
+}
+
+/**
+* @brief Marks node as obstacle.
+* @param node - Node to mark as obstacle.
+*/
+void PhysicSystem::markNodeAsObstacle(Node* node) {
+	if (node != nullptr) {
+		node->obstacle = true;
 	}
 }
 #pragma endregion AStar

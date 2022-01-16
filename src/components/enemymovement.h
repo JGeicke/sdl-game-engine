@@ -102,7 +102,7 @@ public:
 	 * @brief Resets the component.
 	*/
 	void resetComponent() {
-		currentTimer = 0;
+		this->resetCurrentTimer();
 		this->resetTarget();
 		this->setDestination(nullptr);
 		this->onReachingDestination(nullptr);
@@ -170,6 +170,13 @@ public:
 	}
 
 	/**
+	 * @brief Resets the current timer.
+	*/
+	void resetCurrentTimer() {
+		this->currentTimer = 0;
+	}
+
+	/**
 	 * @brief Flags the enemy movement component for pathfinding.
 	 * @param flag - Whether the physic system should calculate a new path for the enemy movement component.
 	*/
@@ -216,6 +223,8 @@ public:
 	*/
 	void setNextNode() {
 		if (nextNodeIndex > 0) {
+			// set current node as obstacle
+			route[nextNodeIndex]->obstacle = true;
 			nextNodeIndex -= 1;
 		}
 		else {
