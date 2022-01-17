@@ -81,5 +81,6 @@ private:
 	size_t settingPanel = 0;
 	size_t settingButton = 0;
 
+	bool hasSettings = false;
 	bool isSettingsOpen = false;
 };

@@ -105,6 +105,8 @@ void Game::setMusicVolume(float vol) {
 }
 
 void Game::toggleSettings() {
+	if (!hasSettings) return;
+
 	isSettingsOpen = !isSettingsOpen;
 
 	for (size_t i = 0; i < settingSliders.size(); i++)
@@ -422,6 +424,7 @@ void Game::restartGame() {
 }
 
 void Game::gameOver() {
+	hasSettings = false;
 	// clear start ui
 	this->uiManager->clearUI();
 
@@ -431,6 +434,7 @@ void Game::gameOver() {
 }
 
 void Game::wonGame() {
+	hasSettings = false;
 	// clear start ui
 	this->uiManager->clearUI();
 
@@ -499,6 +503,7 @@ void Game::initGameplayUI(UIManager* uiManager) {
 
 	// Create setting ui elements
 	this->isSettingsOpen = true;
+	this->hasSettings = true;
 
 	this->settingPanel = uiManager->addPanel((int)this->gameEngine->getGameWindowWidth() / 2 - 125, (int)this->gameEngine->getGameWindowHeight() / 2 - 160, 250, 370, grey);
 
@@ -525,6 +530,8 @@ void Game::initGameplayUI(UIManager* uiManager) {
 	uiManager->getSlider(musicSliderIndex)->onValueChanged(&setMusicVolumeWrapper);
 	uiManager->getSlider(masterSliderIndex)->onValueChanged(&setMasterVolumeWrapper);
 	uiManager->getSlider(soundSliderIndex)->onValueChanged(&setSoundVolumeWrapper);
+
+	uiManager->getButton(this->settingButton)->onClick(&toggleSettingsWrapper);
 
 	// hide settings ui
 	this->toggleSettings();
