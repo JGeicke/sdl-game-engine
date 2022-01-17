@@ -300,7 +300,7 @@ void PhysicSystem::handleEnemyMovement() {
 				currentComponent->setNextNode();
 
 				// is next node currently an obstacle (e.g. there is a collider)
-				if (currentComponent->getNextNode()->obstacle && currentComponent->getNextNode() != currentComponent->getDestination()) {
+				if (currentComponent->hasNextNode() && currentComponent->getNextNode()->obstacle && currentComponent->getNextNode() != currentComponent->getDestination()) {
 					currentComponent->flag(true);
 					continue;
 				}

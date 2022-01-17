@@ -311,7 +311,7 @@ void Game::addEnemyWizard(SDL_Point pos, int health) {
 	gameEngine->addAnimation(wizard, STATES::IDLE_DOWN, 10, 150, "../TestTextures/wizard_idle.png");
 	gameEngine->addAnimation(wizard, STATES::WALK_DOWN, 10, 150, "../TestTextures/wizard_idle.png");
 
-	gameEngine->addEnemyMovementComponent(wizard, 4.0f);
+	gameEngine->addEnemyMovementComponent(wizard, 2.0f);
 
 	Health* healthComponent = gameEngine->addHealthComponent(wizard, health);
 	healthComponent->onZeroHealth(&onWizardDeathWrapper);
