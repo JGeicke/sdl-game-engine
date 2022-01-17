@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include <iostream>
+#include <map>
 #include "util/vector2.h"
 
 /**
@@ -81,6 +82,13 @@ public:
 	 * @return Whether the process was successful.
 	*/
 	bool addActionHandler(int keyCode, actionHandler handler);
+
+	/**
+	 * @brief Binds a function to a key code.
+	 * @param keyCode - Key code of key that triggers the event.
+	 * @param handler - Handler function.
+	*/
+	void bindKey(int keyCode, actionHandler handler);
 private:
 	/**
 	 * @brief Current direction based on keydown events. Base direction is (0,0).
@@ -113,7 +121,18 @@ private:
 	actionHandler lmbHandler = nullptr;
 
 	/**
+	 * @brief Keybinds.
+	*/
+	std::map<int, actionHandler> keybinds;
+
+	/**
 	 * @brief Sets the current mouse position.
 	*/
 	void setCurrentMousePosition();
+
+	/**
+	 * @brief Checks if keycode is binded.
+	 * @param keyCode - Keycode to check
+	*/
+	void checkKeybind(int keyCode);
 };

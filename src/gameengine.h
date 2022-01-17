@@ -410,6 +410,48 @@ public:
 	float getCameraZoomFactorY() {
 		return this->renderSystem->getCameraZoomFactorY();
 	}
+
+	/**
+	 * @brief Sets the master volume of the audio system.
+	 * @param newMasterVolume - New master volume.
+	*/
+	void setMasterVolume(float newMasterVolume) {
+		audioSystem->setMasterVolume(newMasterVolume);
+	}
+
+	/**
+	 * @brief Sets the sound volume of the audio system.
+	 * @param newSoundVolume - New sound volume.
+	*/
+	void setSoundVolume(float newSoundVolume) {
+		audioSystem->setSoundVolume(newSoundVolume);
+	}
+
+	/**
+	 * @brief Sets the music volume of the audio system.
+	 * @param newMusicVolume - New music volume.
+	*/
+	void setMusicVolume(float newMusicVolume) {
+		audioSystem->setMusicVolume(newMusicVolume);
+	}
+
+	/**
+	 * @brief Gets the current master volume of the audio system.
+	 * @return The current master volume.
+	*/
+	float getMasterVolume() { return audioSystem->getMasterVolume(); }
+
+	/**
+	 * @brief Gets the current music volume of the audio system.
+	 * @return The current music volume.
+	*/
+	float getMusicVolume() { return audioSystem->getMusicVolume(); }
+
+	/**
+	 * @brief Gets the current sound volume of the audio system.
+	 * @return The current sound volume.
+	*/
+	float getSoundVolume() { return audioSystem->getSoundVolume(); }
 private:
 	/**
 	 * @brief Delay between frames.

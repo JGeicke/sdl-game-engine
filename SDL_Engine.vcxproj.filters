@@ -176,5 +176,8 @@
     <ClInclude Include="src\util\vector2.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\ui\slider.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

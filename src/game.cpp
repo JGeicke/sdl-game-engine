@@ -71,9 +71,59 @@ void initGameOverSceneWrapper() {
 	game->initGameOverScene();
 }
 
+void toggleSettingsWrapper() {
+	game->toggleSettings();
+}
+
 
 void spawnPlayerProjectileWrapper() {
 	game->spawnPlayerProjectile();
+}
+
+void setMasterVolumeWrapper(float vol) {
+	game->setMasterVolume(vol);
+}
+
+void setMusicVolumeWrapper(float vol) {
+	game->setMusicVolume(vol);
+}
+
+void setSoundVolumeWrapper(float vol) {
+	game->setSoundVolume(vol);
+}
+
+void Game::setMasterVolume(float vol) {
+	this->gameEngine->setMasterVolume(vol);
+}
+
+void Game::setSoundVolume(float vol) {
+	this->gameEngine->setSoundVolume(vol);
+}
+
+void Game::setMusicVolume(float vol) {
+	this->gameEngine->setMusicVolume(vol);
+}
+
+void Game::toggleSettings() {
+	isSettingsOpen = !isSettingsOpen;
+
+	for (size_t i = 0; i < settingSliders.size(); i++)
+	{
+		Slider* nextSlider = uiManager->getSlider(i);
+		nextSlider->show(!nextSlider->isVisible());
+	}
+
+	for (size_t i = 0; i < settingLabels.size(); i++)
+	{
+		Label* nextLabel = uiManager->getLabel(i);
+		nextLabel->show(!nextLabel->isVisible());
+	}
+
+	Panel* p = uiManager->getPanel(settingPanel);
+	p->show(!p->isVisible());
+
+	Button* b = uiManager->getButton(settingButton);
+	b->show(!b->isVisible());
 }
 
 void Game::onBossRoomEnter(Collider* a, Collider* b) {
@@ -211,6 +261,9 @@ void Game::spawnBossProjectiles() {
 }
 
 void Game::spawnPlayerProjectile() {
+	//disable when setting open
+	if (isSettingsOpen) return;
+
 	Position* playerPosition = gameEngine->getPositionComponent(this->player);
 	if (playerPosition != nullptr) {
 		Entity e = this->gameEngine->createProjectile("../TestTextures/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 5.0f, true);
@@ -434,13 +487,50 @@ void Game::initWinningScene() {
 void Game::initGameplayUI(UIManager* uiManager) {
 	// UI
 	SDL_Color grey = { 48,48,48 };
+	SDL_Color lightGrey = { 89,89,89 };
 	SDL_Color textColor = { 255,255,255 };
-	SDL_Color buttonHover = { 255,192,203 };
+	SDL_Color slider = { 77,77,77 };
+	SDL_Color buttonHover = {106,106,106};
 	size_t fontIndex = 0;
-	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 26 });
+	size_t smallFont = uiManager->addFont("../TestTextures/Fonts/arial.ttf", 22);
+	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 22 });
 	uiManager->getProgressBar(progIndex)->setProgress(0.4f);
-
 	this->hpBarIndex = progIndex;
+
+	// Create setting ui elements
+	this->isSettingsOpen = true;
+
+	this->settingPanel = uiManager->addPanel((int)this->gameEngine->getGameWindowWidth() / 2 - 125, (int)this->gameEngine->getGameWindowHeight() / 2 - 160, 250, 370, grey);
+
+	size_t labelIndex = uiManager->addLabel((int)this->gameEngine->getGameWindowWidth() / 2, (int)this->gameEngine->getGameWindowHeight() / 2 - 130, "Settings", textColor, fontIndex);
+	this->settingLabels.push_back(labelIndex);
+
+	size_t labelIndex2 = uiManager->addLabel((int)this->gameEngine->getGameWindowWidth() / 2, (int)this->gameEngine->getGameWindowHeight() / 2 - 80, "Master Volume", textColor, smallFont);
+	this->settingLabels.push_back(labelIndex2);
+	size_t masterSliderIndex = uiManager->addSlider({ (int)this->gameEngine->getGameWindowWidth() / 2 - 100, (int)this->gameEngine->getGameWindowHeight() / 2 - 60, 200, 30 }, lightGrey, slider, gameEngine->getMasterVolume());
+	this->settingSliders.push_back(masterSliderIndex);
+
+	size_t labelIndex3 = uiManager->addLabel((int)this->gameEngine->getGameWindowWidth() / 2, (int)this->gameEngine->getGameWindowHeight() / 2 - 10, "Music Volume", textColor, smallFont);
+	this->settingLabels.push_back(labelIndex3);
+	size_t musicSliderIndex = uiManager->addSlider({ (int)this->gameEngine->getGameWindowWidth() / 2 - 100, (int)this->gameEngine->getGameWindowHeight() / 2+10, 200, 30 }, lightGrey, slider, gameEngine->getMusicVolume());
+	this->settingSliders.push_back(musicSliderIndex);
+
+	size_t labelIndex4 = uiManager->addLabel((int)this->gameEngine->getGameWindowWidth() / 2, (int)this->gameEngine->getGameWindowHeight() / 2 + 60, "Sound Volume", textColor, smallFont);
+	this->settingLabels.push_back(labelIndex4);
+	size_t soundSliderIndex = uiManager->addSlider({ (int)this->gameEngine->getGameWindowWidth() / 2 - 100, (int)this->gameEngine->getGameWindowHeight() / 2+80, 200, 30 }, lightGrey, slider, gameEngine->getSoundVolume());
+	this->settingSliders.push_back(soundSliderIndex);
+
+	this->settingButton = uiManager->addButton((int)this->gameEngine->getGameWindowWidth() / 2, (int)this->gameEngine->getGameWindowHeight() / 2 + 160, "Okay", textColor, lightGrey, smallFont, { 48,5 }, buttonHover);
+
+	uiManager->getSlider(musicSliderIndex)->onValueChanged(&setMusicVolumeWrapper);
+	uiManager->getSlider(masterSliderIndex)->onValueChanged(&setMasterVolumeWrapper);
+	uiManager->getSlider(soundSliderIndex)->onValueChanged(&setSoundVolumeWrapper);
+
+	// hide settings ui
+	this->toggleSettings();
+
+	// add keybind
+	this->inputManager->bindKey(SDLK_ESCAPE, &toggleSettingsWrapper);
 }
 
 void Game::init() {

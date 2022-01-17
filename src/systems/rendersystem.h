@@ -270,6 +270,11 @@ private:
 	void renderProgressBars();
 
 	/**
+	 * @brief Renders all the sliders of the ui.
+	*/
+	void renderSliders();
+
+	/**
 	 * @brief Renders all the buttons of the ui.
 	*/
 	void renderButtons();

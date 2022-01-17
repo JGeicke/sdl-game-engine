@@ -56,6 +56,7 @@ public:
 	*/
 	void setMasterVolume(float newMasterVolume) {
 		masterVolume = newMasterVolume;
+		Mix_VolumeMusic((int)(MIX_MAX_VOLUME * (masterVolume * musicVolume)));
 	}
 
 	/**
@@ -72,7 +73,26 @@ public:
 	*/
 	void setMusicVolume(float newMusicVolume) {
 		musicVolume = newMusicVolume;
+		Mix_VolumeMusic((int)(MIX_MAX_VOLUME * (masterVolume * musicVolume)));
 	}
+
+	/**
+	 * @brief Gets the current master volume.
+	 * @return The current master volume.
+	*/
+	float getMasterVolume() { return masterVolume; }
+
+	/**
+	 * @brief Gets the current music volume.
+	 * @return The current music volume.
+	*/
+	float getMusicVolume() { return musicVolume; }
+
+	/**
+	 * @brief Gets the current sound volume.
+	 * @return The current sound volume.
+	*/
+	float getSoundVolume() { return soundVolume; }
 private:
 	/**
 	 * @brief Pointer to the audio manager to access the audio components.

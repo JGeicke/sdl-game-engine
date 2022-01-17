@@ -31,6 +31,14 @@ public:
 
 	void addEnemyWizard(SDL_Point pos, int health);
 
+	void setMasterVolume(float vol);
+
+	void setSoundVolume(float vol);
+
+	void setMusicVolume(float vol);
+
+	void toggleSettings();
+
 	void initWinterScene();
 
 	void initWinterEndScene();
@@ -67,4 +75,11 @@ private:
 	size_t bossDestinationIndex = 0;
 
 	size_t enemyCount = 0;
+
+	std::vector<size_t> settingSliders = {};
+	std::vector<size_t> settingLabels = {};
+	size_t settingPanel = 0;
+	size_t settingButton = 0;
+
+	bool isSettingsOpen = false;
 };

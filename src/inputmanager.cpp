@@ -54,6 +54,7 @@ void InputManager::checkForEvent() {
 				direction.x = 1;
 				break;
 			default:
+				checkKeybind(inputEvent.key.keysym.sym);
 				break;
 			}
 			break;
@@ -155,5 +156,24 @@ bool InputManager::addActionHandler(int keyCode, actionHandler handler) {
 		return true;
 	default:
 		return false;
+	}
+}
+
+/**
+* @brief Binds a function to a key code.
+* @param keyCode - Key code of key that triggers the event.
+* @param handler - Handler function.
+*/
+void InputManager::bindKey(int keyCode, actionHandler handler) {
+	this->keybinds[keyCode] = handler;
+}
+
+/**
+* @brief Checks if keycode is binded.
+* @param keyCode - Keycode to check
+*/
+void InputManager::checkKeybind(int keyCode) {
+	if (this->keybinds.count(keyCode) > 0) {
+		this->keybinds[keyCode]();
 	}
 }

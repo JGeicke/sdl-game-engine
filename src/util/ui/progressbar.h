@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "../fileloader.h"
+#include "uielement.h"
 /**
 * @brief Struct that represents ui progressbars.
 */

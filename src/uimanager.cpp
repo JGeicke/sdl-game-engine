@@ -13,6 +13,7 @@ UIManager::UIManager(SDL_Renderer* renderer, InputManager* inputManager) {
     currentPanelIndex = 0;
     currentProgressBarIndex = 0;
     currentButtonIndex = 0;
+    currentSliderIndex = 0;
 }
 
 /**
@@ -30,6 +31,7 @@ UIManager::~UIManager() {
 */
 void UIManager::update() {
     checkButtons();
+    checkSliders();
 }
 
 /**
@@ -61,6 +63,7 @@ void UIManager::clearUI() {
     currentButtonIndex = 0;
     currentPanelIndex = 0;
     currentProgressBarIndex = 0;
+    currentSliderIndex = 0;
 }
 
 #pragma region Label
@@ -180,7 +183,7 @@ size_t UIManager::addProgressBar(int x, int y, int w, int h, SDL_Color bgColor, 
 */
 size_t UIManager::addButton(int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor){
     if (currentButtonIndex == 32) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore progress bars.", NULL);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore buttons.", NULL);
     }else if (fontIndex < currentFontIndex) {
         uiButtons[currentButtonIndex] = *(new Button(renderer,x,y,buttonText, buttonTextColor, buttonBGColor, fonts[fontIndex], borderWidth, hoverColor));
         return currentButtonIndex++;
@@ -203,7 +206,7 @@ size_t UIManager::addButton(int x, int y, std::string buttonText, SDL_Color butt
 */
 size_t UIManager::addButton(const char* panelFilePath, int x, int y, std::string buttonText, SDL_Color buttonTextColor, SDL_Color buttonBGColor, size_t fontIndex, SDL_Point borderWidth, SDL_Color hoverColor) {
     if (currentButtonIndex == 32) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore progress bars.", NULL);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore buttons.", NULL);
     }else if (fontIndex < currentFontIndex) {
         uiButtons[currentButtonIndex] = *(new Button(renderer, panelFilePath, x, y, buttonText, buttonTextColor, buttonBGColor, fonts[fontIndex], borderWidth, hoverColor));
         return currentButtonIndex++;
@@ -236,3 +239,44 @@ void UIManager::checkButtons() {
     }
 }
 #pragma endregion Button
+#pragma region Sliders
+/**
+* @brief Adds slider to the ui.
+* @param background - Position and size of the background panel.
+* @param bgColor - Background color.
+* @param sliderKnobColor - Color of the slider knob.
+* @param currentVal - Current slider value.
+* @return Index of the slider.
+*/
+size_t UIManager::addSlider(SDL_Rect background, SDL_Color bgColor, SDL_Color sliderKnobColor, float currentVal) {
+    if (currentSliderIndex == 32) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't create anymore sliders.", NULL);
+        return SIZE_MAX;
+    }
+    uiSliders[currentSliderIndex] = *(new Slider(renderer, background, bgColor, sliderKnobColor, currentVal));
+    return currentSliderIndex++;
+}
+
+/**
+* @brief Checks if any sliders are clicked.
+*/
+void UIManager::checkSliders() {
+    SDL_Point mousePosition = { 0,0 };
+    for (size_t i = 0; i < currentSliderIndex; i++) {
+        Slider* nextSlider = getSlider(i);
+        if (nextSlider->isVisible()) {
+            SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
+            SDL_Rect* sliderBGPosition = nextSlider->getBackgroundPosition();
+
+            if (SDL_PointInRect(&mousePosition,sliderBGPosition) == SDL_TRUE) {
+                if (inputManager->getMouseButton() == SDL_BUTTON_LEFT) {
+                    int offset = mousePosition.x - sliderBGPosition->x;
+                    float val = (float)offset / nextSlider->getBackgroundWidth();
+                    float newSliderValue = std::roundf(val*100) / 100;
+                    nextSlider->setSliderValue(newSliderValue);
+                }
+            }
+        }
+    }
+}
+#pragma endregion Sliders

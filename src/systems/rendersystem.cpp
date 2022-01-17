@@ -115,6 +115,7 @@ void RenderSystem::renderUI(){
 	renderPanels();
 	renderButtons();
 	renderProgressBars();
+	renderSliders();
 	renderLabels();
 }
 
@@ -154,6 +155,21 @@ void RenderSystem::renderProgressBars(){
 		if (nextProgressBar->isVisible()) {
 			SDL_RenderCopy(renderer, nextProgressBar->getBackgroundTexture(), NULL, nextProgressBar->getBackgroundPosition());
 			SDL_RenderCopy(renderer, nextProgressBar->getProgressTexture(), NULL, nextProgressBar->getProgressPosition());
+		}
+	}
+}
+
+/**
+* @brief Renders all the sliders of the ui.
+*/
+void RenderSystem::renderSliders() {
+	size_t sliderCount = uiManager->getCurrentSliderIndex();
+	for (size_t i = 0; i < sliderCount; i++)
+	{
+		Slider* nextSlider = uiManager->getSlider(i);
+		if (nextSlider->isVisible()) {
+			SDL_RenderCopy(renderer, nextSlider->getBackgroundPanelTexture(), NULL, nextSlider->getBackgroundPosition());
+			SDL_RenderCopy(renderer, nextSlider->getSliderKnobPanelTexture(), NULL, nextSlider->getSliderKnobPosition());
 		}
 	}
 }

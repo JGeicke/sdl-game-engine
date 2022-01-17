@@ -14,10 +14,10 @@ public:
 
 	/**
 	 * @brief Sets the visibility of the ui element.
-	 * @param showPanel - Whether the ui element is visible.
+	 * @param show - Whether the ui element is visible.
 	*/
-	void show(bool showPanel) {
-		visible = showPanel;
+	void show(bool show) {
+		visible = show;
 	}
 private:
 	/**

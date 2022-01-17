@@ -123,8 +123,8 @@ void PhysicSystem::handlePlayerMovement() {
 		
 		if (animatorComponent->getState() < STATES::ATK_SIDE && inputManager->getDirectionMagnitude() > 0.0) {
 			// moving
-			float newX = (inputManager->getNormalizedDirectionX() * (this->playerMovement->getMovementSpeed()*cameraZoomX));
-			float newY = (inputManager->getNormalizedDirectionY() * (this->playerMovement->getMovementSpeed()*cameraZoomY));
+			float newX = (inputManager->getNormalizedDirectionX() * ((int)this->playerMovement->getMovementSpeed()*cameraZoomX));
+			float newY = (inputManager->getNormalizedDirectionY() * ((int)this->playerMovement->getMovementSpeed()*cameraZoomY));
 			positionComponent->movePosition(newX, newY);
 		}
 

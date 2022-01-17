@@ -1,10 +1,13 @@
 #pragma once
 #include "SDL_ttf.h"
 #include "SDL.h"
+#include <cmath>
+
 #include "util/ui/label.h"
 #include "util/ui/panel.h"
 #include "util/ui/progressbar.h"
 #include "util/ui/button.h"
+#include "util/ui/slider.h"
 #include "inputmanager.h"
 
 /**
@@ -198,6 +201,38 @@ public:
 	}
 
 	/**
+	 * @brief Adds slider to the ui.
+	 * @param background - Position and size of the background panel.
+	 * @param bgColor - Background color.
+	 * @param sliderKnobColor - Color of the slider knob.
+	 * @param currentVal - Current slider value.
+	 * @return Index of the slider.
+	*/
+	size_t addSlider(SDL_Rect background, SDL_Color bgColor, SDL_Color sliderKnobColor, float currentVal);
+
+	/**
+	 * @brief Gets the slider.
+	 * @param sliderIndex - Index of slider.
+	 * @return Pointer to slider.
+	*/
+	Slider* getSlider(size_t sliderIndex) {
+		if (sliderIndex < currentSliderIndex) {
+			return &uiSliders[sliderIndex];
+		}
+		else {
+			return nullptr;
+		}
+	}
+
+	/**
+	 * @brief Gets current slider index.
+	 * @return Current slider index.
+	*/
+	size_t getCurrentSliderIndex() {
+		return currentSliderIndex;
+	}
+
+	/**
 	 * @brief Clears every ui element present.
 	*/
 	void clearUI();
@@ -257,7 +292,21 @@ private:
 	size_t currentButtonIndex;
 
 	/**
+	 * @brief Array of created ui sliders.
+	*/
+	Slider uiSliders[32];
+	/**
+	 * @brief Current slider count.
+	*/
+	size_t currentSliderIndex;
+
+	/**
 	 * @brief Checks if any buttons are hovered or clicked.
 	*/
 	void checkButtons();
+
+	/**
+	 * @brief Checks if any sliders are clicked.
+	*/
+	void checkSliders();
 };
