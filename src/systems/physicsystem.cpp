@@ -51,7 +51,7 @@ void PhysicSystem::initGrid(int row, int col, SDL_Point tileSize, int tilesPerRo
 		return;
 	}
 
-	nodes = new Node[row*col];
+	nodes = new Node[this->row*this->col];
 	for (int x = 0; x < row; x++)
 	{
 		for (int y = 0; y < col; y++)
@@ -65,9 +65,9 @@ void PhysicSystem::initGrid(int row, int col, SDL_Point tileSize, int tilesPerRo
 	}
 
 	// determine neighbours
-	for (size_t x = 0; x < row; x++)
+	for (int x = 0; x < row; x++)
 	{
-		for (size_t y = 0; y < col; y++)
+		for (int y = 0; y < col; y++)
 		{
 			// left
 			if (x > 0) {

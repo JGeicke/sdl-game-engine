@@ -28,7 +28,7 @@ public:
 	 * @brief Gets the projectile speed.
 	 * @return Projectile speed.
 	*/
-	unsigned int getProjectileSpeed() {
+	float getProjectileSpeed() {
 		return projectileSpeed;
 	}
 

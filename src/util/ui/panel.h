@@ -4,7 +4,7 @@
 #include "../fileloader.h"
 #include "uielement.h"
 /**
-* @brief Struct that represents ui labels.
+* @brief Struct that represents ui panels.
 */
 struct Panel: UIElement {
 public:
@@ -64,7 +64,7 @@ public:
 	 * @param y - New y position.
 	*/
 	void setPosition(int x, int y) {
-		SDL_Point size;
+		SDL_Point size = { 0,0 };
 		displayPosition.x = x;
 		displayPosition.y = y;
 	}

@@ -58,7 +58,7 @@ public:
 	 * @param y - New y position.
 	*/
 	void setPosition(int x, int y) {
-		SDL_Point size;
+		SDL_Point size = { 0,0 };
 		if (labelTexture != nullptr) {
 			SDL_QueryTexture(labelTexture, nullptr, nullptr, &size.x, &size.y);
 		}
