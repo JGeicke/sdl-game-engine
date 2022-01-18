@@ -270,11 +270,18 @@ void UIManager::checkSliders() {
 
             if (SDL_PointInRect(&mousePosition,sliderBGPosition) == SDL_TRUE) {
                 if (inputManager->getMouseButton() == SDL_BUTTON_LEFT) {
+                    nextSlider->moveKnob(!nextSlider->isUserMovingKnob());
+                }
+
+                if (nextSlider->isUserMovingKnob()) {
                     int offset = mousePosition.x - sliderBGPosition->x;
                     float val = (float)offset / nextSlider->getBackgroundWidth();
-                    float newSliderValue = std::roundf(val*100) / 100;
+                    float newSliderValue = std::roundf(val * 100) / 100;
                     nextSlider->setSliderValue(newSliderValue);
                 }
+            }
+            else {
+                nextSlider->moveKnob(false);
             }
         }
     }

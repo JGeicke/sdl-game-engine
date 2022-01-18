@@ -97,7 +97,28 @@ public:
 			valueChangedHandler(newValue);
 		}
 	}
+
+	/**
+	 * @brief Marks the knob as moving.
+	 * @param move - Whether the knob is moved by the user.
+	*/
+	void moveKnob(bool move) {
+		isMovingKnob = move;
+	}
+
+	/**
+	 * @brief Checks if the user is moving the slider knob.
+	 * @return Whether the user is moving the slider knob.
+	*/
+	bool isUserMovingKnob() {
+		return isMovingKnob;
+	}
 private:
+	/**
+	 * @brief Whether the user is moving the knob.
+	*/
+	bool isMovingKnob = false;
+
 	/**
 	 * @brief OnValueChanged handler function.
 	*/
