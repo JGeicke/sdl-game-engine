@@ -1,5 +1,6 @@
 #pragma once
 #include "gameengine.h"
+#include <ctime>
 class Game {
 public:
 	void init();
@@ -21,15 +22,21 @@ public:
 
 	void onWolfDeath(Health* healthComponent);
 
+	void onZombieDeath(Health* healthComponent);
+
 	void onWizardDeath(Health* healthComponent);
 
 	void spawnPlayerProjectile();
 
 	void spawnBossProjectiles();
 
+	void addEnemyZombie(SDL_Point pos, int health);
+
 	void addEnemyWolf(SDL_Point pos, int health);
 
 	void addEnemyWizard(SDL_Point pos, int health);
+
+	void addPlayer(SDL_Point pos);
 
 	void setMasterVolume(float vol);
 
@@ -41,6 +48,12 @@ public:
 
 	void initWinterScene();
 
+	void initWinterLakeScene();
+
+	void initWinterRiverScene();
+
+	void initWinterRoadScene();
+
 	void initWinterEndScene();
 
 	void initStartScene();
@@ -48,6 +61,8 @@ public:
 	void initGameOverScene();
 
 	void initWinningScene();
+
+	void nextLevel();
 
 	void startGame();
 
@@ -64,6 +79,9 @@ private:
 	GameEngine* gameEngine = nullptr;
 	UIManager* uiManager = nullptr;;
 	InputManager* inputManager = nullptr;
+
+	size_t levelCompletedCounter = 0;
+	int lastSceneIdx = -1;
 
 	Entity player = { 0 };
 

@@ -6,7 +6,6 @@ void InputManager::update() {
 	mouseButton = -1;
 	checkForEvent();
 	setCurrentMousePosition();
-	//std::cout << "current direction: (" << direction.x << " | " << direction.y << ");\n" << std::endl;
 }
 
 /**

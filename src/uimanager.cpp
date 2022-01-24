@@ -41,7 +41,7 @@ void UIManager::update() {
 * @return Index of created font. When unsuccesful, returns SIZE_MAX. 
 */
 size_t UIManager::addFont(const char* path, int fontSize){
-    if (currentFontIndex == 3) {
+    if (currentFontIndex == 8) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL TTF Error", "Can't load anymore fonts.", NULL);
         return SIZE_MAX;
     }
@@ -273,6 +273,7 @@ void UIManager::checkSliders() {
                     nextSlider->moveKnob(!nextSlider->isUserMovingKnob());
                 }
 
+                // check if user is moving current slider
                 if (nextSlider->isUserMovingKnob()) {
                     int offset = mousePosition.x - sliderBGPosition->x;
                     float val = (float)offset / nextSlider->getBackgroundWidth();
@@ -281,7 +282,10 @@ void UIManager::checkSliders() {
                 }
             }
             else {
-                nextSlider->moveKnob(false);
+                // reset if no intersection with mouse
+                if (nextSlider->isUserMovingKnob()) {
+                    nextSlider->moveKnob(false);
+                }
             }
         }
     }

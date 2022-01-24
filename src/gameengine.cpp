@@ -37,7 +37,6 @@ void GameEngine::init(int fps, std::string windowTitle, int width, int height, i
 void GameEngine::run() {
 	if (window == nullptr) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Runtime error", "Please initialize engine before executing run.", NULL);
-		std::cout << "Runtime error: Please initialize engine before executing run." << std::endl;
 		return;
 	}
 
@@ -48,13 +47,14 @@ void GameEngine::run() {
 		inputManager->update();
 		if (inputManager->interrupted) break;
 
-		physicSystem->update();
 		uiManager->update();
 
-		collectObjects();
+		physicSystem->update();
 
 		audioSystem->update();
 		renderSystem->update();
+
+		collectObjects();
 		Uint32 endTimestamp = SDL_GetTicks();
 		Uint32 delay = (Uint32)(frameDelay - (endTimestamp - startTimestamp));
 		if (delay < frameDelay) {
@@ -105,6 +105,21 @@ Entity GameEngine::addEntity(const char* tag, bool isPreserved, SDL_Point positi
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Entity Initialization error", "Could not add position component to entity.", NULL);
 	}
 	return entity;
+}
+
+/**
+* @brief Sets the position of the entity.
+* @param e - Entity to set position of.
+* @param pos - New position of entity.
+*/
+void GameEngine::setPosition(Entity e, SDL_Point pos) {
+	Position* component = this->posManager->getComponent(e);
+	if (component != nullptr) {
+		component->setPosition(pos.x * renderSystem->getCameraZoomFactorX(), pos.y * renderSystem->getCameraZoomFactorY());
+	}
+	else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Entity Initialization error", "Could not add position component to entity.", NULL);
+	}
 }
 
 /**
@@ -223,7 +238,7 @@ void GameEngine::destroyProjectile(Entity e) {
 * @param layerCount - Number of layers in the tilemap.
 */
 void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapDataFilePath, size_t layerCount) {
-	if (tilesetFilePath == nullptr || tilemapDataFilePath == nullptr) {
+	if (tilemapDataFilePath == nullptr) {
 		return;
 	}
 
@@ -236,8 +251,6 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 
 		for (size_t i = 0; i < colLayer.size(); i++) {
 			// checks if current x-position is greater or equals to max tilecount in row
-			//int newX = colLayer[i].x* this->renderSystem->getCameraZoomFactorX() + (colLayer[i].w * this->renderSystem->getCameraZoomFactorX() / 2);
-			//int newY = colLayer[i].y* this->renderSystem->getCameraZoomFactorY() + (colLayer[i].h* this->renderSystem->getCameraZoomFactorY() / 2);
 			int newX = colLayer[i].x + (colLayer[i].w / 2);
 			int newY = colLayer[i].y + (colLayer[i].h / 2);
 
@@ -248,7 +261,6 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 
 	// create tilemap objects
 	if (tilemap->hasTilemapObjectLayer()) {
-		std::cout << "handle objects" << std::endl;
 		std::vector<SDL_Rect> objLayer = tilemap->getTilemapObjects();
 
 		int tileHeight = tilemap->getTileHeight();
@@ -261,7 +273,9 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 			int newX = objLayer[i].x  + (objLayer[i].w / 2);
 			int newY = objLayer[i].y + (objLayer[i].h / 2);
 
-			int dataIndex = (objLayer[i].y / tileHeight)*tilemap->getTilesPerRow();
+			int idxOffsetX = objLayer[i].x / tileWidth;
+
+			int dataIndex = (objLayer[i].y / tileHeight)*tilemap->getTilesPerRow() + idxOffsetX;
 			int tilemapData = tilemap->getLayer(tilemap->getLayerCount() - 1)[dataIndex];
 
 			int srcX = 0;
@@ -343,6 +357,7 @@ Sprite* GameEngine::addSpriteComponent(Entity e, const char* filePath, SDL_Point
 	if (spriteComponent != nullptr) {
 		spriteComponent->setEntity(e);
 		spriteComponent->init(filePath, size.x, size.y, scale);
+		spriteComponent->setActive(true);
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add sprite component.", NULL);
@@ -364,6 +379,7 @@ Sprite* GameEngine::addSpriteComponent(Entity e, const char* filePath, SDL_Point
 	if (spriteComponent != nullptr) {
 		spriteComponent->setEntity(e);
 		spriteComponent->init(filePath,srcRectPosition.x, srcRectPosition.y, size.x, size.y, scale);
+		spriteComponent->setActive(true);
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add sprite component.", NULL);
@@ -385,6 +401,7 @@ Collider* GameEngine::addColliderComponent(Entity e, SDL_Point offset, SDL_Point
 		colliderComponent->setEntity(e);
 		Position* positionComponent = posManager->getComponent(e);
 		colliderComponent->init(positionComponent->x(), positionComponent->y(), offset.x, offset.y, (int)(size.x*renderSystem->getCameraZoomFactorX()), (int)(size.y*renderSystem->getCameraZoomFactorY()), isTrigger);
+		colliderComponent->setActive(true);
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add collider component.", NULL);
@@ -834,12 +851,10 @@ void GameEngine::removeEntityComponents(Entity e) {
 	}
 
 	if (this->cameraFollow != nullptr && this->cameraFollow->getEntity().uid == e.uid) {
-		//this->cameraFollow = nullptr;
 		this->cameraFollow->setEntity({ 0, "", false });
 	}
 
 	if (this->playerMovement!= nullptr && this->playerMovement->getEntity().uid == e.uid) {
-		//this->playerMovement = nullptr;
 		this->playerMovement->setEntity({ 0, "", false });
 	}
 }

@@ -415,6 +415,8 @@ void PhysicSystem::detectCollisions() {
 					// check if both entities
 					if (nextCollider->getEntity().uid != this->playerMovement->getEntity().uid) {
 						if (SDL_HasIntersection(currentCollider->getColliderRect(), nextCollider->getColliderRect()) == SDL_TRUE) {
+							//
+
 							// collision
 							collisionCounter++;
 
@@ -426,6 +428,7 @@ void PhysicSystem::detectCollisions() {
 								currentCollider->collision(nextCollider);
 							}
 							else {
+								std::cout << "collision\n";
 								bool firstCollision = false;
 								if (currentCollider->getLastCollision().uid == 0 && nextCollider->getLastCollision().uid == 0) {
 									firstCollision = true;
@@ -435,6 +438,8 @@ void PhysicSystem::detectCollisions() {
 									nextCollider->resetLastCollision();
 								}
 								nextCollider->collision(currentCollider);
+
+								// TODO: sometimes collision not working
 
 								// adjust position
 								currentPosition->restoreLastPosition();
@@ -686,6 +691,23 @@ void PhysicSystem::markNodesAsObstacles(Entity e) {
 					node = this->getCurrentNode(position);
 					this->markNodeAsObstacle(node);
 
+				}
+				else {
+					// collider equal to a tile
+					Node* node = nullptr;
+
+					int remainingSizeX = size->x;
+					int remainingSizeY = size->y;
+
+					for (int x = 0; x < colX; x++)
+					{
+						for (int y = 0; y < colY; y++)
+						{
+							position = { pos->x() - (size->x / 2) + (tileWidth*x) ,  pos->y() - (size->y / 2) + (tileHeight*y)};
+							node = this->getCurrentNode(position);
+							this->markNodeAsObstacle(node);
+						}
+					}
 				}
 			}
 			else {

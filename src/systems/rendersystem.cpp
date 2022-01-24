@@ -413,9 +413,14 @@ Tilemap* RenderSystem::setMap(const char* tilesetPath, const char* tilemapPath, 
 	SDL_Point size = { 0,0 };
 	tilemap = FileLoader::loadTilemap(tilemapPath, layerCount);
 
-	Texture tilesetTexture = FileLoader::loadTexture(tilesetPath, renderer);
+	if (tilesetPath != nullptr) {
+		Texture tilesetTexture = FileLoader::loadTexture(tilesetPath, renderer);
 
-	tileset = new Tileset(tilesetTexture);
+		tileset = new Tileset(tilesetTexture);
+	}
+	else if (tileset->getTexture().texture == nullptr) {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Tilemap error", "No tileset was found.", NULL);
+	}
 
 	// set srcRect
 	tileset->initSourceRect(tilemap->getTileWidth(), tilemap->getTileHeight());

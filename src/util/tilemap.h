@@ -41,7 +41,6 @@ public:
 	void addTilemapCollider(SDL_Rect obj) {
 		tilemapCollider.insert(tilemapCollider.begin() + tilemapColliderIndex, obj);
 		tilemapColliderIndex++;
-		std::cout << obj.x << " " << obj.y << " " << obj.w << " " << obj.h << std::endl;
 	}
 
 	/**
@@ -51,7 +50,6 @@ public:
 	void addTilemapObject(SDL_Rect obj) {
 		tilemapObjects.insert(tilemapObjects.begin() + tilemapObjectIndex, obj);
 		tilemapObjectIndex++;
-		std::cout << obj.x << " " << obj.y << " " << obj.w << " " << obj.h << std::endl;
 	}
 
 	/**
@@ -180,7 +178,7 @@ public:
 	*/
 	void setCollisionLayerIndex(int index) {
 		if (hasCollisionLayer()) {
-			std::cout << "Multiple collision layers!" << std::endl;
+			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Scene error", "Multiple collision layers detected.", NULL);
 		}
 		collisionLayerIndex = index;
 	}
@@ -191,7 +189,7 @@ public:
 	*/
 	void setTilemapObjectLayerIndex(int index) {
 		if (hasTilemapObjectLayer()) {
-			std::cout << "Multiple object layers!" << std::endl;
+			SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Scene error", "Multiple object layers detected.", NULL);
 		}
 		tilemapObjectLayerIndex = index;
 	}

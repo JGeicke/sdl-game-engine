@@ -29,7 +29,6 @@ void AudioSystem::update() {
 		while (audioComponent->getPlayedAudioClipsCount() > 0) {
 			AudioClip* nextClip = audioComponent->getNextAudioClip();
 			this->playSound(nextClip);
-			std::cout << "play audio" << std::endl;
 		}
 	}
 }

@@ -37,8 +37,6 @@ Entity ObjectPool::getNext() {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Object Pool error", "No free entity in object pool.", NULL);
 	}
 
-	std::cout << "UID: " << result.uid << std::endl;
-
 	return result;
 }
 

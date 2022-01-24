@@ -249,7 +249,7 @@ private:
 	/**
 	 * @brief Loaded fonts.
 	*/
-	TTF_Font* fonts[3];
+	TTF_Font* fonts[8];
 	/**
 	 * @brief Current font count.
 	*/

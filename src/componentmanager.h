@@ -16,7 +16,6 @@ public:
 	 * @return Added component of entity. Returns nullptr on failure.
 	*/
 	Component* addComponent(Entity e) {
-		//REMOVE: std::cout << "created component for entity with index " << currentIndex << std::endl;
 		if (currentIndex < maxIndex) {
 			entityIndexMap[e] = currentIndex;
 			currentIndex++;
@@ -32,7 +31,6 @@ public:
 	Component* getComponent(Entity e) {
 		if (entityIndexMap.count(e) > 0) {
 			size_t idx = entityIndexMap[e];
-			//REMOVE: std::cout << "found index for component:" << idx << std::endl;
 			return &componentData[idx];
 		}
 		else {

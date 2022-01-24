@@ -9,15 +9,11 @@
 */
 Entity EntityManager::createEntity(const char* tag, bool isPreserved) {
 	next.uid++;
-	std::cout << "\n+++++++++++++++Start uid:+++++++++++++++++++\n";
-	std::cout << next.uid;
 	while (hasEntity(next)) {
 		next.uid++;
 	}
 	next.tag = tag;
 	next.preserve = isPreserved;
-	std::cout << "\n+++++++++++++++Selected uid:+++++++++++++++++++\n";
-	std::cout << next.uid << "\n";
 	entities.insert(next);
 	return next;
 }
@@ -46,7 +42,7 @@ void EntityManager::destroyEntity(Entity e) {
 void EntityManager::debugListEntities() {
 	std::cout << "\n++++++++++++++++++ENTITIY LIST+++++++++++++++++++\n";
 	for (auto itr = entities.begin(); itr != entities.end(); ++itr) {
-		std::cout << "Entity UID " << itr->uid << std::endl;
+		std::cout << "Entity UID " << itr->uid << "\n";
 	}
-	std::cout << "\n+++++++++++++++++++++++++++++++++++++++++++++++++\n" << std::endl;
+	std::cout << "\n+++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
 }	

@@ -267,6 +267,13 @@ public:
 	Position* getPositionComponent(Entity e);
 
 	/**
+	 * @brief Sets the position of the entity.
+	 * @param e - Entity to set position of.
+	 * @param pos - New position of entity.
+	*/
+	void setPosition(Entity e, SDL_Point pos);
+
+	/**
 	 * @brief Gets sprite component of the entity.
 	 * @param e - Entity to get component off.
 	 * @return Pointer to the sprite component of the entity.
