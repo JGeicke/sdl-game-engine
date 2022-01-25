@@ -108,8 +108,9 @@ public:
 	/**
 	 * @brief Sets the current background music.
 	 * @param bgmFilePath - File path to the background music.
+	 * @param loopBGM - Whether bgm should be looped.
 	*/
-	void setBGM(const char* bgmFilePath);
+	void setBGM(const char* bgmFilePath, bool loopBGM);
 
 	/**
 	 * @brief Plays audio clip with index of entity.
@@ -135,8 +136,9 @@ public:
 	 * @brief Changes current scene.
 	 * @param scene - Scene to change to.
 	 * @param collectEverything - Whether every Entity should be collected.
+	 * @param loopBGM - Whether bgm should be looped
 	*/
-	void changeScene(Scene* scene, bool clearEveryEntity);
+	void changeScene(Scene* scene, bool clearEveryEntity, bool loopBGM);
 
 	/**
 	 * @brief Adds a sprite component to the entity.
@@ -572,6 +574,7 @@ private:
 	/**
 	 * @brief Loads scene.
 	 * @param scene - Scene to load.
+	 * @param loopBGM - Whether bgm should be looped.
 	*/
-	void loadScene(Scene* scene);
+	void loadScene(Scene* scene, bool loopBGM);
 };

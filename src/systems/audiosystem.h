@@ -36,8 +36,9 @@ public:
 
 	/**
 	 * @brief Plays the current background music.
+	 * @param loopBGM - Whether bgm should be looped.
 	*/
-	void playBGM();
+	void playBGM(bool loopBGM);
 
 	/**
 	 * @brief Toggles the current background music.

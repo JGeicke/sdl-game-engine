@@ -303,14 +303,15 @@ void GameEngine::setTilemap(const char* tilesetFilePath, const char* tilemapData
 /**
 * @brief Sets the current background music.
 * @param bgmFilePath - File path to the background music.
+* @param loopBGM - Whether bgm should be looped.
 */
-void GameEngine::setBGM(const char* bgmFilePath) {
+void GameEngine::setBGM(const char* bgmFilePath, bool loopBGM) {
 	if (bgmFilePath == nullptr) {
 		return;
 	}
 
 	audioSystem->addBGM(bgmFilePath);
-	audioSystem->playBGM();
+	audioSystem->playBGM(loopBGM);
 }
 
 /**
@@ -433,6 +434,7 @@ Audio* GameEngine::addAudioComponent(Entity e) {
 	Audio* audioComponent = audioManager->addComponent(e);
 	if (audioComponent != nullptr) {
 		audioComponent->setEntity(e);
+		audioComponent->resetComponent();
 	}
 	else {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Component Initialization error", "Could not add audio component.", NULL);
@@ -763,10 +765,11 @@ void GameEngine::initSystems(int cameraWidth, int cameraHeight) {
 /**
 * @brief Loads scene.
 * @param scene - Scene to load.
+* @param loopBGM - Whether bgm should be looped.
 */
-void GameEngine::loadScene(Scene* scene) {
+void GameEngine::loadScene(Scene* scene, bool loopBGM) {
 	this->setTilemap(scene->getTilesetFilePath(), scene->getTilemapDataFilePath(), scene->getLayerCount());
-	this->setBGM(scene->getBGMFilePath());
+	this->setBGM(scene->getBGMFilePath(), loopBGM);
 	this->physicSystem->initGrid(renderSystem->getTilemapNumberOfRows(), renderSystem->getTilemapNumberOfCols(), { renderSystem->getTileWidth(), renderSystem->getTileHeight() }, renderSystem->getTilesPerRow());
 	scene->init();
 	
@@ -776,14 +779,15 @@ void GameEngine::loadScene(Scene* scene) {
 * @brief Changes current scene.
 * @param scene - Scene to change to.
 * @param collectEverything - Whether every Entity should be collected.
+* @param loopBGM - Whether bgm should be looped.
 */
-void GameEngine::changeScene(Scene* scene, bool clearEveryEntity) {
+void GameEngine::changeScene(Scene* scene, bool clearEveryEntity, bool loopBGM) {
 	// clean components and entites
 	this->collectSceneGarbage(clearEveryEntity);
 	this->resetLastCollisions();
 
 	// load new scene
-	this->loadScene(scene);
+	this->loadScene(scene, loopBGM);
 }
 #pragma endregion Scene
 

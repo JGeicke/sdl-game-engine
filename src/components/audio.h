@@ -120,6 +120,14 @@ public:
 	unsigned int getPlayedAudioClipsCount() {
 		return playedAudioClips;
 	}
+
+	/**
+	* @brief Resets the component.
+	*/
+	void resetComponent() {
+		currentIndex = 0;
+		playedAudioClips = 0;
+	}
 private:
 	/**
 	 * @brief Array of the audio clips.

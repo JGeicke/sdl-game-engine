@@ -428,7 +428,6 @@ void PhysicSystem::detectCollisions() {
 								currentCollider->collision(nextCollider);
 							}
 							else {
-								std::cout << "collision\n";
 								/*
 								bool firstCollision = false;
 								if (currentCollider->getLastCollision().uid == 0 && nextCollider->getLastCollision().uid == 0) {

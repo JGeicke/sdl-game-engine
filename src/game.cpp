@@ -159,10 +159,26 @@ void Game::toggleSettings() {
 #pragma region Handler
 void Game::onBossRoomEnter(Collider* a, Collider* b) {
 	if (b->getEntity().tag == "player") {
-		// do stuff
+		// activate boss room block
 		Collider* bossRoomBlockCollider = this->gameEngine->getColliderComponent(this->bossRoomBlock);
-		bossRoomBlockCollider->setActive(true);
-		this->gameEngine->setBGM("assets/DemoGame/audio/boss_theme.mp3");
+		if (bossRoomBlockCollider != nullptr) {
+			bossRoomBlockCollider->setActive(true);
+		}
+
+		Sprite* bossRoomBlockSprite = this->gameEngine->getSpriteComponent(this->bossRoomBlock);
+		if (bossRoomBlockSprite != nullptr) {
+			bossRoomBlockSprite->setActive(true);
+		}
+
+		// deactivate trigger
+		a->setActive(false);
+
+		//change bgm
+		this->gameEngine->setBGM("assets/DemoGame/audio/boss_theme.mp3", true);
+		
+		// activate boss movement
+		EnemyMovement* mov = this->gameEngine->getEnemyMovementComponent(this->boss);
+		mov->setActive(true);
 	}
 }
 
@@ -179,8 +195,6 @@ void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 			//update ui
 			uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 		}
-
-		playerHealth->print();
 	}
 
 }
@@ -188,21 +202,6 @@ void Game::enemyCollisionHandler(Collider* a, Collider* b) {
 void Game::enemyProjectileHandler(Collider* a, Collider* b) {
 	int enemyAtk = 35;
 	if (b->getEntity().tag == "player") {
-		/*
-		ComponentManager<Health>* manager = this->gameEngine->getHealthManager();
-		UIManager* uimanager = this->gameEngine->getUIManager();
-		Health* playerHealth = manager->getComponent(this->player);
-
-		//update ui
-		uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
-
-		// delete projectile
-		Entity e = a->getEntity();
-		this->gameEngine->destroyProjectile(e);
-		b->resetLastCollision();
-
-		playerHealth->takeDamage(25);
-		*/
 		UIManager* uimanager = this->gameEngine->getUIManager();
 		Health* playerHealth = this->gameEngine->getHealthComponent(this->player);
 		int currHealth = playerHealth->getCurrentHealth();
@@ -215,6 +214,7 @@ void Game::enemyProjectileHandler(Collider* a, Collider* b) {
 		if (currHealth - enemyAtk > 0) {
 			//update ui
 			uimanager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
+			this->gameEngine->playAudioClip(this->player, 0);
 		}
 	}
 }
@@ -241,7 +241,7 @@ void Game::portalHandler(Collider* a, Collider* b) {
 
 		if (this->levelCompletedCounter == 2) {
 			Scene* end = new Scene("assets/DemoGame/scenes/winter_tileset.png", "assets/DemoGame/scenes/winter_lake.json", 4, nullptr, &initWinterEndSceneWrapper);
-			this->gameEngine->changeScene(end, false);
+			this->gameEngine->changeScene(end, false, true);
 		}
 		else {
 			this->nextLevel();
@@ -250,6 +250,7 @@ void Game::portalHandler(Collider* a, Collider* b) {
 }
 
 void Game::onPlayerDeath(Health* healthComponent) {
+	this->gameEngine->playAudioClip(this->player, 1);
 	this->gameOver();
 }
 
@@ -260,7 +261,7 @@ void Game::onWolfDeath(Health* healthComponent) {
 }
 
 void Game::onZombieDeath(Health* healthComponent) {
-	//this->gameEngine->playAudioClip(healthComponent->getEntity(), 1);
+	this->gameEngine->playAudioClip(healthComponent->getEntity(), 1);
 	this->gameEngine->destroyEntity(healthComponent->getEntity());
 	enemyCount--;
 }
@@ -337,7 +338,7 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 	healthComponent->onZeroHealth(&onWolfDeathWrapper);
 
 	gameEngine->addAudioComponent(wolf);
-	gameEngine->addAudioClip(wolf, "assets/DemoGame/audio/hit.mp3");
+	gameEngine->addAudioClip(wolf, "assets/DemoGame/audio/wolf_hit.mp3");
 	gameEngine->addAudioClip(wolf, "assets/DemoGame/audio/wolf_death.mp3");
 
 	this->enemyCount++;
@@ -356,7 +357,12 @@ void Game::addEnemyWizard(SDL_Point pos, int health) {
 	gameEngine->addAnimation(wizard, STATES::IDLE_DOWN, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
 	gameEngine->addAnimation(wizard, STATES::WALK_DOWN, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
 
-	gameEngine->addEnemyMovementComponent(wizard, 2.0f);
+	EnemyMovement* mov = gameEngine->addEnemyMovementComponent(wizard, 2.0f);
+	mov->setActive(false);
+
+	gameEngine->addAudioComponent(wizard);
+	gameEngine->addAudioClip(wizard, "assets/DemoGame/audio/wizard_hit.mp3");
+	gameEngine->addAudioClip(wizard, "assets/DemoGame/audio/wizard_death.mp3");
 
 	Health* healthComponent = gameEngine->addHealthComponent(wizard, health);
 	healthComponent->onZeroHealth(&onWizardDeathWrapper);
@@ -382,6 +388,10 @@ void Game::addEnemyZombie(SDL_Point pos, int health) {
 
 	EnemyMovement* mov = gameEngine->addEnemyMovementComponent(zombie, 1.5, player);
 	mov->setMaxDistance(20);
+
+	gameEngine->addAudioComponent(zombie);
+	gameEngine->addAudioClip(zombie, "assets/DemoGame/audio/zombie_hit.mp3");
+	gameEngine->addAudioClip(zombie, "assets/DemoGame/audio/zombie_death.mp3");
 
 	Health* healthComponent = gameEngine->addHealthComponent(zombie, health);
 	healthComponent->onZeroHealth(&onZombieDeathWrapper);
@@ -414,6 +424,11 @@ void Game::addPlayer(SDL_Point pos) {
 		Collider* playerCollider = gameEngine->addColliderComponent(player, { 0, 0 }, { 15, 46 }, false);
 		Health* playerHealth = gameEngine->addHealthComponent(player, 100);
 		playerHealth->onZeroHealth(&onPlayerDeathWrapper);
+
+		gameEngine->addAudioComponent(player);
+		gameEngine->addAudioClip(player, "assets/DemoGame/audio/player_hit.mp3");
+		gameEngine->addAudioClip(player, "assets/DemoGame/audio/player_death.mp3");
+
 		this->uiManager->getProgressBar(hpBarIndex)->setProgress((float)playerHealth->getCurrentHealth() / (float)playerHealth->getMaxHealth());
 	}
 	else {
@@ -492,9 +507,12 @@ void Game::initWinterEndScene() {
 	Collider* bossRoomTrigger = gameEngine->addColliderComponent(trigger, { 0,0 }, { 64, 96 }, true);
 	bossRoomTrigger->onTriggerEnter(&onBossRoomEnterWrapper);
 
+	// add arena barrier
 	this->bossRoomBlock = gameEngine->addEntity("", false, {783, 529});
 	Collider* bossRoomBlockCollider = gameEngine->addColliderComponent(this->bossRoomBlock, { 0,0 }, { 32,96 }, false);
 	bossRoomBlockCollider->setActive(false);
+	Sprite* bossRoomBlockSprite = gameEngine->addSpriteComponent(this->bossRoomBlock, "assets/DemoGame/sprites/boss_room_block.png", { 32,96 }, 1.0f);
+	bossRoomBlockSprite->setActive(false);
 }
 
 void Game::initWinterScene() {
@@ -585,12 +603,14 @@ void Game::startGame(){
 void Game::restartGame() {
 	this->gameEngine->playAudioFile("assets/DemoGame/audio/misc_menu.wav");
 
+	// reset values
 	this->player = { 0 };
 	this->boss = { 0 };
 	this->bossRoomBlock = { 0 };
 	this->bossDestinationIndex = 0;
 	this->enemyCount = 0;
 	this->levelCompletedCounter = 0;
+
 	// clear start ui
 	this->uiManager->clearUI();
 	this->settingSliders = {};
@@ -609,7 +629,7 @@ void Game::gameOver() {
 
 	// start screen
 	Scene* gameOver = new Scene("assets/DemoGame/scenes/game_over_tileset.png", "assets/DemoGame/scenes/game_over.json", 1, "assets/DemoGame/audio/game_over.mp3", &initGameOverSceneWrapper);
-	this->gameEngine->changeScene(gameOver, true);
+	this->gameEngine->changeScene(gameOver, true, false);
 }
 
 void Game::wonGame() {
@@ -619,7 +639,7 @@ void Game::wonGame() {
 
 	// start screen
 	Scene* won = new Scene("assets/DemoGame/scenes/game_over_tileset.png", "assets/DemoGame/scenes/game_over.json", 1, "assets/DemoGame/audio/win.mp3", &initWinningSceneWrapper);
-	this->gameEngine->changeScene(won, true);
+	this->gameEngine->changeScene(won, true, false);
 }
 
 void Game::quitGame(){
@@ -724,7 +744,7 @@ void Game::nextLevel() {
 	this->lastSceneIdx = idx;
 
 	// load scene
-	this->gameEngine->changeScene(scene, false);
+	this->gameEngine->changeScene(scene, false, true);
 }
 
 void Game::init() {
@@ -745,8 +765,8 @@ void Game::init() {
 
 	// start screen
 	// TODO: special start music
-	Scene* start = new Scene(nullptr, nullptr, 0, "assets/DemoGame/audio/stage_bgm.mp3", &initStartSceneWrapper);
-	this->gameEngine->changeScene(start, false);
+	Scene* start = new Scene(nullptr, nullptr, 0, "assets/DemoGame/audio/start_theme.mp3", &initStartSceneWrapper);
+	this->gameEngine->changeScene(start, false, true);
 }
 
 void Game::start() {

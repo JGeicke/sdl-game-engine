@@ -56,10 +56,17 @@ void AudioSystem::addBGM(const char* filePath) {
 
 /**
 * @brief Plays the current background music and adjusts the volume.
+* @param loopBGM - Whether bgm should be looped.
 */
-void AudioSystem::playBGM() {
+void AudioSystem::playBGM(bool loopBGM) {
 	if (bgm != nullptr) {
-		Mix_PlayMusic(bgm, -1);
+		int loops = 1;
+
+		// check if bgm should be looped
+		if (loopBGM) {
+			loops = -1;
+		}
+		Mix_PlayMusic(bgm, loops);
 		Mix_VolumeMusic((int)(MIX_MAX_VOLUME * (masterVolume * musicVolume)));
 	}
 }
