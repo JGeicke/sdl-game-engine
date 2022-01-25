@@ -1,0 +1,400 @@
+\hypertarget{struct_tilemap}{}\doxysection{Tilemap Struct Reference}
+\label{struct_tilemap}\index{Tilemap@{Tilemap}}
+
+
+Struct to store all data for the tilemap.  
+
+
+
+
+{\ttfamily \#include $<$tilemap.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_tilemap_a1bb31a33ee6a9cca71fb337e648e0992}{Tilemap}} (unsigned int tile\+Width, unsigned int tile\+Height, unsigned int tiles\+Per\+Row, unsigned int tiles\+Per\+Col)
+\begin{DoxyCompactList}\small\item\em Creates new tilemap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_tilemap_a45999fbf33565acd1f3eec45fa2483aa}{add\+Layer}} (size\+\_\+t layer, std\+::vector$<$ unsigned int $>$ vector)
+\begin{DoxyCompactList}\small\item\em Adds a layer to the tilemap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_tilemap_a37a1c3d6987ae3d9280c8dac5b1cd79a}{add\+Tilemap\+Collider}} (SDL\+\_\+\+Rect obj)
+\begin{DoxyCompactList}\small\item\em Adds an collider to the tilemap colliders. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_tilemap_afb21f48d7647f9d2c7e15b70b5186903}{add\+Tilemap\+Object}} (SDL\+\_\+\+Rect obj)
+\begin{DoxyCompactList}\small\item\em Adds an object to the tilemap object layer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_tilemap_a7b907ae65482aa2fdadd0bca56584fa3}{print}} (size\+\_\+t layer)
+\begin{DoxyCompactList}\small\item\em Prints layer with certain index. \end{DoxyCompactList}\item 
+std\+::vector$<$ unsigned int $>$ \mbox{\hyperlink{struct_tilemap_a24245fba4be2aecdda0d922f730c5a1b}{get\+Layer}} (size\+\_\+t layer)
+\begin{DoxyCompactList}\small\item\em Gets the tilemap data of layer with certain index. \end{DoxyCompactList}\item 
+std\+::vector$<$ SDL\+\_\+\+Rect $>$ \mbox{\hyperlink{struct_tilemap_ab52aaf95c46a82cf468b47cce4ad0768}{get\+Tilemap\+Collider}} ()
+\begin{DoxyCompactList}\small\item\em Gets the collider layer of the tilemap. \end{DoxyCompactList}\item 
+std\+::vector$<$ SDL\+\_\+\+Rect $>$ \mbox{\hyperlink{struct_tilemap_a6255e2cd7914e816292cb7e0681cce86}{get\+Tilemap\+Objects}} ()
+\begin{DoxyCompactList}\small\item\em Gets the object layer of the tilemap. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{struct_tilemap_a9180a4debf7efea1cf96b52ea39cadd3}{get\+Layer\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Gets current layer count of tilemap. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_tilemap_a67f174a3640159a81a88bb863c5e6620}{get\+Tile\+Width}} ()
+\begin{DoxyCompactList}\small\item\em Gets tile width of the tilemap. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_tilemap_ade0cfd3f42fb843ded2e6f629900b94a}{get\+Tile\+Height}} ()
+\begin{DoxyCompactList}\small\item\em Gets tile height of the tilemap. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_tilemap_a10d184b32b0f86e39caa0842d33db099}{get\+Tiles\+Per\+Row}} ()
+\begin{DoxyCompactList}\small\item\em Gets maximum tile count per row of the tilemap. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_tilemap_a96ba411962fa3b088dc5fe81c75f72bb}{get\+Tiles\+Per\+Col}} ()
+\begin{DoxyCompactList}\small\item\em Gets maximum tile count per column of the tilemap. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_tilemap_ac107c3f520b967cdc66918fe369e0b3f}{get\+Number\+Of\+Cols}} ()
+\begin{DoxyCompactList}\small\item\em Gets the number of columns in the tilemap. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_tilemap_ac65d4e3398e42f3e90b6ff2e1f5652ae}{get\+Number\+Of\+Rows}} ()
+\begin{DoxyCompactList}\small\item\em Gets the number of rows in the tilemap. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_tilemap_a9c2fb7c582e1121543c6ee9289d217ac}{get\+Total\+Tilemap\+Width}} ()
+\begin{DoxyCompactList}\small\item\em Gets total width of the tilemap. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_tilemap_a04d202f33e75754665635e5614f53af9}{get\+Total\+Tilemap\+Height}} ()
+\begin{DoxyCompactList}\small\item\em Gets total height of the tilemap. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_tilemap_af5599ad36a40cfd85d2b25a53d87d99d}{get\+Collision\+Layer\+Index}} ()
+\begin{DoxyCompactList}\small\item\em Gets the collision layer index of the tilemap. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_tilemap_a14d63d17e0669a811cc80966cb33a335}{set\+Collision\+Layer\+Index}} (int index)
+\begin{DoxyCompactList}\small\item\em Sets the current collision layer index. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_tilemap_ae095792583196b29f346db2c786ec76e}{set\+Tilemap\+Object\+Layer\+Index}} (int index)
+\begin{DoxyCompactList}\small\item\em Sets the current tilemap object layer index. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_tilemap_a2930b4a193ef5cf15340bf7b1f191657}{get\+Tilemap\+Object\+Layer\+Index}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current tilemap object layer index. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_tilemap_a9a59b2df52f7b1cb8bbb65ed71270e0f}{has\+Collision\+Layer}} ()
+\begin{DoxyCompactList}\small\item\em Checks if tilemap has collision layer. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_tilemap_ac3f9d0d7670e02a8dfd5d8c3c9e0a0af}{has\+Tilemap\+Object\+Layer}} ()
+\begin{DoxyCompactList}\small\item\em Checks if tilemap has object layer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct to store all data for the tilemap. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_tilemap_a1bb31a33ee6a9cca71fb337e648e0992}\label{struct_tilemap_a1bb31a33ee6a9cca71fb337e648e0992}} 
+\index{Tilemap@{Tilemap}!Tilemap@{Tilemap}}
+\index{Tilemap@{Tilemap}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{Tilemap()}{Tilemap()}}
+{\footnotesize\ttfamily Tilemap\+::\+Tilemap (\begin{DoxyParamCaption}\item[{unsigned int}]{tile\+Width,  }\item[{unsigned int}]{tile\+Height,  }\item[{unsigned int}]{tiles\+Per\+Row,  }\item[{unsigned int}]{tiles\+Per\+Col }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates new tilemap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile\+Width} & -\/ Width of the tiles. \\
+\hline
+{\em tile\+Height} & -\/ Height of the tiles. \\
+\hline
+{\em tiles\+Per\+Row} & -\/ Width of the tilemap / maximum tiles per row. \\
+\hline
+{\em tiles\+Per\+Col} & -\/ Height of the tilemap / maximum tiles per column. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_tilemap_a45999fbf33565acd1f3eec45fa2483aa}\label{struct_tilemap_a45999fbf33565acd1f3eec45fa2483aa}} 
+\index{Tilemap@{Tilemap}!addLayer@{addLayer}}
+\index{addLayer@{addLayer}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{addLayer()}{addLayer()}}
+{\footnotesize\ttfamily void Tilemap\+::add\+Layer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{layer,  }\item[{std\+::vector$<$ unsigned int $>$}]{vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds a layer to the tilemap. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer} & -\/ Index of layer to add. \\
+\hline
+{\em vector} & -\/ Layer data stored in an vector. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_tilemap_a37a1c3d6987ae3d9280c8dac5b1cd79a}\label{struct_tilemap_a37a1c3d6987ae3d9280c8dac5b1cd79a}} 
+\index{Tilemap@{Tilemap}!addTilemapCollider@{addTilemapCollider}}
+\index{addTilemapCollider@{addTilemapCollider}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{addTilemapCollider()}{addTilemapCollider()}}
+{\footnotesize\ttfamily void Tilemap\+::add\+Tilemap\+Collider (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Rect}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds an collider to the tilemap colliders. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & -\/ \mbox{\hyperlink{struct_collider}{Collider}} to add. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_tilemap_afb21f48d7647f9d2c7e15b70b5186903}\label{struct_tilemap_afb21f48d7647f9d2c7e15b70b5186903}} 
+\index{Tilemap@{Tilemap}!addTilemapObject@{addTilemapObject}}
+\index{addTilemapObject@{addTilemapObject}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{addTilemapObject()}{addTilemapObject()}}
+{\footnotesize\ttfamily void Tilemap\+::add\+Tilemap\+Object (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Rect}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds an object to the tilemap object layer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obj} & -\/ Object to add. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_tilemap_af5599ad36a40cfd85d2b25a53d87d99d}\label{struct_tilemap_af5599ad36a40cfd85d2b25a53d87d99d}} 
+\index{Tilemap@{Tilemap}!getCollisionLayerIndex@{getCollisionLayerIndex}}
+\index{getCollisionLayerIndex@{getCollisionLayerIndex}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getCollisionLayerIndex()}{getCollisionLayerIndex()}}
+{\footnotesize\ttfamily int Tilemap\+::get\+Collision\+Layer\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the collision layer index of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+The collision layer index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a24245fba4be2aecdda0d922f730c5a1b}\label{struct_tilemap_a24245fba4be2aecdda0d922f730c5a1b}} 
+\index{Tilemap@{Tilemap}!getLayer@{getLayer}}
+\index{getLayer@{getLayer}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getLayer()}{getLayer()}}
+{\footnotesize\ttfamily std\+::vector$<$unsigned int$>$ Tilemap\+::get\+Layer (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the tilemap data of layer with certain index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer} & -\/ Index of layer to get the data from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Data of tilemap layer. Returns nullptr if given layer index is not allowed. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a9180a4debf7efea1cf96b52ea39cadd3}\label{struct_tilemap_a9180a4debf7efea1cf96b52ea39cadd3}} 
+\index{Tilemap@{Tilemap}!getLayerCount@{getLayerCount}}
+\index{getLayerCount@{getLayerCount}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getLayerCount()}{getLayerCount()}}
+{\footnotesize\ttfamily size\+\_\+t Tilemap\+::get\+Layer\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current layer count of tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Current layer count of tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_ac107c3f520b967cdc66918fe369e0b3f}\label{struct_tilemap_ac107c3f520b967cdc66918fe369e0b3f}} 
+\index{Tilemap@{Tilemap}!getNumberOfCols@{getNumberOfCols}}
+\index{getNumberOfCols@{getNumberOfCols}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getNumberOfCols()}{getNumberOfCols()}}
+{\footnotesize\ttfamily unsigned int Tilemap\+::get\+Number\+Of\+Cols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the number of columns in the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Number of colums in the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_ac65d4e3398e42f3e90b6ff2e1f5652ae}\label{struct_tilemap_ac65d4e3398e42f3e90b6ff2e1f5652ae}} 
+\index{Tilemap@{Tilemap}!getNumberOfRows@{getNumberOfRows}}
+\index{getNumberOfRows@{getNumberOfRows}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getNumberOfRows()}{getNumberOfRows()}}
+{\footnotesize\ttfamily unsigned int Tilemap\+::get\+Number\+Of\+Rows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the number of rows in the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Number of rows in the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_ade0cfd3f42fb843ded2e6f629900b94a}\label{struct_tilemap_ade0cfd3f42fb843ded2e6f629900b94a}} 
+\index{Tilemap@{Tilemap}!getTileHeight@{getTileHeight}}
+\index{getTileHeight@{getTileHeight}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTileHeight()}{getTileHeight()}}
+{\footnotesize\ttfamily unsigned int Tilemap\+::get\+Tile\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets tile height of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Tile height of the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_ab52aaf95c46a82cf468b47cce4ad0768}\label{struct_tilemap_ab52aaf95c46a82cf468b47cce4ad0768}} 
+\index{Tilemap@{Tilemap}!getTilemapCollider@{getTilemapCollider}}
+\index{getTilemapCollider@{getTilemapCollider}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTilemapCollider()}{getTilemapCollider()}}
+{\footnotesize\ttfamily std\+::vector$<$SDL\+\_\+\+Rect$>$ Tilemap\+::get\+Tilemap\+Collider (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the collider layer of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_collider}{Collider}} layer of the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a2930b4a193ef5cf15340bf7b1f191657}\label{struct_tilemap_a2930b4a193ef5cf15340bf7b1f191657}} 
+\index{Tilemap@{Tilemap}!getTilemapObjectLayerIndex@{getTilemapObjectLayerIndex}}
+\index{getTilemapObjectLayerIndex@{getTilemapObjectLayerIndex}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTilemapObjectLayerIndex()}{getTilemapObjectLayerIndex()}}
+{\footnotesize\ttfamily int Tilemap\+::get\+Tilemap\+Object\+Layer\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current tilemap object layer index. 
+
+\begin{DoxyReturn}{Returns}
+The tilemap object layer index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a6255e2cd7914e816292cb7e0681cce86}\label{struct_tilemap_a6255e2cd7914e816292cb7e0681cce86}} 
+\index{Tilemap@{Tilemap}!getTilemapObjects@{getTilemapObjects}}
+\index{getTilemapObjects@{getTilemapObjects}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTilemapObjects()}{getTilemapObjects()}}
+{\footnotesize\ttfamily std\+::vector$<$SDL\+\_\+\+Rect$>$ Tilemap\+::get\+Tilemap\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the object layer of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Object layer of the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a96ba411962fa3b088dc5fe81c75f72bb}\label{struct_tilemap_a96ba411962fa3b088dc5fe81c75f72bb}} 
+\index{Tilemap@{Tilemap}!getTilesPerCol@{getTilesPerCol}}
+\index{getTilesPerCol@{getTilesPerCol}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTilesPerCol()}{getTilesPerCol()}}
+{\footnotesize\ttfamily unsigned int Tilemap\+::get\+Tiles\+Per\+Col (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets maximum tile count per column of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Map height (or maximum tiles per column) of the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a10d184b32b0f86e39caa0842d33db099}\label{struct_tilemap_a10d184b32b0f86e39caa0842d33db099}} 
+\index{Tilemap@{Tilemap}!getTilesPerRow@{getTilesPerRow}}
+\index{getTilesPerRow@{getTilesPerRow}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTilesPerRow()}{getTilesPerRow()}}
+{\footnotesize\ttfamily unsigned int Tilemap\+::get\+Tiles\+Per\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets maximum tile count per row of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Map width (or maximum tiles per row) of the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a67f174a3640159a81a88bb863c5e6620}\label{struct_tilemap_a67f174a3640159a81a88bb863c5e6620}} 
+\index{Tilemap@{Tilemap}!getTileWidth@{getTileWidth}}
+\index{getTileWidth@{getTileWidth}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTileWidth()}{getTileWidth()}}
+{\footnotesize\ttfamily unsigned int Tilemap\+::get\+Tile\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets tile width of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Tile width of the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a04d202f33e75754665635e5614f53af9}\label{struct_tilemap_a04d202f33e75754665635e5614f53af9}} 
+\index{Tilemap@{Tilemap}!getTotalTilemapHeight@{getTotalTilemapHeight}}
+\index{getTotalTilemapHeight@{getTotalTilemapHeight}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTotalTilemapHeight()}{getTotalTilemapHeight()}}
+{\footnotesize\ttfamily unsigned int Tilemap\+::get\+Total\+Tilemap\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets total height of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Total height of the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a9c2fb7c582e1121543c6ee9289d217ac}\label{struct_tilemap_a9c2fb7c582e1121543c6ee9289d217ac}} 
+\index{Tilemap@{Tilemap}!getTotalTilemapWidth@{getTotalTilemapWidth}}
+\index{getTotalTilemapWidth@{getTotalTilemapWidth}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{getTotalTilemapWidth()}{getTotalTilemapWidth()}}
+{\footnotesize\ttfamily unsigned int Tilemap\+::get\+Total\+Tilemap\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets total width of the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Total width of the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a9a59b2df52f7b1cb8bbb65ed71270e0f}\label{struct_tilemap_a9a59b2df52f7b1cb8bbb65ed71270e0f}} 
+\index{Tilemap@{Tilemap}!hasCollisionLayer@{hasCollisionLayer}}
+\index{hasCollisionLayer@{hasCollisionLayer}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{hasCollisionLayer()}{hasCollisionLayer()}}
+{\footnotesize\ttfamily bool Tilemap\+::has\+Collision\+Layer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if tilemap has collision layer. 
+
+\begin{DoxyReturn}{Returns}
+Whether the tilemap has a collision layer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_ac3f9d0d7670e02a8dfd5d8c3c9e0a0af}\label{struct_tilemap_ac3f9d0d7670e02a8dfd5d8c3c9e0a0af}} 
+\index{Tilemap@{Tilemap}!hasTilemapObjectLayer@{hasTilemapObjectLayer}}
+\index{hasTilemapObjectLayer@{hasTilemapObjectLayer}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{hasTilemapObjectLayer()}{hasTilemapObjectLayer()}}
+{\footnotesize\ttfamily bool Tilemap\+::has\+Tilemap\+Object\+Layer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if tilemap has object layer. 
+
+\begin{DoxyReturn}{Returns}
+Whether the tilemap has a object layer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_tilemap_a7b907ae65482aa2fdadd0bca56584fa3}\label{struct_tilemap_a7b907ae65482aa2fdadd0bca56584fa3}} 
+\index{Tilemap@{Tilemap}!print@{print}}
+\index{print@{print}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Tilemap\+::print (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Prints layer with certain index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer} & -\/ Index of layer to print. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_tilemap_a14d63d17e0669a811cc80966cb33a335}\label{struct_tilemap_a14d63d17e0669a811cc80966cb33a335}} 
+\index{Tilemap@{Tilemap}!setCollisionLayerIndex@{setCollisionLayerIndex}}
+\index{setCollisionLayerIndex@{setCollisionLayerIndex}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{setCollisionLayerIndex()}{setCollisionLayerIndex()}}
+{\footnotesize\ttfamily void Tilemap\+::set\+Collision\+Layer\+Index (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the current collision layer index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ New collision layer index. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_tilemap_ae095792583196b29f346db2c786ec76e}\label{struct_tilemap_ae095792583196b29f346db2c786ec76e}} 
+\index{Tilemap@{Tilemap}!setTilemapObjectLayerIndex@{setTilemapObjectLayerIndex}}
+\index{setTilemapObjectLayerIndex@{setTilemapObjectLayerIndex}!Tilemap@{Tilemap}}
+\doxysubsubsection{\texorpdfstring{setTilemapObjectLayerIndex()}{setTilemapObjectLayerIndex()}}
+{\footnotesize\ttfamily void Tilemap\+::set\+Tilemap\+Object\+Layer\+Index (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the current tilemap object layer index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ New tilemap object layer index. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/util/tilemap.\+h\end{DoxyCompactItemize}

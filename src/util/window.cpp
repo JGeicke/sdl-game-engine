@@ -9,7 +9,7 @@ bool Window::initWindow() {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Initialization error", "Could not initialize window of game engine.", NULL);
 		return false;
 	}
-	this->renderer = SDL_CreateRenderer(this->window, -1, 0);
+	this->renderer = SDL_CreateRenderer(this->window, -1, SDL_RENDERER_ACCELERATED| SDL_RENDERER_PRESENTVSYNC);
 	if (this->renderer == nullptr) {
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Initialization error", "Could not initialize renderer of game engine.", NULL);
 		return false;

@@ -131,6 +131,7 @@ void Game::setMusicVolume(float vol) {
 }
 
 void Game::toggleSettings() {
+	this->gameEngine->playAudioFile("assets/DemoGame/audio/misc_menu.wav");
 	if (!hasSettings) return;
 
 	isSettingsOpen = !isSettingsOpen;
@@ -161,7 +162,7 @@ void Game::onBossRoomEnter(Collider* a, Collider* b) {
 		// do stuff
 		Collider* bossRoomBlockCollider = this->gameEngine->getColliderComponent(this->bossRoomBlock);
 		bossRoomBlockCollider->setActive(true);
-		this->gameEngine->setBGM("../TestTextures/boss_theme.mp3");
+		this->gameEngine->setBGM("assets/DemoGame/audio/boss_theme.mp3");
 	}
 }
 
@@ -239,7 +240,7 @@ void Game::portalHandler(Collider* a, Collider* b) {
 		this->levelCompletedCounter++;
 
 		if (this->levelCompletedCounter == 2) {
-			Scene* end = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter_lake.json", 4, nullptr, &initWinterEndSceneWrapper);
+			Scene* end = new Scene("assets/DemoGame/scenes/winter_tileset.png", "assets/DemoGame/scenes/winter_lake.json", 4, nullptr, &initWinterEndSceneWrapper);
 			this->gameEngine->changeScene(end, false);
 		}
 		else {
@@ -294,7 +295,7 @@ void Game::spawnBossProjectiles() {
 			for (int y = -1; y < 2; y++)
 			{
 				if (y == 0 && x == 0) continue;
-				Entity e = this->gameEngine->createProjectile("../TestTextures/boss_proj.png", { 6,6 }, 2.0f, { bossPosition->x(), bossPosition->y() }, { bossPosition->x() + x, bossPosition->y()+y }, 3.0f, false);
+				Entity e = this->gameEngine->createProjectile("assets/DemoGame/sprites/boss_proj.png", { 6,6 }, 2.0f, { bossPosition->x(), bossPosition->y() }, { bossPosition->x() + x, bossPosition->y()+y }, 3.0f, false);
 				Collider* col = this->gameEngine->getColliderComponent(e);
 				col->onTriggerEnter(&enemyProjectileWrapper);
 			}
@@ -308,7 +309,7 @@ void Game::spawnPlayerProjectile() {
 
 	Position* playerPosition = gameEngine->getPositionComponent(this->player);
 	if (playerPosition != nullptr) {
-		Entity e = this->gameEngine->createProjectile("../TestTextures/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 5.0f, true);
+		Entity e = this->gameEngine->createProjectile("assets/DemoGame/sprites/proj.png", { 6,6 }, 2.0f, { playerPosition->x(), playerPosition->y() }, this->inputManager->getMousePosition(), 5.0f, true);
 		Collider* col = this->gameEngine->getColliderComponent(e);
 		col->onTriggerEnter(&playerProjectileWrapper);
 	}
@@ -318,16 +319,16 @@ void Game::spawnPlayerProjectile() {
 #pragma region Enemies
 void Game::addEnemyWolf(SDL_Point pos, int health) {
 	Entity wolf = gameEngine->addEntity("enemy", false, pos);
-	gameEngine->addSpriteComponent(wolf, "../TestTextures/wolf_idle_side.png", { 32, 32 }, 2.0f);
+	gameEngine->addSpriteComponent(wolf, "assets/DemoGame/sprites/wolf/wolf_idle_side.png", { 32, 32 }, 2.0f);
 	Collider* wolfCollider = gameEngine->addColliderComponent(wolf, { 0, 0 }, { 32, 32 }, false);
 	wolfCollider->onCollisionEnter(&enemyCollisionWrapper);
 	gameEngine->addAnimatorComponent(wolf);
-	gameEngine->addAnimation(wolf, STATES::IDLE_SIDE, 1, 150, "../TestTextures/wolf_idle_side.png");
-	gameEngine->addAnimation(wolf, STATES::WALK_SIDE, 3, 150, "../TestTextures/wolf_walk_side.png");
-	gameEngine->addAnimation(wolf, STATES::IDLE_UP, 1, 150, "../TestTextures/wolf_idle_up.png");
-	gameEngine->addAnimation(wolf, STATES::WALK_UP, 3, 150, "../TestTextures/wolf_walk_up.png");
-	gameEngine->addAnimation(wolf, STATES::IDLE_DOWN, 1, 150, "../TestTextures/wolf_idle_down.png");
-	gameEngine->addAnimation(wolf, STATES::WALK_DOWN, 3, 150, "../TestTextures/wolf_walk_down.png");
+	gameEngine->addAnimation(wolf, STATES::IDLE_SIDE, 1, 150, "assets/DemoGame/sprites/wolf/wolf_idle_side.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_SIDE, 3, 150, "assets/DemoGame/sprites/wolf/wolf_walk_side.png");
+	gameEngine->addAnimation(wolf, STATES::IDLE_UP, 1, 150, "assets/DemoGame/sprites/wolf/wolf_idle_up.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_UP, 3, 150, "assets/DemoGame/sprites/wolf/wolf_walk_up.png");
+	gameEngine->addAnimation(wolf, STATES::IDLE_DOWN, 1, 150, "assets/DemoGame/sprites/wolf/wolf_idle_down.png");
+	gameEngine->addAnimation(wolf, STATES::WALK_DOWN, 3, 150, "assets/DemoGame/sprites/wolf/wolf_walk_down.png");
 
 	EnemyMovement* mov = gameEngine->addEnemyMovementComponent(wolf, 2.5, player);
 	mov->setMaxDistance(20);
@@ -336,24 +337,24 @@ void Game::addEnemyWolf(SDL_Point pos, int health) {
 	healthComponent->onZeroHealth(&onWolfDeathWrapper);
 
 	gameEngine->addAudioComponent(wolf);
-	gameEngine->addAudioClip(wolf, "../TestTextures/hit.mp3");
-	gameEngine->addAudioClip(wolf, "../TestTextures/uff.mp3");
+	gameEngine->addAudioClip(wolf, "assets/DemoGame/audio/hit.mp3");
+	gameEngine->addAudioClip(wolf, "assets/DemoGame/audio/wolf_death.mp3");
 
 	this->enemyCount++;
 }
 
 void Game::addEnemyWizard(SDL_Point pos, int health) {
 	Entity wizard = gameEngine->addEntity("enemy", false, pos);
-	gameEngine->addSpriteComponent(wizard, "../TestTextures/wizard_idle.png", {64,64}, 1.0f);
+	gameEngine->addSpriteComponent(wizard, "assets/DemoGame/sprites/wizard/wizard_idle.png", {64,64}, 1.0f);
 	Collider* wizardCollider = gameEngine->addColliderComponent(wizard, { 0, 0 }, { 64, 64 }, false);
 
 	Animator* anim = gameEngine->addAnimatorComponent(wizard);
-	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150, "../TestTextures/wizard_idle.png");
-	gameEngine->addAnimation(wizard, STATES::WALK_SIDE, 10, 150, "../TestTextures/wizard_idle.png");
-	gameEngine->addAnimation(wizard, STATES::IDLE_UP, 10, 150, "../TestTextures/wizard_idle.png");
-	gameEngine->addAnimation(wizard, STATES::WALK_UP, 10, 150, "../TestTextures/wizard_idle.png");
-	gameEngine->addAnimation(wizard, STATES::IDLE_DOWN, 10, 150, "../TestTextures/wizard_idle.png");
-	gameEngine->addAnimation(wizard, STATES::WALK_DOWN, 10, 150, "../TestTextures/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::IDLE_SIDE, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::WALK_SIDE, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::IDLE_UP, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::WALK_UP, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::IDLE_DOWN, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
+	gameEngine->addAnimation(wizard, STATES::WALK_DOWN, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
 
 	gameEngine->addEnemyMovementComponent(wizard, 2.0f);
 
@@ -367,17 +368,17 @@ void Game::addEnemyWizard(SDL_Point pos, int health) {
 
 void Game::addEnemyZombie(SDL_Point pos, int health) {
 	Entity zombie = gameEngine->addEntity("enemy", false, pos);
-	gameEngine->addSpriteComponent(zombie, "../TestTextures/zombie_idle_down.png", { 64,64 }, 1.5f);
+	gameEngine->addSpriteComponent(zombie, "assets/DemoGame/sprites/zombie/zombie_idle_down.png", { 64,64 }, 1.5f);
 	Collider* collider = gameEngine->addColliderComponent(zombie, { 0, 0 }, { 32, 46 }, false);
 	collider->onCollisionEnter(&enemyCollisionWrapper);
 
 	Animator* anim = gameEngine->addAnimatorComponent(zombie);
-	gameEngine->addAnimation(zombie, STATES::IDLE_SIDE, 5, 160, "../TestTextures/zombie_idle_side.png");
-	gameEngine->addAnimation(zombie, STATES::WALK_SIDE, 6, 100, "../TestTextures/zombie_walk_side.png");
-	gameEngine->addAnimation(zombie, STATES::IDLE_UP, 5, 160, "../TestTextures/zombie_idle_up.png");
-	gameEngine->addAnimation(zombie, STATES::WALK_UP, 6, 100, "../TestTextures/zombie_walk_up.png");
-	gameEngine->addAnimation(zombie, STATES::IDLE_DOWN, 5, 160, "../TestTextures/zombie_idle_down.png");
-	gameEngine->addAnimation(zombie, STATES::WALK_DOWN, 6, 100, "../TestTextures/zombie_walk_down.png");
+	gameEngine->addAnimation(zombie, STATES::IDLE_SIDE, 5, 160, "assets/DemoGame/sprites/zombie/zombie_idle_side.png");
+	gameEngine->addAnimation(zombie, STATES::WALK_SIDE, 6, 100, "assets/DemoGame/sprites/zombie/zombie_walk_side.png");
+	gameEngine->addAnimation(zombie, STATES::IDLE_UP, 5, 160, "assets/DemoGame/sprites/zombie/zombie_idle_up.png");
+	gameEngine->addAnimation(zombie, STATES::WALK_UP, 6, 100, "assets/DemoGame/sprites/zombie/zombie_walk_up.png");
+	gameEngine->addAnimation(zombie, STATES::IDLE_DOWN, 5, 160, "assets/DemoGame/sprites/zombie/zombie_idle_down.png");
+	gameEngine->addAnimation(zombie, STATES::WALK_DOWN, 6, 100, "assets/DemoGame/sprites/zombie/zombie_walk_down.png");
 
 	EnemyMovement* mov = gameEngine->addEnemyMovementComponent(zombie, 1.5, player);
 	mov->setMaxDistance(20);
@@ -392,19 +393,19 @@ void Game::addEnemyZombie(SDL_Point pos, int health) {
 void Game::addPlayer(SDL_Point pos) {
 	if (this->player.uid == 0) {
 		this->player = gameEngine->addPlayer("player", true, { pos.x, pos.y }, 5);
-		gameEngine->addSpriteComponent(player, "../TestTextures/char_idle_side.png", { 64, 64 }, 1.5f);
+		gameEngine->addSpriteComponent(player, "assets/DemoGame/sprites/player/char_idle_side.png", { 64, 64 }, 1.5f);
 		gameEngine->setCameraFollowTarget(player);
 
 		Animator* playerAnimator = gameEngine->addAnimatorComponent(player);
-		gameEngine->addAnimation(player, STATES::IDLE_SIDE, 5, 160, "../TestTextures/char_idle_side.png");
-		gameEngine->addAnimation(player, STATES::WALK_SIDE, 6, 100, "../TestTextures/char_walk_side.png");
-		gameEngine->addAnimation(player, STATES::IDLE_UP, 5, 160, "../TestTextures/char_idle_up.png");
-		gameEngine->addAnimation(player, STATES::WALK_UP, 6, 100, "../TestTextures/char_walk_up.png");
-		gameEngine->addAnimation(player, STATES::IDLE_DOWN, 5, 160, "../TestTextures/char_idle_down.png");
-		gameEngine->addAnimation(player, STATES::WALK_DOWN, 6, 100, "../TestTextures/char_walk_down.png");
-		gameEngine->addAnimation(player, STATES::ATK_SIDE, 3, 180, "../TestTextures/char_atk_side.png");
-		gameEngine->addAnimation(player, STATES::ATK_DOWN, 3, 180, "../TestTextures/char_atk_down.png");
-		gameEngine->addAnimation(player, STATES::ATK_UP, 3, 180, "../TestTextures/char_atk_up.png");
+		gameEngine->addAnimation(player, STATES::IDLE_SIDE, 5, 160, "assets/DemoGame/sprites/player/char_idle_side.png");
+		gameEngine->addAnimation(player, STATES::WALK_SIDE, 6, 100, "assets/DemoGame/sprites/player/char_walk_side.png");
+		gameEngine->addAnimation(player, STATES::IDLE_UP, 5, 160, "assets/DemoGame/sprites/player/char_idle_up.png");
+		gameEngine->addAnimation(player, STATES::WALK_UP, 6, 100, "assets/DemoGame/sprites/player/char_walk_up.png");
+		gameEngine->addAnimation(player, STATES::IDLE_DOWN, 5, 160, "assets/DemoGame/sprites/player/char_idle_down.png");
+		gameEngine->addAnimation(player, STATES::WALK_DOWN, 6, 100, "assets/DemoGame/sprites/player/char_walk_down.png");
+		gameEngine->addAnimation(player, STATES::ATK_SIDE, 3, 180, "assets/DemoGame/sprites/player/char_atk_side.png");
+		gameEngine->addAnimation(player, STATES::ATK_DOWN, 3, 180, "assets/DemoGame/sprites/player/char_atk_down.png");
+		gameEngine->addAnimation(player, STATES::ATK_UP, 3, 180, "assets/DemoGame/sprites/player/char_atk_up.png");
 
 		playerAnimator->markAnimationInterruptible(STATES::ATK_SIDE);
 		playerAnimator->markAnimationInterruptible(STATES::ATK_DOWN);
@@ -430,7 +431,7 @@ void Game::initStartScene() {
 	SDL_Color red = { 224, 40, 27 };
 	SDL_Color buttonHover = { 77,77,77 };
 	Entity bg = gameEngine->addEntity("", false, { (int)((gameWindowWidth / 2) / gameEngine->getCameraZoomFactorX()), (int)((gameWindowHeight / 2) / gameEngine->getCameraZoomFactorY()) });
-	gameEngine->addSpriteComponent(bg, "../TestTextures/BG.png", { 1800,893 }, 1.0f);
+	gameEngine->addSpriteComponent(bg, "assets/DemoGame/sprites/start_bg.png", { 1800,893 }, 1.0f);
 
 	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2) - 180, "Risk of Snow", grey, FONTS::PIXELTITLE);
 	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2) - 120, "Demo Game", red, FONTS::PIXELSUBTITLE);
@@ -518,7 +519,7 @@ void Game::initWinterScene() {
 
 	//portal
 	Entity portal = gameEngine->addEntity("portal", false, {13*32+16,42*32 + 32});
-	gameEngine->addSpriteComponent(portal, "../TestTextures/portal.png", { 32,64 }, 1.0f);
+	gameEngine->addSpriteComponent(portal, "assets/DemoGame/sprites/portal.png", { 32,64 }, 1.0f);
 	Collider* col = gameEngine->addColliderComponent(portal, { 0,0 }, { 32,64 }, true);
 	col->onTriggerEnter(&portalWrapper);
 }
@@ -533,7 +534,7 @@ void Game::initWinterLakeScene() {
 
 	//portal
 	Entity portal = gameEngine->addEntity("portal", false, { 9 * 32 + 16,40 * 32 + 32 });
-	gameEngine->addSpriteComponent(portal, "../TestTextures/portal.png", { 32,64 }, 1.0f);
+	gameEngine->addSpriteComponent(portal, "assets/DemoGame/sprites/portal.png", { 32,64 }, 1.0f);
 	Collider* col = gameEngine->addColliderComponent(portal, { 0,0 }, { 32,64 }, true);
 	col->onTriggerEnter(&portalWrapper);
 }
@@ -547,7 +548,7 @@ void Game::initWinterRiverScene() {
 
 	// portal
 	Entity portal = gameEngine->addEntity("portal", false, { 1 * 32 + 16,30 * 32 + 32 });
-	gameEngine->addSpriteComponent(portal, "../TestTextures/portal.png", { 32,64 }, 1.0f);
+	gameEngine->addSpriteComponent(portal, "assets/DemoGame/sprites/portal.png", { 32,64 }, 1.0f);
 	Collider* col = gameEngine->addColliderComponent(portal, { 0,0 }, { 32,64 }, true);
 	col->onTriggerEnter(&portalWrapper);
 }
@@ -561,7 +562,7 @@ void Game::initWinterRoadScene() {
 
 	//portal
 	Entity portal = gameEngine->addEntity("portal", false, { 46 * 32 + 16,15 * 32 + 32 });
-	Sprite* portalSprite = gameEngine->addSpriteComponent(portal, "../TestTextures/portal.png", { 32,64 }, 1.0f);
+	Sprite* portalSprite = gameEngine->addSpriteComponent(portal, "assets/DemoGame/sprites/portal.png", { 32,64 }, 1.0f);
 	portalSprite->setTextureFlip(SDL_FLIP_HORIZONTAL);
 	Collider* col = gameEngine->addColliderComponent(portal, { 0,0 }, { 32,64 }, true);
 	col->onTriggerEnter(&portalWrapper);
@@ -569,19 +570,21 @@ void Game::initWinterRoadScene() {
 #pragma endregion Scenes
 
 void Game::startGame(){
+	this->gameEngine->playAudioFile("assets/DemoGame/audio/misc_menu.wav");
+
 	this->enemyCount = 0;
 	this->levelCompletedCounter = 0;
 	// clear start ui
 	this->uiManager->clearUI();
 
-	//Scene* first = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, nullptr, &initWinterSceneWrapper);
-	//this->gameEngine->changeScene(first, false);
 	initGameplayUI(this->uiManager);
 	this->nextLevel();
 	this->inputManager->addActionHandler(SDL_BUTTON_LEFT, &spawnPlayerProjectileWrapper);
 }
 
 void Game::restartGame() {
+	this->gameEngine->playAudioFile("assets/DemoGame/audio/misc_menu.wav");
+
 	this->player = { 0 };
 	this->boss = { 0 };
 	this->bossRoomBlock = { 0 };
@@ -593,8 +596,6 @@ void Game::restartGame() {
 	this->settingSliders = {};
 	this->settingLabels = {};
 
-	//Scene* first = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, "../TestTextures/new_bgm.mp3", &initWinterSceneWrapper);
-	//this->gameEngine->changeScene(first, false);
 	initGameplayUI(this->uiManager);
 	this->nextLevel();
 	this->inputManager->addActionHandler(SDL_BUTTON_LEFT, &spawnPlayerProjectileWrapper);
@@ -607,7 +608,7 @@ void Game::gameOver() {
 	this->uiManager->clearUI();
 
 	// start screen
-	Scene* gameOver = new Scene("../TestTextures/game_over_tileset.png", "../TestTextures/game_over.json", 1, "../TestTextures/game_over.mp3", &initGameOverSceneWrapper);
+	Scene* gameOver = new Scene("assets/DemoGame/scenes/game_over_tileset.png", "assets/DemoGame/scenes/game_over.json", 1, "assets/DemoGame/audio/game_over.mp3", &initGameOverSceneWrapper);
 	this->gameEngine->changeScene(gameOver, true);
 }
 
@@ -617,7 +618,7 @@ void Game::wonGame() {
 	this->uiManager->clearUI();
 
 	// start screen
-	Scene* won = new Scene("../TestTextures/game_over_tileset.png", "../TestTextures/game_over.json", 1, "../TestTextures/win.mp3", &initWinningSceneWrapper);
+	Scene* won = new Scene("assets/DemoGame/scenes/game_over_tileset.png", "assets/DemoGame/scenes/game_over.json", 1, "assets/DemoGame/audio/win.mp3", &initWinningSceneWrapper);
 	this->gameEngine->changeScene(won, true);
 }
 
@@ -687,16 +688,16 @@ void Game::nextLevel() {
 	if (levelCompletedCounter == 0) {
 		switch (idx) {
 		case 0:
-			scene = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter.json", 4, "../TestTextures/new_bgm.mp3", &initWinterSceneWrapper);
+			scene = new Scene("assets/DemoGame/scenes/winter_tileset.png", "assets/DemoGame/scenes/winter.json", 4, "assets/DemoGame/audio/stage_bgm.mp3", &initWinterSceneWrapper);
 			break;
 		case 1:
-			scene = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter2.json", 4, "../TestTextures/new_bgm.mp3", &initWinterLakeSceneWrapper);
+			scene = new Scene("assets/DemoGame/scenes/winter_tileset.png", "assets/DemoGame/scenes/winter2.json", 4, "assets/DemoGame/audio/stage_bgm.mp3", &initWinterLakeSceneWrapper);
 			break;
 		case 2:
-			scene = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter3.json", 4, "../TestTextures/new_bgm.mp3", &initWinterRiverSceneWrapper);
+			scene = new Scene("assets/DemoGame/scenes/winter_tileset.png", "assets/DemoGame/scenes/winter3.json", 4, "assets/DemoGame/audio/stage_bgm.mp3", &initWinterRiverSceneWrapper);
 			break;
 		case 3:
-			scene = new Scene("../TestTextures/winter_tileset.png", "../TestTextures/winter4.json", 4, "../TestTextures/new_bgm.mp3", &initWinterRoadSceneWrapper);
+			scene = new Scene("assets/DemoGame/scenes/winter_tileset.png", "assets/DemoGame/scenes/winter4.json", 4, "assets/DemoGame/audio/stage_bgm.mp3", &initWinterRoadSceneWrapper);
 			break;
 		default:
 			break;
@@ -705,16 +706,16 @@ void Game::nextLevel() {
 	else {
 		switch (idx) {
 		case 0:
-			scene = new Scene(nullptr, "../TestTextures/winter.json", 4, nullptr, &initWinterSceneWrapper);
+			scene = new Scene(nullptr, "assets/DemoGame/scenes/winter.json", 4, nullptr, &initWinterSceneWrapper);
 			break;
 		case 1:
-			scene = new Scene(nullptr, "../TestTextures/winter2.json", 4, nullptr, &initWinterLakeSceneWrapper);
+			scene = new Scene(nullptr, "assets/DemoGame/scenes/winter2.json", 4, nullptr, &initWinterLakeSceneWrapper);
 			break;
 		case 2:
-			scene = new Scene(nullptr, "../TestTextures/winter3.json", 4, nullptr, &initWinterRiverSceneWrapper);
+			scene = new Scene(nullptr, "assets/DemoGame/scenes/winter3.json", 4, nullptr, &initWinterRiverSceneWrapper);
 			break;
 		case 3:
-			scene = new Scene(nullptr, "../TestTextures/winter4.json", 4, nullptr, &initWinterRoadSceneWrapper);
+			scene = new Scene(nullptr, "assets/DemoGame/scenes/winter4.json", 4, nullptr, &initWinterRoadSceneWrapper);
 			break;
 		default:
 			break;
@@ -737,13 +738,14 @@ void Game::init() {
 	this->inputManager = this->gameEngine->getInputManager();
 
 	// load fonts
-	uiManager->addFont("../TestTextures/Fonts/arial.ttf", 32);
-	uiManager->addFont("../TestTextures/Fonts/C&C_RedAlert_LAN.ttf", 64);
-	uiManager->addFont("../TestTextures/Fonts/C&C_RedAlert_LAN.ttf", 48);
-	uiManager->addFont("../TestTextures/Fonts/arial.ttf", 22);
+	uiManager->addFont("assets/DemoGame/fonts/arial.ttf", 32);
+	uiManager->addFont("assets/DemoGame/fonts/C&C_RedAlert_LAN.ttf", 64);
+	uiManager->addFont("assets/DemoGame/fonts/C&C_RedAlert_LAN.ttf", 48);
+	uiManager->addFont("assets/DemoGame/fonts/arial.ttf", 22);
 
 	// start screen
-	Scene* start = new Scene(nullptr, nullptr, 0, "../TestTextures/new_bgm.mp3", &initStartSceneWrapper);
+	// TODO: special start music
+	Scene* start = new Scene(nullptr, nullptr, 0, "assets/DemoGame/audio/stage_bgm.mp3", &initStartSceneWrapper);
 	this->gameEngine->changeScene(start, false);
 }
 

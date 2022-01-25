@@ -321,10 +321,25 @@ void GameEngine::setBGM(const char* bgmFilePath) {
 void GameEngine::playAudioClip(Entity e, size_t index) {
 	Audio* audio = this->getAudioComponent(e);
 	if (audio != nullptr) {
-		AudioClip* clip = audio->getAudioClip(index);
+		AudioClip* clip = nullptr;
+		clip = audio->getAudioClip(index);
 		if (clip != nullptr) {
 			this->audioSystem->playSound(clip);
 		}
+	}
+}
+
+/**
+* @brief Plays audio file. This is needed for elements outside of the ecs to be able to use the audio system.
+* @param path - Path to audio file.
+*/
+void GameEngine::playAudioFile(const char* path) {
+	AudioClip* clip = new AudioClip(path);
+	if (clip != nullptr) {
+		this->audioSystem->playSound(clip);
+	}
+	else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Audio error", "Could not play audio clip.", NULL);
 	}
 }
 
@@ -515,6 +530,7 @@ ProjectileMovement* GameEngine::addProjectileMovementComponent(Entity e, SDL_Poi
 	ProjectileMovement* component = projectileMovementManager->addComponent(e);
 	if (component != nullptr) {
 		component->setEntity(e);
+		component->setActive(true);
 
 		double angle = (isCursorTarget) ? this->calcAngle({start.x-renderSystem->getCameraX(),start.y-renderSystem->getCameraY()}, target) : this->calcAngle(start, target);
 		component->init(angle, projectileSpeed);

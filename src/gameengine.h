@@ -119,6 +119,12 @@ public:
 	void playAudioClip(Entity e, size_t index);
 
 	/**
+	 * @brief Plays audio file. This is needed for elements outside of the ecs to be able to use the audio system.
+	 * @param path - Path to audio file.
+	*/
+	void playAudioFile(const char* path);
+
+	/**
 	 * @brief Sets the destination of the enemy.
 	 * @param e - Entity to set the destination from.
 	 * @param pos - Destination position.

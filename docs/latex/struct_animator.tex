@@ -1,0 +1,136 @@
+\hypertarget{struct_animator}{}\doxysection{Animator Struct Reference}
+\label{struct_animator}\index{Animator@{Animator}}
+
+
+Component to hold data to animate the sprite of the entity.  
+
+
+
+
+{\ttfamily \#include $<$animator.\+h$>$}
+
+Inheritance diagram for Animator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_animator}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_animator_a424c03eec7d415b5739146510ec27e27}\label{struct_animator_a424c03eec7d415b5739146510ec27e27}} 
+void \mbox{\hyperlink{struct_animator_a424c03eec7d415b5739146510ec27e27}{print}} ()
+\begin{DoxyCompactList}\small\item\em Prints the animator component. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animator_ad68410af078f42820eb1104842a66dfa}\label{struct_animator_ad68410af078f42820eb1104842a66dfa}} 
+void \mbox{\hyperlink{struct_animator_ad68410af078f42820eb1104842a66dfa}{reset\+Component}} ()
+\begin{DoxyCompactList}\small\item\em Resets the component. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animator_a701eeb9283612be2027425efb06bbff7}\label{struct_animator_a701eeb9283612be2027425efb06bbff7}} 
+\mbox{\hyperlink{struct_animator_a701eeb9283612be2027425efb06bbff7}{Animator}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor of animator component. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_animator_a4074f1b82ae26c9afc52cb32209c4819}{add\+Animation}} (size\+\_\+t animation\+State, int frames, int frame\+Delay\+MS)
+\begin{DoxyCompactList}\small\item\em Adds an animation the the animator component that uses sprite texture for animation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_animator_a11071c3c825444602ad991a7710cd884}{add\+Animation}} (size\+\_\+t animation\+State, int frames, int frame\+Delay\+MS, \mbox{\hyperlink{struct_texture}{Texture}} texture)
+\begin{DoxyCompactList}\small\item\em Adds an animation the the animator component. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_animator_a9800bfac63d600e206f45a38581ab367}{has\+Animation}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the animator component has animations. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_animation}{Animation}} $\ast$ \mbox{\hyperlink{struct_animator_a5dbc4fb78e6d430034388f4a7451b036}{get\+Current\+Animation}} ()
+\begin{DoxyCompactList}\small\item\em Gets the currently played animation. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{struct_animator_a93df8ae027f163401e6850eda78c35b7}{get\+State}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current state of the animator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animator_ad1c3bebf084799e45dd9c5c19b6ffc25}\label{struct_animator_ad1c3bebf084799e45dd9c5c19b6ffc25}} 
+void \mbox{\hyperlink{struct_animator_ad1c3bebf084799e45dd9c5c19b6ffc25}{set\+State}} (size\+\_\+t new\+State)
+\begin{DoxyCompactList}\small\item\em Sets the new animation state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animator_ae855e15d5ed37f168dbd03a7b4d7085a}\label{struct_animator_ae855e15d5ed37f168dbd03a7b4d7085a}} 
+void \mbox{\hyperlink{struct_animator_ae855e15d5ed37f168dbd03a7b4d7085a}{mark\+Animation\+Interruptible}} (size\+\_\+t state)
+\begin{DoxyCompactList}\small\item\em Marks an animation as interruptible. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Component to hold data to animate the sprite of the entity. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_animator_a4074f1b82ae26c9afc52cb32209c4819}\label{struct_animator_a4074f1b82ae26c9afc52cb32209c4819}} 
+\index{Animator@{Animator}!addAnimation@{addAnimation}}
+\index{addAnimation@{addAnimation}!Animator@{Animator}}
+\doxysubsubsection{\texorpdfstring{addAnimation()}{addAnimation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Animator\+::add\+Animation (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{animation\+State,  }\item[{int}]{frames,  }\item[{int}]{frame\+Delay\+MS }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds an animation the the animator component that uses sprite texture for animation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em animation\+State} & -\/ State to play the animation. \\
+\hline
+{\em frames} & -\/ Number of frames of the animation. \\
+\hline
+{\em frame\+Delay\+MS} & -\/ Delay between animation frames. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_animator_a11071c3c825444602ad991a7710cd884}\label{struct_animator_a11071c3c825444602ad991a7710cd884}} 
+\index{Animator@{Animator}!addAnimation@{addAnimation}}
+\index{addAnimation@{addAnimation}!Animator@{Animator}}
+\doxysubsubsection{\texorpdfstring{addAnimation()}{addAnimation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Animator\+::add\+Animation (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{animation\+State,  }\item[{int}]{frames,  }\item[{int}]{frame\+Delay\+MS,  }\item[{\mbox{\hyperlink{struct_texture}{Texture}}}]{texture }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds an animation the the animator component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em animation\+State} & -\/ State to play the animation. \\
+\hline
+{\em frames} & -\/ Number of frames of the animation. \\
+\hline
+{\em frame\+Delay\+MS} & -\/ Delay between animation frames. \\
+\hline
+{\em texture} & -\/ \mbox{\hyperlink{struct_texture}{Texture}} of the animation. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_animator_a5dbc4fb78e6d430034388f4a7451b036}\label{struct_animator_a5dbc4fb78e6d430034388f4a7451b036}} 
+\index{Animator@{Animator}!getCurrentAnimation@{getCurrentAnimation}}
+\index{getCurrentAnimation@{getCurrentAnimation}!Animator@{Animator}}
+\doxysubsubsection{\texorpdfstring{getCurrentAnimation()}{getCurrentAnimation()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_animation}{Animation}}$\ast$ Animator\+::get\+Current\+Animation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the currently played animation. 
+
+\begin{DoxyReturn}{Returns}
+Current animation. Returns nullptr if no animation is present 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_animator_a93df8ae027f163401e6850eda78c35b7}\label{struct_animator_a93df8ae027f163401e6850eda78c35b7}} 
+\index{Animator@{Animator}!getState@{getState}}
+\index{getState@{getState}!Animator@{Animator}}
+\doxysubsubsection{\texorpdfstring{getState()}{getState()}}
+{\footnotesize\ttfamily size\+\_\+t Animator\+::get\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current state of the animator. 
+
+\begin{DoxyReturn}{Returns}
+Current state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_animator_a9800bfac63d600e206f45a38581ab367}\label{struct_animator_a9800bfac63d600e206f45a38581ab367}} 
+\index{Animator@{Animator}!hasAnimation@{hasAnimation}}
+\index{hasAnimation@{hasAnimation}!Animator@{Animator}}
+\doxysubsubsection{\texorpdfstring{hasAnimation()}{hasAnimation()}}
+{\footnotesize\ttfamily bool Animator\+::has\+Animation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the animator component has animations. 
+
+\begin{DoxyReturn}{Returns}
+Whether the animator component has animations. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/components/animator.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,538 @@
+\hypertarget{class_u_i_manager}{}\doxysection{UIManager Class Reference}
+\label{class_u_i_manager}\index{UIManager@{UIManager}}
+
+
+Manager to manage every ui element.  
+
+
+
+
+{\ttfamily \#include $<$uimanager.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_u_i_manager_ab03e06b5ed42d26082ac2a4a8c1cc121}{UIManager}} (SDL\+\_\+\+Renderer $\ast$renderer, \mbox{\hyperlink{class_input_manager}{Input\+Manager}} $\ast$input\+Manager)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_u_i_manager}{UIManager}} constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_u_i_manager_aeac3e2a8fd4ba49821ce653f4d2fa6b6}\label{class_u_i_manager_aeac3e2a8fd4ba49821ce653f4d2fa6b6}} 
+\mbox{\hyperlink{class_u_i_manager_aeac3e2a8fd4ba49821ce653f4d2fa6b6}{$\sim$\+UIManager}} ()
+\begin{DoxyCompactList}\small\item\em Destructor of UI manager. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_u_i_manager_a12ed6f32d28d232782c5bdbbb09b3c9f}\label{class_u_i_manager_a12ed6f32d28d232782c5bdbbb09b3c9f}} 
+void \mbox{\hyperlink{class_u_i_manager_a12ed6f32d28d232782c5bdbbb09b3c9f}{update}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_u_i_manager}{UIManager}} update loop. Used to handle button clicks/hovers. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_abb93970152e48e36ebb6cceca2349664}{add\+Font}} (const char $\ast$path, int font\+Size)
+\begin{DoxyCompactList}\small\item\em Adds a text font. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_abdc388fb8d47704e08606460c885a120}{add\+Label}} (int x, int y, std\+::string text, SDL\+\_\+\+Color color, size\+\_\+t font\+Index)
+\begin{DoxyCompactList}\small\item\em Adds label to ui. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_label}{Label}} $\ast$ \mbox{\hyperlink{class_u_i_manager_a84c2d2b84dc71daf2967a21886a1dc7a}{get\+Label}} (size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Gets label. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_a013de4147ba698400b1a4774378db85b}{get\+Current\+Label\+Index}} ()
+\begin{DoxyCompactList}\small\item\em Gets current label index. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_abd1602176c591e5cfe38772f834d5c38}{add\+Panel}} (const char $\ast$file\+Path, int x, int y, int w, int h, SDL\+\_\+\+Color panel\+Color)
+\begin{DoxyCompactList}\small\item\em Adds panel to ui. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_ac90d3eeb181af14f5f1de39b2726502a}{add\+Panel}} (int x, int y, int w, int h, SDL\+\_\+\+Color panel\+Color)
+\begin{DoxyCompactList}\small\item\em Adds panel to ui. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_panel}{Panel}} $\ast$ \mbox{\hyperlink{class_u_i_manager_a39eaaa35208f064d9c2e7b6bf42c03a2}{get\+Panel}} (size\+\_\+t panel\+Index)
+\begin{DoxyCompactList}\small\item\em Gets panel. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_a73c14ae4b90382e5a027df1a0cb69028}{get\+Current\+Panel\+Index}} ()
+\begin{DoxyCompactList}\small\item\em Gets current panel index. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_a63da4102bdeefb36a02d6c37b05241ce}{add\+Progress\+Bar}} (const char $\ast$bg\+File\+Path, const char $\ast$progress\+File\+Path, int x, int y, int w, int h, SDL\+\_\+\+Color bg\+Color, SDL\+\_\+\+Color progress\+Color)
+\begin{DoxyCompactList}\small\item\em Adds progressbar to ui. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_aceaada81d06db93588737639a16e18fe}{add\+Progress\+Bar}} (int x, int y, int w, int h, SDL\+\_\+\+Color bg\+Color, SDL\+\_\+\+Color progress\+Color)
+\begin{DoxyCompactList}\small\item\em Adds progressbar to ui. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_progress_bar}{Progress\+Bar}} $\ast$ \mbox{\hyperlink{class_u_i_manager_a9de978a89f2c279c5f272b8a28d224f8}{get\+Progress\+Bar}} (size\+\_\+t progress\+Bar\+Index)
+\begin{DoxyCompactList}\small\item\em Gets progressbar. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_a0bf42811cf0e85dd5099efcde572a627}{get\+Current\+Progress\+Bar\+Index}} ()
+\begin{DoxyCompactList}\small\item\em Gets current progressbar index. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_af9be846214f59a8d244652de6e914e99}{add\+Button}} (int x, int y, std\+::string button\+Text, SDL\+\_\+\+Color button\+Text\+Color, SDL\+\_\+\+Color button\+BGColor, size\+\_\+t font\+Index, SDL\+\_\+\+Point border\+Width, SDL\+\_\+\+Color hover\+Color)
+\begin{DoxyCompactList}\small\item\em Adds button to ui. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_ae09ede64b89614073410cef168ab7980}{add\+Button}} (const char $\ast$panel\+File\+Path, int x, int y, std\+::string button\+Text, SDL\+\_\+\+Color button\+Text\+Color, SDL\+\_\+\+Color button\+BGColor, size\+\_\+t font\+Index, SDL\+\_\+\+Point border\+Width, SDL\+\_\+\+Color hover\+Color)
+\begin{DoxyCompactList}\small\item\em Adds button to ui. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_button}{Button}} $\ast$ \mbox{\hyperlink{class_u_i_manager_ab8742dd31ed823e2fdd38e1cf8d69d89}{get\+Button}} (size\+\_\+t button\+Index)
+\begin{DoxyCompactList}\small\item\em Gets button. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_afffac887769cd45d617ef03ce9747e93}{get\+Current\+Button\+Index}} ()
+\begin{DoxyCompactList}\small\item\em Gets current button index. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_a2c7cdd596f888bf2c9feabc629a9676e}{add\+Slider}} (SDL\+\_\+\+Rect background, SDL\+\_\+\+Color bg\+Color, SDL\+\_\+\+Color slider\+Knob\+Color, float current\+Val)
+\begin{DoxyCompactList}\small\item\em Adds slider to the ui. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_slider}{Slider}} $\ast$ \mbox{\hyperlink{class_u_i_manager_a23857ee62a564094636abf2d0519fca8}{get\+Slider}} (size\+\_\+t slider\+Index)
+\begin{DoxyCompactList}\small\item\em Gets the slider. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_u_i_manager_a6dcfec9609fece346fbeecbdbbce77f1}{get\+Current\+Slider\+Index}} ()
+\begin{DoxyCompactList}\small\item\em Gets current slider index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_u_i_manager_a7f72713dd730124828e716a2bc7dc272}\label{class_u_i_manager_a7f72713dd730124828e716a2bc7dc272}} 
+void \mbox{\hyperlink{class_u_i_manager_a7f72713dd730124828e716a2bc7dc272}{clear\+UI}} ()
+\begin{DoxyCompactList}\small\item\em Clears every ui element present. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manager to manage every ui element. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_u_i_manager_ab03e06b5ed42d26082ac2a4a8c1cc121}\label{class_u_i_manager_ab03e06b5ed42d26082ac2a4a8c1cc121}} 
+\index{UIManager@{UIManager}!UIManager@{UIManager}}
+\index{UIManager@{UIManager}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{UIManager()}{UIManager()}}
+{\footnotesize\ttfamily UIManager\+::\+UIManager (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{\mbox{\hyperlink{class_input_manager}{Input\+Manager}} $\ast$}]{input\+Manager }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_u_i_manager}{UIManager}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & -\/ Pointer to the window renderer. \\
+\hline
+{\em input\+Manager} & -\/ Pointer to the input manager. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_u_i_manager_ae09ede64b89614073410cef168ab7980}\label{class_u_i_manager_ae09ede64b89614073410cef168ab7980}} 
+\index{UIManager@{UIManager}!addButton@{addButton}}
+\index{addButton@{addButton}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addButton()}{addButton()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Button (\begin{DoxyParamCaption}\item[{const char $\ast$}]{panel\+File\+Path,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{std\+::string}]{button\+Text,  }\item[{SDL\+\_\+\+Color}]{button\+Text\+Color,  }\item[{SDL\+\_\+\+Color}]{button\+BGColor,  }\item[{size\+\_\+t}]{font\+Index,  }\item[{SDL\+\_\+\+Point}]{border\+Width,  }\item[{SDL\+\_\+\+Color}]{hover\+Color }\end{DoxyParamCaption})}
+
+
+
+Adds button to ui. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em panel\+File\+Path} & -\/ File path to background texture. \\
+\hline
+{\em x} & -\/ X position of button \\
+\hline
+{\em y} & -\/ Y position of button \\
+\hline
+{\em button\+Text} & -\/ Text of button label. \\
+\hline
+{\em button\+Text\+Color} & -\/ Textcolor of button label. \\
+\hline
+{\em button\+BGColor} & -\/ Color of button background texture. \\
+\hline
+{\em font\+Index} & -\/ Index of font. \\
+\hline
+{\em border\+Width} & -\/ Borderwidth of button \\
+\hline
+{\em hover\+Color} & -\/ Hover color of button background texture. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created button. When unsuccesful, returns SIZE\+\_\+\+MAX. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_af9be846214f59a8d244652de6e914e99}\label{class_u_i_manager_af9be846214f59a8d244652de6e914e99}} 
+\index{UIManager@{UIManager}!addButton@{addButton}}
+\index{addButton@{addButton}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addButton()}{addButton()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Button (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{std\+::string}]{button\+Text,  }\item[{SDL\+\_\+\+Color}]{button\+Text\+Color,  }\item[{SDL\+\_\+\+Color}]{button\+BGColor,  }\item[{size\+\_\+t}]{font\+Index,  }\item[{SDL\+\_\+\+Point}]{border\+Width,  }\item[{SDL\+\_\+\+Color}]{hover\+Color }\end{DoxyParamCaption})}
+
+
+
+Adds button to ui. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ X position of button \\
+\hline
+{\em y} & -\/ Y position of button \\
+\hline
+{\em button\+Text} & -\/ Text of button label. \\
+\hline
+{\em button\+Text\+Color} & -\/ Textcolor of button label. \\
+\hline
+{\em button\+BGColor} & -\/ Color of button background texture. \\
+\hline
+{\em font\+Index} & -\/ Index of font. \\
+\hline
+{\em border\+Width} & -\/ Borderwidth of button \\
+\hline
+{\em hover\+Color} & -\/ Hover color of button background texture. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created button. When unsuccesful, returns SIZE\+\_\+\+MAX.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ X position of button \\
+\hline
+{\em y} & -\/ Y position of button \\
+\hline
+{\em button\+Text} & -\/ Text of button label. \\
+\hline
+{\em button\+Text\+Color} & -\/ Textcolor of button label. \\
+\hline
+{\em button\+BGColor} & -\/ Color of button background texture. \\
+\hline
+{\em font\+Index} & -\/ Index of font. \\
+\hline
+{\em border\+Width} & -\/ Borderwidth of button \\
+\hline
+{\em hover\+Color} & -\/ Hover color of button background texture. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created button. -\/1 if no button was created. When unsuccesful, returns SIZE\+\_\+\+MAX. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_abb93970152e48e36ebb6cceca2349664}\label{class_u_i_manager_abb93970152e48e36ebb6cceca2349664}} 
+\index{UIManager@{UIManager}!addFont@{addFont}}
+\index{addFont@{addFont}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addFont()}{addFont()}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Font (\begin{DoxyParamCaption}\item[{const char $\ast$}]{path,  }\item[{int}]{font\+Size }\end{DoxyParamCaption})}
+
+
+
+Adds a text font. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ Font filepath. \\
+\hline
+{\em font\+Size} & -\/ Fontsize. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created font. When unsuccesful, returns SIZE\+\_\+\+MAX. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_abdc388fb8d47704e08606460c885a120}\label{class_u_i_manager_abdc388fb8d47704e08606460c885a120}} 
+\index{UIManager@{UIManager}!addLabel@{addLabel}}
+\index{addLabel@{addLabel}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addLabel()}{addLabel()}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Label (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{std\+::string}]{text,  }\item[{SDL\+\_\+\+Color}]{color,  }\item[{size\+\_\+t}]{font\+Index }\end{DoxyParamCaption})}
+
+
+
+Adds label to ui. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ X position of label. \\
+\hline
+{\em y} & -\/ Y position of label. \\
+\hline
+{\em text} & -\/ Text of label. \\
+\hline
+{\em color} & -\/ Text color of label. \\
+\hline
+{\em font\+Index} & -\/ Index of text font. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created label. When unsuccesful, returns SIZE\+\_\+\+MAX.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ X position of label. \\
+\hline
+{\em y} & -\/ Y position of label. \\
+\hline
+{\em text} & -\/ Text of label. \\
+\hline
+{\em color} & -\/ Text color of label. \\
+\hline
+{\em font\+Index} & -\/ Index of text font. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created label. -\/1 if no label was created. When unsuccesful, returns SIZE\+\_\+\+MAX. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_abd1602176c591e5cfe38772f834d5c38}\label{class_u_i_manager_abd1602176c591e5cfe38772f834d5c38}} 
+\index{UIManager@{UIManager}!addPanel@{addPanel}}
+\index{addPanel@{addPanel}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addPanel()}{addPanel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Panel (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file\+Path,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{SDL\+\_\+\+Color}]{panel\+Color }\end{DoxyParamCaption})}
+
+
+
+Adds panel to ui. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & -\/ File path to texture file. \\
+\hline
+{\em x} & -\/ X position of panel. \\
+\hline
+{\em y} & -\/ Y position of panel. \\
+\hline
+{\em w} & -\/ Width of panel. \\
+\hline
+{\em h} & -\/ Height of panel. \\
+\hline
+{\em panel\+Color} & -\/ Background color of panel. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created panel. When unsuccesful, returns SIZE\+\_\+\+MAX. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_ac90d3eeb181af14f5f1de39b2726502a}\label{class_u_i_manager_ac90d3eeb181af14f5f1de39b2726502a}} 
+\index{UIManager@{UIManager}!addPanel@{addPanel}}
+\index{addPanel@{addPanel}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addPanel()}{addPanel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Panel (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{SDL\+\_\+\+Color}]{panel\+Color }\end{DoxyParamCaption})}
+
+
+
+Adds panel to ui. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ X position of panel. \\
+\hline
+{\em y} & -\/ Y position of panel. \\
+\hline
+{\em w} & -\/ Width of panel. \\
+\hline
+{\em h} & -\/ Height of panel. \\
+\hline
+{\em panel\+Color} & -\/ Background color of panel. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created panel. When unsuccesful, returns SIZE\+\_\+\+MAX. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a63da4102bdeefb36a02d6c37b05241ce}\label{class_u_i_manager_a63da4102bdeefb36a02d6c37b05241ce}} 
+\index{UIManager@{UIManager}!addProgressBar@{addProgressBar}}
+\index{addProgressBar@{addProgressBar}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addProgressBar()}{addProgressBar()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Progress\+Bar (\begin{DoxyParamCaption}\item[{const char $\ast$}]{bg\+File\+Path,  }\item[{const char $\ast$}]{progress\+File\+Path,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{SDL\+\_\+\+Color}]{bg\+Color,  }\item[{SDL\+\_\+\+Color}]{progress\+Color }\end{DoxyParamCaption})}
+
+
+
+Adds progressbar to ui. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bg\+File\+Path} & -\/ File path to background texture. \\
+\hline
+{\em progress\+File\+Path} & -\/ File path to progress texture. \\
+\hline
+{\em x} & -\/ X position of progressbar. \\
+\hline
+{\em y} & -\/ Y position of progressbar. \\
+\hline
+{\em w} & -\/ Width of progressbar. \\
+\hline
+{\em h} & -\/ Height of progressbar. \\
+\hline
+{\em bg\+Color} & -\/ Color of background texture. \\
+\hline
+{\em progress\+Color} & -\/ Color of progress texture. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created progressbar. When unsuccesful, returns SIZE\+\_\+\+MAX. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_aceaada81d06db93588737639a16e18fe}\label{class_u_i_manager_aceaada81d06db93588737639a16e18fe}} 
+\index{UIManager@{UIManager}!addProgressBar@{addProgressBar}}
+\index{addProgressBar@{addProgressBar}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addProgressBar()}{addProgressBar()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Progress\+Bar (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{SDL\+\_\+\+Color}]{bg\+Color,  }\item[{SDL\+\_\+\+Color}]{progress\+Color }\end{DoxyParamCaption})}
+
+
+
+Adds progressbar to ui. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ X position of progressbar. \\
+\hline
+{\em y} & -\/ Y position of progressbar. \\
+\hline
+{\em w} & -\/ Width of progressbar. \\
+\hline
+{\em h} & -\/ Height of progressbar. \\
+\hline
+{\em bg\+Color} & -\/ Color of background texture. \\
+\hline
+{\em progress\+Color} & -\/ Color of progress texture. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of created progressbar. When unsuccesful, returns SIZE\+\_\+\+MAX. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a2c7cdd596f888bf2c9feabc629a9676e}\label{class_u_i_manager_a2c7cdd596f888bf2c9feabc629a9676e}} 
+\index{UIManager@{UIManager}!addSlider@{addSlider}}
+\index{addSlider@{addSlider}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{addSlider()}{addSlider()}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::add\+Slider (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Rect}]{background,  }\item[{SDL\+\_\+\+Color}]{bg\+Color,  }\item[{SDL\+\_\+\+Color}]{slider\+Knob\+Color,  }\item[{float}]{current\+Val }\end{DoxyParamCaption})}
+
+
+
+Adds slider to the ui. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em background} & -\/ \mbox{\hyperlink{struct_position}{Position}} and size of the background panel. \\
+\hline
+{\em bg\+Color} & -\/ Background color. \\
+\hline
+{\em slider\+Knob\+Color} & -\/ Color of the slider knob. \\
+\hline
+{\em current\+Val} & -\/ Current slider value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of the slider. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_ab8742dd31ed823e2fdd38e1cf8d69d89}\label{class_u_i_manager_ab8742dd31ed823e2fdd38e1cf8d69d89}} 
+\index{UIManager@{UIManager}!getButton@{getButton}}
+\index{getButton@{getButton}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getButton()}{getButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_button}{Button}}$\ast$ UIManager\+::get\+Button (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{button\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button\+Index} & -\/ Index of button. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to button. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_afffac887769cd45d617ef03ce9747e93}\label{class_u_i_manager_afffac887769cd45d617ef03ce9747e93}} 
+\index{UIManager@{UIManager}!getCurrentButtonIndex@{getCurrentButtonIndex}}
+\index{getCurrentButtonIndex@{getCurrentButtonIndex}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getCurrentButtonIndex()}{getCurrentButtonIndex()}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::get\+Current\+Button\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current button index. 
+
+\begin{DoxyReturn}{Returns}
+Current button index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a013de4147ba698400b1a4774378db85b}\label{class_u_i_manager_a013de4147ba698400b1a4774378db85b}} 
+\index{UIManager@{UIManager}!getCurrentLabelIndex@{getCurrentLabelIndex}}
+\index{getCurrentLabelIndex@{getCurrentLabelIndex}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getCurrentLabelIndex()}{getCurrentLabelIndex()}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::get\+Current\+Label\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current label index. 
+
+\begin{DoxyReturn}{Returns}
+Current label index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a73c14ae4b90382e5a027df1a0cb69028}\label{class_u_i_manager_a73c14ae4b90382e5a027df1a0cb69028}} 
+\index{UIManager@{UIManager}!getCurrentPanelIndex@{getCurrentPanelIndex}}
+\index{getCurrentPanelIndex@{getCurrentPanelIndex}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getCurrentPanelIndex()}{getCurrentPanelIndex()}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::get\+Current\+Panel\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current panel index. 
+
+\begin{DoxyReturn}{Returns}
+Current panel index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a0bf42811cf0e85dd5099efcde572a627}\label{class_u_i_manager_a0bf42811cf0e85dd5099efcde572a627}} 
+\index{UIManager@{UIManager}!getCurrentProgressBarIndex@{getCurrentProgressBarIndex}}
+\index{getCurrentProgressBarIndex@{getCurrentProgressBarIndex}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getCurrentProgressBarIndex()}{getCurrentProgressBarIndex()}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::get\+Current\+Progress\+Bar\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current progressbar index. 
+
+\begin{DoxyReturn}{Returns}
+Current progressbar index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a6dcfec9609fece346fbeecbdbbce77f1}\label{class_u_i_manager_a6dcfec9609fece346fbeecbdbbce77f1}} 
+\index{UIManager@{UIManager}!getCurrentSliderIndex@{getCurrentSliderIndex}}
+\index{getCurrentSliderIndex@{getCurrentSliderIndex}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getCurrentSliderIndex()}{getCurrentSliderIndex()}}
+{\footnotesize\ttfamily size\+\_\+t UIManager\+::get\+Current\+Slider\+Index (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current slider index. 
+
+\begin{DoxyReturn}{Returns}
+Current slider index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a84c2d2b84dc71daf2967a21886a1dc7a}\label{class_u_i_manager_a84c2d2b84dc71daf2967a21886a1dc7a}} 
+\index{UIManager@{UIManager}!getLabel@{getLabel}}
+\index{getLabel@{getLabel}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getLabel()}{getLabel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_label}{Label}}$\ast$ UIManager\+::get\+Label (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets label. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ Index of label \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to label. Returns nullptr if given index is not allowed. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a39eaaa35208f064d9c2e7b6bf42c03a2}\label{class_u_i_manager_a39eaaa35208f064d9c2e7b6bf42c03a2}} 
+\index{UIManager@{UIManager}!getPanel@{getPanel}}
+\index{getPanel@{getPanel}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getPanel()}{getPanel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_panel}{Panel}}$\ast$ UIManager\+::get\+Panel (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{panel\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets panel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em panel\+Index} & -\/ Index of panel. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to panel. Returns nullptr if given index is not allowed. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a9de978a89f2c279c5f272b8a28d224f8}\label{class_u_i_manager_a9de978a89f2c279c5f272b8a28d224f8}} 
+\index{UIManager@{UIManager}!getProgressBar@{getProgressBar}}
+\index{getProgressBar@{getProgressBar}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getProgressBar()}{getProgressBar()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_progress_bar}{Progress\+Bar}}$\ast$ UIManager\+::get\+Progress\+Bar (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{progress\+Bar\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets progressbar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em progress\+Bar\+Index} & -\/ Index of progressbar. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to progressbar. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_u_i_manager_a23857ee62a564094636abf2d0519fca8}\label{class_u_i_manager_a23857ee62a564094636abf2d0519fca8}} 
+\index{UIManager@{UIManager}!getSlider@{getSlider}}
+\index{getSlider@{getSlider}!UIManager@{UIManager}}
+\doxysubsubsection{\texorpdfstring{getSlider()}{getSlider()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_slider}{Slider}}$\ast$ UIManager\+::get\+Slider (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{slider\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the slider. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em slider\+Index} & -\/ Index of slider. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to slider. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/uimanager.\+h\item 
+src/uimanager.\+cpp\end{DoxyCompactItemize}

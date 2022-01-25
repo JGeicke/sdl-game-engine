@@ -1,0 +1,248 @@
+\hypertarget{struct_progress_bar}{}\doxysection{Progress\+Bar Struct Reference}
+\label{struct_progress_bar}\index{ProgressBar@{ProgressBar}}
+
+
+Struct that represents ui progressbars.  
+
+
+
+
+{\ttfamily \#include $<$progressbar.\+h$>$}
+
+Inheritance diagram for Progress\+Bar\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_progress_bar}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_progress_bar_aabdebc9823af01c7567e7546d9f0016f}\label{struct_progress_bar_aabdebc9823af01c7567e7546d9f0016f}} 
+\mbox{\hyperlink{struct_progress_bar_aabdebc9823af01c7567e7546d9f0016f}{Progress\+Bar}} ()
+\begin{DoxyCompactList}\small\item\em Default progressbar constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_progress_bar_a9661822996310c4d2c899b7c9da03aa6}{Progress\+Bar}} (SDL\+\_\+\+Renderer $\ast$renderer, const char $\ast$bg\+File\+Path, const char $\ast$progress\+File\+Path, int x, int y, int w, int h, SDL\+\_\+\+Color bg\+Color, SDL\+\_\+\+Color progress\+Color)
+\begin{DoxyCompactList}\small\item\em Creates new progressbar. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_progress_bar_a006a6ce60e717470ad004e915816d40c}{Progress\+Bar}} (SDL\+\_\+\+Renderer $\ast$renderer, int x, int y, int w, int h, SDL\+\_\+\+Color bg\+Color, SDL\+\_\+\+Color progress\+Color)
+\begin{DoxyCompactList}\small\item\em Creates new progressbar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_progress_bar_a459ebe0a874eede2714339f677aa3cd9}{set\+Position}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Sets the position of the progressbar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_progress_bar_aded3a2fe479a2c6e554cea38970e03c4}{set\+Size}} (int w, int h)
+\begin{DoxyCompactList}\small\item\em Sets the size of the progressbar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_progress_bar_a22b24910336b660cb258e080d548756b}{set\+Progress}} (float progress)
+\begin{DoxyCompactList}\small\item\em Sets current progress of the progressbar. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_progress_bar_ad95484150ee44ce38da1192a563c7295}{set\+Background\+Color}} (SDL\+\_\+\+Color color)
+\begin{DoxyCompactList}\small\item\em Sets the color of the background texture. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_progress_bar_a8fd2c2d34f61a59e41bfb8fcb872a64d}{set\+Progress\+Color}} (SDL\+\_\+\+Color color)
+\begin{DoxyCompactList}\small\item\em Sets the color of the progress texture. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Texture $\ast$ \mbox{\hyperlink{struct_progress_bar_ae740a95ed3e280585869c398c13e8bf4}{get\+Background\+Texture}} ()
+\begin{DoxyCompactList}\small\item\em Gets the background texture of the progressbar. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Rect $\ast$ \mbox{\hyperlink{struct_progress_bar_a148987885a619de1cfa48e745ed626c3}{get\+Background\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Gets the position of the progressbar background. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Texture $\ast$ \mbox{\hyperlink{struct_progress_bar_a9b4daab8d4691f796471bec77998997a}{get\+Progress\+Texture}} ()
+\begin{DoxyCompactList}\small\item\em Gets the progress texture of the progressbar. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Rect $\ast$ \mbox{\hyperlink{struct_progress_bar_ae03f7ab5834e999a2072f48e0fe209a8}{get\+Progress\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Gets the position of the progressbar progress. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct that represents ui progressbars. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_progress_bar_a9661822996310c4d2c899b7c9da03aa6}\label{struct_progress_bar_a9661822996310c4d2c899b7c9da03aa6}} 
+\index{ProgressBar@{ProgressBar}!ProgressBar@{ProgressBar}}
+\index{ProgressBar@{ProgressBar}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{ProgressBar()}{ProgressBar()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Progress\+Bar\+::\+Progress\+Bar (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{const char $\ast$}]{bg\+File\+Path,  }\item[{const char $\ast$}]{progress\+File\+Path,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{SDL\+\_\+\+Color}]{bg\+Color,  }\item[{SDL\+\_\+\+Color}]{progress\+Color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates new progressbar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & -\/ Pointer to the window renderer. \\
+\hline
+{\em bg\+File\+Path} & -\/ File path to the background texture. \\
+\hline
+{\em progress\+File\+Path} & -\/ File path to the progress texture. \\
+\hline
+{\em x} & -\/ X position of the progressbar. \\
+\hline
+{\em y} & -\/ Y position of the progressbar. \\
+\hline
+{\em w} & -\/ Width of the progressbar. \\
+\hline
+{\em h} & -\/ Height of the progressbar. \\
+\hline
+{\em bg\+Color} & -\/ Color of the background texture. \\
+\hline
+{\em progress\+Color} & -\/ Color of the progress texture. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_progress_bar_a006a6ce60e717470ad004e915816d40c}\label{struct_progress_bar_a006a6ce60e717470ad004e915816d40c}} 
+\index{ProgressBar@{ProgressBar}!ProgressBar@{ProgressBar}}
+\index{ProgressBar@{ProgressBar}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{ProgressBar()}{ProgressBar()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Progress\+Bar\+::\+Progress\+Bar (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{SDL\+\_\+\+Color}]{bg\+Color,  }\item[{SDL\+\_\+\+Color}]{progress\+Color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates new progressbar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & -\/ Pointer to the window renderer. \\
+\hline
+{\em x} & -\/ X position of the progressbar. \\
+\hline
+{\em y} & -\/ Y position of the progressbar. \\
+\hline
+{\em w} & -\/ Width of the progressbar. \\
+\hline
+{\em h} & -\/ Height of the progressbar. \\
+\hline
+{\em bg\+Color} & -\/ Color of the background texture. \\
+\hline
+{\em progress\+Color} & -\/ Color of the progress texture. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_progress_bar_a148987885a619de1cfa48e745ed626c3}\label{struct_progress_bar_a148987885a619de1cfa48e745ed626c3}} 
+\index{ProgressBar@{ProgressBar}!getBackgroundPosition@{getBackgroundPosition}}
+\index{getBackgroundPosition@{getBackgroundPosition}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{getBackgroundPosition()}{getBackgroundPosition()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Rect$\ast$ Progress\+Bar\+::get\+Background\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the position of the progressbar background. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the background position. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_progress_bar_ae740a95ed3e280585869c398c13e8bf4}\label{struct_progress_bar_ae740a95ed3e280585869c398c13e8bf4}} 
+\index{ProgressBar@{ProgressBar}!getBackgroundTexture@{getBackgroundTexture}}
+\index{getBackgroundTexture@{getBackgroundTexture}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{getBackgroundTexture()}{getBackgroundTexture()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture$\ast$ Progress\+Bar\+::get\+Background\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the background texture of the progressbar. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the background texture. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_progress_bar_ae03f7ab5834e999a2072f48e0fe209a8}\label{struct_progress_bar_ae03f7ab5834e999a2072f48e0fe209a8}} 
+\index{ProgressBar@{ProgressBar}!getProgressPosition@{getProgressPosition}}
+\index{getProgressPosition@{getProgressPosition}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{getProgressPosition()}{getProgressPosition()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Rect$\ast$ Progress\+Bar\+::get\+Progress\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the position of the progressbar progress. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the progress position. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_progress_bar_a9b4daab8d4691f796471bec77998997a}\label{struct_progress_bar_a9b4daab8d4691f796471bec77998997a}} 
+\index{ProgressBar@{ProgressBar}!getProgressTexture@{getProgressTexture}}
+\index{getProgressTexture@{getProgressTexture}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{getProgressTexture()}{getProgressTexture()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture$\ast$ Progress\+Bar\+::get\+Progress\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the progress texture of the progressbar. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the progress texture. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_progress_bar_ad95484150ee44ce38da1192a563c7295}\label{struct_progress_bar_ad95484150ee44ce38da1192a563c7295}} 
+\index{ProgressBar@{ProgressBar}!setBackgroundColor@{setBackgroundColor}}
+\index{setBackgroundColor@{setBackgroundColor}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{setBackgroundColor()}{setBackgroundColor()}}
+{\footnotesize\ttfamily void Progress\+Bar\+::set\+Background\+Color (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Color}]{color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the color of the background texture. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & -\/ New color. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_progress_bar_a459ebe0a874eede2714339f677aa3cd9}\label{struct_progress_bar_a459ebe0a874eede2714339f677aa3cd9}} 
+\index{ProgressBar@{ProgressBar}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void Progress\+Bar\+::set\+Position (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the position of the progressbar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ New x position. \\
+\hline
+{\em y} & -\/ New y position. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_progress_bar_a22b24910336b660cb258e080d548756b}\label{struct_progress_bar_a22b24910336b660cb258e080d548756b}} 
+\index{ProgressBar@{ProgressBar}!setProgress@{setProgress}}
+\index{setProgress@{setProgress}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{setProgress()}{setProgress()}}
+{\footnotesize\ttfamily void Progress\+Bar\+::set\+Progress (\begin{DoxyParamCaption}\item[{float}]{progress }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets current progress of the progressbar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em progress} & -\/ Current progress of the progressbar (1.\+0 = 100\% progress) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_progress_bar_a8fd2c2d34f61a59e41bfb8fcb872a64d}\label{struct_progress_bar_a8fd2c2d34f61a59e41bfb8fcb872a64d}} 
+\index{ProgressBar@{ProgressBar}!setProgressColor@{setProgressColor}}
+\index{setProgressColor@{setProgressColor}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{setProgressColor()}{setProgressColor()}}
+{\footnotesize\ttfamily void Progress\+Bar\+::set\+Progress\+Color (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Color}]{color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the color of the progress texture. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & -\/ New color. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_progress_bar_aded3a2fe479a2c6e554cea38970e03c4}\label{struct_progress_bar_aded3a2fe479a2c6e554cea38970e03c4}} 
+\index{ProgressBar@{ProgressBar}!setSize@{setSize}}
+\index{setSize@{setSize}!ProgressBar@{ProgressBar}}
+\doxysubsubsection{\texorpdfstring{setSize()}{setSize()}}
+{\footnotesize\ttfamily void Progress\+Bar\+::set\+Size (\begin{DoxyParamCaption}\item[{int}]{w,  }\item[{int}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the size of the progressbar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & -\/ Width of the progressbar. \\
+\hline
+{\em h} & -\/ Height of the progressbar. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/util/ui/progressbar.\+h\end{DoxyCompactItemize}

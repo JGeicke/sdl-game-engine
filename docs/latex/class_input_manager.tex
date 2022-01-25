@@ -1,0 +1,196 @@
+\hypertarget{class_input_manager}{}\doxysection{Input\+Manager Class Reference}
+\label{class_input_manager}\index{InputManager@{InputManager}}
+
+
+User Input Manager.  
+
+
+
+
+{\ttfamily \#include $<$inputmanager.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_input_manager_a136d6afa55ee74eeda5eb72e78e3ee97}\label{class_input_manager_a136d6afa55ee74eeda5eb72e78e3ee97}} 
+void \mbox{\hyperlink{class_input_manager_a136d6afa55ee74eeda5eb72e78e3ee97}{update}} ()
+\begin{DoxyCompactList}\small\item\em Update loop of the input manager to handle user input. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_vector2}{Vector2}} $\ast$ \mbox{\hyperlink{class_input_manager_a1309799d7b9c703c9f4773a8cfc3631e}{get\+Direction}} ()
+\begin{DoxyCompactList}\small\item\em Gets the direction. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_input_manager_a0c424a960c7d4e50a5432212e0769142}{get\+Current\+DirectionX}} ()
+\begin{DoxyCompactList}\small\item\em Returns x component of current direction based on user input. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_input_manager_a5d2fc0fb368447df92fef9165c361c7e}{get\+Current\+DirectionY}} ()
+\begin{DoxyCompactList}\small\item\em Returns y component of current direction based on user input. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_input_manager_a9719041ee89a69d0ed910e6deebc3af2}{get\+Normalized\+DirectionY}} ()
+\begin{DoxyCompactList}\small\item\em Returns normalized y component of direction. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_input_manager_abb5edacfdad97e3f269f17eca9f95cf9}{get\+Normalized\+DirectionX}} ()
+\begin{DoxyCompactList}\small\item\em Returns normalized x component of direction. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_input_manager_a691c23771bd07f211fae5e36b437c80c}{get\+Direction\+Magnitude}} ()
+\begin{DoxyCompactList}\small\item\em Returns magnitude of direction vector. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_input_manager_a533e02abb6f72efc2835e0b8013c58c1}{get\+Mouse\+Button}} ()
+\begin{DoxyCompactList}\small\item\em Gets current mouse button input. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Point \mbox{\hyperlink{class_input_manager_a22e8de4f309c545537ba345466569297}{get\+Mouse\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Gets current mouse position. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_input_manager_a034ba4d06d82c743e6f4d6ac8335eb4b}{add\+Action\+Handler}} (int key\+Code, action\+Handler handler)
+\begin{DoxyCompactList}\small\item\em Adds an action handler function to a key. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_input_manager_a57307d3b61f7e5af242fccd1ea70a093}{bind\+Key}} (int key\+Code, action\+Handler handler)
+\begin{DoxyCompactList}\small\item\em Binds a function to a key code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_input_manager_abec7761b869f30e6d69b6fb8bfb6a32b}\label{class_input_manager_abec7761b869f30e6d69b6fb8bfb6a32b}} 
+bool \mbox{\hyperlink{class_input_manager_abec7761b869f30e6d69b6fb8bfb6a32b}{interrupted}}
+\begin{DoxyCompactList}\small\item\em If the game window was closed by the user. Used in the main game loop. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+User Input Manager. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_input_manager_a034ba4d06d82c743e6f4d6ac8335eb4b}\label{class_input_manager_a034ba4d06d82c743e6f4d6ac8335eb4b}} 
+\index{InputManager@{InputManager}!addActionHandler@{addActionHandler}}
+\index{addActionHandler@{addActionHandler}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{addActionHandler()}{addActionHandler()}}
+{\footnotesize\ttfamily bool Input\+Manager\+::add\+Action\+Handler (\begin{DoxyParamCaption}\item[{int}]{key\+Code,  }\item[{action\+Handler}]{handler }\end{DoxyParamCaption})}
+
+
+
+Adds an action handler function to a key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\+Code} & -\/ Key code of the key triggering the handler. \\
+\hline
+{\em handler} & -\/ Handler function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the process was successful. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_a57307d3b61f7e5af242fccd1ea70a093}\label{class_input_manager_a57307d3b61f7e5af242fccd1ea70a093}} 
+\index{InputManager@{InputManager}!bindKey@{bindKey}}
+\index{bindKey@{bindKey}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{bindKey()}{bindKey()}}
+{\footnotesize\ttfamily void Input\+Manager\+::bind\+Key (\begin{DoxyParamCaption}\item[{int}]{key\+Code,  }\item[{action\+Handler}]{handler }\end{DoxyParamCaption})}
+
+
+
+Binds a function to a key code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\+Code} & -\/ Key code of key that triggers the event. \\
+\hline
+{\em handler} & -\/ Handler function. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_input_manager_a0c424a960c7d4e50a5432212e0769142}\label{class_input_manager_a0c424a960c7d4e50a5432212e0769142}} 
+\index{InputManager@{InputManager}!getCurrentDirectionX@{getCurrentDirectionX}}
+\index{getCurrentDirectionX@{getCurrentDirectionX}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{getCurrentDirectionX()}{getCurrentDirectionX()}}
+{\footnotesize\ttfamily int Input\+Manager\+::get\+Current\+DirectionX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns x component of current direction based on user input. 
+
+\begin{DoxyReturn}{Returns}
+current x component of direction. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_a5d2fc0fb368447df92fef9165c361c7e}\label{class_input_manager_a5d2fc0fb368447df92fef9165c361c7e}} 
+\index{InputManager@{InputManager}!getCurrentDirectionY@{getCurrentDirectionY}}
+\index{getCurrentDirectionY@{getCurrentDirectionY}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{getCurrentDirectionY()}{getCurrentDirectionY()}}
+{\footnotesize\ttfamily int Input\+Manager\+::get\+Current\+DirectionY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns y component of current direction based on user input. 
+
+\begin{DoxyReturn}{Returns}
+current y component of direction. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_a1309799d7b9c703c9f4773a8cfc3631e}\label{class_input_manager_a1309799d7b9c703c9f4773a8cfc3631e}} 
+\index{InputManager@{InputManager}!getDirection@{getDirection}}
+\index{getDirection@{getDirection}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{getDirection()}{getDirection()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_vector2}{Vector2}}$\ast$ Input\+Manager\+::get\+Direction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the direction. 
+
+\begin{DoxyReturn}{Returns}
+Current direction. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_a691c23771bd07f211fae5e36b437c80c}\label{class_input_manager_a691c23771bd07f211fae5e36b437c80c}} 
+\index{InputManager@{InputManager}!getDirectionMagnitude@{getDirectionMagnitude}}
+\index{getDirectionMagnitude@{getDirectionMagnitude}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{getDirectionMagnitude()}{getDirectionMagnitude()}}
+{\footnotesize\ttfamily double Input\+Manager\+::get\+Direction\+Magnitude (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns magnitude of direction vector. 
+
+\begin{DoxyReturn}{Returns}
+Magnitude of direction vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_a533e02abb6f72efc2835e0b8013c58c1}\label{class_input_manager_a533e02abb6f72efc2835e0b8013c58c1}} 
+\index{InputManager@{InputManager}!getMouseButton@{getMouseButton}}
+\index{getMouseButton@{getMouseButton}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{getMouseButton()}{getMouseButton()}}
+{\footnotesize\ttfamily int Input\+Manager\+::get\+Mouse\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current mouse button input. 
+
+\begin{DoxyReturn}{Returns}
+Current mouse button input. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_a22e8de4f309c545537ba345466569297}\label{class_input_manager_a22e8de4f309c545537ba345466569297}} 
+\index{InputManager@{InputManager}!getMousePosition@{getMousePosition}}
+\index{getMousePosition@{getMousePosition}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{getMousePosition()}{getMousePosition()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Point Input\+Manager\+::get\+Mouse\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current mouse position. 
+
+\begin{DoxyReturn}{Returns}
+Current mouse position. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_abb5edacfdad97e3f269f17eca9f95cf9}\label{class_input_manager_abb5edacfdad97e3f269f17eca9f95cf9}} 
+\index{InputManager@{InputManager}!getNormalizedDirectionX@{getNormalizedDirectionX}}
+\index{getNormalizedDirectionX@{getNormalizedDirectionX}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{getNormalizedDirectionX()}{getNormalizedDirectionX()}}
+{\footnotesize\ttfamily double Input\+Manager\+::get\+Normalized\+DirectionX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns normalized x component of direction. 
+
+\begin{DoxyReturn}{Returns}
+normalized x component of direction. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_input_manager_a9719041ee89a69d0ed910e6deebc3af2}\label{class_input_manager_a9719041ee89a69d0ed910e6deebc3af2}} 
+\index{InputManager@{InputManager}!getNormalizedDirectionY@{getNormalizedDirectionY}}
+\index{getNormalizedDirectionY@{getNormalizedDirectionY}!InputManager@{InputManager}}
+\doxysubsubsection{\texorpdfstring{getNormalizedDirectionY()}{getNormalizedDirectionY()}}
+{\footnotesize\ttfamily double Input\+Manager\+::get\+Normalized\+DirectionY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns normalized y component of direction. 
+
+\begin{DoxyReturn}{Returns}
+normalized y component of direction. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/inputmanager.\+h\item 
+src/inputmanager.\+cpp\end{DoxyCompactItemize}

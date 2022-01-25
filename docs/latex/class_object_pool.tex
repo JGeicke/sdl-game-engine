@@ -1,0 +1,155 @@
+\hypertarget{class_object_pool}{}\doxysection{Object\+Pool Class Reference}
+\label{class_object_pool}\index{ObjectPool@{ObjectPool}}
+
+
+Object(\+Entity) pool of precreated objects. Can be used to avoid the overhead of creating/destroying objects.  
+
+
+
+
+{\ttfamily \#include $<$objectpool.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_object_pool_a9fef0ce95e8ea6e568dafaa0f82f0c7c}{Object\+Pool}} (\mbox{\hyperlink{class_entity_manager}{Entity\+Manager}} $\ast$entity\+Mngr, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_position}{Position}} $>$ $\ast$position\+Mngr)
+\begin{DoxyCompactList}\small\item\em Creates an object pool. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_object_pool_a868bea5e6752fefe81fe140f8b1c54be}{init}} (const char $\ast$entity\+Tag)
+\begin{DoxyCompactList}\small\item\em Initializes the objects in the pool. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{class_object_pool_accacec98847383da6d692097506c240f}{get\+Next}} ()
+\begin{DoxyCompactList}\small\item\em Gets the next free object in the pool. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_object_pool_a27ae47b78565dceeb4358e6749dc5793}{collect}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Collects object in pool that is no longer needed. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_object_pool_a14ee70c69cd7a1da06294b9c24898563}{get\+Pool\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Gets the size of the object pool. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{class_object_pool_a242d6ec3036e4ff743f18e1608c12b8d}{get\+Entity\+By\+Index}} (size\+\_\+t idx)
+\begin{DoxyCompactList}\small\item\em Gets an object with an pool index. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_object_pool_a99e5a55cc3182a6e01f30f501ed19cae}{is\+Entity\+Used}} (size\+\_\+t idx)
+\begin{DoxyCompactList}\small\item\em Checks if object with given pool index is currently used. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Object(\+Entity) pool of precreated objects. Can be used to avoid the overhead of creating/destroying objects. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_object_pool_a9fef0ce95e8ea6e568dafaa0f82f0c7c}\label{class_object_pool_a9fef0ce95e8ea6e568dafaa0f82f0c7c}} 
+\index{ObjectPool@{ObjectPool}!ObjectPool@{ObjectPool}}
+\index{ObjectPool@{ObjectPool}!ObjectPool@{ObjectPool}}
+\doxysubsubsection{\texorpdfstring{ObjectPool()}{ObjectPool()}}
+{\footnotesize\ttfamily Object\+Pool\+::\+Object\+Pool (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_entity_manager}{Entity\+Manager}} $\ast$}]{entity\+Mngr,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_position}{Position}} $>$ $\ast$}]{position\+Mngr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates an object pool. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entity\+Mngr} & -\/ Pointer to the entity manager. \\
+\hline
+{\em position\+Mngr} & -\/ Pointer to the position component manager. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_object_pool_a27ae47b78565dceeb4358e6749dc5793}\label{class_object_pool_a27ae47b78565dceeb4358e6749dc5793}} 
+\index{ObjectPool@{ObjectPool}!collect@{collect}}
+\index{collect@{collect}!ObjectPool@{ObjectPool}}
+\doxysubsubsection{\texorpdfstring{collect()}{collect()}}
+{\footnotesize\ttfamily bool Object\+Pool\+::collect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Collects object in pool that is no longer needed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to collect. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the object was succesfully collected. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_object_pool_a242d6ec3036e4ff743f18e1608c12b8d}\label{class_object_pool_a242d6ec3036e4ff743f18e1608c12b8d}} 
+\index{ObjectPool@{ObjectPool}!getEntityByIndex@{getEntityByIndex}}
+\index{getEntityByIndex@{getEntityByIndex}!ObjectPool@{ObjectPool}}
+\doxysubsubsection{\texorpdfstring{getEntityByIndex()}{getEntityByIndex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Object\+Pool\+::get\+Entity\+By\+Index (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets an object with an pool index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em idx} & -\/ Index of entity. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{struct_entity}{Entity}} with pool index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_object_pool_accacec98847383da6d692097506c240f}\label{class_object_pool_accacec98847383da6d692097506c240f}} 
+\index{ObjectPool@{ObjectPool}!getNext@{getNext}}
+\index{getNext@{getNext}!ObjectPool@{ObjectPool}}
+\doxysubsubsection{\texorpdfstring{getNext()}{getNext()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Object\+Pool\+::get\+Next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets the next free object in the pool. 
+
+\begin{DoxyReturn}{Returns}
+Next free entity in the pool. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_object_pool_a14ee70c69cd7a1da06294b9c24898563}\label{class_object_pool_a14ee70c69cd7a1da06294b9c24898563}} 
+\index{ObjectPool@{ObjectPool}!getPoolSize@{getPoolSize}}
+\index{getPoolSize@{getPoolSize}!ObjectPool@{ObjectPool}}
+\doxysubsubsection{\texorpdfstring{getPoolSize()}{getPoolSize()}}
+{\footnotesize\ttfamily int Object\+Pool\+::get\+Pool\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the size of the object pool. 
+
+\begin{DoxyReturn}{Returns}
+Size of the object pool. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_object_pool_a868bea5e6752fefe81fe140f8b1c54be}\label{class_object_pool_a868bea5e6752fefe81fe140f8b1c54be}} 
+\index{ObjectPool@{ObjectPool}!init@{init}}
+\index{init@{init}!ObjectPool@{ObjectPool}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Object\+Pool\+::init (\begin{DoxyParamCaption}\item[{const char $\ast$}]{entity\+Tag }\end{DoxyParamCaption})}
+
+
+
+Initializes the objects in the pool. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em entity\+Tag} & -\/ Tag of the entities in the pool. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_object_pool_a99e5a55cc3182a6e01f30f501ed19cae}\label{class_object_pool_a99e5a55cc3182a6e01f30f501ed19cae}} 
+\index{ObjectPool@{ObjectPool}!isEntityUsed@{isEntityUsed}}
+\index{isEntityUsed@{isEntityUsed}!ObjectPool@{ObjectPool}}
+\doxysubsubsection{\texorpdfstring{isEntityUsed()}{isEntityUsed()}}
+{\footnotesize\ttfamily bool Object\+Pool\+::is\+Entity\+Used (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if object with given pool index is currently used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em idx} & -\/ Index of entity. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the object with the pool index is currently used. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/util/objectpool.\+h\item 
+src/util/objectpool.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,72 @@
+\hypertarget{struct_audio_clip}{}\doxysection{Audio\+Clip Struct Reference}
+\label{struct_audio_clip}\index{AudioClip@{AudioClip}}
+
+
+Struct to represent playable soundeffect.  
+
+
+
+
+{\ttfamily \#include $<$audio.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_audio_clip_aa4839877fffed5b05b0e0202177a5d28}\label{struct_audio_clip_aa4839877fffed5b05b0e0202177a5d28}} 
+\mbox{\hyperlink{struct_audio_clip_aa4839877fffed5b05b0e0202177a5d28}{Audio\+Clip}} ()
+\begin{DoxyCompactList}\small\item\em Default audio clip constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_audio_clip_a56156ce4ceece720f0f04989824ba3de}{Audio\+Clip}} (const char $\ast$file\+Path)
+\begin{DoxyCompactList}\small\item\em Creates new audio clip from audio file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_audio_clip_ab929796e463c51c50f2ad4e9acec35da}\label{struct_audio_clip_ab929796e463c51c50f2ad4e9acec35da}} 
+\mbox{\hyperlink{struct_audio_clip_ab929796e463c51c50f2ad4e9acec35da}{$\sim$\+Audio\+Clip}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_audio_clip}{Audio\+Clip}} destructor that frees the allocated audio chunk. \end{DoxyCompactList}\item 
+Mix\+\_\+\+Chunk $\ast$ \mbox{\hyperlink{struct_audio_clip_af64dc891dae90d40972c76ea5b3477c9}{get\+Audio\+Chunk}} ()
+\begin{DoxyCompactList}\small\item\em Gets the playable audio chunk. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_audio_clip_ae08b9f3754b225b9dfd8332d1874cd6f}\label{struct_audio_clip_ae08b9f3754b225b9dfd8332d1874cd6f}} 
+size\+\_\+t \mbox{\hyperlink{struct_audio_clip_ae08b9f3754b225b9dfd8332d1874cd6f}{play\+Count}}
+\begin{DoxyCompactList}\small\item\em How many times the audio clip should be played. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct to represent playable soundeffect. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_audio_clip_a56156ce4ceece720f0f04989824ba3de}\label{struct_audio_clip_a56156ce4ceece720f0f04989824ba3de}} 
+\index{AudioClip@{AudioClip}!AudioClip@{AudioClip}}
+\index{AudioClip@{AudioClip}!AudioClip@{AudioClip}}
+\doxysubsubsection{\texorpdfstring{AudioClip()}{AudioClip()}}
+{\footnotesize\ttfamily Audio\+Clip\+::\+Audio\+Clip (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates new audio clip from audio file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & -\/ Path to audio file. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_audio_clip_af64dc891dae90d40972c76ea5b3477c9}\label{struct_audio_clip_af64dc891dae90d40972c76ea5b3477c9}} 
+\index{AudioClip@{AudioClip}!getAudioChunk@{getAudioChunk}}
+\index{getAudioChunk@{getAudioChunk}!AudioClip@{AudioClip}}
+\doxysubsubsection{\texorpdfstring{getAudioChunk()}{getAudioChunk()}}
+{\footnotesize\ttfamily Mix\+\_\+\+Chunk$\ast$ Audio\+Clip\+::get\+Audio\+Chunk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the playable audio chunk. 
+
+\begin{DoxyReturn}{Returns}
+The audio chunk. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/components/audio.\+h\end{DoxyCompactItemize}

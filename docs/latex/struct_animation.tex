@@ -1,0 +1,150 @@
+\hypertarget{struct_animation}{}\doxysection{Animation Struct Reference}
+\label{struct_animation}\index{Animation@{Animation}}
+
+
+Struct to represent the animation data.  
+
+
+
+
+{\ttfamily \#include $<$animator.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_animation_a476fba48b07f4fdcdbc972ba02657baf}{Animation}} (int \mbox{\hyperlink{struct_animation_a203b48ef06404b46253bd9bb0a6415e9}{frames}}, int \mbox{\hyperlink{struct_animation_a19dd4591b60cdf7833cdd5d91d8c9973}{frame\+Delay\+MS}}, \mbox{\hyperlink{struct_texture}{Texture}} texture)
+\begin{DoxyCompactList}\small\item\em Creates new animation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_animation_a6eddee6c21acf32b1fce28195fa8c868}{increment\+YOffset}} (int frame)
+\begin{DoxyCompactList}\small\item\em Increments the y offset of the animation. Enables different structured tilesets to be used. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animation_a62e6d793f748d9aa28928136199a7d59}\label{struct_animation_a62e6d793f748d9aa28928136199a7d59}} 
+void \mbox{\hyperlink{struct_animation_a62e6d793f748d9aa28928136199a7d59}{reset\+YOffset}} ()
+\begin{DoxyCompactList}\small\item\em Resets current y offset. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_animation_a57e578fddb7e475bf0e3002b22033007}{get\+YOffset}} ()
+\begin{DoxyCompactList}\small\item\em Get current y offset. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_animation_ad1d1935aa766f92904bcb4ea1affe4f4}{has\+Animation\+Texture}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the animation has own texture or uses the sprite texture for animation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_texture}{Texture}} \mbox{\hyperlink{struct_animation_a60b4e425f6f552eb6072282ad597dc3b}{get\+Animation\+Texture}} ()
+\begin{DoxyCompactList}\small\item\em Gets pointer to the texture of the animation. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_animation_acbd16755c2293478681fca1d355ba190}{is\+Finished}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the animation is finished. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animation_a871a452a7db533ce4a8d5262e7c68a01}\label{struct_animation_a871a452a7db533ce4a8d5262e7c68a01}} 
+void \mbox{\hyperlink{struct_animation_a871a452a7db533ce4a8d5262e7c68a01}{set\+Finished}} ()
+\begin{DoxyCompactList}\small\item\em Sets the animation to finished. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animation_add758ac74373774328310521d52ca16f}\label{struct_animation_add758ac74373774328310521d52ca16f}} 
+void \mbox{\hyperlink{struct_animation_add758ac74373774328310521d52ca16f}{reset\+Animation}} ()
+\begin{DoxyCompactList}\small\item\em Resets the animation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_animation_a203b48ef06404b46253bd9bb0a6415e9}\label{struct_animation_a203b48ef06404b46253bd9bb0a6415e9}} 
+int \mbox{\hyperlink{struct_animation_a203b48ef06404b46253bd9bb0a6415e9}{frames}}
+\begin{DoxyCompactList}\small\item\em Number of frames in the animation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animation_a19dd4591b60cdf7833cdd5d91d8c9973}\label{struct_animation_a19dd4591b60cdf7833cdd5d91d8c9973}} 
+int \mbox{\hyperlink{struct_animation_a19dd4591b60cdf7833cdd5d91d8c9973}{frame\+Delay\+MS}}
+\begin{DoxyCompactList}\small\item\em Delay between the frames. Determines the speed of the animation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animation_abaaf3effcc36c00eda3fd0e30cba6b75}\label{struct_animation_abaaf3effcc36c00eda3fd0e30cba6b75}} 
+bool \mbox{\hyperlink{struct_animation_abaaf3effcc36c00eda3fd0e30cba6b75}{interruptible}}
+\begin{DoxyCompactList}\small\item\em Whether the animation is interruptible. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_animation_adc7df29e613689f29ddac3316b2a509d}\label{struct_animation_adc7df29e613689f29ddac3316b2a509d}} 
+int \mbox{\hyperlink{struct_animation_adc7df29e613689f29ddac3316b2a509d}{current\+Frame}}
+\begin{DoxyCompactList}\small\item\em Frame frame count the animation is played in. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct to represent the animation data. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_animation_a476fba48b07f4fdcdbc972ba02657baf}\label{struct_animation_a476fba48b07f4fdcdbc972ba02657baf}} 
+\index{Animation@{Animation}!Animation@{Animation}}
+\index{Animation@{Animation}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{Animation()}{Animation()}}
+{\footnotesize\ttfamily Animation\+::\+Animation (\begin{DoxyParamCaption}\item[{int}]{frames,  }\item[{int}]{frame\+Delay\+MS,  }\item[{\mbox{\hyperlink{struct_texture}{Texture}}}]{texture }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates new animation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frames} & -\/ Number of frames in the animation. \\
+\hline
+{\em frame\+Delay\+MS} & -\/ Delay between frames in animation in milliseconds. \\
+\hline
+{\em texture} & -\/ Pointer to texture object. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_animation_a60b4e425f6f552eb6072282ad597dc3b}\label{struct_animation_a60b4e425f6f552eb6072282ad597dc3b}} 
+\index{Animation@{Animation}!getAnimationTexture@{getAnimationTexture}}
+\index{getAnimationTexture@{getAnimationTexture}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{getAnimationTexture()}{getAnimationTexture()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_texture}{Texture}} Animation\+::get\+Animation\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets pointer to the texture of the animation. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the texture of the animation. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_animation_a57e578fddb7e475bf0e3002b22033007}\label{struct_animation_a57e578fddb7e475bf0e3002b22033007}} 
+\index{Animation@{Animation}!getYOffset@{getYOffset}}
+\index{getYOffset@{getYOffset}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{getYOffset()}{getYOffset()}}
+{\footnotesize\ttfamily int Animation\+::get\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get current y offset. 
+
+\begin{DoxyReturn}{Returns}
+Current y offset. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_animation_ad1d1935aa766f92904bcb4ea1affe4f4}\label{struct_animation_ad1d1935aa766f92904bcb4ea1affe4f4}} 
+\index{Animation@{Animation}!hasAnimationTexture@{hasAnimationTexture}}
+\index{hasAnimationTexture@{hasAnimationTexture}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{hasAnimationTexture()}{hasAnimationTexture()}}
+{\footnotesize\ttfamily bool Animation\+::has\+Animation\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the animation has own texture or uses the sprite texture for animation. 
+
+\begin{DoxyReturn}{Returns}
+If the animation has own texture. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_animation_a6eddee6c21acf32b1fce28195fa8c868}\label{struct_animation_a6eddee6c21acf32b1fce28195fa8c868}} 
+\index{Animation@{Animation}!incrementYOffset@{incrementYOffset}}
+\index{incrementYOffset@{incrementYOffset}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{incrementYOffset()}{incrementYOffset()}}
+{\footnotesize\ttfamily void Animation\+::increment\+YOffset (\begin{DoxyParamCaption}\item[{int}]{frame }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Increments the y offset of the animation. Enables different structured tilesets to be used. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & -\/ Frame where the y offset was increased. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_animation_acbd16755c2293478681fca1d355ba190}\label{struct_animation_acbd16755c2293478681fca1d355ba190}} 
+\index{Animation@{Animation}!isFinished@{isFinished}}
+\index{isFinished@{isFinished}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{isFinished()}{isFinished()}}
+{\footnotesize\ttfamily bool Animation\+::is\+Finished (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the animation is finished. 
+
+\begin{DoxyReturn}{Returns}
+Whether the animation is finished. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/components/animator.\+h\end{DoxyCompactItemize}

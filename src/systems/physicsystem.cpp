@@ -429,14 +429,18 @@ void PhysicSystem::detectCollisions() {
 							}
 							else {
 								std::cout << "collision\n";
+								/*
 								bool firstCollision = false;
 								if (currentCollider->getLastCollision().uid == 0 && nextCollider->getLastCollision().uid == 0) {
 									firstCollision = true;
 								}
+								*/
 								currentCollider->collision(nextCollider);
+								/*
 								if (firstCollision) {
 									nextCollider->resetLastCollision();
 								}
+								*/
 								nextCollider->collision(currentCollider);
 
 								// TODO: sometimes collision not working
@@ -445,6 +449,10 @@ void PhysicSystem::detectCollisions() {
 								currentPosition->restoreLastPosition();
 								adjustColliderPosition(currentCollider, currentPosition);
 							}
+
+							// set last collider
+							currentCollider->setLastCollision(nextCollider->getEntity());
+							nextCollider->setLastCollision(nextCollider->getEntity());
 						}
 					}
 				}
@@ -491,6 +499,10 @@ void PhysicSystem::detectCollisions() {
 
 							// execute collider collision behaviour
 							currentCollider->collision(nextCollider);
+
+							// set last collider
+							currentCollider->setLastCollision(nextCollider->getEntity());
+							nextCollider->setLastCollision(nextCollider->getEntity());
 							break;
 						}
 					}

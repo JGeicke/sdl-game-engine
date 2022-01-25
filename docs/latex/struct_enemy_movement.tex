@@ -1,0 +1,351 @@
+\hypertarget{struct_enemy_movement}{}\doxysection{Enemy\+Movement Struct Reference}
+\label{struct_enemy_movement}\index{EnemyMovement@{EnemyMovement}}
+
+
+Component to hold the attributes used for enemy movement.  
+
+
+
+
+{\ttfamily \#include $<$enemymovement.\+h$>$}
+
+Inheritance diagram for Enemy\+Movement\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_enemy_movement}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_enemy_movement_a8d5734f249e3e192c198cc21347906cf}\label{struct_enemy_movement_a8d5734f249e3e192c198cc21347906cf}} 
+typedef bool($\ast$ {\bfseries event\+Function}) (\mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_enemy_movement_a1ec7e5def53e42cfbb06896f786d7333}\label{struct_enemy_movement_a1ec7e5def53e42cfbb06896f786d7333}} 
+void \mbox{\hyperlink{struct_enemy_movement_a1ec7e5def53e42cfbb06896f786d7333}{print}} ()
+\begin{DoxyCompactList}\small\item\em Prints the enemy movement component. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_enemy_movement_a74f3b6d4840460886e07b047b0e64e58}\label{struct_enemy_movement_a74f3b6d4840460886e07b047b0e64e58}} 
+void \mbox{\hyperlink{struct_enemy_movement_a74f3b6d4840460886e07b047b0e64e58}{reset\+Component}} ()
+\begin{DoxyCompactList}\small\item\em Resets the component. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{struct_enemy_movement_a04a5e75217128d134eb12495e5ffa292}{get\+Movement\+Speed}} ()
+\begin{DoxyCompactList}\small\item\em Gets the enemy movement speed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_a8b447ee354e493f86e50a24db08c448e}{set\+Movement\+Speed}} (float mspeed)
+\begin{DoxyCompactList}\small\item\em Sets the enemy movement speed. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ \mbox{\hyperlink{struct_enemy_movement_af0134e61d4c8dcb3d11d3ad190d727db}{get\+Destination}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current movement destination of the enemy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_a983e7f95c6b536e251ae5ebdedc5f464}{set\+Destination}} (\mbox{\hyperlink{struct_node}{Node}} $\ast$new\+Dest)
+\begin{DoxyCompactList}\small\item\em Sets the current movement destination node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_a5ab99b760f4dea87009f54b5dcc4c7ee}{set\+Route}} (std\+::vector$<$ \mbox{\hyperlink{struct_node}{Node}} $\ast$ $>$ route)
+\begin{DoxyCompactList}\small\item\em Sets the route to the destination node calculated with a$\ast$. \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_node}{Node}} $\ast$ $>$ \mbox{\hyperlink{struct_enemy_movement_a72ce67ee587a0302057a28fca616f0cb}{get\+Route}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current route to the destination node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_af4db06745b81bd095e1ecf4b5229f4ce}{increase\+Timer}} (int increase)
+\begin{DoxyCompactList}\small\item\em Increases the pathfinding timer. Used to avoid calculating the path every frame. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_enemy_movement_a174f8e5549a1aeab15fca4e98f7c2256}\label{struct_enemy_movement_a174f8e5549a1aeab15fca4e98f7c2256}} 
+void \mbox{\hyperlink{struct_enemy_movement_a174f8e5549a1aeab15fca4e98f7c2256}{reset\+Current\+Timer}} ()
+\begin{DoxyCompactList}\small\item\em Resets the current timer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_ae26f2a821ebb0f1221ad282172e7fb35}{flag}} (bool flag)
+\begin{DoxyCompactList}\small\item\em Flags the enemy movement component for pathfinding. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_enemy_movement_ae1826ab7812abfbe1a92174470476ea5}{is\+Flagged}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the component is flagged for pathfinding. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ \mbox{\hyperlink{struct_enemy_movement_abf6b23ceac8441ce6977f7fdee6c4061}{get\+Next\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Gets the next node on the route. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_enemy_movement_aaf8e000b10ce7a231a9983e772882761}\label{struct_enemy_movement_aaf8e000b10ce7a231a9983e772882761}} 
+bool {\bfseries has\+Next\+Node} ()
+\item 
+bool \mbox{\hyperlink{struct_enemy_movement_ac4d2b0837a7d1c3626128a18f3b94eee}{arrived\+At\+Next\+Node}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Checks if the enemy arrived at the next node on the route based on the current position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_enemy_movement_ae6af90df23ca26b8e916f9754ac05b19}\label{struct_enemy_movement_ae6af90df23ca26b8e916f9754ac05b19}} 
+void \mbox{\hyperlink{struct_enemy_movement_ae6af90df23ca26b8e916f9754ac05b19}{set\+Next\+Node}} ()
+\begin{DoxyCompactList}\small\item\em Selects the next node of the route. If there is no next node (= current node is destination), remove the current destination. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_a852b8846bfdbe7e018f4ff4126b39d23}{set\+Pathfinding\+Timer}} (int timer\+MS)
+\begin{DoxyCompactList}\small\item\em Sets the pathfinding timer. This determins how often the path is calculated. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_ae9467e2d15f09192c0b927fa642c986d}{set\+Target}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Sets current target entity. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_enemy_movement_ace04189e3c7a2ed01355a95090ab5ff9}{has\+Target}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the component has a target entity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_enemy_movement_a9920119616569a1f268f789ab0964e5b}\label{struct_enemy_movement_a9920119616569a1f268f789ab0964e5b}} 
+void \mbox{\hyperlink{struct_enemy_movement_a9920119616569a1f268f789ab0964e5b}{reset\+Target}} ()
+\begin{DoxyCompactList}\small\item\em Resets the current target entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{struct_enemy_movement_af9483a1f0efa6f002b0efc2e1ceac268}{get\+Target}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current target entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_aa2b5b47b940183696a7f8b89bf314603}{set\+Max\+Distance}} (int distance)
+\begin{DoxyCompactList}\small\item\em Sets the maximum distance to the target. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{struct_enemy_movement_a5c9bb1be23b12f3e02b69fc9ce492717}{get\+Max\+Distance}} ()
+\begin{DoxyCompactList}\small\item\em Gets the max distance to the target. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_enemy_movement_a37b695a99c6bea57b8dc66d7d2d89175}{on\+Reaching\+Destination}} (event\+Function handler)
+\begin{DoxyCompactList}\small\item\em Sets the on\+Reaching\+Destination handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Component to hold the attributes used for enemy movement. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_enemy_movement_ac4d2b0837a7d1c3626128a18f3b94eee}\label{struct_enemy_movement_ac4d2b0837a7d1c3626128a18f3b94eee}} 
+\index{EnemyMovement@{EnemyMovement}!arrivedAtNextNode@{arrivedAtNextNode}}
+\index{arrivedAtNextNode@{arrivedAtNextNode}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{arrivedAtNextNode()}{arrivedAtNextNode()}}
+{\footnotesize\ttfamily bool Enemy\+Movement\+::arrived\+At\+Next\+Node (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the enemy arrived at the next node on the route based on the current position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ Current x position of the enemy. \\
+\hline
+{\em y} & -\/ Current y position of the enemy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the enemy arrived at the next node on the route. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_ae26f2a821ebb0f1221ad282172e7fb35}\label{struct_enemy_movement_ae26f2a821ebb0f1221ad282172e7fb35}} 
+\index{EnemyMovement@{EnemyMovement}!flag@{flag}}
+\index{flag@{flag}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{flag()}{flag()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::flag (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Flags the enemy movement component for pathfinding. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & -\/ Whether the physic system should calculate a new path for the enemy movement component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_enemy_movement_af0134e61d4c8dcb3d11d3ad190d727db}\label{struct_enemy_movement_af0134e61d4c8dcb3d11d3ad190d727db}} 
+\index{EnemyMovement@{EnemyMovement}!getDestination@{getDestination}}
+\index{getDestination@{getDestination}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{getDestination()}{getDestination()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_node}{Node}}$\ast$ Enemy\+Movement\+::get\+Destination (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current movement destination of the enemy. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the current destination node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_a5c9bb1be23b12f3e02b69fc9ce492717}\label{struct_enemy_movement_a5c9bb1be23b12f3e02b69fc9ce492717}} 
+\index{EnemyMovement@{EnemyMovement}!getMaxDistance@{getMaxDistance}}
+\index{getMaxDistance@{getMaxDistance}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{getMaxDistance()}{getMaxDistance()}}
+{\footnotesize\ttfamily int Enemy\+Movement\+::get\+Max\+Distance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the max distance to the target. 
+
+\begin{DoxyReturn}{Returns}
+Max distance. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_a04a5e75217128d134eb12495e5ffa292}\label{struct_enemy_movement_a04a5e75217128d134eb12495e5ffa292}} 
+\index{EnemyMovement@{EnemyMovement}!getMovementSpeed@{getMovementSpeed}}
+\index{getMovementSpeed@{getMovementSpeed}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{getMovementSpeed()}{getMovementSpeed()}}
+{\footnotesize\ttfamily float Enemy\+Movement\+::get\+Movement\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the enemy movement speed. 
+
+\begin{DoxyReturn}{Returns}
+Enemy movement speed. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_abf6b23ceac8441ce6977f7fdee6c4061}\label{struct_enemy_movement_abf6b23ceac8441ce6977f7fdee6c4061}} 
+\index{EnemyMovement@{EnemyMovement}!getNextNode@{getNextNode}}
+\index{getNextNode@{getNextNode}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{getNextNode()}{getNextNode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_node}{Node}}$\ast$ Enemy\+Movement\+::get\+Next\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the next node on the route. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the next node on the route. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_a72ce67ee587a0302057a28fca616f0cb}\label{struct_enemy_movement_a72ce67ee587a0302057a28fca616f0cb}} 
+\index{EnemyMovement@{EnemyMovement}!getRoute@{getRoute}}
+\index{getRoute@{getRoute}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{getRoute()}{getRoute()}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_node}{Node}}$\ast$$>$ Enemy\+Movement\+::get\+Route (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current route to the destination node. 
+
+\begin{DoxyReturn}{Returns}
+Vector containing the nodes on the route to the current destination node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_af9483a1f0efa6f002b0efc2e1ceac268}\label{struct_enemy_movement_af9483a1f0efa6f002b0efc2e1ceac268}} 
+\index{EnemyMovement@{EnemyMovement}!getTarget@{getTarget}}
+\index{getTarget@{getTarget}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{getTarget()}{getTarget()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Enemy\+Movement\+::get\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current target entity. 
+
+\begin{DoxyReturn}{Returns}
+The current target entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_ace04189e3c7a2ed01355a95090ab5ff9}\label{struct_enemy_movement_ace04189e3c7a2ed01355a95090ab5ff9}} 
+\index{EnemyMovement@{EnemyMovement}!hasTarget@{hasTarget}}
+\index{hasTarget@{hasTarget}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{hasTarget()}{hasTarget()}}
+{\footnotesize\ttfamily bool Enemy\+Movement\+::has\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the component has a target entity. 
+
+\begin{DoxyReturn}{Returns}
+Whether the component has a target entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_af4db06745b81bd095e1ecf4b5229f4ce}\label{struct_enemy_movement_af4db06745b81bd095e1ecf4b5229f4ce}} 
+\index{EnemyMovement@{EnemyMovement}!increaseTimer@{increaseTimer}}
+\index{increaseTimer@{increaseTimer}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{increaseTimer()}{increaseTimer()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::increase\+Timer (\begin{DoxyParamCaption}\item[{int}]{increase }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Increases the pathfinding timer. Used to avoid calculating the path every frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em increase} & -\/ Timer increase (milliseconds between movement simulation). \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_enemy_movement_ae1826ab7812abfbe1a92174470476ea5}\label{struct_enemy_movement_ae1826ab7812abfbe1a92174470476ea5}} 
+\index{EnemyMovement@{EnemyMovement}!isFlagged@{isFlagged}}
+\index{isFlagged@{isFlagged}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{isFlagged()}{isFlagged()}}
+{\footnotesize\ttfamily bool Enemy\+Movement\+::is\+Flagged (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the component is flagged for pathfinding. 
+
+\begin{DoxyReturn}{Returns}
+Whether the physic system should calculate a new path for the enemy movement component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_enemy_movement_a37b695a99c6bea57b8dc66d7d2d89175}\label{struct_enemy_movement_a37b695a99c6bea57b8dc66d7d2d89175}} 
+\index{EnemyMovement@{EnemyMovement}!onReachingDestination@{onReachingDestination}}
+\index{onReachingDestination@{onReachingDestination}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{onReachingDestination()}{onReachingDestination()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::on\+Reaching\+Destination (\begin{DoxyParamCaption}\item[{event\+Function}]{handler }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the on\+Reaching\+Destination handler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em handler} & -\/ New on\+Reaching\+Destination handler. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_enemy_movement_a983e7f95c6b536e251ae5ebdedc5f464}\label{struct_enemy_movement_a983e7f95c6b536e251ae5ebdedc5f464}} 
+\index{EnemyMovement@{EnemyMovement}!setDestination@{setDestination}}
+\index{setDestination@{setDestination}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{setDestination()}{setDestination()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::set\+Destination (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_node}{Node}} $\ast$}]{new\+Dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the current movement destination node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Dest} & -\/ New movement destination node. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_enemy_movement_aa2b5b47b940183696a7f8b89bf314603}\label{struct_enemy_movement_aa2b5b47b940183696a7f8b89bf314603}} 
+\index{EnemyMovement@{EnemyMovement}!setMaxDistance@{setMaxDistance}}
+\index{setMaxDistance@{setMaxDistance}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{setMaxDistance()}{setMaxDistance()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::set\+Max\+Distance (\begin{DoxyParamCaption}\item[{int}]{distance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the maximum distance to the target. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em distance} & -\/ New maximum distance to the target. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_enemy_movement_a8b447ee354e493f86e50a24db08c448e}\label{struct_enemy_movement_a8b447ee354e493f86e50a24db08c448e}} 
+\index{EnemyMovement@{EnemyMovement}!setMovementSpeed@{setMovementSpeed}}
+\index{setMovementSpeed@{setMovementSpeed}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{setMovementSpeed()}{setMovementSpeed()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::set\+Movement\+Speed (\begin{DoxyParamCaption}\item[{float}]{mspeed }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the enemy movement speed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mspeed} & -\/ New enemy movement speed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_enemy_movement_a852b8846bfdbe7e018f4ff4126b39d23}\label{struct_enemy_movement_a852b8846bfdbe7e018f4ff4126b39d23}} 
+\index{EnemyMovement@{EnemyMovement}!setPathfindingTimer@{setPathfindingTimer}}
+\index{setPathfindingTimer@{setPathfindingTimer}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{setPathfindingTimer()}{setPathfindingTimer()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::set\+Pathfinding\+Timer (\begin{DoxyParamCaption}\item[{int}]{timer\+MS }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the pathfinding timer. This determins how often the path is calculated. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em timer\+MS} & -\/ New pathfinding timer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_enemy_movement_a5ab99b760f4dea87009f54b5dcc4c7ee}\label{struct_enemy_movement_a5ab99b760f4dea87009f54b5dcc4c7ee}} 
+\index{EnemyMovement@{EnemyMovement}!setRoute@{setRoute}}
+\index{setRoute@{setRoute}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{setRoute()}{setRoute()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::set\+Route (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{struct_node}{Node}} $\ast$ $>$}]{route }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the route to the destination node calculated with a$\ast$. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em route} & -\/ Route to the destination node. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_enemy_movement_ae9467e2d15f09192c0b927fa642c986d}\label{struct_enemy_movement_ae9467e2d15f09192c0b927fa642c986d}} 
+\index{EnemyMovement@{EnemyMovement}!setTarget@{setTarget}}
+\index{setTarget@{setTarget}!EnemyMovement@{EnemyMovement}}
+\doxysubsubsection{\texorpdfstring{setTarget()}{setTarget()}}
+{\footnotesize\ttfamily void Enemy\+Movement\+::set\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets current target entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ New target entity. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/components/enemymovement.\+h\end{DoxyCompactItemize}

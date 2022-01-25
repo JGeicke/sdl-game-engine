@@ -173,8 +173,10 @@ public:
 					onCollisionEnterFunction(this, collisionComponent);
 				}
 			}
+			/*
 			lastCollision = collisionComponent->getEntity();
 			collisionComponent->lastCollision = this->entity;
+			*/
 		}
 	}
 
@@ -191,6 +193,14 @@ public:
 	*/
 	Entity getLastCollision() {
 		return lastCollision;
+	}
+
+	/**
+	 * @brief Sets the last collision entity.
+	 * @param e - Entity of last collider this collider collided with.
+	*/
+	void setLastCollision(Entity e) {
+		lastCollision = e;
 	}
 private:
 	/**
