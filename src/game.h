@@ -98,6 +98,7 @@ private:
 	std::vector<size_t> settingLabels = {};
 	size_t settingPanel = 0;
 	size_t settingButton = 0;
+	size_t settingQuitGameButton = 0;
 
 	bool hasSettings = false;
 	bool isSettingsOpen = false;

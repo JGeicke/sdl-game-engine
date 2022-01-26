@@ -751,7 +751,7 @@ void GameEngine::initSystems(int cameraWidth, int cameraHeight) {
 	this->renderSystem = new RenderSystem(this->frameDelay, spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager, enemyMovementManager);
 	this->renderSystem->initCamera(this->window->getWindowWidth(), this->window->getWindowHeight(), cameraWidth, cameraHeight);
 	//this->renderSystem->initCamera(640, 360);
-	this->renderSystem->debugging(true);
+	this->renderSystem->debugging(false);
 
 	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager, projectileMovementManager, enemyMovementManager);
 	this->physicSystem->setCameraZoom(this->renderSystem->getCameraZoomFactorX(), this->renderSystem->getCameraZoomFactorY());

@@ -153,6 +153,9 @@ void Game::toggleSettings() {
 
 	Button* b = uiManager->getButton(settingButton);
 	b->show(!b->isVisible());
+
+	b = uiManager->getButton(this->settingQuitGameButton);
+	b->show(!b->isVisible());
 }
 #pragma endregion Settings
 
@@ -650,9 +653,12 @@ void Game::initGameplayUI(UIManager* uiManager) {
 	// UI
 	SDL_Color grey = { 48,48,48 };
 	SDL_Color lightGrey = { 89,89,89 };
+	SDL_Color red = { 196, 35, 24 };
+
 	SDL_Color textColor = { 255,255,255 };
 	SDL_Color slider = { 77,77,77 };
 	SDL_Color buttonHover = {106,106,106};
+	SDL_Color quitHover = { 224, 40, 27 };
 
 	size_t progIndex = uiManager->addProgressBar(15, 65, 250, 20, grey, { 44, 135, 22 });
 	uiManager->getProgressBar(progIndex)->setProgress(0.4f);
@@ -662,7 +668,7 @@ void Game::initGameplayUI(UIManager* uiManager) {
 	this->isSettingsOpen = true;
 	this->hasSettings = true;
 
-	this->settingPanel = uiManager->addPanel((int)this->gameEngine->getGameWindowWidth() / 2 - 125, (int)this->gameEngine->getGameWindowHeight() / 2 - 160, 250, 370, grey);
+	this->settingPanel = uiManager->addPanel((int)this->gameEngine->getGameWindowWidth() / 2 - 125, (int)this->gameEngine->getGameWindowHeight() / 2 - 160, 250, 420, grey);
 
 	size_t labelIndex = uiManager->addLabel((int)this->gameEngine->getGameWindowWidth() / 2, (int)this->gameEngine->getGameWindowHeight() / 2 - 130, "Settings", textColor, FONTS::NORMAL);
 	this->settingLabels.push_back(labelIndex);
@@ -684,11 +690,14 @@ void Game::initGameplayUI(UIManager* uiManager) {
 
 	this->settingButton = uiManager->addButton((int)this->gameEngine->getGameWindowWidth() / 2, (int)this->gameEngine->getGameWindowHeight() / 2 + 160, "Okay", textColor, lightGrey, FONTS::SMALL, { 48,5 }, buttonHover);
 
+	this->settingQuitGameButton = uiManager->addButton((int)this->gameEngine->getGameWindowWidth() / 2, (int)this->gameEngine->getGameWindowHeight() / 2 + 210, "Quit Game", textColor, red, FONTS::SMALL, { 21,5 }, quitHover);
+
 	uiManager->getSlider(musicSliderIndex)->onValueChanged(&setMusicVolumeWrapper);
 	uiManager->getSlider(masterSliderIndex)->onValueChanged(&setMasterVolumeWrapper);
 	uiManager->getSlider(soundSliderIndex)->onValueChanged(&setSoundVolumeWrapper);
 
 	uiManager->getButton(this->settingButton)->onClick(&toggleSettingsWrapper);
+	uiManager->getButton(this->settingQuitGameButton)->onClick(&quitGameWrapper);
 
 	// hide settings ui
 	this->toggleSettings();
@@ -764,7 +773,6 @@ void Game::init() {
 	uiManager->addFont("assets/DemoGame/fonts/arial.ttf", 22);
 
 	// start screen
-	// TODO: special start music
 	Scene* start = new Scene(nullptr, nullptr, 0, "assets/DemoGame/audio/start_theme.mp3", &initStartSceneWrapper);
 	this->gameEngine->changeScene(start, false, true);
 }
