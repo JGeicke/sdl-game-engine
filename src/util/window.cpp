@@ -17,3 +17,17 @@ bool Window::initWindow() {
 	SDL_SetRenderDrawColor(this->renderer, 0, 0, 0, 255);
 	return true;
 }
+
+/**
+* @brief Sets the icon of the window.
+* @param filePath - Filepath to icon.
+*/
+void Window::setWindowIcon(const char* filePath) {
+	SDL_Surface* icon = IMG_Load(filePath);
+	if (icon != nullptr && window != nullptr) {
+		SDL_SetWindowIcon(window, icon);
+	}
+	else {
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Initialization error", "Could not load icon of game window.", NULL);
+	}
+}

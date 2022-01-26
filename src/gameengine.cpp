@@ -8,8 +8,9 @@
 * @param windowHeight - Height of game window.
 * @param cameraWidth - Width of camera.
 * @param cameraHeight - Height of camera.
+* @param iconFilePath - Filepath to icon.
 */
-void GameEngine::init(int fps, std::string windowTitle, int width, int height, int cameraWidth, int cameraHeight) {
+void GameEngine::init(int fps, std::string windowTitle, int width, int height, int cameraWidth, int cameraHeight, const char* iconFilePath) {
 	if (fps > 0) {
 		this->frameDelay = 1000 / fps;
 	}
@@ -23,6 +24,9 @@ void GameEngine::init(int fps, std::string windowTitle, int width, int height, i
 	}
 	this->window = new Window(windowTitle, width, height);
 	if(window->initWindow()){
+		// set window icon
+		window->setWindowIcon(iconFilePath);
+
 		this->initManagers();
 		this->initComponentManagers();
 		this->initUniqueComponents();

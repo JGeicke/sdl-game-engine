@@ -37,8 +37,9 @@ public:
 	 * @param windowHeight - Height of game window.
 	 * @param cameraWidth - Width of camera.
 	 * @param cameraHeight - Height of camera.
+	 * @param iconFilePath - Filepath to icon.
 	*/
-	void init(int fps, std::string windowTitle, int windowWidth, int windowHeight, int cameraWidth, int cameraHeight);
+	void init(int fps, std::string windowTitle, int windowWidth, int windowHeight, int cameraWidth, int cameraHeight, const char* iconFilePath);
 
 	/**
 	 * @brief Runs the game engine. Starts the game loop.

@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL.h"
+#include "SDL_image.h"
 #include <string>
 /**
  * @brief Class representing the game window.
@@ -23,6 +24,12 @@ public:
 	 * @return Whether the game window was successfully initialized.
 	*/
 	bool initWindow();
+
+	/**
+	 * @brief Sets the icon of the window.
+	 * @param filePath - Filepath to icon.
+	*/
+	void setWindowIcon(const char* filePath);
 
 	/**
 	* @brief Window destructor. Destroys the SDL_Renderer and the SDL_Window. 
