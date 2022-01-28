@@ -9,8 +9,9 @@
 * @param cameraWidth - Width of camera.
 * @param cameraHeight - Height of camera.
 * @param iconFilePath - Filepath to icon.
+* @param debug- Display position, collider and paths for debugging.
 */
-void GameEngine::init(int fps, std::string windowTitle, int width, int height, int cameraWidth, int cameraHeight, const char* iconFilePath) {
+void GameEngine::init(int fps, std::string windowTitle, int width, int height, int cameraWidth, int cameraHeight, const char* iconFilePath, bool debug) {
 	if (fps > 0) {
 		this->frameDelay = 1000 / fps;
 	}
@@ -31,7 +32,7 @@ void GameEngine::init(int fps, std::string windowTitle, int width, int height, i
 		this->initComponentManagers();
 		this->initUniqueComponents();
 		this->initObjectPools();
-		this->initSystems(cameraWidth, cameraHeight);
+		this->initSystems(cameraWidth, cameraHeight, debug);
 	}
 }
 
@@ -750,12 +751,12 @@ void GameEngine::initObjectPools() {
 * @brief Initializes the game systems.
 * @param cameraWidth - Width of camera.
 * @param cameraHeight - Height of camera.
+* @param debug- Display position, collider and paths for debugging.
 */
-void GameEngine::initSystems(int cameraWidth, int cameraHeight) {
+void GameEngine::initSystems(int cameraWidth, int cameraHeight, bool debug) {
 	this->renderSystem = new RenderSystem(this->frameDelay, spriteManager, posManager, this->window->getRenderer(), animatorManager, uiManager, colliderManager, enemyMovementManager);
 	this->renderSystem->initCamera(this->window->getWindowWidth(), this->window->getWindowHeight(), cameraWidth, cameraHeight);
-	//this->renderSystem->initCamera(640, 360);
-	this->renderSystem->debugging(false);
+	this->renderSystem->debugging(debug);
 
 	this->physicSystem = new PhysicSystem(inputManager, playerMovement, posManager, spriteManager, animatorManager, colliderManager, projectileMovementManager, enemyMovementManager);
 	this->physicSystem->setCameraZoom(this->renderSystem->getCameraZoomFactorX(), this->renderSystem->getCameraZoomFactorY());

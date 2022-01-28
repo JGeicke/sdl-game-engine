@@ -762,7 +762,7 @@ void Game::init() {
 
 	gameEngine = new GameEngine();
 	//gameEngine->init(60, "Demo Game", 1920, 1080, 1280, 720);
-	gameEngine->init(60, "Risk of Snow - Demo Game", 1280, 720, 1280, 720, "assets/DemoGame/icon.png");
+	gameEngine->init(60, "Risk of Snow - Demo Game", 1280, 720, 1280, 720, "assets/DemoGame/icon.png", true);
 	this->uiManager = this->gameEngine->getUIManager();
 	this->inputManager = this->gameEngine->getInputManager();
 

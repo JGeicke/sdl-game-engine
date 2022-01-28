@@ -557,7 +557,7 @@ std::vector<Node*> PhysicSystem::aStar(Entity e, Node* start, Node* dest) {
 		}
 	}
 
-	this->markNodesAsObstacles(e);
+	this->markNodesAsObstacles(e, dest);
 
 	Node* current = start;
 	start->gcost = 0.0f;
@@ -654,8 +654,9 @@ Node* PhysicSystem::getCurrentNode(SDL_Point pos) {
 /**
 * @brief Marks nodes as obstacle when the match the collider positions.
 * @param e - Entity to mark the obstacles for
+* @param dest - Destination node.
 */
-void PhysicSystem::markNodesAsObstacles(Entity e) {
+void PhysicSystem::markNodesAsObstacles(Entity e, Node* dest) {
 	size_t componentCount = colliderManager->getComponentCount();
 
 	for (size_t i = 0; i < componentCount; i++)
@@ -685,22 +686,22 @@ void PhysicSystem::markNodesAsObstacles(Entity e) {
 					// top-left
 					position = { pos->x() - (size->x / 2),  pos->y() - (size->y / 2) };
 					node = this->getCurrentNode(position);
-					this->markNodeAsObstacle(node);
+					this->markNodeAsObstacle(node, dest);
 
 					// top-right
 					position = { pos->x() + (size->x / 2),  pos->y() - (size->y / 2) };
 					node = this->getCurrentNode(position);
-					this->markNodeAsObstacle(node);
+					this->markNodeAsObstacle(node, dest);
 
 					// bottom-left
 					position = { pos->x() - (size->x / 2),  pos->y() + (size->y / 2) };
 					node = this->getCurrentNode(position);
-					this->markNodeAsObstacle(node);
+					this->markNodeAsObstacle(node, dest);
 
 					// bottom-right
 					position = { pos->x() + (size->x / 2),  pos->y() + (size->y / 2) };
 					node = this->getCurrentNode(position);
-					this->markNodeAsObstacle(node);
+					this->markNodeAsObstacle(node, dest);
 
 				}
 				else {
@@ -716,7 +717,7 @@ void PhysicSystem::markNodesAsObstacles(Entity e) {
 						{
 							position = { pos->x() - (size->x / 2) + (tileWidth*x) ,  pos->y() - (size->y / 2) + (tileHeight*y)};
 							node = this->getCurrentNode(position);
-							this->markNodeAsObstacle(node);
+							this->markNodeAsObstacle(node, dest);
 						}
 					}
 				}
@@ -732,7 +733,7 @@ void PhysicSystem::markNodesAsObstacles(Entity e) {
 						for (int y = 0; y < colY; y++)
 						{
 							colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y + y * tileHeight });
-							this->markNodeAsObstacle(colNode);
+							this->markNodeAsObstacle(colNode, dest);
 						}
 					}
 				}
@@ -741,7 +742,7 @@ void PhysicSystem::markNodesAsObstacles(Entity e) {
 					for (int x = 0; x < colX; x++)
 					{
 						colNode = this->getCurrentNode({ position.x + x * tileWidth, position.y });
-						this->markNodeAsObstacle(colNode);
+						this->markNodeAsObstacle(colNode, dest);
 					}
 				}
 				else if (colY > 0) {
@@ -749,13 +750,13 @@ void PhysicSystem::markNodesAsObstacles(Entity e) {
 					for (int y = 0; y < colY; y++)
 					{
 						colNode = this->getCurrentNode({ position.x, position.y + y * tileHeight });
-						this->markNodeAsObstacle(colNode);
+						this->markNodeAsObstacle(colNode, dest);
 					}
 				}
 				else {
 					// collider smaller than a tile
 					colNode = this->getCurrentNode({ position.x, position.y });
-					this->markNodeAsObstacle(colNode);
+					this->markNodeAsObstacle(colNode, dest);
 				}
 			}
 		}
@@ -763,11 +764,12 @@ void PhysicSystem::markNodesAsObstacles(Entity e) {
 }
 
 /**
-* @brief Marks node as obstacle.
+* @brief Marks node as obstacle if not destination node.
 * @param node - Node to mark as obstacle.
+* @param dest - Destination node.
 */
-void PhysicSystem::markNodeAsObstacle(Node* node) {
-	if (node != nullptr) {
+void PhysicSystem::markNodeAsObstacle(Node* node, Node* dest) {
+	if (node != nullptr && node != dest) {
 		node->obstacle = true;
 	}
 }

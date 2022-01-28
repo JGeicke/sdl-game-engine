@@ -191,14 +191,15 @@ private:
 	/**
 	 * @brief Marks nodes as obstacle when the match the collider positions.
 	 * @param e - Entity to mark the obstacles for
+	 * @param dest - Destination node.
 	*/
-	void markNodesAsObstacles(Entity e);
+	void markNodesAsObstacles(Entity e, Node* dest);
 
 	/**
 	 * @brief Calculates the path from the start node to the destination node using the a* algorithm.
 	 * @param e - Entity to calculate path for.
 	 * @param start - Startnode.
-	 * @param dest - Destinationnode.
+	 * @param dest - Destination node.
 	 * @return Path from the start node to the destination node.
 	*/
 	std::vector<Node*> aStar(Entity e, Node* start, Node* dest);
@@ -209,8 +210,9 @@ private:
 	void handleEnemyMovement();
 
 	/**
-	 * @brief Marks node as obstacle.
+	 * @brief Marks node as obstacle if not destination node.
 	 * @param node - Node to mark as obstacle.
+	 * @param dest - Destination node.
 	*/
-	void markNodeAsObstacle(Node* node);
+	void markNodeAsObstacle(Node* node, Node* dest);
 };

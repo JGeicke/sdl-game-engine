@@ -38,8 +38,9 @@ public:
 	 * @param cameraWidth - Width of camera.
 	 * @param cameraHeight - Height of camera.
 	 * @param iconFilePath - Filepath to icon.
+	 * @param debug- Display position, collider and paths for debugging.
 	*/
-	void init(int fps, std::string windowTitle, int windowWidth, int windowHeight, int cameraWidth, int cameraHeight, const char* iconFilePath);
+	void init(int fps, std::string windowTitle, int windowWidth, int windowHeight, int cameraWidth, int cameraHeight, const char* iconFilePath, bool debug);
 
 	/**
 	 * @brief Runs the game engine. Starts the game loop.
@@ -527,8 +528,9 @@ private:
 	 * @brief Initializes the game systems.
 	 * @param cameraWidth - Width of camera.
 	 * @param cameraHeight - Height of camera.
+	 * @param debug- Display position, collider and paths for debugging.
 	*/
-	void initSystems(int cameraWidth, int cameraHeight);
+	void initSystems(int cameraWidth, int cameraHeight, bool debug);
 
 	/**
 	 * @brief Collects and frees the entities and component that should not be preserved when switching scenes.
