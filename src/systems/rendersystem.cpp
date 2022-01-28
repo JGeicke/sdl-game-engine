@@ -27,17 +27,21 @@ RenderSystem::RenderSystem(int frameDelay, ComponentManager<Sprite>* spriteManag
 void RenderSystem::update() {
 	// clear renderer
 	SDL_RenderClear(renderer);
+
 	moveCamera();
 
 	renderTilemap();
 	renderSprites();
 
+	// render visual debug stuff if debug mode is active
 	debugPosition();
 	debugColliders();
 	debugEnemyPathing();
 
+	// render the ui
 	renderUI();
 
+	// display everything on screen
 	render();
 }
 /**
@@ -293,6 +297,7 @@ void RenderSystem::mergeSort(Position* arr, size_t start, size_t end) {
 		middle = (start + end) / 2;
 		mergeSort(arr, start, middle);
 		mergeSort(arr, middle + 1, end);
+
 		// merge arrays
 		merge(arr, start, middle, end);
 	}
@@ -528,9 +533,10 @@ void RenderSystem::setTilesetDestRectPosition(unsigned int currentX, unsigned in
 	newX = currentX * (tileWidth*cameraZoomX);
 	newY = currentY * (tileHeight*cameraZoomY);
 
-	// substracts the calculated tile position based on tilewidth & the position on the tilemap from the camera origin position (top-left).
-	// if the result is positiv, render the tile on the substracted position (relative to the camera origin).
-	// if the result is negativ, don't render the tile.
+	/* substracts the calculated tile position based on tilewidth & the position on the tilemap from the camera origin position (top-left).
+	if the result is positiv, render the tile on the substracted position (relative to the camera origin).
+	if the result is negativ, don't render the tile. */
+
 	newX = newX - camera.x;
 	newY = newY - camera.y;
 
@@ -559,7 +565,6 @@ void RenderSystem::initCamera(int viewWidth, int viewHeight, int cameraWidth, in
  * @brief Moves the camera to the entity with the follow camera component.
 */
 void RenderSystem::moveCamera() {
-	// TODO: test with different maps and different view sizes
 	if (cameraFollow != nullptr && cameraFollow->getEntity().uid != 0) {
 		Entity followTarget = cameraFollow->getEntity();
 		Position* followPosition = positionManager->getComponent(followTarget);
@@ -578,7 +583,6 @@ void RenderSystem::moveCamera() {
 				camera.y = 0;
 			}
 
-			//TODO: adjust camera movement for smoother movement. Update 19.12.21: gone?
 			//bottom-right
 			if (camera.x > (int)(tilemap->getTotalTilemapWidth()*cameraZoomX - window.x)) {
 				camera.x = tilemap->getTotalTilemapWidth()*cameraZoomX - window.x;

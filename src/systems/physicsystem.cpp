@@ -171,7 +171,6 @@ void PhysicSystem::controlAnimationStates(Entity e, Vector2* direction, bool che
 			}
 		}
 		else if (checkMouseInput && inputManager->getMouseButton() == SDL_BUTTON_LEFT) {
-			// TODO: Missing: have attack colliders 
 			// attack
 			switch (state) {
 				case STATES::WALK_DOWN:
@@ -231,7 +230,6 @@ void PhysicSystem::controlAnimationStates(Entity e, Vector2* direction, bool che
 					animatorComponent->setState(STATES::IDLE_SIDE);
 					break;
 				default:
-					//animatorComponent->setState(STATES::IDLE_SIDE);
 					break;
 			}
 		}
@@ -428,21 +426,8 @@ void PhysicSystem::detectCollisions() {
 								currentCollider->collision(nextCollider);
 							}
 							else {
-								/*
-								bool firstCollision = false;
-								if (currentCollider->getLastCollision().uid == 0 && nextCollider->getLastCollision().uid == 0) {
-									firstCollision = true;
-								}
-								*/
 								currentCollider->collision(nextCollider);
-								/*
-								if (firstCollision) {
-									nextCollider->resetLastCollision();
-								}
-								*/
 								nextCollider->collision(currentCollider);
-
-								// TODO: sometimes collision not working
 
 								// adjust position
 								currentPosition->restoreLastPosition();
