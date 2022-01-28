@@ -276,13 +276,15 @@ void Game::onWizardDeath(Health* healthComponent) {
 
 bool Game::onBossReachingDestination(EnemyMovement* mov) {
 	if (mov != nullptr) {
+		this->lastBossDestinationIndex = bossDestinationIndex;
+
+		while (this->bossDestinationIndex == this->lastBossDestinationIndex) {
+			this->bossDestinationIndex = std::rand() % 7;
+		}
+
 		this->spawnBossProjectiles();
 		this->gameEngine->setEnemyDestination(this->boss, this->gameEngine->getPositionComponent(this->bossDestinations[bossDestinationIndex]));
-		bossDestinationIndex++;
 
-		if (bossDestinationIndex == 3) {
-			bossDestinationIndex = 0;
-		}
 		return true;
 	}
 	return false;
@@ -360,7 +362,7 @@ void Game::addEnemyWizard(SDL_Point pos, int health) {
 	gameEngine->addAnimation(wizard, STATES::IDLE_DOWN, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
 	gameEngine->addAnimation(wizard, STATES::WALK_DOWN, 10, 150, "assets/DemoGame/sprites/wizard/wizard_idle.png");
 
-	EnemyMovement* mov = gameEngine->addEnemyMovementComponent(wizard, 2.0f);
+	EnemyMovement* mov = gameEngine->addEnemyMovementComponent(wizard, 4.0f);
 	mov->setActive(false);
 
 	gameEngine->addAudioComponent(wizard);
@@ -492,9 +494,13 @@ void Game::initWinterEndScene() {
 	//this->gameEngine->getPositionComponent(this->player)->setPosition(32 * 26*gameEngine->getCameraZoomFactorX(), 32 * 25*gameEngine->getCameraZoomFactorY());
 
 	// add paths for boss
-	this->bossDestinations[0] = this->gameEngine->addEntity("node", false, { 112, 464 });
-	this->bossDestinations[1] = this->gameEngine->addEntity("node", false, { 464, 142 });
-	this->bossDestinations[2] = this->gameEngine->addEntity("node", false, { 623, 687 });
+	this->bossDestinations[0] = this->gameEngine->addEntity("node", false, { 14*32, 4*32 });
+	this->bossDestinations[1] = this->gameEngine->addEntity("node", false, { 4*32, 9*32 });
+	this->bossDestinations[2] = this->gameEngine->addEntity("node", false, { 18*32, 11*32 });
+	this->bossDestinations[3] = this->gameEngine->addEntity("node", false, { 10*32, 14*32 });
+	this->bossDestinations[4] = this->gameEngine->addEntity("node", false, { 4*32, 20*32 });
+	this->bossDestinations[5] = this->gameEngine->addEntity("node", false, { 17*32, 20*32 });
+	this->bossDestinations[6] = this->gameEngine->addEntity("node", false, { 10*32, 25*32 });
 
 	this->addEnemyWizard({ 330, 494 }, 500);
 
@@ -762,7 +768,7 @@ void Game::init() {
 
 	gameEngine = new GameEngine();
 	//gameEngine->init(60, "Demo Game", 1920, 1080, 1280, 720);
-	gameEngine->init(60, "Risk of Snow - Demo Game", 1280, 720, 1280, 720, "assets/DemoGame/icon.png", true);
+	gameEngine->init(60, "Risk of Snow - Demo Game", 1280, 720, 1280, 720, "assets/DemoGame/icon.png", false);
 	this->uiManager = this->gameEngine->getUIManager();
 	this->inputManager = this->gameEngine->getInputManager();
 

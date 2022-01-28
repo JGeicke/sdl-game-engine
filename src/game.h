@@ -89,8 +89,9 @@ private:
 	size_t hpBarIndex = SIZE_MAX;
 
 	Entity boss = { 0 };
-	Entity bossDestinations[3];
+	Entity bossDestinations[7];
 	size_t bossDestinationIndex = 0;
+	size_t lastBossDestinationIndex = 0;
 
 	size_t enemyCount = 0;
 
