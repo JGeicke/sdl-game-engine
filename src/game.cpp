@@ -481,8 +481,6 @@ void Game::initWinningScene() {
 	unsigned int gameWindowWidth = this->gameEngine->getGameWindowWidth();
 	unsigned int gameWindowHeight = this->gameEngine->getGameWindowHeight();
 	uiManager->addLabel((gameWindowWidth / 2), (gameWindowHeight / 2) - 180, "You won!", white, 0);
-	//Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2), "Quit", white, grey, 0, { 48,5 }, buttonHover));
-	//quitButton->onClick(&quitGameWrapper);
 	Button* startButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2), "Play Again", white, grey, FONTS::NORMAL, { 10,5 }, buttonHover));
 	startButton->onClick(&restartGameWrapper);
 	Button* quitButton = uiManager->getButton(uiManager->addButton((gameWindowWidth / 2), (gameWindowHeight / 2) + 65, "Quit", white, grey, FONTS::NORMAL, { 54,5 }, buttonHover));
@@ -491,7 +489,6 @@ void Game::initWinningScene() {
 
 void Game::initWinterEndScene() {
 	this->addPlayer({ 32 * 26, 32 * 25});
-	//this->gameEngine->getPositionComponent(this->player)->setPosition(32 * 26*gameEngine->getCameraZoomFactorX(), 32 * 25*gameEngine->getCameraZoomFactorY());
 
 	// add paths for boss
 	this->bossDestinations[0] = this->gameEngine->addEntity("node", false, { 14*32, 4*32 });
