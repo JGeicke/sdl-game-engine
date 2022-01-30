@@ -40,7 +40,7 @@ Only rectangles are supported on object layers.
 ---
 ## Demo Game
 ---
-
+![Demo game showcase](https://github.com/JGeicke/sdl-game-engine/blob/dev/demo/assets/demogame_showcase.gif?raw=true)
 ---
 ## Documentation
 ---
