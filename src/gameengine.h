@@ -469,6 +469,13 @@ public:
 	 * @return The current sound volume.
 	*/
 	float getSoundVolume() { return audioSystem->getSoundVolume(); }
+
+	/**
+	 * @brief Disables initialization of object pools. This should only be used for benchmarks and tests.
+	*/
+	void debugDisableObjectPools() {
+		this->debugDisableObjectPoolInit = true;
+	}
 private:
 	/**
 	 * @brief Delay between frames.
@@ -505,6 +512,7 @@ private:
 
 	//Object pool
 	ObjectPool* projectilePool = nullptr;
+	bool debugDisableObjectPoolInit = false;
 
 	/**
 	 * @brief Initializes the managers of the game engine.

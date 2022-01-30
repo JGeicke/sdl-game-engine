@@ -742,6 +742,7 @@ void GameEngine::initUniqueComponents() {
 * @brief Initializes the object pools.
 */
 void GameEngine::initObjectPools() {
+	if (this->debugDisableObjectPoolInit) return;
 	// init projectile pool
 	this->projectilePool = new ObjectPool(this->entityManager, this->posManager);
 	this->projectilePool->init("projectile");
