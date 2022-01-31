@@ -3,7 +3,7 @@ var searchData=
   ['scene_287',['Scene',['../struct_scene.html',1,'Scene'],['../struct_scene.html#a5309a54e3a40a9e7141b897a2727bb08',1,'Scene::Scene()']]],
   ['setactive_288',['setActive',['../struct_base_component.html#aa75f7d8ef6643bf6e1f76859d60b0474',1,'BaseComponent']]],
   ['setbackgroundcolor_289',['setBackgroundColor',['../struct_progress_bar.html#ad95484150ee44ce38da1192a563c7295',1,'ProgressBar']]],
-  ['setbgm_290',['setBGM',['../class_game_engine.html#af32b696f7a52a68f4aa65194b2ebc246',1,'GameEngine']]],
+  ['setbgm_290',['setBGM',['../class_game_engine.html#a533fe798c7d9caece1646aee56192ae6',1,'GameEngine']]],
   ['setcamerafollowtarget_291',['setCameraFollowTarget',['../class_game_engine.html#aebdd66b10c5a46fc0ce50cd975ee2644',1,'GameEngine::setCameraFollowTarget()'],['../class_render_system.html#a433a79f91a34ea56728f1d6cee14b1d9',1,'RenderSystem::setCameraFollowTarget()']]],
   ['setcamerazoom_292',['setCameraZoom',['../class_physic_system.html#a0a0560d537d93919b8f85efc525c07bf',1,'PhysicSystem']]],
   ['setcollideroffset_293',['setColliderOffset',['../struct_collider.html#a3b8082a7e43e922c3bc76b391a43670d',1,'Collider']]],
@@ -46,7 +46,8 @@ var searchData=
   ['settilemapobjectlayerindex_330',['setTilemapObjectLayerIndex',['../struct_tilemap.html#ae095792583196b29f346db2c786ec76e',1,'Tilemap']]],
   ['settrigger_331',['setTrigger',['../struct_collider.html#af96b9fde921e93d3072e49e0bfc1d942',1,'Collider']]],
   ['setwidth_332',['setWidth',['../struct_panel.html#a1859e09c16d0299117b618f8c2aae8e3',1,'Panel']]],
-  ['show_333',['show',['../struct_u_i_element.html#a1c38022068c7c77c22ef20c99cf93911',1,'UIElement']]],
-  ['slider_334',['Slider',['../struct_slider.html',1,'Slider'],['../struct_slider.html#a535033fada8e25ef7291d2a52e6e437b',1,'Slider::Slider()'],['../struct_slider.html#aeda9a746f711b6b2b50eee79647497f2',1,'Slider::Slider(SDL_Renderer *renderer, SDL_Rect background, SDL_Color bgColor, SDL_Color sliderKnobColor, float currentValue)']]],
-  ['sprite_335',['Sprite',['../struct_sprite.html',1,'']]]
+  ['setwindowicon_333',['setWindowIcon',['../class_window.html#af01bab38c4fc0bdc54c3d443f366bd35',1,'Window']]],
+  ['show_334',['show',['../struct_u_i_element.html#a1c38022068c7c77c22ef20c99cf93911',1,'UIElement']]],
+  ['slider_335',['Slider',['../struct_slider.html',1,'Slider'],['../struct_slider.html#a535033fada8e25ef7291d2a52e6e437b',1,'Slider::Slider()'],['../struct_slider.html#aeda9a746f711b6b2b50eee79647497f2',1,'Slider::Slider(SDL_Renderer *renderer, SDL_Rect background, SDL_Color bgColor, SDL_Color sliderKnobColor, float currentValue)']]],
+  ['sprite_336',['Sprite',['../struct_sprite.html',1,'']]]
 ];

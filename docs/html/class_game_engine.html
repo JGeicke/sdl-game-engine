@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SDL Engine
-   &#160;<span id="projectnumber">0.9</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
  </tr>
@@ -70,7 +70,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="class_game.html">Game</a> Engine class. Used to initialize systems and managers aswell as start the gameloop.  
+<p>Game Engine class. Used to initialize systems and managers aswell as start the gameloop.  
  <a href="class_game_engine.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="gameengine_8h_source.html">gameengine.h</a>&gt;</code></p>
@@ -85,9 +85,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#a8e59d8341ef9d2dcc62eee1437e37f14">~GameEngine</a> ()</td></tr>
 <tr class="memdesc:a8e59d8341ef9d2dcc62eee1437e37f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor of game engine. <br /></td></tr>
 <tr class="separator:a8e59d8341ef9d2dcc62eee1437e37f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ca70f4d04c87786075d481237aa2447"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#a9ca70f4d04c87786075d481237aa2447">init</a> (int fps, std::string windowTitle, int windowWidth, int windowHeight, int cameraWidth, int cameraHeight)</td></tr>
-<tr class="memdesc:a9ca70f4d04c87786075d481237aa2447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the game engine.  <a href="class_game_engine.html#a9ca70f4d04c87786075d481237aa2447">More...</a><br /></td></tr>
-<tr class="separator:a9ca70f4d04c87786075d481237aa2447"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a58326fcbd740a16f07c95cb27b7a40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#a6a58326fcbd740a16f07c95cb27b7a40">init</a> (int fps, std::string windowTitle, int windowWidth, int windowHeight, int cameraWidth, int cameraHeight, const char *iconFilePath, bool debug)</td></tr>
+<tr class="memdesc:a6a58326fcbd740a16f07c95cb27b7a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the game engine.  <a href="class_game_engine.html#a6a58326fcbd740a16f07c95cb27b7a40">More...</a><br /></td></tr>
+<tr class="separator:a6a58326fcbd740a16f07c95cb27b7a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01970da2c68fefbf48b98c59d5627ae"><td class="memItemLeft" align="right" valign="top"><a id="ab01970da2c68fefbf48b98c59d5627ae"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#ab01970da2c68fefbf48b98c59d5627ae">run</a> ()</td></tr>
 <tr class="memdesc:ab01970da2c68fefbf48b98c59d5627ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the game engine. Starts the game loop. <br /></td></tr>
@@ -118,9 +118,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:af0904b23b7f8d2b724780d2d017bb62b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#af0904b23b7f8d2b724780d2d017bb62b">destroyProjectile</a> (<a class="el" href="struct_entity.html">Entity</a> e)</td></tr>
 <tr class="memdesc:af0904b23b7f8d2b724780d2d017bb62b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys projectile of projectile object pool.  <a href="class_game_engine.html#af0904b23b7f8d2b724780d2d017bb62b">More...</a><br /></td></tr>
 <tr class="separator:af0904b23b7f8d2b724780d2d017bb62b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af32b696f7a52a68f4aa65194b2ebc246"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#af32b696f7a52a68f4aa65194b2ebc246">setBGM</a> (const char *bgmFilePath)</td></tr>
-<tr class="memdesc:af32b696f7a52a68f4aa65194b2ebc246"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current background music.  <a href="class_game_engine.html#af32b696f7a52a68f4aa65194b2ebc246">More...</a><br /></td></tr>
-<tr class="separator:af32b696f7a52a68f4aa65194b2ebc246"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a533fe798c7d9caece1646aee56192ae6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#a533fe798c7d9caece1646aee56192ae6">setBGM</a> (const char *bgmFilePath, bool loopBGM)</td></tr>
+<tr class="memdesc:a533fe798c7d9caece1646aee56192ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current background music.  <a href="class_game_engine.html#a533fe798c7d9caece1646aee56192ae6">More...</a><br /></td></tr>
+<tr class="separator:a533fe798c7d9caece1646aee56192ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbdb9669c60ff7d26c888ca3ef3c29af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#afbdb9669c60ff7d26c888ca3ef3c29af">playAudioClip</a> (<a class="el" href="struct_entity.html">Entity</a> e, size_t index)</td></tr>
 <tr class="memdesc:afbdb9669c60ff7d26c888ca3ef3c29af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays audio clip with index of entity.  <a href="class_game_engine.html#afbdb9669c60ff7d26c888ca3ef3c29af">More...</a><br /></td></tr>
 <tr class="separator:afbdb9669c60ff7d26c888ca3ef3c29af"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,9 +130,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aae499e000dda9493eb9b1e89f7a95673"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#aae499e000dda9493eb9b1e89f7a95673">setEnemyDestination</a> (<a class="el" href="struct_entity.html">Entity</a> e, <a class="el" href="struct_position.html">Position</a> *pos)</td></tr>
 <tr class="memdesc:aae499e000dda9493eb9b1e89f7a95673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the destination of the enemy.  <a href="class_game_engine.html#aae499e000dda9493eb9b1e89f7a95673">More...</a><br /></td></tr>
 <tr class="separator:aae499e000dda9493eb9b1e89f7a95673"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab761bd0a1ec824a89b3dd430facf89f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#ab761bd0a1ec824a89b3dd430facf89f5">changeScene</a> (<a class="el" href="struct_scene.html">Scene</a> *scene, bool clearEveryEntity)</td></tr>
-<tr class="memdesc:ab761bd0a1ec824a89b3dd430facf89f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes current scene.  <a href="class_game_engine.html#ab761bd0a1ec824a89b3dd430facf89f5">More...</a><br /></td></tr>
-<tr class="separator:ab761bd0a1ec824a89b3dd430facf89f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0c5cad5844e64bd690496e22d4b43b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#af0c5cad5844e64bd690496e22d4b43b5">changeScene</a> (<a class="el" href="struct_scene.html">Scene</a> *scene, bool clearEveryEntity, bool loopBGM)</td></tr>
+<tr class="memdesc:af0c5cad5844e64bd690496e22d4b43b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes current scene.  <a href="class_game_engine.html#af0c5cad5844e64bd690496e22d4b43b5">More...</a><br /></td></tr>
+<tr class="separator:af0c5cad5844e64bd690496e22d4b43b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b5355b88bbe486daf147ae77331d359"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_sprite.html">Sprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#a3b5355b88bbe486daf147ae77331d359">addSpriteComponent</a> (<a class="el" href="struct_entity.html">Entity</a> e, const char *filePath, SDL_Point size, float scale)</td></tr>
 <tr class="memdesc:a3b5355b88bbe486daf147ae77331d359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a sprite component to the entity.  <a href="class_game_engine.html#a3b5355b88bbe486daf147ae77331d359">More...</a><br /></td></tr>
 <tr class="separator:a3b5355b88bbe486daf147ae77331d359"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -265,9 +265,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a67847f7e4308a2f677ab5ed5b9112480"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#a67847f7e4308a2f677ab5ed5b9112480">getSoundVolume</a> ()</td></tr>
 <tr class="memdesc:a67847f7e4308a2f677ab5ed5b9112480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current sound volume of the audio system.  <a href="class_game_engine.html#a67847f7e4308a2f677ab5ed5b9112480">More...</a><br /></td></tr>
 <tr class="separator:a67847f7e4308a2f677ab5ed5b9112480"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea6e14ea937338e1b53e126407060b3a"><td class="memItemLeft" align="right" valign="top"><a id="aea6e14ea937338e1b53e126407060b3a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_engine.html#aea6e14ea937338e1b53e126407060b3a">debugDisableObjectPools</a> ()</td></tr>
+<tr class="memdesc:aea6e14ea937338e1b53e126407060b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disables initialization of object pools. This should only be used for benchmarks and tests. <br /></td></tr>
+<tr class="separator:aea6e14ea937338e1b53e126407060b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_game.html">Game</a> Engine class. Used to initialize systems and managers aswell as start the gameloop. </p>
+<div class="textblock"><p>Game Engine class. Used to initialize systems and managers aswell as start the gameloop. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a87422a937cd575be578bcfeb9fa38dde"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a87422a937cd575be578bcfeb9fa38dde">&#9670;&nbsp;</a></span>addAnimation() <span class="overload">[1/2]</span></h2>
@@ -1017,8 +1021,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ab761bd0a1ec824a89b3dd430facf89f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab761bd0a1ec824a89b3dd430facf89f5">&#9670;&nbsp;</a></span>changeScene()</h2>
+<a id="af0c5cad5844e64bd690496e22d4b43b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0c5cad5844e64bd690496e22d4b43b5">&#9670;&nbsp;</a></span>changeScene()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1033,7 +1037,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>clearEveryEntity</em>&#160;</td>
+          <td class="paramname"><em>clearEveryEntity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loopBGM</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1048,6 +1058,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   <table class="params">
     <tr><td class="paramname">scene</td><td>- <a class="el" href="struct_scene.html" title="Struct representing a game scene.">Scene</a> to change to. </td></tr>
     <tr><td class="paramname">collectEverything</td><td>- Whether every <a class="el" href="struct_entity.html" title="Base struct to represent Entities in the game.">Entity</a> should be collected. </td></tr>
+    <tr><td class="paramname">loopBGM</td><td>- Whether bgm should be looped</td></tr>
+    <tr><td class="paramname">scene</td><td>- <a class="el" href="struct_scene.html" title="Struct representing a game scene.">Scene</a> to change to. </td></tr>
+    <tr><td class="paramname">collectEverything</td><td>- Whether every <a class="el" href="struct_entity.html" title="Base struct to represent Entities in the game.">Entity</a> should be collected. </td></tr>
+    <tr><td class="paramname">loopBGM</td><td>- Whether bgm should be looped. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1899,8 +1913,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a9ca70f4d04c87786075d481237aa2447"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ca70f4d04c87786075d481237aa2447">&#9670;&nbsp;</a></span>init()</h2>
+<a id="a6a58326fcbd740a16f07c95cb27b7a40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a58326fcbd740a16f07c95cb27b7a40">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1939,7 +1953,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>cameraHeight</em>&#160;</td>
+          <td class="paramname"><em>cameraHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>iconFilePath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>debug</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1958,6 +1984,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
     <tr><td class="paramname">windowHeight</td><td>- Height of game window. </td></tr>
     <tr><td class="paramname">cameraWidth</td><td>- Width of camera. </td></tr>
     <tr><td class="paramname">cameraHeight</td><td>- Height of camera. </td></tr>
+    <tr><td class="paramname">iconFilePath</td><td>- Filepath to icon. </td></tr>
+    <tr><td class="paramname">debug-</td><td>Display position, collider and paths for debugging. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2027,8 +2055,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="af32b696f7a52a68f4aa65194b2ebc246"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af32b696f7a52a68f4aa65194b2ebc246">&#9670;&nbsp;</a></span>setBGM()</h2>
+<a id="a533fe798c7d9caece1646aee56192ae6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a533fe798c7d9caece1646aee56192ae6">&#9670;&nbsp;</a></span>setBGM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2037,8 +2065,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="memname">void GameEngine::setBGM </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>bgmFilePath</em></td><td>)</td>
+          <td class="paramname"><em>bgmFilePath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loopBGM</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2047,6 +2085,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bgmFilePath</td><td>- File path to the background music. </td></tr>
+    <tr><td class="paramname">loopBGM</td><td>- Whether bgm should be looped. </td></tr>
   </table>
   </dd>
 </dl>

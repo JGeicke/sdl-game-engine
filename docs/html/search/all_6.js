@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['game_70',['Game',['../class_game.html',1,'']]],
   ['gameengine_71',['GameEngine',['../class_game_engine.html',1,'GameEngine'],['../class_game_engine.html#a64c430f74d72e2745646fdbffbd97930',1,'GameEngine::GameEngine()']]],
   ['gamesystem_72',['GameSystem',['../class_game_system.html',1,'']]],
   ['gcost_73',['gcost',['../struct_node.html#a4340b13a32bcb3e7264ff726f777b474',1,'Node']]],

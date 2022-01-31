@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SDL Engine
-   &#160;<span id="projectnumber">0.9</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
  </tr>
@@ -102,9 +102,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a65087d527d5573a6ca45ff54849f122d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_audio_system.html#a65087d527d5573a6ca45ff54849f122d">addBGM</a> (const char *filePath)</td></tr>
 <tr class="memdesc:a65087d527d5573a6ca45ff54849f122d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds background music from file.  <a href="class_audio_system.html#a65087d527d5573a6ca45ff54849f122d">More...</a><br /></td></tr>
 <tr class="separator:a65087d527d5573a6ca45ff54849f122d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a787cc43b578501d6563ad279049988e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_audio_system.html#a787cc43b578501d6563ad279049988e4">playBGM</a> ()</td></tr>
-<tr class="memdesc:a787cc43b578501d6563ad279049988e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays the current background music.  <a href="class_audio_system.html#a787cc43b578501d6563ad279049988e4">More...</a><br /></td></tr>
-<tr class="separator:a787cc43b578501d6563ad279049988e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c0181c1920d4d6fc45f83097b8361e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_audio_system.html#a5c0181c1920d4d6fc45f83097b8361e3">playBGM</a> (bool loopBGM)</td></tr>
+<tr class="memdesc:a5c0181c1920d4d6fc45f83097b8361e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays the current background music.  <a href="class_audio_system.html#a5c0181c1920d4d6fc45f83097b8361e3">More...</a><br /></td></tr>
+<tr class="separator:a5c0181c1920d4d6fc45f83097b8361e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60ac6e330c85c93565124bfa64ea7bc6"><td class="memItemLeft" align="right" valign="top"><a id="a60ac6e330c85c93565124bfa64ea7bc6"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_audio_system.html#a60ac6e330c85c93565124bfa64ea7bc6">toggleBGM</a> ()</td></tr>
 <tr class="memdesc:a60ac6e330c85c93565124bfa64ea7bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggles the current background music. <br /></td></tr>
@@ -303,8 +303,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a787cc43b578501d6563ad279049988e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a787cc43b578501d6563ad279049988e4">&#9670;&nbsp;</a></span>playBGM()</h2>
+<a id="a5c0181c1920d4d6fc45f83097b8361e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c0181c1920d4d6fc45f83097b8361e3">&#9670;&nbsp;</a></span>playBGM()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,14 +312,21 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">void AudioSystem::playBGM </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loopBGM</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Plays the current background music. </p>
-<p>Plays the current background music and adjusts the volume. </p>
+<p>Plays the current background music and adjusts the volume.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">loopBGM</td><td>- Whether bgm should be looped. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

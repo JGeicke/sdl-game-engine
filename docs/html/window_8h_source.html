@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">SDL Engine
-   &#160;<span id="projectnumber">0.9</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
  </tr>
@@ -72,58 +72,62 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;SDL.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="class_window.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_window.html">Window</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_window.html#a60ba4cb171066b70f03b6485521d162e">   15</a></span>&#160;    <a class="code" href="class_window.html#a60ba4cb171066b70f03b6485521d162e">Window</a>(std::string title, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        this-&gt;windowTitle = title;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        this-&gt;width = width;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        this-&gt;height = height;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_window.html#aeefc9c55be31f3d0cc5656a4502e3fc6">initWindow</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6">   30</a></span>&#160;    <a class="code" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6">~Window</a>() {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (window) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            SDL_DestroyWindow(window);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (renderer) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            SDL_DestroyRenderer(renderer);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_window.html#a4bd6e707cc7ec52eb3b5f22ae9c62b85">   43</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_window.html#a4bd6e707cc7ec52eb3b5f22ae9c62b85">getWindowHeight</a>() {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span> height;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_window.html#a14edeb78a3f16f61821c78d0fc2509a5">   51</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_window.html#a14edeb78a3f16f61821c78d0fc2509a5">getWindowWidth</a>() {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> width;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_window.html#a58daf43e03ac44a5685a2208faf3f53f">   59</a></span>&#160;    SDL_Window* <a class="code" href="class_window.html#a58daf43e03ac44a5685a2208faf3f53f">getWindow</a>() {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> window;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_window.html#ad2d885e1e64c00ae20850ee4d1353135">   67</a></span>&#160;    SDL_Renderer* <a class="code" href="class_window.html#ad2d885e1e64c00ae20850ee4d1353135">getRenderer</a>() {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> renderer;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width = 1280;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height = 720;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    std::string windowTitle = <span class="stringliteral">&quot;Placeholder&quot;</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    SDL_Window* window = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    SDL_Renderer* renderer = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;};</div>
-<div class="ttc" id="aclass_window_html"><div class="ttname"><a href="class_window.html">Window</a></div><div class="ttdoc">Class representing the game window.</div><div class="ttdef"><b>Definition:</b> window.h:7</div></div>
-<div class="ttc" id="aclass_window_html_a14edeb78a3f16f61821c78d0fc2509a5"><div class="ttname"><a href="class_window.html#a14edeb78a3f16f61821c78d0fc2509a5">Window::getWindowWidth</a></div><div class="ttdeci">unsigned int getWindowWidth()</div><div class="ttdoc">Gets the width of the game window.</div><div class="ttdef"><b>Definition:</b> window.h:51</div></div>
-<div class="ttc" id="aclass_window_html_a245d821e6016fa1f6970ccbbedd635f6"><div class="ttname"><a href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6">Window::~Window</a></div><div class="ttdeci">~Window()</div><div class="ttdoc">Window destructor. Destroys the SDL_Renderer and the SDL_Window.</div><div class="ttdef"><b>Definition:</b> window.h:30</div></div>
-<div class="ttc" id="aclass_window_html_a4bd6e707cc7ec52eb3b5f22ae9c62b85"><div class="ttname"><a href="class_window.html#a4bd6e707cc7ec52eb3b5f22ae9c62b85">Window::getWindowHeight</a></div><div class="ttdeci">unsigned int getWindowHeight()</div><div class="ttdoc">Gets the height of the game window.</div><div class="ttdef"><b>Definition:</b> window.h:43</div></div>
-<div class="ttc" id="aclass_window_html_a58daf43e03ac44a5685a2208faf3f53f"><div class="ttname"><a href="class_window.html#a58daf43e03ac44a5685a2208faf3f53f">Window::getWindow</a></div><div class="ttdeci">SDL_Window * getWindow()</div><div class="ttdoc">Gets the SDL_Window object of the window.</div><div class="ttdef"><b>Definition:</b> window.h:59</div></div>
-<div class="ttc" id="aclass_window_html_a60ba4cb171066b70f03b6485521d162e"><div class="ttname"><a href="class_window.html#a60ba4cb171066b70f03b6485521d162e">Window::Window</a></div><div class="ttdeci">Window(std::string title, int width, int height)</div><div class="ttdoc">Constructor of a window object.</div><div class="ttdef"><b>Definition:</b> window.h:15</div></div>
-<div class="ttc" id="aclass_window_html_ad2d885e1e64c00ae20850ee4d1353135"><div class="ttname"><a href="class_window.html#ad2d885e1e64c00ae20850ee4d1353135">Window::getRenderer</a></div><div class="ttdeci">SDL_Renderer * getRenderer()</div><div class="ttdoc">Gets the SDL_Renderer object of the window.</div><div class="ttdef"><b>Definition:</b> window.h:67</div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;SDL_image.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="class_window.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_window.html">Window</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_window.html#a60ba4cb171066b70f03b6485521d162e">   16</a></span>&#160;    <a class="code" href="class_window.html#a60ba4cb171066b70f03b6485521d162e">Window</a>(std::string title, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        this-&gt;windowTitle = title;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        this-&gt;width = width;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        this-&gt;height = height;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_window.html#aeefc9c55be31f3d0cc5656a4502e3fc6">initWindow</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_window.html#af01bab38c4fc0bdc54c3d443f366bd35">setWindowIcon</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* filePath);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6">   37</a></span>&#160;    <a class="code" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6">~Window</a>() {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (window) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            SDL_DestroyWindow(window);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (renderer) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            SDL_DestroyRenderer(renderer);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_window.html#a4bd6e707cc7ec52eb3b5f22ae9c62b85">   50</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_window.html#a4bd6e707cc7ec52eb3b5f22ae9c62b85">getWindowHeight</a>() {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> height;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_window.html#a14edeb78a3f16f61821c78d0fc2509a5">   58</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_window.html#a14edeb78a3f16f61821c78d0fc2509a5">getWindowWidth</a>() {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> width;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_window.html#a58daf43e03ac44a5685a2208faf3f53f">   66</a></span>&#160;    SDL_Window* <a class="code" href="class_window.html#a58daf43e03ac44a5685a2208faf3f53f">getWindow</a>() {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> window;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="class_window.html#ad2d885e1e64c00ae20850ee4d1353135">   74</a></span>&#160;    SDL_Renderer* <a class="code" href="class_window.html#ad2d885e1e64c00ae20850ee4d1353135">getRenderer</a>() {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">return</span> renderer;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width = 1280;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height = 720;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::string windowTitle = <span class="stringliteral">&quot;Placeholder&quot;</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    SDL_Window* window = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    SDL_Renderer* renderer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
+<div class="ttc" id="aclass_window_html"><div class="ttname"><a href="class_window.html">Window</a></div><div class="ttdoc">Class representing the game window.</div><div class="ttdef"><b>Definition:</b> window.h:8</div></div>
+<div class="ttc" id="aclass_window_html_a14edeb78a3f16f61821c78d0fc2509a5"><div class="ttname"><a href="class_window.html#a14edeb78a3f16f61821c78d0fc2509a5">Window::getWindowWidth</a></div><div class="ttdeci">unsigned int getWindowWidth()</div><div class="ttdoc">Gets the width of the game window.</div><div class="ttdef"><b>Definition:</b> window.h:58</div></div>
+<div class="ttc" id="aclass_window_html_a245d821e6016fa1f6970ccbbedd635f6"><div class="ttname"><a href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6">Window::~Window</a></div><div class="ttdeci">~Window()</div><div class="ttdoc">Window destructor. Destroys the SDL_Renderer and the SDL_Window.</div><div class="ttdef"><b>Definition:</b> window.h:37</div></div>
+<div class="ttc" id="aclass_window_html_a4bd6e707cc7ec52eb3b5f22ae9c62b85"><div class="ttname"><a href="class_window.html#a4bd6e707cc7ec52eb3b5f22ae9c62b85">Window::getWindowHeight</a></div><div class="ttdeci">unsigned int getWindowHeight()</div><div class="ttdoc">Gets the height of the game window.</div><div class="ttdef"><b>Definition:</b> window.h:50</div></div>
+<div class="ttc" id="aclass_window_html_a58daf43e03ac44a5685a2208faf3f53f"><div class="ttname"><a href="class_window.html#a58daf43e03ac44a5685a2208faf3f53f">Window::getWindow</a></div><div class="ttdeci">SDL_Window * getWindow()</div><div class="ttdoc">Gets the SDL_Window object of the window.</div><div class="ttdef"><b>Definition:</b> window.h:66</div></div>
+<div class="ttc" id="aclass_window_html_a60ba4cb171066b70f03b6485521d162e"><div class="ttname"><a href="class_window.html#a60ba4cb171066b70f03b6485521d162e">Window::Window</a></div><div class="ttdeci">Window(std::string title, int width, int height)</div><div class="ttdoc">Constructor of a window object.</div><div class="ttdef"><b>Definition:</b> window.h:16</div></div>
+<div class="ttc" id="aclass_window_html_ad2d885e1e64c00ae20850ee4d1353135"><div class="ttname"><a href="class_window.html#ad2d885e1e64c00ae20850ee4d1353135">Window::getRenderer</a></div><div class="ttdeci">SDL_Renderer * getRenderer()</div><div class="ttdoc">Gets the SDL_Renderer object of the window.</div><div class="ttdef"><b>Definition:</b> window.h:74</div></div>
 <div class="ttc" id="aclass_window_html_aeefc9c55be31f3d0cc5656a4502e3fc6"><div class="ttname"><a href="class_window.html#aeefc9c55be31f3d0cc5656a4502e3fc6">Window::initWindow</a></div><div class="ttdeci">bool initWindow()</div><div class="ttdoc">Initializes the game window.</div><div class="ttdef"><b>Definition:</b> window.cpp:6</div></div>
+<div class="ttc" id="aclass_window_html_af01bab38c4fc0bdc54c3d443f366bd35"><div class="ttname"><a href="class_window.html#af01bab38c4fc0bdc54c3d443f366bd35">Window::setWindowIcon</a></div><div class="ttdeci">void setWindowIcon(const char *filePath)</div><div class="ttdoc">Sets the icon of the window.</div><div class="ttdef"><b>Definition:</b> window.cpp:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
