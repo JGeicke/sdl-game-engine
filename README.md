@@ -40,7 +40,7 @@ Only rectangles are supported on object layers.
 ---
 ## Demo Game
 ---
-![Demo game showcase](https://github.com/JGeicke/sdl-game-engine/blob/dev/demo/assets/demogame_showcase.gif?raw=true)
+![Demo game showcase](https://github.com/JGeicke/sdl-game-engine/blob/main/demo/assets/demogame_showcase.gif?raw=true)
 
 
 Be sure to install the latest [Microsoft Visual C++ Redistributable](https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170).
