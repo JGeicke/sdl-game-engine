@@ -1,6 +1,7 @@
 #pragma once
 #include <gameengine.h>
 #include <ctime>
+#include <Windows.h>
 class Game {
 public:
 	void init();

@@ -763,7 +763,7 @@ void Game::init() {
 	std::srand(std::time(0));
 
 	gameEngine = new GameEngine();
-	//gameEngine->init(60, "Demo Game", 1920, 1080, 1280, 720, "assets/DemoGame/icon.png", false);
+	//gameEngine->init(60, "Demo Game", 1920, 1080, 1280, 720, "assets/DemoGame/icon.png", true);
 	gameEngine->init(60, "Risk of Snow - Demo Game", 1280, 720, 1280, 720, "assets/DemoGame/icon.png", false);
 	this->uiManager = this->gameEngine->getUIManager();
 	this->inputManager = this->gameEngine->getInputManager();
@@ -783,9 +783,16 @@ void Game::start() {
 	gameEngine->run();
 }
 
+
 int main(int argc, char* argv[]) {
+	// hide console window
+	HWND hwnd = GetConsoleWindow();
+	ShowWindow(hwnd, 0);
+
+
 	game = new Game();
 	game->init();
 	game->start();
 	return 0;
 }
+
