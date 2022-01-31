@@ -1,0 +1,112 @@
+\hypertarget{class_file_loader}{}\doxysection{File\+Loader Class Reference}
+\label{class_file_loader}\index{FileLoader@{FileLoader}}
+
+
+Utility class to handle file loading.  
+
+
+
+
+{\ttfamily \#include $<$fileloader.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{struct_tilemap}{Tilemap}} $\ast$ \mbox{\hyperlink{class_file_loader_ac0f7a369fbf06df5bf522c1962b15625}{load\+Tilemap}} (const char $\ast$path, size\+\_\+t layer\+Count)
+\begin{DoxyCompactList}\small\item\em Loads, parses and creates the tilemap from tilemap json files created with tiled. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_texture}{Texture}} \mbox{\hyperlink{class_file_loader_a468a1b957b18a373fd2504825f31a196}{load\+Texture}} (const char $\ast$path, SDL\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em Loads texture from given path. \end{DoxyCompactList}\item 
+static SDL\+\_\+\+Texture $\ast$ \mbox{\hyperlink{class_file_loader_ae760b58eac330c34bab90ad7329eddda}{load\+SDLTexture}} (const char $\ast$path, SDL\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em Loads SDL\+\_\+\+Texture from given path. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Utility class to handle file loading. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_file_loader_ae760b58eac330c34bab90ad7329eddda}\label{class_file_loader_ae760b58eac330c34bab90ad7329eddda}} 
+\index{FileLoader@{FileLoader}!loadSDLTexture@{loadSDLTexture}}
+\index{loadSDLTexture@{loadSDLTexture}!FileLoader@{FileLoader}}
+\doxysubsubsection{\texorpdfstring{loadSDLTexture()}{loadSDLTexture()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture $\ast$ File\+Loader\+::load\+SDLTexture (\begin{DoxyParamCaption}\item[{const char $\ast$}]{path,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Loads SDL\+\_\+\+Texture from given path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ File path to texture file. \\
+\hline
+{\em renderer} & -\/ Reference to window renderer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to created SDL\+\_\+\+Texture. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_file_loader_a468a1b957b18a373fd2504825f31a196}\label{class_file_loader_a468a1b957b18a373fd2504825f31a196}} 
+\index{FileLoader@{FileLoader}!loadTexture@{loadTexture}}
+\index{loadTexture@{loadTexture}!FileLoader@{FileLoader}}
+\doxysubsubsection{\texorpdfstring{loadTexture()}{loadTexture()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_texture}{Texture}} File\+Loader\+::load\+Texture (\begin{DoxyParamCaption}\item[{const char $\ast$}]{path,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Loads texture from given path. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ File path to texture file. \\
+\hline
+{\em renderer} & -\/ Reference to window renderer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to created texture.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ File path to texture file. \\
+\hline
+{\em renderer} & -\/ Reference to window renderer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Created texture. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_file_loader_ac0f7a369fbf06df5bf522c1962b15625}\label{class_file_loader_ac0f7a369fbf06df5bf522c1962b15625}} 
+\index{FileLoader@{FileLoader}!loadTilemap@{loadTilemap}}
+\index{loadTilemap@{loadTilemap}!FileLoader@{FileLoader}}
+\doxysubsubsection{\texorpdfstring{loadTilemap()}{loadTilemap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_tilemap}{Tilemap}} $\ast$ File\+Loader\+::load\+Tilemap (\begin{DoxyParamCaption}\item[{const char $\ast$}]{path,  }\item[{size\+\_\+t}]{layer\+Count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Loads, parses and creates the tilemap from tilemap json files created with tiled. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ File path to json file. \\
+\hline
+{\em layer\+Count} & -\/ Layer count of the tilemap. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to created tilemap.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ File path to json file. \\
+\hline
+{\em layer\+Count} & -\/ Layer count of the tilemap. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Created tilemap. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/util/fileloader.\+h\item 
+src/util/fileloader.\+cpp\end{DoxyCompactItemize}

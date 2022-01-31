@@ -13,10 +13,165 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\UI">
+      <UniqueIdentifier>{1dc02087-a97f-4810-b8ed-f2e8f254922c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Systems">
+      <UniqueIdentifier>{75fca851-145a-43ae-b41c-5a8f7ec30298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Managers">
+      <UniqueIdentifier>{e9bb9ce5-36c6-4f9d-a558-f3d922163c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Components">
+      <UniqueIdentifier>{39db3f88-6985-4df7-8b26-38ffceccd473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Systems">
+      <UniqueIdentifier>{180553df-c88b-4015-842f-6b57bf962862}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Managers">
+      <UniqueIdentifier>{923e11c4-3f48-461b-8646-b57046c3a589}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp">
+    <ClCompile Include="src\util\fileloader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\systems\audiosystem.cpp">
+      <Filter>Quelldateien\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\physicsystem.cpp">
+      <Filter>Quelldateien\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\rendersystem.cpp">
+      <Filter>Quelldateien\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entitymanager.cpp">
+      <Filter>Quelldateien\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inputmanager.cpp">
+      <Filter>Quelldateien\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\uimanager.cpp">
+      <Filter>Quelldateien\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameengine.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\window.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\objectpool.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\entity.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\fileloader.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\tilemap.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\ui\label.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\ui\panel.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\animator.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\audio.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\basecomponent.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\camerafollow.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\componentmanager.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\components.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\movement.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\position.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\sprite.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\audiosystem.h">
+      <Filter>Headerdateien\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\gamesystem.h">
+      <Filter>Headerdateien\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\physicsystem.h">
+      <Filter>Headerdateien\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\rendersystem.h">
+      <Filter>Headerdateien\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\texture.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\ui\progressbar.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\ui\button.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\ui\uielement.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\collider.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameengine.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\systems\gamesystems.h">
+      <Filter>Headerdateien\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\window.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\health.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entitymanager.h">
+      <Filter>Headerdateien\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inputmanager.h">
+      <Filter>Headerdateien\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\uimanager.h">
+      <Filter>Headerdateien\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\scene.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\projectilemovement.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\objectpool.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\enemymovement.h">
+      <Filter>Headerdateien\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\vector2.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\ui\slider.h">
+      <Filter>Headerdateien\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,0 +1,122 @@
+\hypertarget{struct_audio}{}\doxysection{Audio Struct Reference}
+\label{struct_audio}\index{Audio@{Audio}}
+
+
+Component to hold audio related data of an entity.  
+
+
+
+
+{\ttfamily \#include $<$audio.\+h$>$}
+
+Inheritance diagram for Audio\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_audio}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_audio_a08353d926472a206e8c7f0a62195d911}\label{struct_audio_a08353d926472a206e8c7f0a62195d911}} 
+void \mbox{\hyperlink{struct_audio_a08353d926472a206e8c7f0a62195d911}{print}} ()
+\begin{DoxyCompactList}\small\item\em Prints the audio component. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{struct_audio_a84ae0210034ad9fff8ce69830513f96c}{add\+Audio\+Clip}} (const char $\ast$file\+Path)
+\begin{DoxyCompactList}\small\item\em Adds an audio clip to the audio component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_audio_clip}{Audio\+Clip}} $\ast$ \mbox{\hyperlink{struct_audio_ab92fae939c02bd8aa74c3f5fda282425}{get\+Audio\+Clip}} (size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Gets the audio clip. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_audio_ab9b94b75a0375cb7b910f48d50d07c35}{play\+Audio\+Clip}} (size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Marks the audio clip to be played by the audio system. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_audio_clip}{Audio\+Clip}} $\ast$ \mbox{\hyperlink{struct_audio_a955900878c2b9b858de286c454bfac99}{get\+Next\+Audio\+Clip}} ()
+\begin{DoxyCompactList}\small\item\em Gets next audio clip that is marked as played. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{struct_audio_af13293fe65840bd10df1da7c8f2f2846}{get\+Played\+Audio\+Clips\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current count of audio clips that should be played by the audio system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Component to hold audio related data of an entity. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_audio_a84ae0210034ad9fff8ce69830513f96c}\label{struct_audio_a84ae0210034ad9fff8ce69830513f96c}} 
+\index{Audio@{Audio}!addAudioClip@{addAudioClip}}
+\index{addAudioClip@{addAudioClip}!Audio@{Audio}}
+\doxysubsubsection{\texorpdfstring{addAudioClip()}{addAudioClip()}}
+{\footnotesize\ttfamily size\+\_\+t Audio\+::add\+Audio\+Clip (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds an audio clip to the audio component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & -\/ Path to audio file to create the audioclip from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of the audio clip. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_audio_ab92fae939c02bd8aa74c3f5fda282425}\label{struct_audio_ab92fae939c02bd8aa74c3f5fda282425}} 
+\index{Audio@{Audio}!getAudioClip@{getAudioClip}}
+\index{getAudioClip@{getAudioClip}!Audio@{Audio}}
+\doxysubsubsection{\texorpdfstring{getAudioClip()}{getAudioClip()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_audio_clip}{Audio\+Clip}}$\ast$ Audio\+::get\+Audio\+Clip (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the audio clip. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ Index of the audio clip. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The audio clip. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_audio_a955900878c2b9b858de286c454bfac99}\label{struct_audio_a955900878c2b9b858de286c454bfac99}} 
+\index{Audio@{Audio}!getNextAudioClip@{getNextAudioClip}}
+\index{getNextAudioClip@{getNextAudioClip}!Audio@{Audio}}
+\doxysubsubsection{\texorpdfstring{getNextAudioClip()}{getNextAudioClip()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_audio_clip}{Audio\+Clip}}$\ast$ Audio\+::get\+Next\+Audio\+Clip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets next audio clip that is marked as played. 
+
+\begin{DoxyReturn}{Returns}
+The marked audio clip. Returns nullptr if no audio clip should be played. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_audio_af13293fe65840bd10df1da7c8f2f2846}\label{struct_audio_af13293fe65840bd10df1da7c8f2f2846}} 
+\index{Audio@{Audio}!getPlayedAudioClipsCount@{getPlayedAudioClipsCount}}
+\index{getPlayedAudioClipsCount@{getPlayedAudioClipsCount}!Audio@{Audio}}
+\doxysubsubsection{\texorpdfstring{getPlayedAudioClipsCount()}{getPlayedAudioClipsCount()}}
+{\footnotesize\ttfamily unsigned int Audio\+::get\+Played\+Audio\+Clips\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current count of audio clips that should be played by the audio system. 
+
+\begin{DoxyReturn}{Returns}
+Count of marked audio clips. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_audio_ab9b94b75a0375cb7b910f48d50d07c35}\label{struct_audio_ab9b94b75a0375cb7b910f48d50d07c35}} 
+\index{Audio@{Audio}!playAudioClip@{playAudioClip}}
+\index{playAudioClip@{playAudioClip}!Audio@{Audio}}
+\doxysubsubsection{\texorpdfstring{playAudioClip()}{playAudioClip()}}
+{\footnotesize\ttfamily void Audio\+::play\+Audio\+Clip (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Marks the audio clip to be played by the audio system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ Index of the audio clip to mark. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/components/audio.\+h\end{DoxyCompactItemize}

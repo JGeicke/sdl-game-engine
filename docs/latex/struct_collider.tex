@@ -1,0 +1,320 @@
+\hypertarget{struct_collider}{}\doxysection{Collider Struct Reference}
+\label{struct_collider}\index{Collider@{Collider}}
+
+
+\mbox{\hyperlink{struct_collider}{Collider}} component. A collider is needed for collision between entities in the gameworld.  
+
+
+
+
+{\ttfamily \#include $<$collider.\+h$>$}
+
+Inheritance diagram for Collider\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_collider}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_collider_a043abc053f4553bd1c7f80b2b5cb4b5f}\label{struct_collider_a043abc053f4553bd1c7f80b2b5cb4b5f}} 
+typedef void($\ast$ {\bfseries event\+Function}) (\mbox{\hyperlink{struct_collider}{Collider}} $\ast$, \mbox{\hyperlink{struct_collider}{Collider}} $\ast$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_collider_a41a450b301a3ff77a3769beb5db27947}\label{struct_collider_a41a450b301a3ff77a3769beb5db27947}} 
+void \mbox{\hyperlink{struct_collider_a41a450b301a3ff77a3769beb5db27947}{print}} ()
+\begin{DoxyCompactList}\small\item\em Prints the collider component. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_a62a8991a5d262fa46d97b1ed884f437d}{init}} (int x, int y, int offsetX, int offsetY, int w, int h, bool \mbox{\hyperlink{struct_collider_a099261f562205bdb00b8cace2da2ed59}{is\+Trigger}})
+\begin{DoxyCompactList}\small\item\em Initializes the collider. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Point $\ast$ \mbox{\hyperlink{struct_collider_a7077dd578182bceb815fdf3336b0a6ba}{get\+Collider\+Offset}} ()
+\begin{DoxyCompactList}\small\item\em Gets the offset of the collider. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Point $\ast$ \mbox{\hyperlink{struct_collider_abcc963c61ea13810aab4a83425b043c4}{get\+Collider\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Gets the size of the collider. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_collider_a099261f562205bdb00b8cace2da2ed59}{is\+Trigger}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the collider is a trigger. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_a870111aa1a6597ff9d7df8ff8ae628d7}{set\+Collider\+Size}} (SDL\+\_\+\+Point size)
+\begin{DoxyCompactList}\small\item\em Sets the size of the collider. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_a3b8082a7e43e922c3bc76b391a43670d}{set\+Collider\+Offset}} (SDL\+\_\+\+Point offset)
+\begin{DoxyCompactList}\small\item\em Sets the offset of the collider relativ to the entity position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_af96b9fde921e93d3072e49e0bfc1d942}{set\+Trigger}} (bool \mbox{\hyperlink{struct_collider_a099261f562205bdb00b8cace2da2ed59}{is\+Trigger}})
+\begin{DoxyCompactList}\small\item\em Sets the collider to be a trigger. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Rect $\ast$ \mbox{\hyperlink{struct_collider_a688696c2d9a8595e0448bce7130af875}{get\+Collider\+Rect}} ()
+\begin{DoxyCompactList}\small\item\em Gets the collider rectangle used for collision. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_aa864c18542bd44190d3047bf76e95765}{set\+Collider\+Rect}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Sets the position of the collider rectangle. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_afcca722c2500befceaba964059444331}{on\+Trigger\+Enter}} (event\+Function trigger\+Function)
+\begin{DoxyCompactList}\small\item\em Adds a trigger enter function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_a2fe62879a8e0680d71f9732b0f4847a8}{on\+Collision\+Enter}} (event\+Function collision\+Function)
+\begin{DoxyCompactList}\small\item\em Adds a collision enter function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_a85d5ef139c979507b690082d7572dc8c}{on\+Trigger\+Stay}} (event\+Function trigger\+Function)
+\begin{DoxyCompactList}\small\item\em Adds a trigger stay function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_a6f7517aad8bd8102d66e96fabe074b7d}{on\+Collision\+Stay}} (event\+Function collision\+Function)
+\begin{DoxyCompactList}\small\item\em Adds a collision stay function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_aa961146317fc5c2f21e0532cd72c4446}{collision}} (\mbox{\hyperlink{struct_collider}{Collider}} $\ast$collision\+Component)
+\begin{DoxyCompactList}\small\item\em Executes the on collision behaviour depending on if the collider is a trigger or a normal collider. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_collider_a5870f13897f64cc16f6e83361a10469f}\label{struct_collider_a5870f13897f64cc16f6e83361a10469f}} 
+void \mbox{\hyperlink{struct_collider_a5870f13897f64cc16f6e83361a10469f}{reset\+Last\+Collision}} ()
+\begin{DoxyCompactList}\small\item\em Resets last collision. This function is used when no collision occured this frame with this collider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{struct_collider_a4cac3fc905a52a084034b2ccf193cd22}{get\+Last\+Collision}} ()
+\begin{DoxyCompactList}\small\item\em Gets last collision. This function is used to be able to reset last collision of static entities (non-\/moving). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_collider_a206e8552378e16067bf53aba18b416b0}{set\+Last\+Collision}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Sets the last collision entity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{struct_collider}{Collider}} component. A collider is needed for collision between entities in the gameworld. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_collider_aa961146317fc5c2f21e0532cd72c4446}\label{struct_collider_aa961146317fc5c2f21e0532cd72c4446}} 
+\index{Collider@{Collider}!collision@{collision}}
+\index{collision@{collision}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{collision()}{collision()}}
+{\footnotesize\ttfamily void Collider\+::collision (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_collider}{Collider}} $\ast$}]{collision\+Component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Executes the on collision behaviour depending on if the collider is a trigger or a normal collider. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em collision\+Component} & -\/ Collision component this collider collided with. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_a7077dd578182bceb815fdf3336b0a6ba}\label{struct_collider_a7077dd578182bceb815fdf3336b0a6ba}} 
+\index{Collider@{Collider}!getColliderOffset@{getColliderOffset}}
+\index{getColliderOffset@{getColliderOffset}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{getColliderOffset()}{getColliderOffset()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Point$\ast$ Collider\+::get\+Collider\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the offset of the collider. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the offset of the collider. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_collider_a688696c2d9a8595e0448bce7130af875}\label{struct_collider_a688696c2d9a8595e0448bce7130af875}} 
+\index{Collider@{Collider}!getColliderRect@{getColliderRect}}
+\index{getColliderRect@{getColliderRect}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{getColliderRect()}{getColliderRect()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Rect$\ast$ Collider\+::get\+Collider\+Rect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the collider rectangle used for collision. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the collider rectangle. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_collider_abcc963c61ea13810aab4a83425b043c4}\label{struct_collider_abcc963c61ea13810aab4a83425b043c4}} 
+\index{Collider@{Collider}!getColliderSize@{getColliderSize}}
+\index{getColliderSize@{getColliderSize}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{getColliderSize()}{getColliderSize()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Point$\ast$ Collider\+::get\+Collider\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the size of the collider. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the size of the collider. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_collider_a4cac3fc905a52a084034b2ccf193cd22}\label{struct_collider_a4cac3fc905a52a084034b2ccf193cd22}} 
+\index{Collider@{Collider}!getLastCollision@{getLastCollision}}
+\index{getLastCollision@{getLastCollision}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{getLastCollision()}{getLastCollision()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Collider\+::get\+Last\+Collision (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets last collision. This function is used to be able to reset last collision of static entities (non-\/moving). 
+
+\begin{DoxyReturn}{Returns}
+The entity of the last collider this collider collided with. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_collider_a62a8991a5d262fa46d97b1ed884f437d}\label{struct_collider_a62a8991a5d262fa46d97b1ed884f437d}} 
+\index{Collider@{Collider}!init@{init}}
+\index{init@{init}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Collider\+::init (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{offsetX,  }\item[{int}]{offsetY,  }\item[{int}]{w,  }\item[{int}]{h,  }\item[{bool}]{is\+Trigger }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initializes the collider. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ X position of the entity. Needed for non moving entites. \\
+\hline
+{\em y} & -\/ Y position of the entity. Needed for non moving entities. \\
+\hline
+{\em offsetX} & -\/ X offset of the collider. \\
+\hline
+{\em offsetY} & -\/ Y offset of the collider. \\
+\hline
+{\em w} & -\/ Width of the collider. \\
+\hline
+{\em h} & -\/ Height of the collider. \\
+\hline
+{\em is\+Trigger} & -\/ Whether the collider is a trigger. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_a099261f562205bdb00b8cace2da2ed59}\label{struct_collider_a099261f562205bdb00b8cace2da2ed59}} 
+\index{Collider@{Collider}!isTrigger@{isTrigger}}
+\index{isTrigger@{isTrigger}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{isTrigger()}{isTrigger()}}
+{\footnotesize\ttfamily bool Collider\+::is\+Trigger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the collider is a trigger. 
+
+\begin{DoxyReturn}{Returns}
+Whether the collider is a trigger. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_collider_a2fe62879a8e0680d71f9732b0f4847a8}\label{struct_collider_a2fe62879a8e0680d71f9732b0f4847a8}} 
+\index{Collider@{Collider}!onCollisionEnter@{onCollisionEnter}}
+\index{onCollisionEnter@{onCollisionEnter}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{onCollisionEnter()}{onCollisionEnter()}}
+{\footnotesize\ttfamily void Collider\+::on\+Collision\+Enter (\begin{DoxyParamCaption}\item[{event\+Function}]{collision\+Function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds a collision enter function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em collision\+Function} & -\/ Function to call when collider collides with another entity collider. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_a6f7517aad8bd8102d66e96fabe074b7d}\label{struct_collider_a6f7517aad8bd8102d66e96fabe074b7d}} 
+\index{Collider@{Collider}!onCollisionStay@{onCollisionStay}}
+\index{onCollisionStay@{onCollisionStay}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{onCollisionStay()}{onCollisionStay()}}
+{\footnotesize\ttfamily void Collider\+::on\+Collision\+Stay (\begin{DoxyParamCaption}\item[{event\+Function}]{collision\+Function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds a collision stay function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em collision\+Function} & -\/ Function to call when collider collides with another entity collider. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_afcca722c2500befceaba964059444331}\label{struct_collider_afcca722c2500befceaba964059444331}} 
+\index{Collider@{Collider}!onTriggerEnter@{onTriggerEnter}}
+\index{onTriggerEnter@{onTriggerEnter}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{onTriggerEnter()}{onTriggerEnter()}}
+{\footnotesize\ttfamily void Collider\+::on\+Trigger\+Enter (\begin{DoxyParamCaption}\item[{event\+Function}]{trigger\+Function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds a trigger enter function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trigger\+Function} & -\/ Function to call when trigger collides with another entity collider. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_a85d5ef139c979507b690082d7572dc8c}\label{struct_collider_a85d5ef139c979507b690082d7572dc8c}} 
+\index{Collider@{Collider}!onTriggerStay@{onTriggerStay}}
+\index{onTriggerStay@{onTriggerStay}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{onTriggerStay()}{onTriggerStay()}}
+{\footnotesize\ttfamily void Collider\+::on\+Trigger\+Stay (\begin{DoxyParamCaption}\item[{event\+Function}]{trigger\+Function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds a trigger stay function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trigger\+Function} & -\/ Function to call when trigger collides with another entity collider. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_a3b8082a7e43e922c3bc76b391a43670d}\label{struct_collider_a3b8082a7e43e922c3bc76b391a43670d}} 
+\index{Collider@{Collider}!setColliderOffset@{setColliderOffset}}
+\index{setColliderOffset@{setColliderOffset}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{setColliderOffset()}{setColliderOffset()}}
+{\footnotesize\ttfamily void Collider\+::set\+Collider\+Offset (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the offset of the collider relativ to the entity position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em offset} & -\/ New offset of collider. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_aa864c18542bd44190d3047bf76e95765}\label{struct_collider_aa864c18542bd44190d3047bf76e95765}} 
+\index{Collider@{Collider}!setColliderRect@{setColliderRect}}
+\index{setColliderRect@{setColliderRect}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{setColliderRect()}{setColliderRect()}}
+{\footnotesize\ttfamily void Collider\+::set\+Collider\+Rect (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the position of the collider rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ New x position. \\
+\hline
+{\em y} & -\/ New y position. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_a870111aa1a6597ff9d7df8ff8ae628d7}\label{struct_collider_a870111aa1a6597ff9d7df8ff8ae628d7}} 
+\index{Collider@{Collider}!setColliderSize@{setColliderSize}}
+\index{setColliderSize@{setColliderSize}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{setColliderSize()}{setColliderSize()}}
+{\footnotesize\ttfamily void Collider\+::set\+Collider\+Size (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Point}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the size of the collider. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & -\/ New size of the collider. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_a206e8552378e16067bf53aba18b416b0}\label{struct_collider_a206e8552378e16067bf53aba18b416b0}} 
+\index{Collider@{Collider}!setLastCollision@{setLastCollision}}
+\index{setLastCollision@{setLastCollision}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{setLastCollision()}{setLastCollision()}}
+{\footnotesize\ttfamily void Collider\+::set\+Last\+Collision (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the last collision entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} of last collider this collider collided with. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_collider_af96b9fde921e93d3072e49e0bfc1d942}\label{struct_collider_af96b9fde921e93d3072e49e0bfc1d942}} 
+\index{Collider@{Collider}!setTrigger@{setTrigger}}
+\index{setTrigger@{setTrigger}!Collider@{Collider}}
+\doxysubsubsection{\texorpdfstring{setTrigger()}{setTrigger()}}
+{\footnotesize\ttfamily void Collider\+::set\+Trigger (\begin{DoxyParamCaption}\item[{bool}]{is\+Trigger }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the collider to be a trigger. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em trigger\+Collider} & -\/ Whether the collider is a trigger. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/components/collider.\+h\end{DoxyCompactItemize}

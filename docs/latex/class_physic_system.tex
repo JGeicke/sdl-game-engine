@@ -1,0 +1,179 @@
+\hypertarget{class_physic_system}{}\doxysection{Physic\+System Class Reference}
+\label{class_physic_system}\index{PhysicSystem@{PhysicSystem}}
+
+
+Physic System to simulate moving objects in the game world.  
+
+
+
+
+{\ttfamily \#include $<$physicsystem.\+h$>$}
+
+Inheritance diagram for Physic\+System\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_physic_system}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_physic_system_a5d4784864af1a7fa130ef499b56d5744}{Physic\+System}} (\mbox{\hyperlink{class_input_manager}{Input\+Manager}} $\ast$input\+Manager, \mbox{\hyperlink{struct_movement}{Movement}} $\ast$player\+Movement, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_position}{Position}} $>$ $\ast$position\+Manager, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_sprite}{Sprite}} $>$ $\ast$sprite\+Manager, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_animator}{Animator}} $>$ $\ast$animator\+Manager, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_collider}{Collider}} $>$ $\ast$collider\+Manager, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_projectile_movement}{Projectile\+Movement}} $>$ $\ast$proj\+Manager, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $>$ $\ast$enemy\+Movement\+Manager)
+\begin{DoxyCompactList}\small\item\em Constructor of physic system to set needed references. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_physic_system_a74490a0c6d562490dd7d8dad3b478772}{update}} ()
+\begin{DoxyCompactList}\small\item\em Physic system update loop. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_physic_system_a0209f37aa267ef0e0061ca2318688ff2}{init\+Grid}} (int row, int col, SDL\+\_\+\+Point tile\+Size, int tiles\+Per\+Row)
+\begin{DoxyCompactList}\small\item\em Initializes the grid for the physic system. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ \mbox{\hyperlink{class_physic_system_aa9bcab2f9e08f75827db2245ada992ef}{get\+Current\+Node}} (\mbox{\hyperlink{struct_position}{Position}} $\ast$pos)
+\begin{DoxyCompactList}\small\item\em Gets the current \mbox{\hyperlink{struct_node}{Node}} based on the position. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ \mbox{\hyperlink{class_physic_system_aa1c259d448668545ad25aef4d6c46dd6}{get\+Current\+Node}} (SDL\+\_\+\+Point pos)
+\begin{DoxyCompactList}\small\item\em Gets the current \mbox{\hyperlink{struct_node}{Node}} based on the position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_physic_system_a0a0560d537d93919b8f85efc525c07bf}{set\+Camera\+Zoom}} (float camera\+ZoomX, float camera\+ZoomY)
+\begin{DoxyCompactList}\small\item\em Sets the current camera zoom values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Physic System to simulate moving objects in the game world. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_physic_system_a5d4784864af1a7fa130ef499b56d5744}\label{class_physic_system_a5d4784864af1a7fa130ef499b56d5744}} 
+\index{PhysicSystem@{PhysicSystem}!PhysicSystem@{PhysicSystem}}
+\index{PhysicSystem@{PhysicSystem}!PhysicSystem@{PhysicSystem}}
+\doxysubsubsection{\texorpdfstring{PhysicSystem()}{PhysicSystem()}}
+{\footnotesize\ttfamily Physic\+System\+::\+Physic\+System (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_input_manager}{Input\+Manager}} $\ast$}]{input\+Manager,  }\item[{\mbox{\hyperlink{struct_movement}{Movement}} $\ast$}]{player\+Movement,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_position}{Position}} $>$ $\ast$}]{position\+Manager,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_sprite}{Sprite}} $>$ $\ast$}]{sprite\+Manager,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_animator}{Animator}} $>$ $\ast$}]{animator\+Manager,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_collider}{Collider}} $>$ $\ast$}]{collider\+Manager,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_projectile_movement}{Projectile\+Movement}} $>$ $\ast$}]{proj\+Manager,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $>$ $\ast$}]{enemy\+Movement\+Manager }\end{DoxyParamCaption})}
+
+
+
+Constructor of physic system to set needed references. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Manager} & -\/ Input manager to handle user inputs. \\
+\hline
+{\em player\+Movement} & -\/ \mbox{\hyperlink{struct_movement}{Movement}} component of player. \\
+\hline
+{\em position\+Manager} & -\/ \mbox{\hyperlink{struct_position}{Position}} manager to gain access to position components. \\
+\hline
+{\em sprite\+Manager} & -\/ \mbox{\hyperlink{struct_sprite}{Sprite}} manager to access to sprite components. \\
+\hline
+{\em animator\+Manager} & -\/ \mbox{\hyperlink{struct_animator}{Animator}} manager to access animator components. \\
+\hline
+{\em collider\+Manager} & -\/ \mbox{\hyperlink{struct_collider}{Collider}} manager to access collider components for collisions. \\
+\hline
+{\em prog\+Manager} & -\/ Projectile movement manager to access the projectile movement components. \\
+\hline
+{\em enemy\+Movement\+Manager} & -\/ Enemy movement manager to be able to visually debug the pathing of enemies.\\
+\hline
+{\em input\+Manager} & -\/ Input manager to handle user inputs. \\
+\hline
+{\em player\+Movement} & -\/ \mbox{\hyperlink{struct_movement}{Movement}} component of player. \\
+\hline
+{\em position\+Manager} & -\/ \mbox{\hyperlink{struct_position}{Position}} manager to gain access to position components. \\
+\hline
+{\em sprite\+Manager} & -\/ \mbox{\hyperlink{struct_sprite}{Sprite}} manager to access to sprite components. \\
+\hline
+{\em animator\+Manager} & -\/ \mbox{\hyperlink{struct_animator}{Animator}} manager to access animator components. \\
+\hline
+{\em collider\+Manager} & -\/ \mbox{\hyperlink{struct_collider}{Collider}} manager to access collider components for collisions. \\
+\hline
+{\em prog\+Manager} & -\/ Projectile movement manager to access the projectile movement components. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_physic_system_aa9bcab2f9e08f75827db2245ada992ef}\label{class_physic_system_aa9bcab2f9e08f75827db2245ada992ef}} 
+\index{PhysicSystem@{PhysicSystem}!getCurrentNode@{getCurrentNode}}
+\index{getCurrentNode@{getCurrentNode}!PhysicSystem@{PhysicSystem}}
+\doxysubsubsection{\texorpdfstring{getCurrentNode()}{getCurrentNode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_node}{Node}} $\ast$ Physic\+System\+::get\+Current\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_position}{Position}} $\ast$}]{pos }\end{DoxyParamCaption})}
+
+
+
+Gets the current \mbox{\hyperlink{struct_node}{Node}} based on the position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & -\/ \mbox{\hyperlink{struct_position}{Position}} to get the current node off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Current \mbox{\hyperlink{struct_node}{Node}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_physic_system_aa1c259d448668545ad25aef4d6c46dd6}\label{class_physic_system_aa1c259d448668545ad25aef4d6c46dd6}} 
+\index{PhysicSystem@{PhysicSystem}!getCurrentNode@{getCurrentNode}}
+\index{getCurrentNode@{getCurrentNode}!PhysicSystem@{PhysicSystem}}
+\doxysubsubsection{\texorpdfstring{getCurrentNode()}{getCurrentNode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_node}{Node}} $\ast$ Physic\+System\+::get\+Current\+Node (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Point}]{pos }\end{DoxyParamCaption})}
+
+
+
+Gets the current \mbox{\hyperlink{struct_node}{Node}} based on the position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos} & -\/ \mbox{\hyperlink{struct_position}{Position}} to get the current node off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Current \mbox{\hyperlink{struct_node}{Node}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_physic_system_a0209f37aa267ef0e0061ca2318688ff2}\label{class_physic_system_a0209f37aa267ef0e0061ca2318688ff2}} 
+\index{PhysicSystem@{PhysicSystem}!initGrid@{initGrid}}
+\index{initGrid@{initGrid}!PhysicSystem@{PhysicSystem}}
+\doxysubsubsection{\texorpdfstring{initGrid()}{initGrid()}}
+{\footnotesize\ttfamily void Physic\+System\+::init\+Grid (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{col,  }\item[{SDL\+\_\+\+Point}]{tile\+Size,  }\item[{int}]{tiles\+Per\+Row }\end{DoxyParamCaption})}
+
+
+
+Initializes the grid for the physic system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & -\/ Number of rows. \\
+\hline
+{\em col} & -\/ Number of cols. \\
+\hline
+{\em tile\+Size} & -\/ Size of the tiles. \\
+\hline
+{\em tiles\+Per\+Row} & -\/ Tiles per row. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_physic_system_a0a0560d537d93919b8f85efc525c07bf}\label{class_physic_system_a0a0560d537d93919b8f85efc525c07bf}} 
+\index{PhysicSystem@{PhysicSystem}!setCameraZoom@{setCameraZoom}}
+\index{setCameraZoom@{setCameraZoom}!PhysicSystem@{PhysicSystem}}
+\doxysubsubsection{\texorpdfstring{setCameraZoom()}{setCameraZoom()}}
+{\footnotesize\ttfamily void Physic\+System\+::set\+Camera\+Zoom (\begin{DoxyParamCaption}\item[{float}]{camera\+ZoomX,  }\item[{float}]{camera\+ZoomY }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the current camera zoom values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em camera\+ZoomX} & -\/ Current camera x zoom. \\
+\hline
+{\em camera\+ZoomY} & -\/ Current camera y zoom. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_physic_system_a74490a0c6d562490dd7d8dad3b478772}\label{class_physic_system_a74490a0c6d562490dd7d8dad3b478772}} 
+\index{PhysicSystem@{PhysicSystem}!update@{update}}
+\index{update@{update}!PhysicSystem@{PhysicSystem}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Physic\+System\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Physic system update loop. 
+
+Render system update loop. Iterates over every movement component and changes the position component of the same entity. 
+
+Implements \mbox{\hyperlink{class_game_system_ad7f68a13681dbaebf459102e660460b2}{Game\+System}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/systems/physicsystem.\+h\item 
+src/systems/physicsystem.\+cpp\end{DoxyCompactItemize}

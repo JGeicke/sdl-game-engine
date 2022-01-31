@@ -1,0 +1,144 @@
+\hypertarget{class_entity_manager}{}\doxysection{Entity\+Manager Class Reference}
+\label{class_entity_manager}\index{EntityManager@{EntityManager}}
+
+
+Class to manage the game entities. Objects are able to create/delete entities and are able to check whether an entity does still exist.  
+
+
+
+
+{\ttfamily \#include $<$entitymanager.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{class_entity_manager_aef58cc1a1520ac4acb159d87a49f35b5}{create\+Entity}} (const char $\ast$tag, bool is\+Preserved)
+\begin{DoxyCompactList}\small\item\em Create new entity object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_entity_manager_a747e5bf2990bc478ce3c08c1aa34a6c9}{has\+Entity}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Check if the entity is still alive. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_entity_manager_adb9cfd7880d2278b10538614abc8624b}{destroy\+Entity}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Destroys the entity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_entity_manager_aa41df8e8321d2f19a0a177f416fa1c75}\label{class_entity_manager_aa41df8e8321d2f19a0a177f416fa1c75}} 
+void \mbox{\hyperlink{class_entity_manager_aa41df8e8321d2f19a0a177f416fa1c75}{debug\+List\+Entities}} ()
+\begin{DoxyCompactList}\small\item\em Debug function to list currently existing entities. Should not be used in final project. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{struct_entity}{Entity}} $>$\+::iterator \mbox{\hyperlink{class_entity_manager_aa4c665688d76bf7b01475bb2933dd80f}{get\+Entity\+Begin}} ()
+\begin{DoxyCompactList}\small\item\em Gets iterator to the beginning of the entity set. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+set$<$ \mbox{\hyperlink{struct_entity}{Entity}} $>$\+::iterator \mbox{\hyperlink{class_entity_manager_a75f468d77ed6535e43e73f099e82d05b}{get\+Entity\+End}} ()
+\begin{DoxyCompactList}\small\item\em Gets iterator to the end of the entity set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to manage the game entities. Objects are able to create/delete entities and are able to check whether an entity does still exist. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_entity_manager_aef58cc1a1520ac4acb159d87a49f35b5}\label{class_entity_manager_aef58cc1a1520ac4acb159d87a49f35b5}} 
+\index{EntityManager@{EntityManager}!createEntity@{createEntity}}
+\index{createEntity@{createEntity}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{createEntity()}{createEntity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Entity\+Manager\+::create\+Entity (\begin{DoxyParamCaption}\item[{const char $\ast$}]{tag,  }\item[{bool}]{is\+Preserved }\end{DoxyParamCaption})}
+
+
+
+Create new entity object. 
+
+Creates new entity with the next free uid.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & -\/ Tag of entity \\
+\hline
+{\em is\+Preserved} & -\/ Whether the entity is preserved across scenes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to created entity.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & -\/ Tag of entity \\
+\hline
+{\em is\+Preserved} & -\/ Whether the entity is preserved across scenes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Copy of created entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_manager_adb9cfd7880d2278b10538614abc8624b}\label{class_entity_manager_adb9cfd7880d2278b10538614abc8624b}} 
+\index{EntityManager@{EntityManager}!destroyEntity@{destroyEntity}}
+\index{destroyEntity@{destroyEntity}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{destroyEntity()}{destroyEntity()}}
+{\footnotesize\ttfamily void Entity\+Manager\+::destroy\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Destroys the entity. 
+
+Removes the entity from the hashset.
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to destroy.\\
+\hline
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to remove \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_entity_manager_aa4c665688d76bf7b01475bb2933dd80f}\label{class_entity_manager_aa4c665688d76bf7b01475bb2933dd80f}} 
+\index{EntityManager@{EntityManager}!getEntityBegin@{getEntityBegin}}
+\index{getEntityBegin@{getEntityBegin}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{getEntityBegin()}{getEntityBegin()}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+set$<$\mbox{\hyperlink{struct_entity}{Entity}}$>$\+::iterator Entity\+Manager\+::get\+Entity\+Begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets iterator to the beginning of the entity set. 
+
+\begin{DoxyReturn}{Returns}
+Iterator to the beginning of the entity set. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_manager_a75f468d77ed6535e43e73f099e82d05b}\label{class_entity_manager_a75f468d77ed6535e43e73f099e82d05b}} 
+\index{EntityManager@{EntityManager}!getEntityEnd@{getEntityEnd}}
+\index{getEntityEnd@{getEntityEnd}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{getEntityEnd()}{getEntityEnd()}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+set$<$\mbox{\hyperlink{struct_entity}{Entity}}$>$\+::iterator Entity\+Manager\+::get\+Entity\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets iterator to the end of the entity set. 
+
+\begin{DoxyReturn}{Returns}
+Iterator to the end of the entity set. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_entity_manager_a747e5bf2990bc478ce3c08c1aa34a6c9}\label{class_entity_manager_a747e5bf2990bc478ce3c08c1aa34a6c9}} 
+\index{EntityManager@{EntityManager}!hasEntity@{hasEntity}}
+\index{hasEntity@{hasEntity}!EntityManager@{EntityManager}}
+\doxysubsubsection{\texorpdfstring{hasEntity()}{hasEntity()}}
+{\footnotesize\ttfamily bool Entity\+Manager\+::has\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Check if the entity is still alive. 
+
+Checks if the entity still exists in the hashset.
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether entity e still exists.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the entity still exists or not. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/entitymanager.\+h\item 
+src/entitymanager.\+cpp\end{DoxyCompactItemize}

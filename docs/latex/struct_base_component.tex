@@ -1,0 +1,110 @@
+\hypertarget{struct_base_component}{}\doxysection{Base\+Component Struct Reference}
+\label{struct_base_component}\index{BaseComponent@{BaseComponent}}
+
+
+Abstract base struct for components.  
+
+
+
+
+{\ttfamily \#include $<$basecomponent.\+h$>$}
+
+Inheritance diagram for Base\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=11.000000cm]{struct_base_component}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_base_component_a86620484d747659609c4c58c5c09d798}\label{struct_base_component_a86620484d747659609c4c58c5c09d798}} 
+virtual void \mbox{\hyperlink{struct_base_component_a86620484d747659609c4c58c5c09d798}{print}} ()=0
+\begin{DoxyCompactList}\small\item\em Prints the component. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_base_component_acdc925754767a4a5f261be4a569e6225}{set\+Entity}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Sets the reference to the entity that owns the component. This is needed to avoid multiple iterations when more than 1 component is used by a game system. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{struct_base_component_a1415aeca1ce3323e8d00d94a3ef3c44e}{get\+Entity}} ()
+\begin{DoxyCompactList}\small\item\em Return owner entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_base_component_aa75f7d8ef6643bf6e1f76859d60b0474}{set\+Active}} (bool \mbox{\hyperlink{struct_base_component_a17d68d66496712b12b5d177debda3b29}{is\+Active}})
+\begin{DoxyCompactList}\small\item\em Activates or deactivates the component. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_base_component_a17d68d66496712b12b5d177debda3b29}{is\+Active}} ()
+\begin{DoxyCompactList}\small\item\em Checks if the component is active. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_base_component_a2c9bcbcc6aced683ca643ef1222d2d4b}\label{struct_base_component_a2c9bcbcc6aced683ca643ef1222d2d4b}} 
+virtual void \mbox{\hyperlink{struct_base_component_a2c9bcbcc6aced683ca643ef1222d2d4b}{reset\+Component}} ()
+\begin{DoxyCompactList}\small\item\em Resets the component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_base_component_a21651deb0aafe88b367bad57cd7611cc}\label{struct_base_component_a21651deb0aafe88b367bad57cd7611cc}} 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{struct_base_component_a21651deb0aafe88b367bad57cd7611cc}{entity}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_entity}{Entity}} that owns the component. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_base_component_a199c69e6fe3d7ef70509310ddc455d4d}\label{struct_base_component_a199c69e6fe3d7ef70509310ddc455d4d}} 
+bool \mbox{\hyperlink{struct_base_component_a199c69e6fe3d7ef70509310ddc455d4d}{active}} = true
+\begin{DoxyCompactList}\small\item\em Whether the component is active. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract base struct for components. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_base_component_a1415aeca1ce3323e8d00d94a3ef3c44e}\label{struct_base_component_a1415aeca1ce3323e8d00d94a3ef3c44e}} 
+\index{BaseComponent@{BaseComponent}!getEntity@{getEntity}}
+\index{getEntity@{getEntity}!BaseComponent@{BaseComponent}}
+\doxysubsubsection{\texorpdfstring{getEntity()}{getEntity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Base\+Component\+::get\+Entity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return owner entity. 
+
+\begin{DoxyReturn}{Returns}
+-\/ \mbox{\hyperlink{struct_entity}{Entity}} that owns the component 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_base_component_a17d68d66496712b12b5d177debda3b29}\label{struct_base_component_a17d68d66496712b12b5d177debda3b29}} 
+\index{BaseComponent@{BaseComponent}!isActive@{isActive}}
+\index{isActive@{isActive}!BaseComponent@{BaseComponent}}
+\doxysubsubsection{\texorpdfstring{isActive()}{isActive()}}
+{\footnotesize\ttfamily bool Base\+Component\+::is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the component is active. 
+
+\begin{DoxyReturn}{Returns}
+Whether the component is active. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_base_component_aa75f7d8ef6643bf6e1f76859d60b0474}\label{struct_base_component_aa75f7d8ef6643bf6e1f76859d60b0474}} 
+\index{BaseComponent@{BaseComponent}!setActive@{setActive}}
+\index{setActive@{setActive}!BaseComponent@{BaseComponent}}
+\doxysubsubsection{\texorpdfstring{setActive()}{setActive()}}
+{\footnotesize\ttfamily void Base\+Component\+::set\+Active (\begin{DoxyParamCaption}\item[{bool}]{is\+Active }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Activates or deactivates the component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+Active} & -\/ Whether the component is active or not \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_base_component_acdc925754767a4a5f261be4a569e6225}\label{struct_base_component_acdc925754767a4a5f261be4a569e6225}} 
+\index{BaseComponent@{BaseComponent}!setEntity@{setEntity}}
+\index{setEntity@{setEntity}!BaseComponent@{BaseComponent}}
+\doxysubsubsection{\texorpdfstring{setEntity()}{setEntity()}}
+{\footnotesize\ttfamily void Base\+Component\+::set\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the reference to the entity that owns the component. This is needed to avoid multiple iterations when more than 1 component is used by a game system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} that owns the component. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/components/basecomponent.\+h\end{DoxyCompactItemize}

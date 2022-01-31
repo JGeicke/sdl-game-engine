@@ -1,0 +1,154 @@
+\hypertarget{struct_label}{}\doxysection{Label Struct Reference}
+\label{struct_label}\index{Label@{Label}}
+
+
+Struct that represents ui labels.  
+
+
+
+
+{\ttfamily \#include $<$label.\+h$>$}
+
+Inheritance diagram for Label\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_label}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_label_af8f2bccf9faadcb2ca964bd2347dde24}\label{struct_label_af8f2bccf9faadcb2ca964bd2347dde24}} 
+\mbox{\hyperlink{struct_label_af8f2bccf9faadcb2ca964bd2347dde24}{Label}} ()
+\begin{DoxyCompactList}\small\item\em Default label constructor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_label_a4cd4230294d85c98dbcdcea4accb9230}{Label}} (int x, int y, std\+::string label\+Text, SDL\+\_\+\+Color \&color, SDL\+\_\+\+Renderer $\ast$renderer, TTF\+\_\+\+Font $\ast$font)
+\begin{DoxyCompactList}\small\item\em Creates new label. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_label_a39e1167a9b5827afd888780973d88894}\label{struct_label_a39e1167a9b5827afd888780973d88894}} 
+\mbox{\hyperlink{struct_label_a39e1167a9b5827afd888780973d88894}{$\sim$\+Label}} ()
+\begin{DoxyCompactList}\small\item\em Deconstructor of label. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_label_aa956168d31f1f7f26c85f4c387f0c976}{set\+Text}} (std\+::string text, SDL\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em Sets label text. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_label_a85ed63249ee220e1fd0d8c6ef055533c}{set\+Position}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Sets the label position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{struct_label_ad126701f7b8a63e074eff8e18ff15da8}{set\+Text\+Color}} (SDL\+\_\+\+Color color, SDL\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em Sets the text color of the label. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Texture $\ast$ \mbox{\hyperlink{struct_label_a80e5b36e19c9f210597e931ae264f044}{get\+Label\+Texture}} ()
+\begin{DoxyCompactList}\small\item\em Gets the label texture. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Rect $\ast$ \mbox{\hyperlink{struct_label_ae66a2f00de72d2db9a27f36987c0d5ff}{get\+Display\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Gets the display position of the label. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct that represents ui labels. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_label_a4cd4230294d85c98dbcdcea4accb9230}\label{struct_label_a4cd4230294d85c98dbcdcea4accb9230}} 
+\index{Label@{Label}!Label@{Label}}
+\index{Label@{Label}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{Label()}{Label()}}
+{\footnotesize\ttfamily Label\+::\+Label (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{std\+::string}]{label\+Text,  }\item[{SDL\+\_\+\+Color \&}]{color,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{TTF\+\_\+\+Font $\ast$}]{font }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Creates new label. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ X position of the label. \\
+\hline
+{\em y} & -\/ Y position of the label. \\
+\hline
+{\em label\+Text} & -\/ Text of the label. \\
+\hline
+{\em color} & -\/ Text color. \\
+\hline
+{\em renderer} & -\/ Pointer to the window renderer \\
+\hline
+{\em font} & -\/ Textfont of the label. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_label_ae66a2f00de72d2db9a27f36987c0d5ff}\label{struct_label_ae66a2f00de72d2db9a27f36987c0d5ff}} 
+\index{Label@{Label}!getDisplayPosition@{getDisplayPosition}}
+\index{getDisplayPosition@{getDisplayPosition}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{getDisplayPosition()}{getDisplayPosition()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Rect$\ast$ Label\+::get\+Display\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the display position of the label. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the display position. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_label_a80e5b36e19c9f210597e931ae264f044}\label{struct_label_a80e5b36e19c9f210597e931ae264f044}} 
+\index{Label@{Label}!getLabelTexture@{getLabelTexture}}
+\index{getLabelTexture@{getLabelTexture}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{getLabelTexture()}{getLabelTexture()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Texture$\ast$ Label\+::get\+Label\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the label texture. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the label texture. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_label_a85ed63249ee220e1fd0d8c6ef055533c}\label{struct_label_a85ed63249ee220e1fd0d8c6ef055533c}} 
+\index{Label@{Label}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void Label\+::set\+Position (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the label position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ New x position. \\
+\hline
+{\em y} & -\/ New y position. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_label_aa956168d31f1f7f26c85f4c387f0c976}\label{struct_label_aa956168d31f1f7f26c85f4c387f0c976}} 
+\index{Label@{Label}!setText@{setText}}
+\index{setText@{setText}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{setText()}{setText()}}
+{\footnotesize\ttfamily void Label\+::set\+Text (\begin{DoxyParamCaption}\item[{std\+::string}]{text,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets label text. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & -\/ New label text. \\
+\hline
+{\em renderer} & -\/ Pointer to the window renderer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_label_ad126701f7b8a63e074eff8e18ff15da8}\label{struct_label_ad126701f7b8a63e074eff8e18ff15da8}} 
+\index{Label@{Label}!setTextColor@{setTextColor}}
+\index{setTextColor@{setTextColor}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{setTextColor()}{setTextColor()}}
+{\footnotesize\ttfamily void Label\+::set\+Text\+Color (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Color}]{color,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the text color of the label. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & -\/ New text color. \\
+\hline
+{\em renderer} & -\/ Pointer to the window renderer. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/util/ui/label.\+h\end{DoxyCompactItemize}

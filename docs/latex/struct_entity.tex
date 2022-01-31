@@ -1,0 +1,97 @@
+\hypertarget{struct_entity}{}\doxysection{Entity Struct Reference}
+\label{struct_entity}\index{Entity@{Entity}}
+
+
+Base struct to represent Entities in the game.  
+
+
+
+
+{\ttfamily \#include $<$entity.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{struct_entity_abeedd2b9ad7b200acca5ac2522607fad}{operator==}} (const \mbox{\hyperlink{struct_entity}{Entity}} \&other) const
+\begin{DoxyCompactList}\small\item\em Overloading == operator to be able to check if entities are equal. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_entity_ae1b49cec9466a32749a951c2ed864b7f}{operator$<$}} (const \mbox{\hyperlink{struct_entity}{Entity}} \&other) const
+\begin{DoxyCompactList}\small\item\em Overloading $<$ operator to be able to check if one entity are lesser than the other. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_entity_ae2bb991352e76415d09f30aa69d6b9f4}{operator!=}} (const \mbox{\hyperlink{struct_entity}{Entity}} \&other) const
+\begin{DoxyCompactList}\small\item\em Overloading != operator to be able to check if entities are not equal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_entity_a3c2396cd356562fa5b807805c899bc75}\label{struct_entity_a3c2396cd356562fa5b807805c899bc75}} 
+unsigned int \mbox{\hyperlink{struct_entity_a3c2396cd356562fa5b807805c899bc75}{uid}}
+\begin{DoxyCompactList}\small\item\em Unique identifier for each entity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_entity_a164f61a1e96badb6bc873ec2ef01ea6d}\label{struct_entity_a164f61a1e96badb6bc873ec2ef01ea6d}} 
+std\+::string \mbox{\hyperlink{struct_entity_a164f61a1e96badb6bc873ec2ef01ea6d}{tag}} = \char`\"{}\char`\"{}
+\begin{DoxyCompactList}\small\item\em Tag of the entity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{struct_entity_ae3336cf5c0f40ead6c90eb26a9f7fec3}\label{struct_entity_ae3336cf5c0f40ead6c90eb26a9f7fec3}} 
+bool \mbox{\hyperlink{struct_entity_ae3336cf5c0f40ead6c90eb26a9f7fec3}{preserve}} = false
+\begin{DoxyCompactList}\small\item\em Whether the game object should be preserved between scenes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base struct to represent Entities in the game. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_entity_ae2bb991352e76415d09f30aa69d6b9f4}\label{struct_entity_ae2bb991352e76415d09f30aa69d6b9f4}} 
+\index{Entity@{Entity}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool Entity\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_entity}{Entity}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading != operator to be able to check if entities are not equal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & -\/ Other entity to check if not equal \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether both entities are not equal. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_entity_ae1b49cec9466a32749a951c2ed864b7f}\label{struct_entity_ae1b49cec9466a32749a951c2ed864b7f}} 
+\index{Entity@{Entity}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily bool Entity\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_entity}{Entity}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading $<$ operator to be able to check if one entity are lesser than the other. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & -\/ Other entity to check with \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether one entity is lesser than the other 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_entity_abeedd2b9ad7b200acca5ac2522607fad}\label{struct_entity_abeedd2b9ad7b200acca5ac2522607fad}} 
+\index{Entity@{Entity}!operator==@{operator==}}
+\index{operator==@{operator==}!Entity@{Entity}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Entity\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_entity}{Entity}} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Overloading == operator to be able to check if entities are equal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & -\/ Other entity to check if equal \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether both entities are equal. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/entity.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,1142 @@
+\hypertarget{class_game_engine}{}\doxysection{Game\+Engine Class Reference}
+\label{class_game_engine}\index{GameEngine@{GameEngine}}
+
+
+\mbox{\hyperlink{class_game}{Game}} Engine class. Used to initialize systems and managers aswell as start the gameloop.  
+
+
+
+
+{\ttfamily \#include $<$gameengine.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_game_engine_a64c430f74d72e2745646fdbffbd97930}\label{class_game_engine_a64c430f74d72e2745646fdbffbd97930}} 
+\mbox{\hyperlink{class_game_engine_a64c430f74d72e2745646fdbffbd97930}{Game\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor of game engine. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_game_engine_a8e59d8341ef9d2dcc62eee1437e37f14}\label{class_game_engine_a8e59d8341ef9d2dcc62eee1437e37f14}} 
+\mbox{\hyperlink{class_game_engine_a8e59d8341ef9d2dcc62eee1437e37f14}{$\sim$\+Game\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Default destructor of game engine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_a9ca70f4d04c87786075d481237aa2447}{init}} (int fps, std\+::string window\+Title, int window\+Width, int window\+Height, int camera\+Width, int camera\+Height)
+\begin{DoxyCompactList}\small\item\em Initializes the game engine. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_game_engine_ab01970da2c68fefbf48b98c59d5627ae}\label{class_game_engine_ab01970da2c68fefbf48b98c59d5627ae}} 
+void \mbox{\hyperlink{class_game_engine_ab01970da2c68fefbf48b98c59d5627ae}{run}} ()
+\begin{DoxyCompactList}\small\item\em Runs the game engine. Starts the game loop. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_game_engine_ad82b626def2e52b28f0d6c2d167589f6}\label{class_game_engine_ad82b626def2e52b28f0d6c2d167589f6}} 
+void \mbox{\hyperlink{class_game_engine_ad82b626def2e52b28f0d6c2d167589f6}{quit}} ()
+\begin{DoxyCompactList}\small\item\em Quits the game engine and used libraries. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{class_game_engine_ad0f5168e13541d1d603936756c87da7b}{add\+Entity}} (const char $\ast$tag, bool is\+Preserved, SDL\+\_\+\+Point position)
+\begin{DoxyCompactList}\small\item\em Adds an entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_a3f04861c8da0a6d7747df923cc12b230}{destroy\+Entity}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Destroys the entity and its component. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_aebdd66b10c5a46fc0ce50cd975ee2644}{set\+Camera\+Follow\+Target}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Sets the entity that the camera follows. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_game_engine_a064e480079053cce6a360e0e980b3b99}\label{class_game_engine_a064e480079053cce6a360e0e980b3b99}} 
+void \mbox{\hyperlink{class_game_engine_a064e480079053cce6a360e0e980b3b99}{reset\+Camera\+Follow\+Target}} ()
+\begin{DoxyCompactList}\small\item\em Resets the entity that the camera follows. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{class_game_engine_a5280c46a35d7958d9dacf446af68a951}{add\+Player}} (const char $\ast$tag, bool is\+Preserved, SDL\+\_\+\+Point position, unsigned int movement\+Speed)
+\begin{DoxyCompactList}\small\item\em Adds player entity. The player entity acts like a regular entity but is moveable. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_entity}{Entity}} \mbox{\hyperlink{class_game_engine_a064a4bc7ab87f78c7ea0b94652187bd6}{create\+Projectile}} (const char $\ast$sprite\+Path, SDL\+\_\+\+Point size, float scale, SDL\+\_\+\+Point start, SDL\+\_\+\+Point target, float projectile\+Speed, bool is\+Cursor\+Target)
+\begin{DoxyCompactList}\small\item\em Creates new projectile from projectile object pool. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_af0904b23b7f8d2b724780d2d017bb62b}{destroy\+Projectile}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Destroys projectile of projectile object pool. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_af32b696f7a52a68f4aa65194b2ebc246}{set\+BGM}} (const char $\ast$bgm\+File\+Path)
+\begin{DoxyCompactList}\small\item\em Sets the current background music. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_afbdb9669c60ff7d26c888ca3ef3c29af}{play\+Audio\+Clip}} (\mbox{\hyperlink{struct_entity}{Entity}} e, size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Plays audio clip with index of entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_aa6b835d0d4f0e6d61407ccfa329a9959}{play\+Audio\+File}} (const char $\ast$path)
+\begin{DoxyCompactList}\small\item\em Plays audio file. This is needed for elements outside of the ecs to be able to use the audio system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_aae499e000dda9493eb9b1e89f7a95673}{set\+Enemy\+Destination}} (\mbox{\hyperlink{struct_entity}{Entity}} e, \mbox{\hyperlink{struct_position}{Position}} $\ast$pos)
+\begin{DoxyCompactList}\small\item\em Sets the destination of the enemy. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_ab761bd0a1ec824a89b3dd430facf89f5}{change\+Scene}} (\mbox{\hyperlink{struct_scene}{Scene}} $\ast$scene, bool clear\+Every\+Entity)
+\begin{DoxyCompactList}\small\item\em Changes current scene. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{class_game_engine_a3b5355b88bbe486daf147ae77331d359}{add\+Sprite\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, const char $\ast$file\+Path, SDL\+\_\+\+Point size, float scale)
+\begin{DoxyCompactList}\small\item\em Adds a sprite component to the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{class_game_engine_adda6d24a06a0a265b50ea4bb2a5085d3}{add\+Sprite\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, const char $\ast$file\+Path, SDL\+\_\+\+Point src\+Rect\+Position, SDL\+\_\+\+Point size, float scale)
+\begin{DoxyCompactList}\small\item\em Adds a sprite component to the entity with custom source rectangle. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_collider}{Collider}} $\ast$ \mbox{\hyperlink{class_game_engine_a6143b60fa2c9dc5d6413936fcdb0ab00}{add\+Collider\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, SDL\+\_\+\+Point offset, SDL\+\_\+\+Point size, bool is\+Trigger)
+\begin{DoxyCompactList}\small\item\em Adds a collider component to the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_audio}{Audio}} $\ast$ \mbox{\hyperlink{class_game_engine_aa673e9646ba110fb26f18d4ce84726a8}{add\+Audio\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Adds an audio component to the entity. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_game_engine_a1177a7e0c1716fe6f3e20d18a21a84db}{add\+Audio\+Clip}} (\mbox{\hyperlink{struct_entity}{Entity}} e, const char $\ast$file\+Path)
+\begin{DoxyCompactList}\small\item\em Adds audio clip to entities audio component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_animator}{Animator}} $\ast$ \mbox{\hyperlink{class_game_engine_a386b59bec612c399a678355f0f7f854d}{add\+Animator\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Adds an animator component to the entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_ad3348b07c2475542332ae5d3e58143e3}{add\+Animation}} (\mbox{\hyperlink{struct_entity}{Entity}} e, size\+\_\+t animation\+State, int frames, int frame\+Delay\+MS, const char $\ast$file\+Path)
+\begin{DoxyCompactList}\small\item\em Adds animation to entites animator component. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_a87422a937cd575be578bcfeb9fa38dde}{add\+Animation}} (\mbox{\hyperlink{struct_entity}{Entity}} e, size\+\_\+t animation\+State, int frames, int frame\+Delay\+MS)
+\begin{DoxyCompactList}\small\item\em Adds animation to entites animator component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_health}{Health}} $\ast$ \mbox{\hyperlink{class_game_engine_a2ac08ad7703d2eaeef4512387ad91193}{add\+Health\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, int maximum\+Health)
+\begin{DoxyCompactList}\small\item\em Adds a health component to the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_projectile_movement}{Projectile\+Movement}} $\ast$ \mbox{\hyperlink{class_game_engine_aedf84595bbd1c37441096636aaec60f5}{add\+Projectile\+Movement\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, SDL\+\_\+\+Point start, SDL\+\_\+\+Point target, float projectile\+Speed, bool is\+Cursor\+Target)
+\begin{DoxyCompactList}\small\item\em Adds a projectile movement component to the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ \mbox{\hyperlink{class_game_engine_aaa6c4d4798d71870f80821437689c783}{add\+Enemy\+Movement\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, float movement\+Speed)
+\begin{DoxyCompactList}\small\item\em Adds a enemy movement component to the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ \mbox{\hyperlink{class_game_engine_a7cb677ab9519c4d335d55ad21e407e3d}{add\+Enemy\+Movement\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, float movement\+Speed, int pathfinding\+Timer\+MS)
+\begin{DoxyCompactList}\small\item\em Adds a enemy movement component to the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ \mbox{\hyperlink{class_game_engine_acb4c9594d1c897f74424afd8dff9d8bb}{add\+Enemy\+Movement\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, float movement\+Speed, \mbox{\hyperlink{struct_entity}{Entity}} target)
+\begin{DoxyCompactList}\small\item\em Adds a enemy movement component to the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ \mbox{\hyperlink{class_game_engine_ad2c45d75bef5cd425978fa0188b3fd91}{add\+Enemy\+Movement\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e, float movement\+Speed, int pathfinding\+Timer\+MS, \mbox{\hyperlink{struct_entity}{Entity}} target)
+\begin{DoxyCompactList}\small\item\em Adds a enemy movement component to the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_position}{Position}} $\ast$ \mbox{\hyperlink{class_game_engine_aa5d7e8cee012a43c1932f527833a7c14}{get\+Position\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Gets position component of the entity. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_aa45abe2c0e5f588b3426d98bc926c68b}{set\+Position}} (\mbox{\hyperlink{struct_entity}{Entity}} e, SDL\+\_\+\+Point pos)
+\begin{DoxyCompactList}\small\item\em Sets the position of the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{class_game_engine_a7f3fb71be13b84ef20ce5032f616aafd}{get\+Sprite\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Gets sprite component of the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_collider}{Collider}} $\ast$ \mbox{\hyperlink{class_game_engine_a7be20603887bac56b90c2b9087f0084c}{get\+Collider\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Gets collider component of the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_audio}{Audio}} $\ast$ \mbox{\hyperlink{class_game_engine_aee16a3b99e3f9353f008cdc9c3b464ff}{get\+Audio\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Gets audio component of the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_animator}{Animator}} $\ast$ \mbox{\hyperlink{class_game_engine_a426be895b39d252f5dbd6da316ee5b45}{get\+Animator\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Gets animator component of the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_movement}{Movement}} $\ast$ \mbox{\hyperlink{class_game_engine_a9cb63ca7147e1b33a5736ea7f5fb380a}{get\+Player\+Movement\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Gets movement component of the player entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_health}{Health}} $\ast$ \mbox{\hyperlink{class_game_engine_ad8d93b9f49edefdde12492c6c2386fe4}{get\+Health\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Gets health component of the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ \mbox{\hyperlink{class_game_engine_aea1b3f2b8835e50610ea9b46d673e9e2}{get\+Enemy\+Movement\+Component}} (\mbox{\hyperlink{struct_entity}{Entity}} e)
+\begin{DoxyCompactList}\small\item\em Gets enemy movement component of the entity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_input_manager}{Input\+Manager}} $\ast$ \mbox{\hyperlink{class_game_engine_a50689837f3fdda32270ce0cfbf41d02a}{get\+Input\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the input manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_u_i_manager}{UIManager}} $\ast$ \mbox{\hyperlink{class_game_engine_aea97bb27fbb9231ff3dc097017bf574c}{get\+UIManager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the ui manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_sprite}{Sprite}} $>$ $\ast$ \mbox{\hyperlink{class_game_engine_a109578432076447b1999c65ed791c59c}{get\+Sprite\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the sprite component manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_position}{Position}} $>$ $\ast$ \mbox{\hyperlink{class_game_engine_a56f711750c8a027c088148a9ed5f3c74}{get\+Position\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the position component manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_animator}{Animator}} $>$ $\ast$ \mbox{\hyperlink{class_game_engine_afa3981191dbf35218d0b43c497474d3c}{get\+Animator\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the animator component manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_audio}{Audio}} $>$ $\ast$ \mbox{\hyperlink{class_game_engine_a713a1d6d049b97f5d5817a6a2f0bc0cd}{get\+Audio\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the audio component manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_collider}{Collider}} $>$ $\ast$ \mbox{\hyperlink{class_game_engine_ae91f1960cd338c57d7cb29ce0f07d426}{get\+Collider\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the collider component manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_health}{Health}} $>$ $\ast$ \mbox{\hyperlink{class_game_engine_afc5ae9474c52e8357805724ae5c863d1}{get\+Health\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the health component manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_projectile_movement}{Projectile\+Movement}} $>$ $\ast$ \mbox{\hyperlink{class_game_engine_a8d420d418da205c15bb184835f052605}{get\+Projectile\+Movement\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the projectile movement component manager of the game engine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $>$ $\ast$ \mbox{\hyperlink{class_game_engine_a16953c7ca8ce14323d2721cec618657a}{get\+Enemy\+Movement\+Manager}} ()
+\begin{DoxyCompactList}\small\item\em Gets the enemy movement component manager of the game engine. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{class_game_engine_a4a21226e47d95d4e43318440d286fe67}{get\+Game\+Window\+Width}} ()
+\begin{DoxyCompactList}\small\item\em Gets game window width. \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{class_game_engine_ade1847004bbc3d2404ed6515f44aa619}{get\+Game\+Window\+Height}} ()
+\begin{DoxyCompactList}\small\item\em Gets game window height. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Renderer $\ast$ \mbox{\hyperlink{class_game_engine_a48a0636b83ee584ac67dcfbbed03f675}{get\+Renderer}} ()
+\begin{DoxyCompactList}\small\item\em Gets the renderer of the current window. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_game_engine_a4095f3a6347fcf2dd05136f6576029a7}{get\+Camera\+Zoom\+FactorX}} ()
+\begin{DoxyCompactList}\small\item\em Gets the camera x zoom factor. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_game_engine_a5cbd6cb9cfe3f1ab40e593b4f1adabb6}{get\+Camera\+Zoom\+FactorY}} ()
+\begin{DoxyCompactList}\small\item\em Gets the camera y zoom factor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_a95c370df4deb015f4e85974d18698d59}{set\+Master\+Volume}} (float new\+Master\+Volume)
+\begin{DoxyCompactList}\small\item\em Sets the master volume of the audio system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_a035ae7d2f4b7ca48215e7c87f2431332}{set\+Sound\+Volume}} (float new\+Sound\+Volume)
+\begin{DoxyCompactList}\small\item\em Sets the sound volume of the audio system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_engine_a01a45012108d229b00787258830c24f5}{set\+Music\+Volume}} (float new\+Music\+Volume)
+\begin{DoxyCompactList}\small\item\em Sets the music volume of the audio system. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_game_engine_a37dbab020085677fd242831adba7ab07}{get\+Master\+Volume}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current master volume of the audio system. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_game_engine_aa1ef700a77013465c81c0a07857c0084}{get\+Music\+Volume}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current music volume of the audio system. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_game_engine_a67847f7e4308a2f677ab5ed5b9112480}{get\+Sound\+Volume}} ()
+\begin{DoxyCompactList}\small\item\em Gets the current sound volume of the audio system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_game}{Game}} Engine class. Used to initialize systems and managers aswell as start the gameloop. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_game_engine_a87422a937cd575be578bcfeb9fa38dde}\label{class_game_engine_a87422a937cd575be578bcfeb9fa38dde}} 
+\index{GameEngine@{GameEngine}!addAnimation@{addAnimation}}
+\index{addAnimation@{addAnimation}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addAnimation()}{addAnimation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Game\+Engine\+::add\+Animation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{size\+\_\+t}]{animation\+State,  }\item[{int}]{frames,  }\item[{int}]{frame\+Delay\+MS }\end{DoxyParamCaption})}
+
+
+
+Adds animation to entites animator component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} of the animator component. \\
+\hline
+{\em animation\+State} & -\/ \mbox{\hyperlink{struct_animation}{Animation}} state that triggers the animation. \\
+\hline
+{\em frames} & -\/ Number of frames in the animation. \\
+\hline
+{\em frame\+Delay\+MS} & -\/ Delay between the frames in MS. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_ad3348b07c2475542332ae5d3e58143e3}\label{class_game_engine_ad3348b07c2475542332ae5d3e58143e3}} 
+\index{GameEngine@{GameEngine}!addAnimation@{addAnimation}}
+\index{addAnimation@{addAnimation}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addAnimation()}{addAnimation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Game\+Engine\+::add\+Animation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{size\+\_\+t}]{animation\+State,  }\item[{int}]{frames,  }\item[{int}]{frame\+Delay\+MS,  }\item[{const char $\ast$}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Adds animation to entites animator component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} of the animator component. \\
+\hline
+{\em animation\+State} & -\/ \mbox{\hyperlink{struct_animation}{Animation}} state that triggers the animation. \\
+\hline
+{\em frames} & -\/ Number of frames in the animation. \\
+\hline
+{\em frame\+Delay\+MS} & -\/ Delay between the frames in MS. \\
+\hline
+{\em file\+Path} & -\/ File path to the animation texture. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_a386b59bec612c399a678355f0f7f854d}\label{class_game_engine_a386b59bec612c399a678355f0f7f854d}} 
+\index{GameEngine@{GameEngine}!addAnimatorComponent@{addAnimatorComponent}}
+\index{addAnimatorComponent@{addAnimatorComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addAnimatorComponent()}{addAnimatorComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_animator}{Animator}} $\ast$ Game\+Engine\+::add\+Animator\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Adds an animator component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added animator component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a1177a7e0c1716fe6f3e20d18a21a84db}\label{class_game_engine_a1177a7e0c1716fe6f3e20d18a21a84db}} 
+\index{GameEngine@{GameEngine}!addAudioClip@{addAudioClip}}
+\index{addAudioClip@{addAudioClip}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addAudioClip()}{addAudioClip()}}
+{\footnotesize\ttfamily size\+\_\+t Game\+Engine\+::add\+Audio\+Clip (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{const char $\ast$}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Adds audio clip to entities audio component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} of the audio component. \\
+\hline
+{\em file\+Path} & -\/ File path to the audio file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of the added audio clip. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_aa673e9646ba110fb26f18d4ce84726a8}\label{class_game_engine_aa673e9646ba110fb26f18d4ce84726a8}} 
+\index{GameEngine@{GameEngine}!addAudioComponent@{addAudioComponent}}
+\index{addAudioComponent@{addAudioComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addAudioComponent()}{addAudioComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_audio}{Audio}} $\ast$ Game\+Engine\+::add\+Audio\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Adds an audio component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added audio component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a6143b60fa2c9dc5d6413936fcdb0ab00}\label{class_game_engine_a6143b60fa2c9dc5d6413936fcdb0ab00}} 
+\index{GameEngine@{GameEngine}!addColliderComponent@{addColliderComponent}}
+\index{addColliderComponent@{addColliderComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addColliderComponent()}{addColliderComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_collider}{Collider}} $\ast$ Game\+Engine\+::add\+Collider\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{SDL\+\_\+\+Point}]{offset,  }\item[{SDL\+\_\+\+Point}]{size,  }\item[{bool}]{is\+Trigger }\end{DoxyParamCaption})}
+
+
+
+Adds a collider component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to \\
+\hline
+{\em offset} & -\/ SDL\+\_\+\+Point(\+XOffset, YOffset). Offset of the collider. Relative to the entities position. \\
+\hline
+{\em size} & -\/ SDL\+\_\+\+Point(width, height) representing the size of the collider. \\
+\hline
+{\em is\+Trigger} & -\/ Whether the collider is a trigger. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added collider component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_aaa6c4d4798d71870f80821437689c783}\label{class_game_engine_aaa6c4d4798d71870f80821437689c783}} 
+\index{GameEngine@{GameEngine}!addEnemyMovementComponent@{addEnemyMovementComponent}}
+\index{addEnemyMovementComponent@{addEnemyMovementComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addEnemyMovementComponent()}{addEnemyMovementComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ Game\+Engine\+::add\+Enemy\+Movement\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{float}]{movement\+Speed }\end{DoxyParamCaption})}
+
+
+
+Adds a enemy movement component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+{\em movement\+Speed} & -\/ \mbox{\hyperlink{struct_movement}{Movement}} speed of the entity. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added enemy movement component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_acb4c9594d1c897f74424afd8dff9d8bb}\label{class_game_engine_acb4c9594d1c897f74424afd8dff9d8bb}} 
+\index{GameEngine@{GameEngine}!addEnemyMovementComponent@{addEnemyMovementComponent}}
+\index{addEnemyMovementComponent@{addEnemyMovementComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addEnemyMovementComponent()}{addEnemyMovementComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ Game\+Engine\+::add\+Enemy\+Movement\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{float}]{movement\+Speed,  }\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{target }\end{DoxyParamCaption})}
+
+
+
+Adds a enemy movement component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+{\em movement\+Speed} & -\/ \mbox{\hyperlink{struct_movement}{Movement}} speed of the entity. \\
+\hline
+{\em target} & -\/ Target \mbox{\hyperlink{struct_entity}{Entity}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added enemy movement component.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+{\em movement\+Speed} & -\/ \mbox{\hyperlink{struct_movement}{Movement}} speed of the entity. \\
+\hline
+{\em pathfinding\+Timer\+MS} & -\/ Timer how often the path is calculated. \\
+\hline
+{\em target} & -\/ Target \mbox{\hyperlink{struct_entity}{Entity}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added enemy movement component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a7cb677ab9519c4d335d55ad21e407e3d}\label{class_game_engine_a7cb677ab9519c4d335d55ad21e407e3d}} 
+\index{GameEngine@{GameEngine}!addEnemyMovementComponent@{addEnemyMovementComponent}}
+\index{addEnemyMovementComponent@{addEnemyMovementComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addEnemyMovementComponent()}{addEnemyMovementComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ Game\+Engine\+::add\+Enemy\+Movement\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{float}]{movement\+Speed,  }\item[{int}]{pathfinding\+Timer\+MS }\end{DoxyParamCaption})}
+
+
+
+Adds a enemy movement component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+{\em movement\+Speed} & -\/ \mbox{\hyperlink{struct_movement}{Movement}} speed of the entity. \\
+\hline
+{\em pathfinding\+Timer\+MS} & -\/ Timer how often the path is calculated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added enemy movement component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_ad2c45d75bef5cd425978fa0188b3fd91}\label{class_game_engine_ad2c45d75bef5cd425978fa0188b3fd91}} 
+\index{GameEngine@{GameEngine}!addEnemyMovementComponent@{addEnemyMovementComponent}}
+\index{addEnemyMovementComponent@{addEnemyMovementComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addEnemyMovementComponent()}{addEnemyMovementComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ Game\+Engine\+::add\+Enemy\+Movement\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{float}]{movement\+Speed,  }\item[{int}]{pathfinding\+Timer\+MS,  }\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{target }\end{DoxyParamCaption})}
+
+
+
+Adds a enemy movement component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+{\em movement\+Speed} & -\/ \mbox{\hyperlink{struct_movement}{Movement}} speed of the entity. \\
+\hline
+{\em pathfinding\+Timer\+MS} & -\/ Timer how often the path is calculated. \\
+\hline
+{\em target} & -\/ Target \mbox{\hyperlink{struct_entity}{Entity}}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added enemy movement component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_ad0f5168e13541d1d603936756c87da7b}\label{class_game_engine_ad0f5168e13541d1d603936756c87da7b}} 
+\index{GameEngine@{GameEngine}!addEntity@{addEntity}}
+\index{addEntity@{addEntity}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addEntity()}{addEntity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Game\+Engine\+::add\+Entity (\begin{DoxyParamCaption}\item[{const char $\ast$}]{tag,  }\item[{bool}]{is\+Preserved,  }\item[{SDL\+\_\+\+Point}]{position }\end{DoxyParamCaption})}
+
+
+
+Adds an entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & -\/ Tag of entity \\
+\hline
+{\em is\+Preserved} & -\/ Whether the entity is preserved across scenes. \\
+\hline
+{\em position} & -\/ \mbox{\hyperlink{struct_position}{Position}} of the entity. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Added entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a2ac08ad7703d2eaeef4512387ad91193}\label{class_game_engine_a2ac08ad7703d2eaeef4512387ad91193}} 
+\index{GameEngine@{GameEngine}!addHealthComponent@{addHealthComponent}}
+\index{addHealthComponent@{addHealthComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addHealthComponent()}{addHealthComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_health}{Health}} $\ast$ Game\+Engine\+::add\+Health\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{int}]{maximum\+Health }\end{DoxyParamCaption})}
+
+
+
+Adds a health component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+{\em maximum\+Health} & -\/ Maximum health value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added health component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a5280c46a35d7958d9dacf446af68a951}\label{class_game_engine_a5280c46a35d7958d9dacf446af68a951}} 
+\index{GameEngine@{GameEngine}!addPlayer@{addPlayer}}
+\index{addPlayer@{addPlayer}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addPlayer()}{addPlayer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Game\+Engine\+::add\+Player (\begin{DoxyParamCaption}\item[{const char $\ast$}]{tag,  }\item[{bool}]{is\+Preserved,  }\item[{SDL\+\_\+\+Point}]{position,  }\item[{unsigned int}]{movement\+Speed }\end{DoxyParamCaption})}
+
+
+
+Adds player entity. The player entity acts like a regular entity but is moveable. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tag} & -\/ Tag of entity \\
+\hline
+{\em is\+Preserved} & -\/ Whether the entity is preserved across scenes. \\
+\hline
+{\em position} & -\/ \mbox{\hyperlink{struct_position}{Position}} of the player entity. \\
+\hline
+{\em movement\+Speed} & -\/ \mbox{\hyperlink{struct_movement}{Movement}} speed of the player entity. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The player entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_aedf84595bbd1c37441096636aaec60f5}\label{class_game_engine_aedf84595bbd1c37441096636aaec60f5}} 
+\index{GameEngine@{GameEngine}!addProjectileMovementComponent@{addProjectileMovementComponent}}
+\index{addProjectileMovementComponent@{addProjectileMovementComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addProjectileMovementComponent()}{addProjectileMovementComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_projectile_movement}{Projectile\+Movement}} $\ast$ Game\+Engine\+::add\+Projectile\+Movement\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{SDL\+\_\+\+Point}]{start,  }\item[{SDL\+\_\+\+Point}]{target,  }\item[{float}]{projectile\+Speed,  }\item[{bool}]{is\+Cursor\+Target }\end{DoxyParamCaption})}
+
+
+
+Adds a projectile movement component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to. \\
+\hline
+{\em start} & -\/ Start position. \\
+\hline
+{\em target-\/} & Target position. \\
+\hline
+{\em projectile\+Speed} & -\/ Projectile speed. \\
+\hline
+{\em is\+Cursor\+Target} & -\/ Whether the target position is the position of the mouse cursor in the window. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added projectile movement component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a3b5355b88bbe486daf147ae77331d359}\label{class_game_engine_a3b5355b88bbe486daf147ae77331d359}} 
+\index{GameEngine@{GameEngine}!addSpriteComponent@{addSpriteComponent}}
+\index{addSpriteComponent@{addSpriteComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addSpriteComponent()}{addSpriteComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ Game\+Engine\+::add\+Sprite\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{const char $\ast$}]{file\+Path,  }\item[{SDL\+\_\+\+Point}]{size,  }\item[{float}]{scale }\end{DoxyParamCaption})}
+
+
+
+Adds a sprite component to the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to \\
+\hline
+{\em file\+Path} & -\/ File path to the sprite file. \\
+\hline
+{\em size} & -\/ SDL\+\_\+\+Point(width, height) representing the texture size. \\
+\hline
+{\em scale} & -\/ Scale of the texture. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added sprite component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_adda6d24a06a0a265b50ea4bb2a5085d3}\label{class_game_engine_adda6d24a06a0a265b50ea4bb2a5085d3}} 
+\index{GameEngine@{GameEngine}!addSpriteComponent@{addSpriteComponent}}
+\index{addSpriteComponent@{addSpriteComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{addSpriteComponent()}{addSpriteComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ Game\+Engine\+::add\+Sprite\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{const char $\ast$}]{file\+Path,  }\item[{SDL\+\_\+\+Point}]{src\+Rect\+Position,  }\item[{SDL\+\_\+\+Point}]{size,  }\item[{float}]{scale }\end{DoxyParamCaption})}
+
+
+
+Adds a sprite component to the entity with custom source rectangle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to add component to \\
+\hline
+{\em file\+Path} & -\/ File path to the sprite file. \\
+\hline
+{\em src\+Rect\+Position} & -\/ Start position of source rectangle. \\
+\hline
+{\em size} & -\/ SDL\+\_\+\+Point(width, height) representing the texture size. \\
+\hline
+{\em scale} & -\/ Scale of the texture. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the added sprite component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_ab761bd0a1ec824a89b3dd430facf89f5}\label{class_game_engine_ab761bd0a1ec824a89b3dd430facf89f5}} 
+\index{GameEngine@{GameEngine}!changeScene@{changeScene}}
+\index{changeScene@{changeScene}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{changeScene()}{changeScene()}}
+{\footnotesize\ttfamily void Game\+Engine\+::change\+Scene (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_scene}{Scene}} $\ast$}]{scene,  }\item[{bool}]{clear\+Every\+Entity }\end{DoxyParamCaption})}
+
+
+
+Changes current scene. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scene} & -\/ \mbox{\hyperlink{struct_scene}{Scene}} to change to. \\
+\hline
+{\em collect\+Everything} & -\/ Whether every \mbox{\hyperlink{struct_entity}{Entity}} should be collected. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_a064a4bc7ab87f78c7ea0b94652187bd6}\label{class_game_engine_a064a4bc7ab87f78c7ea0b94652187bd6}} 
+\index{GameEngine@{GameEngine}!createProjectile@{createProjectile}}
+\index{createProjectile@{createProjectile}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{createProjectile()}{createProjectile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_entity}{Entity}} Game\+Engine\+::create\+Projectile (\begin{DoxyParamCaption}\item[{const char $\ast$}]{sprite\+Path,  }\item[{SDL\+\_\+\+Point}]{size,  }\item[{float}]{scale,  }\item[{SDL\+\_\+\+Point}]{start,  }\item[{SDL\+\_\+\+Point}]{target,  }\item[{float}]{projectile\+Speed,  }\item[{bool}]{is\+Cursor\+Target }\end{DoxyParamCaption})}
+
+
+
+Creates new projectile from projectile object pool. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sprite\+Path} & -\/ File path to sprite. \\
+\hline
+{\em size} & -\/ Size of sprite. \\
+\hline
+{\em scale} & -\/ Scale of sprite. \\
+\hline
+{\em start} & -\/ Start position. \\
+\hline
+{\em target} & -\/ Target position. \\
+\hline
+{\em projectile\+Speed} & -\/ Projectile speed. \\
+\hline
+{\em is\+Cursor\+Target} & -\/ Whether the cursor position is the target position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Projectile entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a3f04861c8da0a6d7747df923cc12b230}\label{class_game_engine_a3f04861c8da0a6d7747df923cc12b230}} 
+\index{GameEngine@{GameEngine}!destroyEntity@{destroyEntity}}
+\index{destroyEntity@{destroyEntity}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{destroyEntity()}{destroyEntity()}}
+{\footnotesize\ttfamily void Game\+Engine\+::destroy\+Entity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Destroys the entity and its component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to destroy. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_af0904b23b7f8d2b724780d2d017bb62b}\label{class_game_engine_af0904b23b7f8d2b724780d2d017bb62b}} 
+\index{GameEngine@{GameEngine}!destroyProjectile@{destroyProjectile}}
+\index{destroyProjectile@{destroyProjectile}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{destroyProjectile()}{destroyProjectile()}}
+{\footnotesize\ttfamily void Game\+Engine\+::destroy\+Projectile (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Destroys projectile of projectile object pool. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to destroy. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_a426be895b39d252f5dbd6da316ee5b45}\label{class_game_engine_a426be895b39d252f5dbd6da316ee5b45}} 
+\index{GameEngine@{GameEngine}!getAnimatorComponent@{getAnimatorComponent}}
+\index{getAnimatorComponent@{getAnimatorComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getAnimatorComponent()}{getAnimatorComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_animator}{Animator}} $\ast$ Game\+Engine\+::get\+Animator\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Gets animator component of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to get component off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the animator component of the entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_afa3981191dbf35218d0b43c497474d3c}\label{class_game_engine_afa3981191dbf35218d0b43c497474d3c}} 
+\index{GameEngine@{GameEngine}!getAnimatorManager@{getAnimatorManager}}
+\index{getAnimatorManager@{getAnimatorManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getAnimatorManager()}{getAnimatorManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$\mbox{\hyperlink{struct_animator}{Animator}}$>$$\ast$ Game\+Engine\+::get\+Animator\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the animator component manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the animator component manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_aee16a3b99e3f9353f008cdc9c3b464ff}\label{class_game_engine_aee16a3b99e3f9353f008cdc9c3b464ff}} 
+\index{GameEngine@{GameEngine}!getAudioComponent@{getAudioComponent}}
+\index{getAudioComponent@{getAudioComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getAudioComponent()}{getAudioComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_audio}{Audio}} $\ast$ Game\+Engine\+::get\+Audio\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Gets audio component of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to get component off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the audio component of the entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a713a1d6d049b97f5d5817a6a2f0bc0cd}\label{class_game_engine_a713a1d6d049b97f5d5817a6a2f0bc0cd}} 
+\index{GameEngine@{GameEngine}!getAudioManager@{getAudioManager}}
+\index{getAudioManager@{getAudioManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getAudioManager()}{getAudioManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$\mbox{\hyperlink{struct_audio}{Audio}}$>$$\ast$ Game\+Engine\+::get\+Audio\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the audio component manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the audio component manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a4095f3a6347fcf2dd05136f6576029a7}\label{class_game_engine_a4095f3a6347fcf2dd05136f6576029a7}} 
+\index{GameEngine@{GameEngine}!getCameraZoomFactorX@{getCameraZoomFactorX}}
+\index{getCameraZoomFactorX@{getCameraZoomFactorX}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getCameraZoomFactorX()}{getCameraZoomFactorX()}}
+{\footnotesize\ttfamily float Game\+Engine\+::get\+Camera\+Zoom\+FactorX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the camera x zoom factor. 
+
+\begin{DoxyReturn}{Returns}
+Camera x zoom factor. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a5cbd6cb9cfe3f1ab40e593b4f1adabb6}\label{class_game_engine_a5cbd6cb9cfe3f1ab40e593b4f1adabb6}} 
+\index{GameEngine@{GameEngine}!getCameraZoomFactorY@{getCameraZoomFactorY}}
+\index{getCameraZoomFactorY@{getCameraZoomFactorY}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getCameraZoomFactorY()}{getCameraZoomFactorY()}}
+{\footnotesize\ttfamily float Game\+Engine\+::get\+Camera\+Zoom\+FactorY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the camera y zoom factor. 
+
+\begin{DoxyReturn}{Returns}
+Camera y zoom factor. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a7be20603887bac56b90c2b9087f0084c}\label{class_game_engine_a7be20603887bac56b90c2b9087f0084c}} 
+\index{GameEngine@{GameEngine}!getColliderComponent@{getColliderComponent}}
+\index{getColliderComponent@{getColliderComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getColliderComponent()}{getColliderComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_collider}{Collider}} $\ast$ Game\+Engine\+::get\+Collider\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Gets collider component of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to get component off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the collider component of the entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_ae91f1960cd338c57d7cb29ce0f07d426}\label{class_game_engine_ae91f1960cd338c57d7cb29ce0f07d426}} 
+\index{GameEngine@{GameEngine}!getColliderManager@{getColliderManager}}
+\index{getColliderManager@{getColliderManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getColliderManager()}{getColliderManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$\mbox{\hyperlink{struct_collider}{Collider}}$>$$\ast$ Game\+Engine\+::get\+Collider\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the collider component manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the collider component manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_aea1b3f2b8835e50610ea9b46d673e9e2}\label{class_game_engine_aea1b3f2b8835e50610ea9b46d673e9e2}} 
+\index{GameEngine@{GameEngine}!getEnemyMovementComponent@{getEnemyMovementComponent}}
+\index{getEnemyMovementComponent@{getEnemyMovementComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getEnemyMovementComponent()}{getEnemyMovementComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $\ast$ Game\+Engine\+::get\+Enemy\+Movement\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Gets enemy movement component of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to get component off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the enemy movement component of the entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a16953c7ca8ce14323d2721cec618657a}\label{class_game_engine_a16953c7ca8ce14323d2721cec618657a}} 
+\index{GameEngine@{GameEngine}!getEnemyMovementManager@{getEnemyMovementManager}}
+\index{getEnemyMovementManager@{getEnemyMovementManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getEnemyMovementManager()}{getEnemyMovementManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$\mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}}$>$$\ast$ Game\+Engine\+::get\+Enemy\+Movement\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the enemy movement component manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the enemy movement component manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_ade1847004bbc3d2404ed6515f44aa619}\label{class_game_engine_ade1847004bbc3d2404ed6515f44aa619}} 
+\index{GameEngine@{GameEngine}!getGameWindowHeight@{getGameWindowHeight}}
+\index{getGameWindowHeight@{getGameWindowHeight}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getGameWindowHeight()}{getGameWindowHeight()}}
+{\footnotesize\ttfamily unsigned int Game\+Engine\+::get\+Game\+Window\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets game window height. 
+
+\begin{DoxyReturn}{Returns}
+Height of game window. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a4a21226e47d95d4e43318440d286fe67}\label{class_game_engine_a4a21226e47d95d4e43318440d286fe67}} 
+\index{GameEngine@{GameEngine}!getGameWindowWidth@{getGameWindowWidth}}
+\index{getGameWindowWidth@{getGameWindowWidth}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getGameWindowWidth()}{getGameWindowWidth()}}
+{\footnotesize\ttfamily unsigned int Game\+Engine\+::get\+Game\+Window\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets game window width. 
+
+\begin{DoxyReturn}{Returns}
+Width of game window. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_ad8d93b9f49edefdde12492c6c2386fe4}\label{class_game_engine_ad8d93b9f49edefdde12492c6c2386fe4}} 
+\index{GameEngine@{GameEngine}!getHealthComponent@{getHealthComponent}}
+\index{getHealthComponent@{getHealthComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getHealthComponent()}{getHealthComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_health}{Health}} $\ast$ Game\+Engine\+::get\+Health\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Gets health component of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to get component off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the health component of the entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_afc5ae9474c52e8357805724ae5c863d1}\label{class_game_engine_afc5ae9474c52e8357805724ae5c863d1}} 
+\index{GameEngine@{GameEngine}!getHealthManager@{getHealthManager}}
+\index{getHealthManager@{getHealthManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getHealthManager()}{getHealthManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$\mbox{\hyperlink{struct_health}{Health}}$>$$\ast$ Game\+Engine\+::get\+Health\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the health component manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the health component manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a50689837f3fdda32270ce0cfbf41d02a}\label{class_game_engine_a50689837f3fdda32270ce0cfbf41d02a}} 
+\index{GameEngine@{GameEngine}!getInputManager@{getInputManager}}
+\index{getInputManager@{getInputManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getInputManager()}{getInputManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_input_manager}{Input\+Manager}}$\ast$ Game\+Engine\+::get\+Input\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the input manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the input manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a37dbab020085677fd242831adba7ab07}\label{class_game_engine_a37dbab020085677fd242831adba7ab07}} 
+\index{GameEngine@{GameEngine}!getMasterVolume@{getMasterVolume}}
+\index{getMasterVolume@{getMasterVolume}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getMasterVolume()}{getMasterVolume()}}
+{\footnotesize\ttfamily float Game\+Engine\+::get\+Master\+Volume (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current master volume of the audio system. 
+
+\begin{DoxyReturn}{Returns}
+The current master volume. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_aa1ef700a77013465c81c0a07857c0084}\label{class_game_engine_aa1ef700a77013465c81c0a07857c0084}} 
+\index{GameEngine@{GameEngine}!getMusicVolume@{getMusicVolume}}
+\index{getMusicVolume@{getMusicVolume}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getMusicVolume()}{getMusicVolume()}}
+{\footnotesize\ttfamily float Game\+Engine\+::get\+Music\+Volume (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current music volume of the audio system. 
+
+\begin{DoxyReturn}{Returns}
+The current music volume. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a9cb63ca7147e1b33a5736ea7f5fb380a}\label{class_game_engine_a9cb63ca7147e1b33a5736ea7f5fb380a}} 
+\index{GameEngine@{GameEngine}!getPlayerMovementComponent@{getPlayerMovementComponent}}
+\index{getPlayerMovementComponent@{getPlayerMovementComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getPlayerMovementComponent()}{getPlayerMovementComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_movement}{Movement}} $\ast$ Game\+Engine\+::get\+Player\+Movement\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Gets movement component of the player entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to get component off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the movement component of the player entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_aa5d7e8cee012a43c1932f527833a7c14}\label{class_game_engine_aa5d7e8cee012a43c1932f527833a7c14}} 
+\index{GameEngine@{GameEngine}!getPositionComponent@{getPositionComponent}}
+\index{getPositionComponent@{getPositionComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getPositionComponent()}{getPositionComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_position}{Position}} $\ast$ Game\+Engine\+::get\+Position\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Gets position component of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to get component off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the position component of the entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a56f711750c8a027c088148a9ed5f3c74}\label{class_game_engine_a56f711750c8a027c088148a9ed5f3c74}} 
+\index{GameEngine@{GameEngine}!getPositionManager@{getPositionManager}}
+\index{getPositionManager@{getPositionManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getPositionManager()}{getPositionManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$\mbox{\hyperlink{struct_position}{Position}}$>$$\ast$ Game\+Engine\+::get\+Position\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the position component manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the position component manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a8d420d418da205c15bb184835f052605}\label{class_game_engine_a8d420d418da205c15bb184835f052605}} 
+\index{GameEngine@{GameEngine}!getProjectileMovementManager@{getProjectileMovementManager}}
+\index{getProjectileMovementManager@{getProjectileMovementManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getProjectileMovementManager()}{getProjectileMovementManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$\mbox{\hyperlink{struct_projectile_movement}{Projectile\+Movement}}$>$$\ast$ Game\+Engine\+::get\+Projectile\+Movement\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the projectile movement component manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the projectile movement component manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a48a0636b83ee584ac67dcfbbed03f675}\label{class_game_engine_a48a0636b83ee584ac67dcfbbed03f675}} 
+\index{GameEngine@{GameEngine}!getRenderer@{getRenderer}}
+\index{getRenderer@{getRenderer}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getRenderer()}{getRenderer()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Renderer$\ast$ Game\+Engine\+::get\+Renderer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the renderer of the current window. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the current SDL\+\_\+\+Renderer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a67847f7e4308a2f677ab5ed5b9112480}\label{class_game_engine_a67847f7e4308a2f677ab5ed5b9112480}} 
+\index{GameEngine@{GameEngine}!getSoundVolume@{getSoundVolume}}
+\index{getSoundVolume@{getSoundVolume}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getSoundVolume()}{getSoundVolume()}}
+{\footnotesize\ttfamily float Game\+Engine\+::get\+Sound\+Volume (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current sound volume of the audio system. 
+
+\begin{DoxyReturn}{Returns}
+The current sound volume. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a7f3fb71be13b84ef20ce5032f616aafd}\label{class_game_engine_a7f3fb71be13b84ef20ce5032f616aafd}} 
+\index{GameEngine@{GameEngine}!getSpriteComponent@{getSpriteComponent}}
+\index{getSpriteComponent@{getSpriteComponent}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getSpriteComponent()}{getSpriteComponent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ Game\+Engine\+::get\+Sprite\+Component (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Gets sprite component of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to get component off. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the sprite component of the entity. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a109578432076447b1999c65ed791c59c}\label{class_game_engine_a109578432076447b1999c65ed791c59c}} 
+\index{GameEngine@{GameEngine}!getSpriteManager@{getSpriteManager}}
+\index{getSpriteManager@{getSpriteManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getSpriteManager()}{getSpriteManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$\mbox{\hyperlink{struct_sprite}{Sprite}}$>$$\ast$ Game\+Engine\+::get\+Sprite\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the sprite component manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the sprite component manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_aea97bb27fbb9231ff3dc097017bf574c}\label{class_game_engine_aea97bb27fbb9231ff3dc097017bf574c}} 
+\index{GameEngine@{GameEngine}!getUIManager@{getUIManager}}
+\index{getUIManager@{getUIManager}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{getUIManager()}{getUIManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_u_i_manager}{UIManager}}$\ast$ Game\+Engine\+::get\+UIManager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the ui manager of the game engine. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the ui manager of the game engine. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_game_engine_a9ca70f4d04c87786075d481237aa2447}\label{class_game_engine_a9ca70f4d04c87786075d481237aa2447}} 
+\index{GameEngine@{GameEngine}!init@{init}}
+\index{init@{init}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Game\+Engine\+::init (\begin{DoxyParamCaption}\item[{int}]{fps,  }\item[{std\+::string}]{window\+Title,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{int}]{camera\+Width,  }\item[{int}]{camera\+Height }\end{DoxyParamCaption})}
+
+
+
+Initializes the game engine. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fps} & -\/ Target frames per seconds of game loop. \\
+\hline
+{\em window\+Title} & -\/ Title of game window. \\
+\hline
+{\em window\+Width} & -\/ Width of game window. \\
+\hline
+{\em window\+Height} & -\/ Height of game window. \\
+\hline
+{\em camera\+Width} & -\/ Width of camera. \\
+\hline
+{\em camera\+Height} & -\/ Height of camera. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_afbdb9669c60ff7d26c888ca3ef3c29af}\label{class_game_engine_afbdb9669c60ff7d26c888ca3ef3c29af}} 
+\index{GameEngine@{GameEngine}!playAudioClip@{playAudioClip}}
+\index{playAudioClip@{playAudioClip}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{playAudioClip()}{playAudioClip()}}
+{\footnotesize\ttfamily void Game\+Engine\+::play\+Audio\+Clip (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+
+
+Plays audio clip with index of entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to play audio clip of. \\
+\hline
+{\em index} & -\/ Index of audio clip. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_aa6b835d0d4f0e6d61407ccfa329a9959}\label{class_game_engine_aa6b835d0d4f0e6d61407ccfa329a9959}} 
+\index{GameEngine@{GameEngine}!playAudioFile@{playAudioFile}}
+\index{playAudioFile@{playAudioFile}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{playAudioFile()}{playAudioFile()}}
+{\footnotesize\ttfamily void Game\+Engine\+::play\+Audio\+File (\begin{DoxyParamCaption}\item[{const char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Plays audio file. This is needed for elements outside of the ecs to be able to use the audio system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & -\/ Path to audio file. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_af32b696f7a52a68f4aa65194b2ebc246}\label{class_game_engine_af32b696f7a52a68f4aa65194b2ebc246}} 
+\index{GameEngine@{GameEngine}!setBGM@{setBGM}}
+\index{setBGM@{setBGM}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{setBGM()}{setBGM()}}
+{\footnotesize\ttfamily void Game\+Engine\+::set\+BGM (\begin{DoxyParamCaption}\item[{const char $\ast$}]{bgm\+File\+Path }\end{DoxyParamCaption})}
+
+
+
+Sets the current background music. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bgm\+File\+Path} & -\/ File path to the background music. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_aebdd66b10c5a46fc0ce50cd975ee2644}\label{class_game_engine_aebdd66b10c5a46fc0ce50cd975ee2644}} 
+\index{GameEngine@{GameEngine}!setCameraFollowTarget@{setCameraFollowTarget}}
+\index{setCameraFollowTarget@{setCameraFollowTarget}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{setCameraFollowTarget()}{setCameraFollowTarget()}}
+{\footnotesize\ttfamily void Game\+Engine\+::set\+Camera\+Follow\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e }\end{DoxyParamCaption})}
+
+
+
+Sets the entity that the camera follows. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to follow. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_aae499e000dda9493eb9b1e89f7a95673}\label{class_game_engine_aae499e000dda9493eb9b1e89f7a95673}} 
+\index{GameEngine@{GameEngine}!setEnemyDestination@{setEnemyDestination}}
+\index{setEnemyDestination@{setEnemyDestination}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{setEnemyDestination()}{setEnemyDestination()}}
+{\footnotesize\ttfamily void Game\+Engine\+::set\+Enemy\+Destination (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{\mbox{\hyperlink{struct_position}{Position}} $\ast$}]{pos }\end{DoxyParamCaption})}
+
+
+
+Sets the destination of the enemy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to set the destination from. \\
+\hline
+{\em pos} & -\/ Destination position. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_a95c370df4deb015f4e85974d18698d59}\label{class_game_engine_a95c370df4deb015f4e85974d18698d59}} 
+\index{GameEngine@{GameEngine}!setMasterVolume@{setMasterVolume}}
+\index{setMasterVolume@{setMasterVolume}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{setMasterVolume()}{setMasterVolume()}}
+{\footnotesize\ttfamily void Game\+Engine\+::set\+Master\+Volume (\begin{DoxyParamCaption}\item[{float}]{new\+Master\+Volume }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the master volume of the audio system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Master\+Volume} & -\/ New master volume. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_a01a45012108d229b00787258830c24f5}\label{class_game_engine_a01a45012108d229b00787258830c24f5}} 
+\index{GameEngine@{GameEngine}!setMusicVolume@{setMusicVolume}}
+\index{setMusicVolume@{setMusicVolume}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{setMusicVolume()}{setMusicVolume()}}
+{\footnotesize\ttfamily void Game\+Engine\+::set\+Music\+Volume (\begin{DoxyParamCaption}\item[{float}]{new\+Music\+Volume }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the music volume of the audio system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Music\+Volume} & -\/ New music volume. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_aa45abe2c0e5f588b3426d98bc926c68b}\label{class_game_engine_aa45abe2c0e5f588b3426d98bc926c68b}} 
+\index{GameEngine@{GameEngine}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void Game\+Engine\+::set\+Position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_entity}{Entity}}}]{e,  }\item[{SDL\+\_\+\+Point}]{pos }\end{DoxyParamCaption})}
+
+
+
+Sets the position of the entity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & -\/ \mbox{\hyperlink{struct_entity}{Entity}} to set position of. \\
+\hline
+{\em pos} & -\/ New position of entity. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_game_engine_a035ae7d2f4b7ca48215e7c87f2431332}\label{class_game_engine_a035ae7d2f4b7ca48215e7c87f2431332}} 
+\index{GameEngine@{GameEngine}!setSoundVolume@{setSoundVolume}}
+\index{setSoundVolume@{setSoundVolume}!GameEngine@{GameEngine}}
+\doxysubsubsection{\texorpdfstring{setSoundVolume()}{setSoundVolume()}}
+{\footnotesize\ttfamily void Game\+Engine\+::set\+Sound\+Volume (\begin{DoxyParamCaption}\item[{float}]{new\+Sound\+Volume }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the sound volume of the audio system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Sound\+Volume} & -\/ New sound volume. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gameengine.\+h\item 
+src/gameengine.\+cpp\end{DoxyCompactItemize}

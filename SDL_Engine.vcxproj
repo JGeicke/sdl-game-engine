@@ -19,7 +19,54 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\entitymanager.cpp" />
+    <ClCompile Include="src\gameengine.cpp" />
+    <ClCompile Include="src\inputmanager.cpp" />
+    <ClCompile Include="src\systems\audiosystem.cpp" />
+    <ClCompile Include="src\systems\physicsystem.cpp" />
+    <ClCompile Include="src\systems\rendersystem.cpp" />
+    <ClCompile Include="src\uimanager.cpp" />
+    <ClCompile Include="src\util\fileloader.cpp" />
+    <ClCompile Include="src\util\objectpool.cpp" />
+    <ClCompile Include="src\util\window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\componentmanager.h" />
+    <ClInclude Include="src\components\animator.h" />
+    <ClInclude Include="src\components\audio.h" />
+    <ClInclude Include="src\components\basecomponent.h" />
+    <ClInclude Include="src\components\camerafollow.h" />
+    <ClInclude Include="src\components\collider.h" />
+    <ClInclude Include="src\components\components.h" />
+    <ClInclude Include="src\components\enemymovement.h" />
+    <ClInclude Include="src\components\health.h" />
+    <ClInclude Include="src\components\movement.h" />
+    <ClInclude Include="src\components\position.h" />
+    <ClInclude Include="src\components\projectilemovement.h" />
+    <ClInclude Include="src\components\sprite.h" />
+    <ClInclude Include="src\entity.h" />
+    <ClInclude Include="src\entitymanager.h" />
+    <ClInclude Include="src\gameengine.h" />
+    <ClInclude Include="src\inputmanager.h" />
+    <ClInclude Include="src\systems\audiosystem.h" />
+    <ClInclude Include="src\systems\gamesystem.h" />
+    <ClInclude Include="src\systems\gamesystems.h" />
+    <ClInclude Include="src\systems\physicsystem.h" />
+    <ClInclude Include="src\systems\rendersystem.h" />
+    <ClInclude Include="src\uimanager.h" />
+    <ClInclude Include="src\util\fileloader.h" />
+    <ClInclude Include="src\util\objectpool.h" />
+    <ClInclude Include="src\util\scene.h" />
+    <ClInclude Include="src\util\texture.h" />
+    <ClInclude Include="src\util\tilemap.h" />
+    <ClInclude Include="src\util\ui\button.h" />
+    <ClInclude Include="src\util\ui\label.h" />
+    <ClInclude Include="src\util\ui\panel.h" />
+    <ClInclude Include="src\util\ui\progressbar.h" />
+    <ClInclude Include="src\util\ui\slider.h" />
+    <ClInclude Include="src\util\ui\uielement.h" />
+    <ClInclude Include="src\util\vector2.h" />
+    <ClInclude Include="src\util\window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -49,7 +96,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -81,9 +128,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>C:\SDL2_ttf-2.0.15\lib\x64;C:\SDL2_mixer-2.0.4\lib\x64;C:\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\SDL2_ttf-2.0.15\include;C:\SDL2_mixer-2.0.4\include;C:\SDL2_image-2.0.5\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\SDL2_image-2.0.5\include;C:\SDL2_mixer-2.0.4\include;C:\SDL2_ttf-2.0.15\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDL2_image-2.0.5\lib\x64;C:\SDL2_mixer-2.0.4\lib\x64;C:\SDL2_ttf-2.0.15\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -122,13 +173,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SDL2_ttf-2.0.15\include;C:\SDL2_mixer-2.0.4\include;C:\SDL2_image-2.0.5\include;C:\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\SDL2_mixer-2.0.4\lib\x64;C:\SDL2_ttf-2.0.15\lib\x64;C:\SDL2_image-2.0.5\lib\x64;C:\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,12 +190,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\SDL2\include;C:\SDL2_image-2.0.5\include;C:\SDL2_mixer-2.0.4\include;C:\SDL2_ttf-2.0.15\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\SDL2\lib\x64;C:\SDL2_image-2.0.5\lib\x64;C:\SDL2_ttf-2.0.15\lib\x64;C:\SDL2_mixer-2.0.4\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

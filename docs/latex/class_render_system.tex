@@ -1,0 +1,344 @@
+\hypertarget{class_render_system}{}\doxysection{Render\+System Class Reference}
+\label{class_render_system}\index{RenderSystem@{RenderSystem}}
+
+
+Render System to render objects and tilemaps in game world.  
+
+
+
+
+{\ttfamily \#include $<$rendersystem.\+h$>$}
+
+Inheritance diagram for Render\+System\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_render_system}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_render_system_aa1d9a8959d29f9284e602ae716dfa763}{Render\+System}} (int frame\+Delay, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_sprite}{Sprite}} $>$ $\ast$sprite\+Manager, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_position}{Position}} $>$ $\ast$position\+Manager, SDL\+\_\+\+Renderer $\ast$renderer, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_animator}{Animator}} $>$ $\ast$animator\+Manager, \mbox{\hyperlink{class_u_i_manager}{UIManager}} $\ast$ui\+Manager, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_collider}{Collider}} $>$ $\ast$collider\+Manager, \mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $>$ $\ast$enemy\+Movement\+Manager)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{class_render_system}{Render\+System}} objects. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_render_system_ae9f2015df4e4e92f82e487326264bdfe}{update}} ()
+\begin{DoxyCompactList}\small\item\em Render system update loop. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tilemap}{Tilemap}} $\ast$ \mbox{\hyperlink{class_render_system_a1bbd2b961159def0d34e10411260a3ac}{set\+Map}} (const char $\ast$tileset\+Path, const char $\ast$tilemap\+Path, size\+\_\+t layer\+Count)
+\begin{DoxyCompactList}\small\item\em Sets the current tilemap to display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_render_system_ac0154e84e45b46557b7cdf0667e00714}{init\+Camera}} (int view\+Width, int view\+Height, int camera\+Width, int camera\+Height)
+\begin{DoxyCompactList}\small\item\em Initializes the camera with certain viewport. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_a92760611865572f940345c54ce8c96b3}{get\+CameraX}} ()
+\begin{DoxyCompactList}\small\item\em Gets the camera x position. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_a52064314e3cf9f33efa9dca1eaa720dc}{get\+CameraY}} ()
+\begin{DoxyCompactList}\small\item\em Gets the camera y position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_render_system_a433a79f91a34ea56728f1d6cee14b1d9}{set\+Camera\+Follow\+Target}} (\mbox{\hyperlink{struct_camera_follow}{Camera\+Follow}} $\ast$camera\+Follow)
+\begin{DoxyCompactList}\small\item\em Sets the current camera follow target component. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tileset}{Tileset}} $\ast$ \mbox{\hyperlink{class_render_system_a73d2e8ea35d922a6bacd50fdf948fbd2}{get\+Tileset}} ()
+\begin{DoxyCompactList}\small\item\em Gets current tileset of tilemap. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_af1d7578538c8a28bba3562169d971ec1}{get\+Total\+Tilemap\+Width}} ()
+\begin{DoxyCompactList}\small\item\em Gets the total tilemap width. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_afc51a4c66be03890043ccfb8dced92d8}{get\+Total\+Tilemap\+Height}} ()
+\begin{DoxyCompactList}\small\item\em Gets the total tilemap height. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_ad1b7ca815dfa719d9c55ff154fda3475}{get\+Tile\+Width}} ()
+\begin{DoxyCompactList}\small\item\em Gets the width of the tiles. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_a290eb3b9d96bc1d469c05ca9d3ddec36}{get\+Tile\+Height}} ()
+\begin{DoxyCompactList}\small\item\em Gets the height of the tiles. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_ad7750049dd1372f292b5a6261d59b978}{get\+Tiles\+Per\+Row}} ()
+\begin{DoxyCompactList}\small\item\em Gets the tiles per row in tilemap. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_ad6af030ca59e03e8466fdd62e2f624b2}{get\+Tilemap\+Number\+Of\+Cols}} ()
+\begin{DoxyCompactList}\small\item\em Gets the number of columns in the tilemap. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_render_system_a371be2c99941963470c62ac8a332ec2f}{get\+Tilemap\+Number\+Of\+Rows}} ()
+\begin{DoxyCompactList}\small\item\em Gets the number of rows in the tilemap. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_render_system_a18333b61f37c6c9daf0241d1e2045509}{get\+Camera\+Zoom\+FactorX}} ()
+\begin{DoxyCompactList}\small\item\em Gets the camera x zoom factor. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_render_system_ac3040ee7948b7fa0f0a640b19e88e52f}{get\+Camera\+Zoom\+FactorY}} ()
+\begin{DoxyCompactList}\small\item\em Gets the camera y zoom factor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Render System to render objects and tilemaps in game world. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_render_system_aa1d9a8959d29f9284e602ae716dfa763}\label{class_render_system_aa1d9a8959d29f9284e602ae716dfa763}} 
+\index{RenderSystem@{RenderSystem}!RenderSystem@{RenderSystem}}
+\index{RenderSystem@{RenderSystem}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{RenderSystem()}{RenderSystem()}}
+{\footnotesize\ttfamily Render\+System\+::\+Render\+System (\begin{DoxyParamCaption}\item[{int}]{frame\+Delay,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_sprite}{Sprite}} $>$ $\ast$}]{sprite\+Manager,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_position}{Position}} $>$ $\ast$}]{position\+Manager,  }\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_animator}{Animator}} $>$ $\ast$}]{animator\+Manager,  }\item[{\mbox{\hyperlink{class_u_i_manager}{UIManager}} $\ast$}]{ui\+Manager,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_collider}{Collider}} $>$ $\ast$}]{collider\+Manager,  }\item[{\mbox{\hyperlink{class_component_manager}{Component\+Manager}}$<$ \mbox{\hyperlink{struct_enemy_movement}{Enemy\+Movement}} $>$ $\ast$}]{enemy\+Movement\+Manager }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{class_render_system}{Render\+System}} objects. 
+
+Constructor for \mbox{\hyperlink{class_render_system}{Render\+System}} objects to set needed references.
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame\+Delay} & -\/ Delay between frames. \\
+\hline
+{\em sprite\+Manager} & -\/ \mbox{\hyperlink{struct_sprite}{Sprite}} manager for sprite objects. \\
+\hline
+{\em position\+Manager} & -\/ \mbox{\hyperlink{struct_position}{Position}} manager for position objects. \\
+\hline
+{\em renderer} & -\/ SDL\+\_\+\+Renderer for the actual rendering of the sprites in the gameworld. \\
+\hline
+{\em camera\+Follow} & -\/ Camera follow for rendering of 2d camera. \\
+\hline
+{\em animator\+Manager} & -\/ \mbox{\hyperlink{struct_animator}{Animator}} manager to animate the sprites with an animator component. \\
+\hline
+{\em ui\+Manager} & -\/ \mbox{\hyperlink{class_u_i_manager}{UIManager}} to be able to render the ui elements. \\
+\hline
+{\em enemy\+Movement\+Manager} & -\/ Enemy movement manager to be able to visually debug the pathing of enemies.\\
+\hline
+{\em frame\+Delay} & -\/ Delay between frames. \\
+\hline
+{\em sprite\+Manager} & -\/ Reference to the sprite manager for sprite objects. \\
+\hline
+{\em position\+Manager} & -\/ Reference to the position manager for position objects. \\
+\hline
+{\em renderer} & -\/ Reference to the SDL\+\_\+\+Renderer for the actual rendering of the sprites in the gameworld. \\
+\hline
+{\em camera\+Follow} & -\/ Camera follow for rendering of 2d camera. \\
+\hline
+{\em animator\+Manager} & -\/ \mbox{\hyperlink{struct_animator}{Animator}} manager to animate the sprites with an animator component. \\
+\hline
+{\em ui\+Manager} & -\/ \mbox{\hyperlink{class_u_i_manager}{UIManager}} to be able to render the ui elements. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_render_system_a92760611865572f940345c54ce8c96b3}\label{class_render_system_a92760611865572f940345c54ce8c96b3}} 
+\index{RenderSystem@{RenderSystem}!getCameraX@{getCameraX}}
+\index{getCameraX@{getCameraX}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getCameraX()}{getCameraX()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+CameraX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the camera x position. 
+
+\begin{DoxyReturn}{Returns}
+Camera x position. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_a52064314e3cf9f33efa9dca1eaa720dc}\label{class_render_system_a52064314e3cf9f33efa9dca1eaa720dc}} 
+\index{RenderSystem@{RenderSystem}!getCameraY@{getCameraY}}
+\index{getCameraY@{getCameraY}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getCameraY()}{getCameraY()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+CameraY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the camera y position. 
+
+\begin{DoxyReturn}{Returns}
+Camera y position. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_a18333b61f37c6c9daf0241d1e2045509}\label{class_render_system_a18333b61f37c6c9daf0241d1e2045509}} 
+\index{RenderSystem@{RenderSystem}!getCameraZoomFactorX@{getCameraZoomFactorX}}
+\index{getCameraZoomFactorX@{getCameraZoomFactorX}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getCameraZoomFactorX()}{getCameraZoomFactorX()}}
+{\footnotesize\ttfamily float Render\+System\+::get\+Camera\+Zoom\+FactorX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the camera x zoom factor. 
+
+\begin{DoxyReturn}{Returns}
+Camera x zoom factor. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_ac3040ee7948b7fa0f0a640b19e88e52f}\label{class_render_system_ac3040ee7948b7fa0f0a640b19e88e52f}} 
+\index{RenderSystem@{RenderSystem}!getCameraZoomFactorY@{getCameraZoomFactorY}}
+\index{getCameraZoomFactorY@{getCameraZoomFactorY}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getCameraZoomFactorY()}{getCameraZoomFactorY()}}
+{\footnotesize\ttfamily float Render\+System\+::get\+Camera\+Zoom\+FactorY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the camera y zoom factor. 
+
+\begin{DoxyReturn}{Returns}
+Camera y zoom factor. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_a290eb3b9d96bc1d469c05ca9d3ddec36}\label{class_render_system_a290eb3b9d96bc1d469c05ca9d3ddec36}} 
+\index{RenderSystem@{RenderSystem}!getTileHeight@{getTileHeight}}
+\index{getTileHeight@{getTileHeight}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getTileHeight()}{getTileHeight()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+Tile\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the height of the tiles. 
+
+\begin{DoxyReturn}{Returns}
+Height of the tiles. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_ad6af030ca59e03e8466fdd62e2f624b2}\label{class_render_system_ad6af030ca59e03e8466fdd62e2f624b2}} 
+\index{RenderSystem@{RenderSystem}!getTilemapNumberOfCols@{getTilemapNumberOfCols}}
+\index{getTilemapNumberOfCols@{getTilemapNumberOfCols}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getTilemapNumberOfCols()}{getTilemapNumberOfCols()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+Tilemap\+Number\+Of\+Cols (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the number of columns in the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Number of columns in the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_a371be2c99941963470c62ac8a332ec2f}\label{class_render_system_a371be2c99941963470c62ac8a332ec2f}} 
+\index{RenderSystem@{RenderSystem}!getTilemapNumberOfRows@{getTilemapNumberOfRows}}
+\index{getTilemapNumberOfRows@{getTilemapNumberOfRows}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getTilemapNumberOfRows()}{getTilemapNumberOfRows()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+Tilemap\+Number\+Of\+Rows (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the number of rows in the tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Number of rows in the tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_a73d2e8ea35d922a6bacd50fdf948fbd2}\label{class_render_system_a73d2e8ea35d922a6bacd50fdf948fbd2}} 
+\index{RenderSystem@{RenderSystem}!getTileset@{getTileset}}
+\index{getTileset@{getTileset}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getTileset()}{getTileset()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_tileset}{Tileset}}$\ast$ Render\+System\+::get\+Tileset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets current tileset of tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Current tileset. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_ad7750049dd1372f292b5a6261d59b978}\label{class_render_system_ad7750049dd1372f292b5a6261d59b978}} 
+\index{RenderSystem@{RenderSystem}!getTilesPerRow@{getTilesPerRow}}
+\index{getTilesPerRow@{getTilesPerRow}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getTilesPerRow()}{getTilesPerRow()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+Tiles\+Per\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the tiles per row in tilemap. 
+
+\begin{DoxyReturn}{Returns}
+Tiles per row in tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_ad1b7ca815dfa719d9c55ff154fda3475}\label{class_render_system_ad1b7ca815dfa719d9c55ff154fda3475}} 
+\index{RenderSystem@{RenderSystem}!getTileWidth@{getTileWidth}}
+\index{getTileWidth@{getTileWidth}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getTileWidth()}{getTileWidth()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+Tile\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the width of the tiles. 
+
+\begin{DoxyReturn}{Returns}
+Width of the tiles. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_afc51a4c66be03890043ccfb8dced92d8}\label{class_render_system_afc51a4c66be03890043ccfb8dced92d8}} 
+\index{RenderSystem@{RenderSystem}!getTotalTilemapHeight@{getTotalTilemapHeight}}
+\index{getTotalTilemapHeight@{getTotalTilemapHeight}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getTotalTilemapHeight()}{getTotalTilemapHeight()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+Total\+Tilemap\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the total tilemap height. 
+
+\begin{DoxyReturn}{Returns}
+Total tilemap height. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_af1d7578538c8a28bba3562169d971ec1}\label{class_render_system_af1d7578538c8a28bba3562169d971ec1}} 
+\index{RenderSystem@{RenderSystem}!getTotalTilemapWidth@{getTotalTilemapWidth}}
+\index{getTotalTilemapWidth@{getTotalTilemapWidth}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{getTotalTilemapWidth()}{getTotalTilemapWidth()}}
+{\footnotesize\ttfamily int Render\+System\+::get\+Total\+Tilemap\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the total tilemap width. 
+
+\begin{DoxyReturn}{Returns}
+Total tilemap width. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_ac0154e84e45b46557b7cdf0667e00714}\label{class_render_system_ac0154e84e45b46557b7cdf0667e00714}} 
+\index{RenderSystem@{RenderSystem}!initCamera@{initCamera}}
+\index{initCamera@{initCamera}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{initCamera()}{initCamera()}}
+{\footnotesize\ttfamily void Render\+System\+::init\+Camera (\begin{DoxyParamCaption}\item[{int}]{view\+Width,  }\item[{int}]{view\+Height,  }\item[{int}]{camera\+Width,  }\item[{int}]{camera\+Height }\end{DoxyParamCaption})}
+
+
+
+Initializes the camera with certain viewport. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em view\+Width} & -\/ Width of viewport. \\
+\hline
+{\em view\+Height} & -\/ Height of viewport. \\
+\hline
+{\em camera\+Width} & -\/ Width of camera. \\
+\hline
+{\em camera\+Height} & -\/ Height of camera. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_render_system_a433a79f91a34ea56728f1d6cee14b1d9}\label{class_render_system_a433a79f91a34ea56728f1d6cee14b1d9}} 
+\index{RenderSystem@{RenderSystem}!setCameraFollowTarget@{setCameraFollowTarget}}
+\index{setCameraFollowTarget@{setCameraFollowTarget}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{setCameraFollowTarget()}{setCameraFollowTarget()}}
+{\footnotesize\ttfamily void Render\+System\+::set\+Camera\+Follow\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_camera_follow}{Camera\+Follow}} $\ast$}]{camera\+Follow }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets the current camera follow target component. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em camera\+Follow} & -\/ Current camera follow target component. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_render_system_a1bbd2b961159def0d34e10411260a3ac}\label{class_render_system_a1bbd2b961159def0d34e10411260a3ac}} 
+\index{RenderSystem@{RenderSystem}!setMap@{setMap}}
+\index{setMap@{setMap}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{setMap()}{setMap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_tilemap}{Tilemap}} $\ast$ Render\+System\+::set\+Map (\begin{DoxyParamCaption}\item[{const char $\ast$}]{tileset\+Path,  }\item[{const char $\ast$}]{tilemap\+Path,  }\item[{size\+\_\+t}]{layer\+Count }\end{DoxyParamCaption})}
+
+
+
+Sets the current tilemap to display. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tileset\+Path} & -\/ Path to tileset image used by tilemap. \\
+\hline
+{\em tilemap\+Path} & -\/ Path to tilemap json file generated by tiled. \\
+\hline
+{\em layer\+Count} & -\/ Count of layers in tilemap. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to created tilemap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_system_ae9f2015df4e4e92f82e487326264bdfe}\label{class_render_system_ae9f2015df4e4e92f82e487326264bdfe}} 
+\index{RenderSystem@{RenderSystem}!update@{update}}
+\index{update@{update}!RenderSystem@{RenderSystem}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Render\+System\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Render system update loop. 
+
+Render system update loop. Iterates over every sprite object and renders the texture to the position of the entity holding the sprite. ~\newline
+ 
+
+Implements \mbox{\hyperlink{class_game_system_ad7f68a13681dbaebf459102e660460b2}{Game\+System}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/systems/rendersystem.\+h\item 
+src/systems/rendersystem.\+cpp\end{DoxyCompactItemize}
