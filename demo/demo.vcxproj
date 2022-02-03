@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\game.h" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,12 @@
     <ProjectReference Include="..\SDL_Engine.vcxproj">
       <Project>{9e023aea-eeee-4abc-b0df-7de44be161fe}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="demo.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\DemoGame\exe.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
