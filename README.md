@@ -49,3 +49,13 @@ Be sure to install the latest [Microsoft Visual C++ Redistributable](https://doc
 ## Documentation
 ---
 The code documentation can be found [here](https://jgeicke.github.io/).
+
+---
+
+## Known Issues
+---
+- Sometimes the most right tile in a tileset is not displayed correctly.
+- Weird interactions while recording the demo game with OBSStudio. 
+    - Collisions with no enemy remaining in the scene.
+
+---
