@@ -48,7 +48,7 @@ Be sure to install the latest [Microsoft Visual C++ Redistributable](https://doc
 ---
 ## Documentation
 ---
-The code documentation can be found [here](https://jgeicke.github.io/sdl-game-engine/).
+The code documentation can be found [here](https://jgeicke.github.io/srl-game-engine/).
 
 ---
 
